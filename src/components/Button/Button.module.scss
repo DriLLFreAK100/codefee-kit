@@ -1,4 +1,20 @@
 .button {
-  height: 16px;
-  background: blue;
+  height: 3.6rem;
+  border: 1px solid black;
+
+  &--primary {
+    background: blue;
+  }
+
+  &--subtle {
+    background-color: none;
+  }
+
+  &--danger {
+    background-color: none;
+  }
+
+  &--warning {
+    background-color: none;
+  }
 }

@@ -2,30 +2,32 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import styles from './Button.module.scss';
 
 interface ButtonProps {
-    children?: ReactNode;
-    text: string;
-    type?: 'contained' | 'outlined';
+  children?: ReactNode;
+  text: string;
+  type?: 'primary' | 'subtle' | 'danger' | 'warning';
 }
 
 const Button: FunctionComponent<ButtonProps> = ({
-    children,
-    text,
-    type
+  children,
+  text,
+  type,
 }: ButtonProps) => {
-    return (
-        <div className={styles['button']}>
-            {children ?? text}
-        </div >
-    );
-}
+  const className = `${styles['button']} ${styles[`button--${type}`]}`;
+
+  return (
+    <button type="button" className={className}>
+      {children ?? text}
+    </button>
+  );
+};
 
 Button.displayName = 'Button';
 Button.defaultProps = {
-    children: undefined,
-    type: 'contained'
-}
+  children: undefined,
+  type: 'primary',
+};
 
 export default Button;
 export type {
-    ButtonProps
-}
+  ButtonProps,
+};

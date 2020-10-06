@@ -9,7 +9,7 @@ module.exports = {
             {
                 test: /\.(js|jsx|ts|tsx)$/,
                 exclude: /(node_modules|bower_components)/,
-                loader: "babel-loader",
+                use: ["babel-loader", , "eslint-loader"],
                 options: { presets: ["@babel/env"] }
             },
             {

@@ -10,7 +10,15 @@ module.exports = {
     "@storybook/addon-essentials"
   ],
   webpackFinal: async (config, { configType }) => {
-    // Make whatever fine-grained changes you need
+    config.resolve = {
+      ...(config.resolve || {}),
+      extensions: ['.ts', '.tsx', '.js'],
+      alias: {
+        "components": path.resolve(__dirname, '../src', 'components'),
+        "utils": path.resolve(__dirname, '../src', 'utils'),
+      },
+    }
+
     config.module.rules.push({
       test: /\.scss$/,
       use: [
