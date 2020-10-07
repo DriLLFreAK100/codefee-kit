@@ -4,7 +4,7 @@ import styles from './Button.module.scss';
 interface ButtonProps {
   children?: ReactNode;
   text: string;
-  type?: 'primary' | 'subtle' | 'danger' | 'warning';
+  type?: 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
 }
 
 const Button: FunctionComponent<ButtonProps> = ({
