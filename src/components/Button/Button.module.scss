@@ -1,20 +1,67 @@
+@import "../../styles/color.scss";
+@import "../../styles/variables.scss";
+
 .button {
-  height: 3.6rem;
-  border: 1px solid black;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  outline: none;
+  padding: 1.6rem;
+  transition: background-color $transition-hover ease-in-out;
 
   &--primary {
-    background: blue;
+    background: $color-p;
+    color: $color-p-on;
+
+    &:hover {
+      background: $color-p-light;
+    }
+
+    &:active {
+      background: $color-p-dark;
+    }
   }
 
   &--subtle {
-    background-color: none;
+    border: 0.1rem $color-p solid;
+    background-color: $color-white;
+    color: $color-black;
+
+    &:hover {
+      border: 0.1rem $color-p-light solid;
+      background: $color-p-light;
+      color: $color-p-on;
+    }
+
+    &:active {
+      border: 0.1rem $color-p-dark solid;
+      background: $color-p-dark;
+      color: $color-p-on;
+    }
   }
 
-  &--danger {
-    background-color: none;
+  &--info {
+    background-color: $color-info;
+    color: $color-white;
+  }
+
+  &--success {
+    background-color: $color-success;
+    color: $color-white;
   }
 
   &--warning {
-    background-color: none;
+    background-color: $color-warning;
+    color: $color-white;
+  }
+
+  &--error {
+    background-color: $color-error;
+    color: $color-white;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: none;
   }
 }

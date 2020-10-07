@@ -12,10 +12,10 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
-    "baseUrl": "./src",
+    "baseUrl": "src/",
     "paths": {
-      "components/*": ["src/components/*"],
-      "utils/*": ["src/utils/*"]
+      "components": ["src/components/*"],
+      "utils": ["src/utils/*"]
     }
   },
   "exclude": [
