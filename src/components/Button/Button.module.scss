@@ -43,21 +43,53 @@
   &--info {
     background-color: $color-info;
     color: $color-white;
+
+    &:hover {
+      background: $color-info-light;
+    }
+
+    &:active {
+      background: $color-info-dark;
+    }
   }
 
   &--success {
     background-color: $color-success;
     color: $color-white;
+
+    &:hover {
+      background: $color-success-light;
+    }
+
+    &:active {
+      background: $color-success-dark;
+    }
   }
 
   &--warning {
     background-color: $color-warning;
     color: $color-white;
+
+    &:hover {
+      background: $color-warning-light;
+    }
+
+    &:active {
+      background: $color-warning-dark;
+    }
   }
 
   &--error {
     background-color: $color-error;
     color: $color-white;
+
+    &:hover {
+      background: $color-error-light;
+    }
+
+    &:active {
+      background: $color-error-dark;
+    }
   }
 
   &--disabled {
