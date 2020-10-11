@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import Button, { ButtonProps } from 'components/Button';
@@ -46,4 +47,18 @@ export const Error = Template.bind({});
 Error.args = {
   text: 'Click Me!',
   type: 'error',
+} as ButtonProps;
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  text: 'Click Me!',
+  disabled: true,
+} as ButtonProps;
+
+export const OnClick = Template.bind({});
+OnClick.args = {
+  text: 'Click Me!',
+  onClick: () => {
+    alert('Click Action!');
+  },
 } as ButtonProps;

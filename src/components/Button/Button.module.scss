@@ -9,8 +9,14 @@
   padding: 1.6rem;
   transition: background-color $transition-hover ease-in-out;
 
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transition: none;
+  }
+
   &--primary {
-    background: $color-p;
+    background-color: $color-p;
     color: $color-p-on;
 
     &:hover {
@@ -19,6 +25,10 @@
 
     &:active {
       background: $color-p-dark;
+    }
+
+    &:disabled {
+      background-color: $color-p;
     }
   }
 
@@ -38,6 +48,10 @@
       background: $color-p-dark;
       color: $color-p-on;
     }
+
+    &:disabled {
+      background-color: $color-white;
+    }
   }
 
   &--info {
@@ -50,6 +64,10 @@
 
     &:active {
       background: $color-info-dark;
+    }
+
+    &:disabled {
+      background-color: $color-info;
     }
   }
 
@@ -64,6 +82,10 @@
     &:active {
       background: $color-success-dark;
     }
+
+    &:disabled {
+      background-color: $color-success;
+    }
   }
 
   &--warning {
@@ -76,6 +98,10 @@
 
     &:active {
       background: $color-warning-dark;
+    }
+
+    &:disabled {
+      background-color: $color-warning;
     }
   }
 
@@ -90,10 +116,9 @@
     &:active {
       background: $color-error-dark;
     }
-  }
 
-  &--disabled {
-    opacity: 0.5;
-    cursor: none;
+    &:disabled {
+      background-color: $color-error;
+    }
   }
 }
