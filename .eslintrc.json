@@ -4,11 +4,7 @@
     "commonjs": true,
     "es2021": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "airbnb"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -16,28 +12,15 @@
     },
     "ecmaVersion": 12
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": [
-      "error"
-    ],
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "linebreak-style": ["error", "windows"],
     "react/jsx-filename-extension": [
       2,
       {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     ],
     "import/extensions": [
@@ -53,18 +36,14 @@
     "react/jsx-props-no-spreading": 0,
     "dot-notation": 0,
     "import/order": 0,
-    "arrow-body-style": 0
+    "arrow-body-style": 0,
+    "react/jsx-max-props-per-line": [1, { "maximum": 2 }]
   },
   "settings": {
     "import/resolver": {
       "typescript": {},
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   }
