@@ -1,2 +1,2 @@
 # codefee-kit
-A simple UI kit for React projects
+A simple UI kit for building React projects
