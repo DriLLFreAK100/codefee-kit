@@ -1,5 +1,10 @@
+# General
 .vscode/
 node_modules/
-dist
 
+# Build outputs
+dist
+storybook-static
+
+# Dev files
 debug.log
