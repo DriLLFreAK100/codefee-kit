@@ -1,12 +1,17 @@
 import React, { CSSProperties, FunctionComponent, ReactNode } from 'react';
 import styles from './Grid.module.scss';
-import useWindowSize from 'hooks/useWindowSize';
-import { SizeType } from 'Common/Types';
+import useWindowSize from '../../hooks/useWindowSize';
+import { HorizontalAlignment, SizeType, VerticalAlignment } from 'common/Types';
 
 type GridSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
 
 interface IGrid {
   children?: ReactNode;
+  className?: string;
+  fullHeight?: boolean;
+  style?: CSSProperties;
+  xAlign?: HorizontalAlignment;
+  yAlign?: VerticalAlignment;
   xs?: GridSize;
   sm?: GridSize;
   md?: GridSize;
@@ -15,9 +20,6 @@ interface IGrid {
 }
 
 const guard = (...sizes: (number | undefined)[]): void => {
-  if (sizes.every((size) => !size)) {
-    throw new Error('Must at least define one size for the Grid');
-  }
   if (sizes.some((size) => size && size > 12)) {
     throw new Error('Grid size value must be within 1 - 12');
   }
@@ -26,30 +28,71 @@ const guard = (...sizes: (number | undefined)[]): void => {
 const getDefinedValue = (
   index: number,
   sizes: { sizeType: SizeType, value?: number }[],
-): number => {
-  if (index < 0) return 1;
-  if (sizes[index].value) return sizes[index].value as number;
+): string => {
+  if (index < 0) return '100%';
+  if (sizes[index].value) return `${((sizes[index].value as number) / 12) * 100}%`;
   return getDefinedValue(index - 1, sizes);
 };
 
-const getFlexSize = (target: SizeType, sizes: { sizeType: SizeType, value?: number }[]) => {
+const getFlexSize = (
+  target: SizeType,
+  sizes: {
+    sizeType: SizeType,
+    value?: number
+  }[],
+): CSSProperties => {
   const result: CSSProperties = {};
 
   switch (target) {
     case 'xs':
-      result.flexGrow = getDefinedValue(0, sizes);
+      result.flexBasis = getDefinedValue(0, sizes);
       break;
     case 'sm':
-      result.flexGrow = getDefinedValue(1, sizes);
+      result.flexBasis = getDefinedValue(1, sizes);
       break;
     case 'md':
-      result.flexGrow = getDefinedValue(2, sizes);
+      result.flexBasis = getDefinedValue(2, sizes);
       break;
     case 'lg':
-      result.flexGrow = getDefinedValue(3, sizes);
+      result.flexBasis = getDefinedValue(3, sizes);
       break;
     case 'xl':
-      result.flexGrow = getDefinedValue(4, sizes);
+      result.flexBasis = getDefinedValue(4, sizes);
+      break;
+    default:
+      break;
+  }
+
+  return result;
+};
+
+const getXAlign = (value?: HorizontalAlignment): CSSProperties => {
+  const result: CSSProperties = {};
+
+  switch (value) {
+    case 'center':
+      result.justifyContent = 'center';
+      break;
+    case 'right':
+      result.justifyContent = 'flex-end';
+      result.textAlign = 'right';
+      break;
+    default:
+      break;
+  }
+
+  return result;
+};
+
+const getYAlign = (value?: VerticalAlignment): CSSProperties => {
+  const result: CSSProperties = {};
+
+  switch (value) {
+    case 'center':
+      result.alignItems = 'center';
+      break;
+    case 'bottom':
+      result.alignItems = 'flex-end';
       break;
     default:
       break;
@@ -60,6 +103,11 @@ const getFlexSize = (target: SizeType, sizes: { sizeType: SizeType, value?: numb
 
 const Grid: FunctionComponent<IGrid> = ({
   children,
+  className,
+  fullHeight,
+  style,
+  xAlign,
+  yAlign,
   xs,
   sm,
   md,
@@ -68,10 +116,13 @@ const Grid: FunctionComponent<IGrid> = ({
 }: IGrid) => {
   guard(xs, sm, md, lg, xl);
   const { size } = useWindowSize();
-  let computedStyle: CSSProperties = {};
+  let computedStyle: CSSProperties = { ...style };
+
+  if (fullHeight) computedStyle.height = '100%';
 
   if (size) {
     computedStyle = {
+      ...computedStyle,
       ...getFlexSize(size, [
         { sizeType: 'xs', value: xs },
         { sizeType: 'sm', value: sm },
@@ -79,11 +130,13 @@ const Grid: FunctionComponent<IGrid> = ({
         { sizeType: 'lg', value: lg },
         { sizeType: 'xl', value: xl },
       ]),
+      ...getXAlign(xAlign),
+      ...getYAlign(yAlign),
     };
   }
 
   return (
-    <div className={styles['grid']} style={computedStyle}>
+    <div className={`${styles['grid']} ${className}`} style={computedStyle}>
       {children}
     </div>
   );
@@ -92,10 +145,19 @@ const Grid: FunctionComponent<IGrid> = ({
 Grid.displayName = 'Grid';
 Grid.defaultProps = {
   children: null,
+  className: '',
+  fullHeight: false,
+  style: {},
+  xAlign: 'left',
+  yAlign: 'top',
   xs: undefined,
   sm: undefined,
   md: undefined,
   lg: undefined,
   xl: undefined,
 };
+
 export default Grid;
+export type {
+  IGrid,
+};

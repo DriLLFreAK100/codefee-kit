@@ -37,7 +37,8 @@
     "dot-notation": 0,
     "import/order": 0,
     "arrow-body-style": 0,
-    "react/jsx-max-props-per-line": [1, { "maximum": 2 }]
+    "react/jsx-max-props-per-line": [1, { "maximum": 2 }],
+    "import/no-extraneous-dependencies": 0
   },
   "settings": {
     "import/resolver": {

@@ -1,4 +1,4 @@
-import { SizeType } from 'Common/Types';
+import { SizeType } from 'common/Types';
 import { useEffect, useState } from 'react';
 
 interface WindowSize {

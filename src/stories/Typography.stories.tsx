@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import image from './assets/guin1.jpg';
 import image2 from './assets/guin2.jpg';
 import React from 'react';
@@ -7,9 +6,6 @@ import { Meta } from '@storybook/react/types-6-0';
 
 export default {
   title: 'Foundation/Typography',
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
 } as Meta;
 
 export const Typography = () => {
