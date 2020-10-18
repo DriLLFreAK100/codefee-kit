@@ -66,6 +66,27 @@ const getFlexSize = (
   return result;
 };
 
+const getGutterStyle = (size: SizeType) => {
+  const style: CSSProperties = {};
+  switch (size) {
+    case 'xs':
+    case 'sm':
+      style.padding = '0 0.8rem';
+      break;
+    case 'md':
+      style.padding = '0 1.2rem';
+      break;
+    case 'lg':
+    case 'xl':
+      style.padding = '0 1.6rem';
+      break;
+    default:
+      break;
+  }
+
+  return style;
+};
+
 const getXAlign = (value?: HorizontalAlignment): CSSProperties => {
   const result: CSSProperties = {};
 
@@ -132,6 +153,7 @@ const Grid: FunctionComponent<IGrid> = ({
       ]),
       ...getXAlign(xAlign),
       ...getYAlign(yAlign),
+      ...getGutterStyle(size),
     };
   }
 
