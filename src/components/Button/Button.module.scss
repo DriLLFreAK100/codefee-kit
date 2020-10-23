@@ -50,7 +50,9 @@
     }
 
     &:disabled {
+      border: 0.1rem $color-p solid;
       background-color: $color-white;
+      color: $color-black;
     }
   }
 
