@@ -14,7 +14,9 @@ module.exports = {
       ...(config.resolve || {}),
       extensions: ['.ts', '.tsx', '.js'],
       alias: {
+        "common": path.resolve(__dirname, '../src', 'common'),
         "components": path.resolve(__dirname, '../src', 'components'),
+        "hooks": path.resolve(__dirname, '../src', 'hooks'),
         "utils": path.resolve(__dirname, '../src', 'utils'),
       },
     }
