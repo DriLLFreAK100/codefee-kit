@@ -1,6 +1,6 @@
 import React, { CSSProperties, FunctionComponent, ReactNode } from 'react';
 import styles from './Grid.module.scss';
-import useWindowSize from '../../hooks/useWindowSize';
+import useWindowSize from 'hooks/useWindowSize';
 import { HorizontalAlignment, SizeType, VerticalAlignment } from 'common/Types';
 
 type GridSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
