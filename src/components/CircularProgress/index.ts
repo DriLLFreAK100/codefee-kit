@@ -1,4 +1,1 @@
-import CircularProgress from './CircularProgress';
-
-export default CircularProgress;
-export type { CircularProgressProps } from './CircularProgress';
+export { CircularProgress, CircularProgressProps } from './CircularProgress';
