@@ -11,7 +11,7 @@ module.exports = (env) => {
 
   const commonConfigurations = {
     entry: './src/index.ts',
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
     mode: prod ? 'production' : 'development',
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -28,7 +28,7 @@ module.exports = (env) => {
           test: /\.(js|jsx|ts|tsx)$/,
           exclude: /(node_modules|bower_components)/,
           use: [
-            'babel-loader',
+            // 'babel-loader',
             'ts-loader',
             'eslint-loader',
           ],
