@@ -11,6 +11,7 @@ module.exports = (env) => {
 
   const commonConfigurations = {
     entry: './src/index.ts',
+    devtool: 'source-map',
     mode: prod ? 'production' : 'development',
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
