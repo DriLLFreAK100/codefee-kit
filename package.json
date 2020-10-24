@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server --open",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "lint": "eslint src/**/*.ts src/**/*.tsx"
+    "lint": "eslint src/**/*.ts src/**/*.tsx",
+    "publish": "npm publish dist"
   },
   "publishConfig": {
     "access": "public"

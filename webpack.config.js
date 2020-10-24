@@ -81,7 +81,7 @@ module.exports = (env) => {
     output: {
       path: path.resolve(__dirname, 'dist/'),
       publicPath: '/dist/',
-      filename: 'bundle.js',
+      filename: 'index.js',
     },
     devServer: {
       contentBase: path.join(__dirname, 'public/'),
