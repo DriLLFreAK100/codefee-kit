@@ -29,7 +29,7 @@ module.exports = (env) => {
           exclude: /(node_modules|bower_components)/,
           use: [
             // 'babel-loader',
-            'ts-loader',
+            'awesome-typescript-loader',
             'eslint-loader',
           ],
         },
