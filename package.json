@@ -12,7 +12,7 @@
     "clean-dist": "rimraf dist",
     "ts-build": "tsc && tsc -m es6 --outDir dist/lib-esm",
     "package-info": "node scripts/package.ts",
-    "pack": "npm run clean-dist && npm run ts-build && npm run build && npm run package-info",
+    "pack": "npm run clean-dist && npm run build && npm run package-info",
     "publish": "npm run pack &&  npm publish dist"
   },
   "publishConfig": {
