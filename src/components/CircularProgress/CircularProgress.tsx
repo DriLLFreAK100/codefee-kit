@@ -55,7 +55,7 @@ CircularProgress.defaultProps = {
   type: 'indeterminate',
 };
 
-export {
-  CircularProgress,
+export default CircularProgress;
+export type {
   CircularProgressProps,
 };

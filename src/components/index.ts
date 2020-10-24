@@ -8,6 +8,6 @@ export {
   Grid,
 };
 
-export { ButtonProps } from './Button';
-export { CircularProgressProps } from './CircularProgress';
-export { IGrid } from './Grid';
+export type { ButtonProps } from './Button';
+export type { CircularProgressProps } from './CircularProgress';
+export type { IGrid } from './Grid';
