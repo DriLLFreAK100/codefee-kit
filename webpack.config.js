@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 const path = require('path');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => {
   const prod = env === 'prod';
@@ -29,13 +28,14 @@ module.exports = (env) => {
           exclude: /(node_modules|bower_components)/,
           use: [
             'babel-loader',
+            'ts-loader',
             'eslint-loader',
           ],
         },
         {
           test: /\.(sa|sc|c)ss$/,
           use: [
-            prod ? MiniCssExtractPlugin.loader : 'style-loader',
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
@@ -57,7 +57,7 @@ module.exports = (env) => {
         {
           test: /\.(sa|sc|c)ss$/,
           use: [
-            prod ? MiniCssExtractPlugin.loader : 'style-loader',
+            'style-loader',
             'css-loader',
             {
               loader: 'sass-loader',
@@ -91,7 +91,6 @@ module.exports = (env) => {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new MiniCssExtractPlugin(),
     ],
   };
 
