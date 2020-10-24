@@ -9,7 +9,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
-    "publish": "npm publish dist"
+    "package-info": "node scripts/package.ts",
+    "prepackage": "npm run build && npm run package-info",
+    "package": "npm publish dist"
   },
   "publishConfig": {
     "access": "public"
