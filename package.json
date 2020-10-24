@@ -10,9 +10,10 @@
     "build-storybook": "build-storybook",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
     "clean-dist": "rimraf dist",
+    "ts-build": "tsc && tsc -m es6 --outDir dist/lib-esm",
     "package-info": "node scripts/package.ts",
-    "prepackage": "npm run clean-dist && npm run build && npm run package-info",
-    "package": "npm publish dist"
+    "package": "npm run clean-dist && npm run ts-build && npm run build && npm run package-info",
+    "publish-package": "npm publish dist"
   },
   "publishConfig": {
     "access": "public"
