@@ -9,8 +9,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
+    "clean-dist": "rimraf dist",
     "package-info": "node scripts/package.ts",
-    "prepackage": "npm run build && npm run package-info",
+    "prepackage": "npm run clean-dist && npm run build && npm run package-info",
     "package": "npm publish dist"
   },
   "publishConfig": {
