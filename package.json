@@ -1,6 +1,6 @@
 {
   "name": "codefee-kit",
-  "version": "0.0.14",
+  "version": "0.0.18",
   "description": "A simple UI kit for React projects",
   "main": "src/index.ts",
   "scripts": {
@@ -12,8 +12,8 @@
     "clean-dist": "rimraf dist",
     "ts-build": "tsc && tsc -m es6 --outDir dist/lib-esm",
     "package-info": "node scripts/package.ts",
-    "pack": "npm run clean-dist && npm run build && npm run package-info",
-    "publish": "npm run pack &&  npm publish dist"
+    "build-package": "npm run clean-dist && npm run build && npm run package-info",
+    "publish": "npm run build-package &&  npm publish dist"
   },
   "publishConfig": {
     "access": "public"

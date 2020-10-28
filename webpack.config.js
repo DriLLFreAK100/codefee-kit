@@ -7,10 +7,26 @@ module.exports = (env) => {
 
   const devConfigurations = {
     devtool: 'source-map',
+    devServer: {
+      contentBase: path.join(__dirname, 'public/'),
+      port: 3000,
+      publicPath: 'http://localhost:3000/dist/',
+      hot: true,
+    },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+    ],
   };
 
   const commonConfigurations = {
     entry: './src/index.ts',
+    output: {
+      path: path.resolve(__dirname, 'dist/'),
+      publicPath: '/dist/',
+      filename: 'index.js',
+      library: 'codefee-kit',
+      libraryTarget: 'commonjs2',
+    },
     devtool: 'inline-source-map',
     mode: prod ? 'production' : 'development',
     resolve: {
@@ -79,20 +95,6 @@ module.exports = (env) => {
         },
       ],
     },
-    output: {
-      path: path.resolve(__dirname, 'dist/'),
-      publicPath: '/dist/',
-      filename: 'index.js',
-    },
-    devServer: {
-      contentBase: path.join(__dirname, 'public/'),
-      port: 3000,
-      publicPath: 'http://localhost:3000/dist/',
-      hot: true,
-    },
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-    ],
   };
 
   let finalConfigurations = commonConfigurations;
