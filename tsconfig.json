@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "module": "commonjs",
     "target": "es5",
-    "lib": ["es6", "dom"],
+    "lib": [ "es6", "dom" ],
     "sourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",
@@ -13,6 +14,7 @@
     "strictNullChecks": true,
     "esModuleInterop": true,
     "baseUrl": "src/",
+    "outDir": "dist",
     "paths": {
       "common": ["src/common/*"],
       "components": ["src/components/*"],
