@@ -1,6 +1,6 @@
 {
   "name": "codefee-kit",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "A simple UI kit for React projects",
   "main": "src/index.ts",
   "scripts": {
@@ -69,8 +69,11 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "file-loader": "^6.1.0",
     "husky": "^4.3.0",
+    "lodash": "^4.17.20",
     "mini-css-extract-plugin": "^0.11.3",
     "postcss": "^8.1.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-is": "^16.13.1",
     "rimraf": "^3.0.2",
     "sass": "^1.26.11",
@@ -82,9 +85,8 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
-  "dependencies": {
-    "lodash": "^4.17.20",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+  "peerDependencies": {
+    "react": ">=16.13.1",
+    "react-dom": ">=16.13.1"
   }
 }
