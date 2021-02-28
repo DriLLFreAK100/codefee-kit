@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es5",
     "lib": [ "es6", "dom" ],
     "sourceMap": true,
@@ -14,7 +13,6 @@
     "strictNullChecks": true,
     "esModuleInterop": true,
     "baseUrl": "src/",
-    "outDir": "dist",
     "paths": {
       "common": ["src/common/*"],
       "components": ["src/components/*"],
@@ -29,8 +27,7 @@
     "scripts",
     "acceptance-tests",
     "webpack",
-    "jest",
-    "src/setupTests.ts"
+    "jest"
   ],
   "types": ["typePatches"]
 }
