@@ -1,7 +1,8 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import styled, { StyledComponent, ThemeProvider } from 'styled-components';
-import { CodefeeTheme, ITheme } from 'common/Theme';
+import styled, { StyledComponent } from 'styled-components';
+import { ITheme } from 'common/Theme';
 import { Transitions } from 'common/StyleVariables';
+import { rem } from 'utils/StyleHelper';
 
 type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
 
@@ -15,10 +16,10 @@ interface IButtonProps {
 
 const StyledButton = styled.button<IButtonProps>`
   border: none;
-  border-radius: 0.4rem;
+  border-radius: ${rem(4)};
   cursor: pointer;
   outline: none;
-  padding: 1.6rem;
+  padding: ${rem(16)};
   transition: background-color ${Transitions.hover} ease-in-out;
 
   &:disabled {
@@ -165,15 +166,13 @@ const Button: FunctionComponent<IButtonProps> = ({
   const Component = getButtonComponent(type as ButtonType);
 
   return (
-    <ThemeProvider theme={CodefeeTheme}>
-      <Component
-        disabled={disabled}
-        type={type as any}
-        onClick={onClick}
-      >
-        {children ?? text}
-      </Component>
-    </ThemeProvider>
+    <Component
+      disabled={disabled}
+      type={type as any}
+      onClick={onClick}
+    >
+      {children ?? text}
+    </Component>
   );
 };
 

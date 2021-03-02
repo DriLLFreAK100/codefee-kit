@@ -25,9 +25,9 @@ export const CodefeeTheme: ITheme = {
       on: '#ffffff',
     },
     secondary: {
-      default: '#00838f',
-      light: '#4fb3bf',
-      dark: '#005662',
+      default: '#ffc107',
+      light: '#fff350',
+      dark: '#c79100',
       on: '#000000',
     },
     info: {

@@ -1,15 +1,22 @@
+import AppContainer from 'components/AppContainer';
+import CircularProgress, { ICircularProgressProps } from 'components/CircularProgress';
 import React, { useEffect, useState } from 'react';
-import CircularProgress, { CircularProgressProps } from 'components/CircularProgress';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
   title: 'Controls/CircularProgress',
   component: CircularProgress,
 } as Meta;
 
-export const Indeterminate: Story<CircularProgressProps> = (args) => <CircularProgress {...args} />;
+const Template: Story<ICircularProgressProps> = (args) => {
+  return (
+    <AppContainer>
+      <CircularProgress {...args} />
+    </AppContainer>
+  );
+};
 
-export const Determinate: Story<CircularProgressProps> = (args) => {
+export const Determinate: Story<ICircularProgressProps> = (args) => {
   const [loadProgress, setLoadProgress] = useState(0);
 
   useEffect(() => {
@@ -23,10 +30,23 @@ export const Determinate: Story<CircularProgressProps> = (args) => {
   }, [loadProgress]);
 
   return (
-    <CircularProgress {...args} progress={loadProgress} />
+    <AppContainer>
+      <CircularProgress {...args} progress={loadProgress} />
+    </AppContainer>
   );
 };
 
 Determinate.args = {
   type: 'determinate',
-} as CircularProgressProps;
+} as ICircularProgressProps;
+
+export const Indeterminate = Template.bind({});
+Indeterminate.args = {
+  type: 'indeterminate',
+} as ICircularProgressProps;
+
+export const SecondaryColor = Template.bind({});
+SecondaryColor.args = {
+  type: 'indeterminate',
+  color: 'secondary',
+} as ICircularProgressProps;
