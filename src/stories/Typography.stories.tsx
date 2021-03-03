@@ -8,7 +8,7 @@ export default {
   title: 'Foundation/Typography',
 } as Meta;
 
-export const Typography = () => {
+export const Default = () => {
   return (
     <div>
       <h1>Headline 1</h1>
@@ -27,7 +27,7 @@ export const Typography = () => {
   );
 };
 
-export const TypographySample = () => {
+export const Sample = () => {
   return (
     <div className={styles['typographySample']}>
       <div className={styles['typographySample__content']}>

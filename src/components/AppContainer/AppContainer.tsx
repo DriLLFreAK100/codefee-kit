@@ -35,3 +35,4 @@ AppContainer.defaultProps = {
 };
 
 export default AppContainer;
+export type { IAppContainer };

@@ -1,6 +1,5 @@
-/* eslint-disable import/prefer-default-export */
-
 import { ITheme } from 'common/Theme';
+/* eslint-disable import/prefer-default-export */
 
 /**
  * Convert px to rem
