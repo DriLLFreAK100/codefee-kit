@@ -1,8 +1,8 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
-import { terser } from 'rollup-plugin-terser';
 import visualizer from 'rollup-plugin-visualizer';
+import { terser } from 'rollup-plugin-terser';
 import { getFiles } from './scripts/buildUtils';
 
 const extensions = ['.js', '.ts', '.jsx', '.tsx'];
