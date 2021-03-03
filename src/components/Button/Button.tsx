@@ -1,8 +1,6 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import styled, { StyledComponent } from 'styled-components';
-import { ITheme } from 'common/Theme';
-import { Transitions } from 'common/StyleVariables';
-import { rem } from 'utils/StyleHelper';
+import { cvar, rem } from 'utils/StyleHelper';
 
 type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
 
@@ -20,7 +18,7 @@ const StyledButton = styled.button<IButtonProps>`
   cursor: pointer;
   outline: none;
   padding: ${rem(16)};
-  transition: background-color ${Transitions.hover} ease-in-out;
+  transition: background-color ${cvar('--transition-hover')} ease-in-out;
 
   &:disabled {
     cursor: not-allowed;
@@ -30,110 +28,111 @@ const StyledButton = styled.button<IButtonProps>`
 `;
 
 const PrimaryButton = styled(StyledButton)`
-  background-color: ${({ theme }) => (theme as ITheme).color.primary.default};
-  color: ${({ theme }) => (theme as ITheme).color.primary.on};
+  background-color: ${cvar('--color-primary')};
+  color: ${cvar('--color-primary-on')};
 
   :hover {
-    background: ${({ theme }) => (theme as ITheme).color.primary.light};
+    background:  ${cvar('--color-primary-light')};
   }
 
   :active {
-    background: ${({ theme }) => (theme as ITheme).color.primary.dark};
+    background:  ${cvar('--color-primary-dark')};
   }
 
   :disabled {
-    background-color: ${({ theme }) => (theme as ITheme).color.primary.default};
+    background-color:  ${cvar('--color-primary')};
   }
 `;
 
 const SubtleButton = styled(StyledButton)`
   background-color: white;
-  border: 0.1rem solid ${({ theme }) => (theme as ITheme).color.primary.default};
+  border: 0.1rem solid  ${cvar('--color-primary')};
   color: black;
 
   :hover {
-    border: 0.1rem solid ${({ theme }) => (theme as ITheme).color.primary.light};
-    background: ${({ theme }) => (theme as ITheme).color.primary.light};
-    color: ${({ theme }) => (theme as ITheme).color.primary.on};
+    border: 0.1rem solid  ${cvar('--color-primary-light')};
+    background: ${cvar('--color-primary-light')};
+    color: ${cvar('--color-primary-on')};
   }
 
   :active {
-    border: 0.1rem solid ${({ theme }) => (theme as ITheme).color.primary.dark};
-    background:  ${({ theme }) => (theme as ITheme).color.primary.dark};
-    color:  ${({ theme }) => (theme as ITheme).color.primary.on};
+    border: 0.1rem solid ${cvar('--color-primary-dark')};
+    background: ${cvar('--color-primary-dark')};
+    color:  ${cvar('--color-primary-on')};
   }
 
   :disabled {
-    border: 0.1rem solid  ${({ theme }) => (theme as ITheme).color.primary.default};
+    border: 0.1rem solid ${cvar('--color-primary')};
     background-color: white;
     color: black;
   }
 `;
 
 const InfoButton = styled(StyledButton)`
-  background-color: ${({ theme }) => (theme as ITheme).color.info.default};
-  color: ${({ theme }) => (theme as ITheme).color.info.on};
+  background-color: ${cvar('--color-info')};
+  color: ${cvar('--color-info-on')};
 
   :hover {
-    background: ${({ theme }) => (theme as ITheme).color.info.light};
+    background: ${cvar('--color-info-light')};
   }
 
   :active {
-    background: ${({ theme }) => (theme as ITheme).color.info.dark};
+    background: ${cvar('--color-info-dark')};
   }
 
   :disabled {
-    background-color: ${({ theme }) => (theme as ITheme).color.info.default};
+    background-color: ${cvar('--color-info')};
   }
 `;
+
 const SuccessButton = styled(StyledButton)`
-  background-color: ${({ theme }) => (theme as ITheme).color.success.default};
-  color: ${({ theme }) => (theme as ITheme).color.success.on};
+  background-color: ${cvar('--color-success')};
+  color: ${cvar('--color-success-on')};
 
   :hover {
-    background: ${({ theme }) => (theme as ITheme).color.success.light};
+    background: ${cvar('--color-success-light')};
   }
 
   :active {
-    background: ${({ theme }) => (theme as ITheme).color.success.dark};
+    background: ${cvar('--color-success-dark')};
   }
 
   :disabled {
-    background-color: ${({ theme }) => (theme as ITheme).color.success.default};
+    background-color: ${cvar('--color-success')};
   }
 `;
 
 const WarningButton = styled(StyledButton)`
-  background-color: ${({ theme }) => (theme as ITheme).color.warning.default};
-  color: ${({ theme }) => (theme as ITheme).color.warning.on};
+  background-color: ${cvar('--color-warning')};
+  color: ${cvar('--color-warning-on')};
 
   :hover {
-    background: ${({ theme }) => (theme as ITheme).color.warning.light};
+    background: ${cvar('--color-warning-light')};
   } 
 
   :active {
-    background: ${({ theme }) => (theme as ITheme).color.warning.dark};
+    background: ${cvar('--color-warning-dark')};
   } 
   
   :disabled {
-    background-color: ${({ theme }) => (theme as ITheme).color.warning.default};
+    background-color: ${cvar('--color-warning')};
   }
 `;
 
 const ErrorButton = styled(StyledButton)`
-  background-color: ${({ theme }) => (theme as ITheme).color.error.default};
-  color: ${({ theme }) => (theme as ITheme).color.error.on};
+  background-color: ${cvar('--color-error')};
+  color: ${cvar('--color-error-on')};
 
   :hover {
-    background: ${({ theme }) => (theme as ITheme).color.error.light};
+    background: ${cvar('--color-error-light')};
   } 
 
   :active {
-    background: ${({ theme }) => (theme as ITheme).color.error.dark};
+    background: ${cvar('--color-error-dark')};
   } 
   
   :disabled {
-    background-color: ${({ theme }) => (theme as ITheme).color.error.default};
+    background-color: ${cvar('--color-error')};
   }
 `;
 

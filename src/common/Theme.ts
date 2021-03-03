@@ -1,62 +1,62 @@
 /* eslint-disable import/prefer-default-export */
 export interface ITheme {
-  color: { [key: string]: IColor };
-  fontFamily: IFontFamily;
-}
-
-export interface IColor {
-  default: string;
-  light: string;
-  dark: string;
-  on: string;
-}
-
-export interface IFontFamily {
-  primary: string;
-  secondary: string;
+  '--color-primary': string;
+  '--color-primary-light': string;
+  '--color-primary-dark': string;
+  '--color-primary-on': string;
+  '--color-secondary': string;
+  '--color-secondary-light': string;
+  '--color-secondary-dark': string;
+  '--color-secondary-on': string;
+  '--color-info': string;
+  '--color-info-light': string;
+  '--color-info-dark': string;
+  '--color-info-on': string;
+  '--color-success': string;
+  '--color-success-light': string;
+  '--color-success-dark': string;
+  '--color-success-on': string;
+  '--color-warning': string;
+  '--color-warning-light': string;
+  '--color-warning-dark': string;
+  '--color-warning-on': string;
+  '--color-error': string;
+  '--color-error-light': string;
+  '--color-error-dark': string;
+  '--color-error-on': string;
+  '--font-family-primary': string;
+  '--font-family-secondary': string;
+  '--transition-hover': string;
+  '--transition-toggle': string;
 }
 
 export const CodefeeTheme: ITheme = {
-  color: {
-    primary: {
-      default: '#00838f',
-      light: '#4fb3bf',
-      dark: '#005662',
-      on: '#ffffff',
-    },
-    secondary: {
-      default: '#ffc107',
-      light: '#fff350',
-      dark: '#c79100',
-      on: '#000000',
-    },
-    info: {
-      default: '#0074bd',
-      light: '#58a2ef',
-      dark: '#00498b',
-      on: '#ffffff',
-    },
-    success: {
-      default: '#28a745',
-      light: '#64da73',
-      dark: '#007717',
-      on: '#ffffff',
-    },
-    warning: {
-      default: '#fb8c00',
-      light: '#ffbd45',
-      dark: '#c25e00',
-      on: '#ffffff',
-    },
-    error: {
-      default: '#b00020',
-      light: '#e94948',
-      dark: '#790000',
-      on: '#ffffff',
-    },
-  },
-  fontFamily: {
-    primary: 'Roboto, sans-serif',
-    secondary: 'Segoe UI, sans-serif',
-  },
+  '--color-primary': '#00838f',
+  '--color-primary-light': '#4fb3bf',
+  '--color-primary-dark': '#005662',
+  '--color-primary-on': '#ffffff',
+  '--color-secondary': '#ffc107',
+  '--color-secondary-light': '#fff350',
+  '--color-secondary-dark': '#c79100',
+  '--color-secondary-on': '#000000',
+  '--color-info': '#0074bd',
+  '--color-info-light': '#58a2ef',
+  '--color-info-dark': '#00498b',
+  '--color-info-on': '#ffffff',
+  '--color-success': '#28a745',
+  '--color-success-light': '#64da73',
+  '--color-success-dark': '#007717',
+  '--color-success-on': '#ffffff',
+  '--color-warning': '#fb8c00',
+  '--color-warning-light': '#ffbd45',
+  '--color-warning-dark': '#c25e00',
+  '--color-warning-on': '#ffffff',
+  '--color-error': '#b00020',
+  '--color-error-light': '#e94948',
+  '--color-error-dark': '#790000',
+  '--color-error-on': '#ffffff',
+  '--font-family-primary': 'Roboto, sans-serif',
+  '--font-family-secondary': 'Segoe UI, sans-serif',
+  '--transition-hover': '0.1s',
+  '--transition-toggle': '0.3s',
 };

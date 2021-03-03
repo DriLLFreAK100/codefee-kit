@@ -1,26 +1,37 @@
 import React, { FC, ReactNode } from 'react';
 import { CodefeeTheme, ITheme } from 'common/Theme';
-import { ThemeProvider } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 interface IAppContainer {
   children?: ReactNode;
-  theme?: ITheme;
+  appTheme?: ITheme;
 }
+
+const GlobalStyle = createGlobalStyle`
+  :root{
+    ${({ appTheme }: any) => Object
+    .keys(appTheme)
+    .map((key: keyof ITheme) => {
+      return `${key}: ${appTheme[key]};`;
+    })};
+  }
+`;
 
 const AppContainer: FC<IAppContainer> = ({
   children,
-  theme,
+  appTheme,
 }: IAppContainer) => {
   return (
-    <ThemeProvider theme={theme}>
+    <>
+      <GlobalStyle appTheme={appTheme as ITheme} />
       {children}
-    </ThemeProvider>
+    </>
   );
 };
 
 AppContainer.defaultProps = {
   children: undefined,
-  theme: CodefeeTheme,
+  appTheme: CodefeeTheme,
 };
 
 export default AppContainer;

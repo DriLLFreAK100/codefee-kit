@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import styled, { StyledComponent } from 'styled-components';
-import { ITheme } from 'common/Theme';
-import { rem } from 'utils/StyleHelper';
+import { cvar, rem } from 'utils/StyleHelper';
+
+const radius = 20.2;
+const circumference = 2 * Math.PI * radius;
 
 type CircleType = 'determinate' | 'indeterminate';
 
@@ -11,11 +13,10 @@ interface ICircularProgressProps {
   type?: CircleType;
 }
 
-const radius = 20.2;
-const circumference = 2 * Math.PI * radius;
-
 const StyledCircularProgress = styled.div<ICircularProgressProps>`
-
+  display: inline-block;
+  height: ${rem(48)};
+  width: ${rem(48)};
 `;
 
 const Svg = styled.svg<ICircularProgressProps>`
@@ -35,7 +36,11 @@ const Svg = styled.svg<ICircularProgressProps>`
 `;
 
 const Circle = styled.circle<ICircularProgressProps>`
-  stroke: ${({ color, theme }) => (theme as ITheme).color[color as any].default};
+  stroke: ${({ color }) => {
+    if (color === 'primary') return cvar('--color-primary');
+    if (color === 'secondary') return cvar('--color-secondary');
+    return cvar('--color-primary');
+  }};
 `;
 
 const DeterminateCircle = styled(Circle)`
