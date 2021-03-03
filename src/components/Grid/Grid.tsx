@@ -1,7 +1,8 @@
 import React, { CSSProperties, FunctionComponent, ReactNode } from 'react';
-import styles from './Grid.module.scss';
+import styled from 'styled-components';
 import useWindowSize from 'hooks/useWindowSize';
 import { HorizontalAlignment, SizeType, VerticalAlignment } from 'common/Types';
+import { rem } from 'utils/StyleHelper';
 
 type GridSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
 
@@ -71,14 +72,14 @@ const getGutterStyle = (size: SizeType) => {
   switch (size) {
     case 'xs':
     case 'sm':
-      style.padding = '0 0.8rem';
+      style.padding = `0 ${rem(8)}`;
       break;
     case 'md':
-      style.padding = '0 1.2rem';
+      style.padding = `0 ${rem(12)}`;
       break;
     case 'lg':
     case 'xl':
-      style.padding = '0 1.6rem';
+      style.padding = `0 ${rem(16)}`;
       break;
     default:
       break;
@@ -122,6 +123,12 @@ const getYAlign = (value?: VerticalAlignment): CSSProperties => {
   return result;
 };
 
+const StyledGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+`;
+
 const Grid: FunctionComponent<IGrid> = ({
   children,
   className,
@@ -158,9 +165,9 @@ const Grid: FunctionComponent<IGrid> = ({
   }
 
   return (
-    <div className={`${styles['grid']} ${className}`} style={computedStyle}>
+    <StyledGrid className={className} style={computedStyle}>
       {children}
-    </div>
+    </StyledGrid>
   );
 };
 

@@ -32,7 +32,10 @@ export default {
     }),
     postCss(),
     terser(),
-    visualizer(),
+    visualizer({
+      filename: 'bundle-analysis.html',
+      open: true,
+    }),
   ],
   external: ['react', 'react-dom'],
 };

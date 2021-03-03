@@ -6,6 +6,7 @@ node_modules/
 dist
 storybook-static
 *.tgz
+bundle-analysis.html
 
 # Dev files
 debug.log
