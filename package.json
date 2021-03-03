@@ -15,7 +15,7 @@
     "prebuild": "rimraf dist",
     "build": "rollup -c",
     "build:local": "npm run build && npm pack",
-    "publish": "npm run build && npm publish"
+    "build:publish": "npm run build && npm publish"
   },
   "publishConfig": {
     "access": "public"
