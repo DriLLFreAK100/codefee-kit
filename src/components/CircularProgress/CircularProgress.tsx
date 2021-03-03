@@ -1,41 +1,106 @@
 import React, { FC } from 'react';
-import StringHelper from 'utils/StringHelper';
-import styles from './CircularProgress.module.scss';
-
-interface CircularProgressProps {
-  color?: 'primary' | 'secondary';
-  progress?: number;
-  type?: 'determinate' | 'indeterminate';
-}
+import styled, { StyledComponent } from 'styled-components';
+import { cvar, rem } from 'utils/StyleHelper';
 
 const radius = 20.2;
 const circumference = 2 * Math.PI * radius;
 
-const CircularProgress: FC<CircularProgressProps> = ({
+type CircleType = 'determinate' | 'indeterminate';
+
+interface ICircularProgressProps {
+  color?: 'primary' | 'secondary';
+  progress?: number;
+  type?: CircleType;
+}
+
+const StyledCircularProgress = styled.div<ICircularProgressProps>`
+  display: inline-block;
+  height: ${rem(48)};
+  width: ${rem(48)};
+`;
+
+const Svg = styled.svg<ICircularProgressProps>`
+  @keyframes circular-rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  height: ${rem(48)};
+  width: ${rem(48)};
+  animation: ${({ type }) => { return type === 'indeterminate' ? 'circular-rotate 1.4s ease-in-out infinite' : 'unset'; }};
+`;
+
+const Circle = styled.circle<ICircularProgressProps>`
+  stroke: ${({ color }) => {
+    if (color === 'primary') return cvar('--color-primary');
+    if (color === 'secondary') return cvar('--color-secondary');
+    return cvar('--color-primary');
+  }};
+`;
+
+const DeterminateCircle = styled(Circle)`
+  transition: stroke-dashoffset 300ms;
+`;
+
+const IndeterminateCircle = styled(Circle)`
+  @keyframes circular-dash {
+    0% {
+      stroke-dasharray: 1px, 200px;
+      stroke-dashoffset: 0px;
+    }
+
+    50% {
+      stroke-dasharray: 100px, 200px;
+      stroke-dashoffset: -15px;
+    }
+
+    100% {
+      stroke-dasharray: 100px, 200px;
+      stroke-dashoffset: -125px;
+    }
+  }
+
+  animation: circular-dash 1.4s ease-in-out infinite;
+  stroke-dasharray: 80px, 200px;
+  stroke-dashoffset: 0px;
+`;
+
+const getCircleComponent = (type: CircleType): StyledComponent<'circle', any, ICircularProgressProps, never> => {
+  switch (type) {
+    case 'determinate':
+      return DeterminateCircle;
+    case 'indeterminate':
+      return IndeterminateCircle;
+    default:
+      return DeterminateCircle;
+  }
+};
+
+const CircularProgress: FC<ICircularProgressProps> = ({
   color,
   progress,
   type,
-}: CircularProgressProps) => {
+}: ICircularProgressProps) => {
   const determinateStyle = {
     strokeDasharray: circumference,
     strokeDashoffset: `${circumference - (((progress as number) / 100) * circumference)}`,
   };
 
-  const circularProgressClassName = StringHelper.flatten(`
-    ${styles['circularProgress']} 
-    ${styles[`circularProgress--${type}`]}
-  `);
-
-  const circleClassName = StringHelper.flatten(`
-    ${styles[`circularProgress__svg--${color}`]} 
-    ${styles[`circularProgress__svg--${type}`]}
-  `);
+  const CircleComponent = getCircleComponent(type as CircleType);
 
   return (
-    <div className={circularProgressClassName}>
-      <svg className={styles['circularProgress__svg']} viewBox="22 22 44 44">
-        <circle
-          className={circleClassName}
+    <StyledCircularProgress
+      color={color}
+      type={type}
+    >
+      <Svg type={type} viewBox="22 22 44 44">
+        <CircleComponent
+          color={color}
           style={determinateStyle}
           cx="44"
           cy="44"
@@ -43,8 +108,8 @@ const CircularProgress: FC<CircularProgressProps> = ({
           fill="none"
           strokeWidth="3.6"
         />
-      </svg>
-    </div>
+      </Svg>
+    </StyledCircularProgress>
   );
 };
 
@@ -57,5 +122,5 @@ CircularProgress.defaultProps = {
 
 export default CircularProgress;
 export type {
-  CircularProgressProps,
+  ICircularProgressProps,
 };
