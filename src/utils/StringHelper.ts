@@ -1,11 +1,12 @@
-class StringHelper {
-  static flatten(text: string): string {
-    return text
-      .replace(/(\r\n|\n|\r)/gm, ' ')
-      .split(' ')
-      .filter((x) => x)
-      .join(' ');
-  }
-}
-
-export default StringHelper;
+/* eslint-disable import/prefer-default-export */
+/**
+ * Clean up and even out all single spaces
+ * @param text Text to flatten
+ */
+export const flatten = (text: string): string => {
+  return text
+    .replace(/(\r\n|\n|\r)/gm, ' ')
+    .split(' ')
+    .filter((x) => x)
+    .join(' ');
+};

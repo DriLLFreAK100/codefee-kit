@@ -9,6 +9,7 @@ const extensions = ['.js', '.ts', '.jsx', '.tsx'];
 
 export default {
   input: [
+    './src/index.ts',
     ...getFiles('./src/common', extensions),
     ...getFiles('./src/components', extensions),
     ...getFiles('./src/hooks', extensions),

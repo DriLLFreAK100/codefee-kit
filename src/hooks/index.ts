@@ -1,6 +1,2 @@
 /* eslint-disable import/prefer-default-export */
-import useWindowSize from './useWindowSize';
-
-export {
-  useWindowSize,
-};
+export { default as useWindowSize } from './useWindowSize';
