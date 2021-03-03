@@ -1,6 +1,6 @@
 {
   "name": "codefee-kit",
-  "version": "0.0.19",
+  "version": "0.0.24",
   "description": "A simple UI kit for React projects",
   "main": "dist/index.js",
   "files": [
@@ -15,7 +15,7 @@
     "prebuild": "rimraf dist",
     "build": "rollup -c",
     "build:local": "npm run build && npm pack",
-    "publish": "npm run build && npm publish"
+    "build:publish": "npm run build && npm publish"
   },
   "publishConfig": {
     "access": "public"
@@ -47,12 +47,11 @@
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
     "@rollup/plugin-typescript": "^8.2.0",
-    "@storybook/addon-actions": "^6.0.27",
-    "@storybook/addon-essentials": "^6.1.20",
-    "@storybook/addon-links": "^6.0.27",
-    "@storybook/addons": "^6.0.27",
-    "@storybook/react": "^6.1.20",
-    "@storybook/theming": "^6.0.27",
+    "@storybook/addon-essentials": "^6.1.21",
+    "@storybook/addon-storysource": "^6.1.21",
+    "@storybook/addons": "^6.1.21",
+    "@storybook/react": "^6.1.21",
+    "@storybook/theming": "^6.1.21",
     "@types/lodash": "^4.14.162",
     "@types/styled-components": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
