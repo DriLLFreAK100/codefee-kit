@@ -1,7 +1,7 @@
 import AppContainer from 'components/AppContainer';
-import CommonHelper from 'utils/CommonHelper';
 import Grid from 'components/Grid';
 import React from 'react';
+import { getRandomColor } from 'utils/CommonHelper';
 import { Meta } from '@storybook/react/types-6-0';
 
 export default {
@@ -24,7 +24,7 @@ export const Sample = () => {
                 sm={6}
                 md={4}
                 lg={3}
-                style={{ background: CommonHelper.getRandomColor() }}
+                style={{ background: getRandomColor() }}
                 xAlign="center"
                 yAlign="center"
               >
