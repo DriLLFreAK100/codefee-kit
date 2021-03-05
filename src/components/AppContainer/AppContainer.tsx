@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import { CodefeeTheme, ITheme } from 'common/Theme';
 import { createGlobalStyle } from 'styled-components';
+import './AppContainer.css';
 
 interface IAppContainer {
   children?: ReactNode;
