@@ -56,7 +56,7 @@ export const CodefeeTheme: ITheme = {
   '--color-error-dark': '#790000',
   '--color-error-on': '#ffffff',
   '--font-family-primary': 'Roboto, sans-serif',
-  '--font-family-secondary': 'Segoe UI, sans-serif',
+  '--font-family-secondary': 'Open Sans, sans-serif',
   '--transition-hover': '0.1s',
   '--transition-toggle': '0.3s',
 };
