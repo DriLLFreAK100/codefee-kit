@@ -1,8 +1,21 @@
-import React, { FC, ReactNode } from 'react';
-import styled from 'styled-components';
-import { cvar, rem } from 'utils/StyleHelper';
+import Body1 from './Elements/Body1';
+import Body2 from './Elements/Body2';
+import Button from './Elements/Button';
+import Caption from './Elements/Caption';
+import H1 from './Elements/H1';
+import H2 from './Elements/H2';
+import H3 from './Elements/H3';
+import H4 from './Elements/H4';
+import H5 from './Elements/H5';
+import H6 from './Elements/H6';
+import Paragraph from './Elements/Paragraph';
+import React, { FC, FunctionComponent, ReactNode } from 'react';
+import Subtitle1 from './Elements/Subtitle1';
+import Subtitle2 from './Elements/Subtitle2';
+import { Gutter } from 'common/Types';
+import { ITypographyElement } from './interface';
 
-type TypographyType =
+export type TypographyType =
   'h1' |
   'h2' |
   'h3' |
@@ -17,114 +30,13 @@ type TypographyType =
   'caption' |
   'button';
 
-interface ITypography {
+export interface ITypography {
   children?: ReactNode;
+  gutter?: Gutter;
   type?: TypographyType;
 }
 
-const H1 = styled.h1`
-  font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(96)};
-  line-height: ${rem(112)};
-  font-weight: lighter;
-  letter-spacing: ${rem(-1.5)};
-`;
-
-const H2 = styled.h2`
-  font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(60)};
-  line-height: ${rem(72)};
-  font-weight: lighter;
-  letter-spacing: ${rem(-0.5)};
-`;
-
-const H3 = styled.h3`
-  font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(48)};
-  line-height: ${rem(60)};
-  font-weight: normal;
-  letter-spacing: ${rem(0)};
-`;
-
-const H4 = styled.h4`
-  font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(36)};
-  line-height: ${rem(48)};
-  font-weight: normal;
-  letter-spacing: ${rem(0.25)};
-`;
-
-const H5 = styled.h5`
-  font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(24)};
-  line-height: ${rem(36)};
-  font-weight: normal;
-  letter-spacing: ${rem(0)};
-`;
-
-const H6 = styled.h6`
-  font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(20)};
-  line-height: ${rem(32)};
-  font-weight: 500;
-  letter-spacing: ${rem(0.15)};
-`;
-
-const Subtitle1 = styled.h6`
-  font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(16)};
-  line-height: ${rem(16)};
-  font-weight: normal;
-  letter-spacing: ${rem(0.15)};
-`;
-
-const Subtitle2 = styled.h6`
-  font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(14)};
-  line-height: ${rem(16)};
-  font-weight: 500;
-  letter-spacing: ${rem(0.1)};
-`;
-
-const Body1 = styled.p`
-  font-family: ${cvar('--font-family-secondary')};
-  font-size: ${rem(16)};
-  font-weight: normal;
-  letter-spacing: ${rem(0.5)};
-`;
-
-const Body2 = styled.p`
-  font-family: ${cvar('--font-family-secondary')};
-  font-size: ${rem(14)};
-  font-weight: normal;
-  letter-spacing: ${rem(0.25)};
-`;
-
-const P = styled.p`
-  font-family: ${cvar('--font-family-secondary')};
-  font-size: ${rem(16)};
-  line-height: ${rem(24)};
-  margin-bottom: ${rem(20)};
-`;
-
-const Caption = styled.figcaption`
-  display: block;
-  font-family: ${cvar('--font-family-secondary')};
-  font-size: ${rem(12)};
-  font-weight: normal;
-  letter-spacing: ${rem(0.4)};
-`;
-
-const Button = styled.span`
-  display:block;
-  font-family: ${cvar('--font-family-secondary')};
-  font-weight: 500;
-  font-size: ${rem(14)};
-  letter-spacing: ${rem(1.25)};
-  text-transform: uppercase;
-`;
-
-const getComponent = (type: TypographyType) => {
+const getComponent = (type: TypographyType): FunctionComponent<ITypographyElement> => {
   switch (type) {
     case 'h1':
       return H1;
@@ -147,7 +59,7 @@ const getComponent = (type: TypographyType) => {
     case 'body2':
       return Body2;
     case 'p':
-      return P;
+      return Paragraph;
     case 'caption':
       return Caption;
     case 'button':
@@ -159,12 +71,13 @@ const getComponent = (type: TypographyType) => {
 
 const Typography: FC<ITypography> = ({
   children,
+  gutter,
   type,
 }: ITypography) => {
   const Component = getComponent(type as TypographyType);
 
   return (
-    <Component>
+    <Component gutter={gutter as Gutter}>
       {children}
     </Component>
   );
@@ -172,8 +85,8 @@ const Typography: FC<ITypography> = ({
 
 Typography.defaultProps = {
   children: undefined,
+  gutter: 0,
   type: 'body1',
 };
 
 export default Typography;
-export type { ITypography };
