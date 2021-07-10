@@ -1,13 +1,11 @@
 import styled from 'styled-components';
-import { cvar, gut, rem } from 'utils/StyleHelper';
-import { ITypographyElement } from '../interface';
+import { cvar, rem } from 'utils/StyleHelper';
 
-const Paragraph = styled.p<ITypographyElement>`
+const Paragraph = styled.p`
   font-family: ${cvar('--font-family-secondary')};
   font-size: ${rem(16)};
   line-height: ${rem(24)};
   margin-bottom: ${rem(20)};
-  margin-bottom: ${({ gutter }) => gut(gutter)};
 `;
 
 export default Paragraph;

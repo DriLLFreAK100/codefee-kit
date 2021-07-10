@@ -9,11 +9,9 @@ import H4 from './Elements/H4';
 import H5 from './Elements/H5';
 import H6 from './Elements/H6';
 import Paragraph from './Elements/Paragraph';
-import React, { FC, FunctionComponent, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import Subtitle1 from './Elements/Subtitle1';
 import Subtitle2 from './Elements/Subtitle2';
-import { Gutter } from 'common/Types';
-import { ITypographyElement } from './interface';
 
 export type TypographyType =
   'h1' |
@@ -32,11 +30,10 @@ export type TypographyType =
 
 export interface ITypography {
   children?: ReactNode;
-  gutter?: Gutter;
   type?: TypographyType;
 }
 
-const getComponent = (type: TypographyType): FunctionComponent<ITypographyElement> => {
+const getComponent = (type: TypographyType) => {
   switch (type) {
     case 'h1':
       return H1;
@@ -71,13 +68,12 @@ const getComponent = (type: TypographyType): FunctionComponent<ITypographyElemen
 
 const Typography: FC<ITypography> = ({
   children,
-  gutter,
   type,
 }: ITypography) => {
   const Component = getComponent(type as TypographyType);
 
   return (
-    <Component gutter={gutter as Gutter}>
+    <Component>
       {children}
     </Component>
   );
@@ -85,7 +81,6 @@ const Typography: FC<ITypography> = ({
 
 Typography.defaultProps = {
   children: undefined,
-  gutter: 0,
   type: 'body1',
 };
 

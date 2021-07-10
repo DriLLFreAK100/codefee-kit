@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { cvar, gut, rem } from 'utils/StyleHelper';
-import { ITypographyElement } from '../interface';
+import { cvar, rem } from 'utils/StyleHelper';
 
-const Button = styled.span<ITypographyElement>`
+const Button = styled.span`
   display: block;
   font-family: ${cvar('--font-family-secondary')};
   font-weight: 500;
@@ -10,7 +9,6 @@ const Button = styled.span<ITypographyElement>`
   letter-spacing: ${rem(1.25)};
   text-transform: uppercase;
   line-height: ${rem(16)};
-  margin-bottom: ${({ gutter }) => gut(gutter)};
 `;
 
 export default Button;

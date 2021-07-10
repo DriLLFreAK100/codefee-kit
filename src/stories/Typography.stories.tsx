@@ -36,7 +36,7 @@ export const Sample = () => {
 
       <div className={styles['typographySample']}>
         <div className={styles['typographySample__content']}>
-          <Typography type="h1">Typography Sample</Typography>
+          <Typography type="h1" gutter={40}>Typography Sample</Typography>
           <Typography type="h2">This is a testing platform</Typography>
           <Typography type="h3">This is a testing platform</Typography>
           <Typography type="h4">What is Lorem Ipsum?</Typography>
