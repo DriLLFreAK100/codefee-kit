@@ -2,7 +2,10 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "es5",
-    "lib": [ "es6", "dom" ],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "sourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",
@@ -14,10 +17,18 @@
     "esModuleInterop": true,
     "baseUrl": "src/",
     "paths": {
-      "common": ["src/common/*"],
-      "components": ["src/components/*"],
-      "hooks": ["src/hooks/*"],
-      "utils": ["src/utils/*"]
+      "common/*": [
+        "common/*"
+      ],
+      "components/*": [
+        "components/*"
+      ],
+      "hooks/*": [
+        "hooks/*"
+      ],
+      "utils/*": [
+        "utils/*"
+      ]
     }
   },
   "exclude": [
@@ -29,5 +40,7 @@
     "webpack",
     "jest"
   ],
-  "types": ["typePatches"]
+  "types": [
+    "typePatches"
+  ]
 }
