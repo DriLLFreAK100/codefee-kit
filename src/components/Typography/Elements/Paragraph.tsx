@@ -3,8 +3,8 @@ import { cvar, rem } from 'utils/StyleHelper';
 
 const Paragraph = styled.p`
   font-family: ${cvar('--font-family-secondary')};
-  font-size: ${rem(16)};
-  line-height: ${rem(24)};
+  font-size: ${rem(18)};
+  line-height: ${rem(30)};
   margin-bottom: ${rem(20)};
 `;
 

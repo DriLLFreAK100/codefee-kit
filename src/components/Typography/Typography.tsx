@@ -29,6 +29,7 @@ export type TypographyType =
   'button';
 
 export interface ITypography {
+  className?: string;
   children?: ReactNode;
   type?: TypographyType;
 }
@@ -67,19 +68,21 @@ const getComponent = (type: TypographyType) => {
 };
 
 const Typography: FC<ITypography> = ({
+  className,
   children,
   type,
 }: ITypography) => {
   const Component = getComponent(type as TypographyType);
 
   return (
-    <Component>
+    <Component className={className}>
       {children}
     </Component>
   );
 };
 
 Typography.defaultProps = {
+  className: '',
   children: undefined,
   type: 'body1',
 };
