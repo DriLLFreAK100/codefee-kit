@@ -36,11 +36,19 @@ export const Sample = () => {
 
       <div className={styles['typographySample']}>
         <div className={styles['typographySample__content']}>
-          <Typography className={styles['typographySample__title']} type="h1">
+          <Typography
+            className={styles['typographySample__title']}
+            type="h1"
+          >
             Typography Sample
           </Typography>
 
-          <Typography className={styles['typographySample__title']} type="h3">
+          <Typography
+            className={styles['typographySample__title']}
+            type="h3"
+            subtle
+            gutterBottom={32}
+          >
             A sample article to walk to illustrate the typography output
           </Typography>
 
@@ -74,7 +82,10 @@ export const Sample = () => {
           </Typography>
 
           <figure>
-            <img src={image} alt="penguin" />
+            <img
+              src={image}
+              alt="penguin"
+            />
             <Typography type="caption">Kissing Penguins</Typography>
           </figure>
 
@@ -105,16 +116,37 @@ export const Sample = () => {
           </Typography>
 
           <figure>
-            <img src={image2} alt="penguin" />
+            <img
+              src={image2}
+              alt="penguin"
+            />
             <Typography type="caption">Penguins Family</Typography>
           </figure>
+
           <hr />
 
-          <Typography type="h5">Contact Us</Typography>
+          <Typography
+            type="h5"
+            gutterBottom={16}
+          >
+            Contact Us
+          </Typography>
+
           <Typography type="h6">Email</Typography>
-          <Typography type="body1">abc@test.com</Typography>
+          <Typography
+            type="body1"
+            gutterBottom={8}
+          >
+            abc@test.com
+          </Typography>
+
           <Typography type="h6">Contact Number</Typography>
-          <Typography type="body2">12345678</Typography>
+          <Typography
+            type="body2"
+            gutterBottom={8}
+          >
+            12345678
+          </Typography>
         </div>
       </div>
     </AppContainer>
