@@ -1,7 +1,10 @@
 import styled from 'styled-components';
-import { cvar, rem } from 'utils/StyleHelper';
+import { BaseStyle } from './BaseStyles';
+import { cvar, rem } from 'utils';
+import { TypographyElementProps } from '../interface';
 
-const Body2 = styled.p`
+const Body2 = styled.p<TypographyElementProps>`
+  ${(props) => BaseStyle(props)}
   font-family: ${cvar('--font-family-secondary')};
   font-size: ${rem(14)};
   font-weight: normal;

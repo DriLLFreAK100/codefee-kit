@@ -12,6 +12,7 @@ import Paragraph from './Elements/Paragraph';
 import React, { FC, ReactNode } from 'react';
 import Subtitle1 from './Elements/Subtitle1';
 import Subtitle2 from './Elements/Subtitle2';
+import { TypographyElementProps } from './interface';
 
 export type TypographyType =
   'h1' |
@@ -28,7 +29,8 @@ export type TypographyType =
   'caption' |
   'button';
 
-export interface ITypography {
+export interface TypographyProps extends TypographyElementProps {
+  className?: string;
   children?: ReactNode;
   type?: TypographyType;
 }
@@ -66,21 +68,31 @@ const getComponent = (type: TypographyType) => {
   }
 };
 
-const Typography: FC<ITypography> = ({
-  children,
-  type,
-}: ITypography) => {
+const Typography: FC<TypographyProps> = (props: TypographyProps) => {
+  const {
+    className,
+    children,
+    type,
+    ...passThrough
+  } = props;
+
   const Component = getComponent(type as TypographyType);
 
   return (
-    <Component>
+    <Component
+      className={className}
+      {...passThrough}
+    >
       {children}
     </Component>
   );
 };
 
 Typography.defaultProps = {
+  className: '',
   children: undefined,
+  gutterBottom: undefined,
+  subtle: false,
   type: 'body1',
 };
 

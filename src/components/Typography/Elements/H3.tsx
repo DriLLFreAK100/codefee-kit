@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import { cvar, rem } from 'utils/StyleHelper';
+import { BaseHeadingStyle } from './BaseStyles';
+import { TypographyElementProps } from '../interface';
+import { rem } from 'utils/StyleHelper';
 
-const H3 = styled.h3`
-  font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(48)};
-  line-height: ${rem(60)};
-  font-weight: normal;
-  letter-spacing: ${rem(0)};
-  margin-bottom: ${rem(16)};
+const H3 = styled.h3<TypographyElementProps>`
+  font-size: ${rem(32)};
+  line-height: ${rem(44)};
+  ${(props) => BaseHeadingStyle(props, 16)}
 `;
 
 export default H3;

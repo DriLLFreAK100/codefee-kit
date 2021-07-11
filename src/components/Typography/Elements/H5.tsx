@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import { cvar, rem } from 'utils/StyleHelper';
+import { BaseHeadingStyle } from './BaseStyles';
+import { TypographyElementProps } from '../interface';
+import { rem } from 'utils/StyleHelper';
 
-const H5 = styled.h5`
-  font-family: ${cvar('--font-family-primary')};
+const H5 = styled.h5<TypographyElementProps>`
   font-size: ${rem(24)};
   line-height: ${rem(36)};
-  font-weight: normal;
-  letter-spacing: ${rem(0)};
-  margin-bottom: ${rem(8)};
+  ${(props) => BaseHeadingStyle(props)}
 `;
 
 export default H5;

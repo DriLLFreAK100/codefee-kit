@@ -36,11 +36,23 @@ export const Sample = () => {
 
       <div className={styles['typographySample']}>
         <div className={styles['typographySample__content']}>
-          <Typography type="h1" gutter={40}>Typography Sample</Typography>
-          <Typography type="h2">This is a testing platform</Typography>
-          <Typography type="h3">This is a testing platform</Typography>
-          <Typography type="h4">What is Lorem Ipsum?</Typography>
+          <Typography
+            className={styles['typographySample__title']}
+            type="h1"
+          >
+            Typography Sample
+          </Typography>
 
+          <Typography
+            className={styles['typographySample__title']}
+            type="h3"
+            subtle
+            gutterBottom={32}
+          >
+            A sample article to walk to illustrate the typography output
+          </Typography>
+
+          <Typography type="h4">What is Lorem Ipsum?</Typography>
           <Typography type="p">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
@@ -70,7 +82,10 @@ export const Sample = () => {
           </Typography>
 
           <figure>
-            <img src={image} alt="penguin" />
+            <img
+              src={image}
+              alt="penguin"
+            />
             <Typography type="caption">Kissing Penguins</Typography>
           </figure>
 
@@ -87,17 +102,51 @@ export const Sample = () => {
             like Aldus PageMaker including versions of Lorem Ipsum.
           </Typography>
 
+          <Typography type="p">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled
+            it to make a type specimen book.
+            It has survived not only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged.
+            It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software
+            like Aldus PageMaker including versions of Lorem Ipsum.
+          </Typography>
+
           <figure>
-            <img src={image2} alt="penguin" />
+            <img
+              src={image2}
+              alt="penguin"
+            />
             <Typography type="caption">Penguins Family</Typography>
           </figure>
+
           <hr />
 
-          <Typography type="h5">Contact Us</Typography>
+          <Typography
+            type="h5"
+            gutterBottom={16}
+          >
+            Contact Us
+          </Typography>
+
           <Typography type="h6">Email</Typography>
-          <Typography type="body1">abc@test.com</Typography>
+          <Typography
+            type="body1"
+            gutterBottom={8}
+          >
+            abc@test.com
+          </Typography>
+
           <Typography type="h6">Contact Number</Typography>
-          <Typography type="body2">12345678</Typography>
+          <Typography
+            type="body2"
+            gutterBottom={8}
+          >
+            12345678
+          </Typography>
         </div>
       </div>
     </AppContainer>
