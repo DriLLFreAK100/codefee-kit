@@ -1,5 +1,5 @@
 import AppContainer from 'components/AppContainer';
-import CircularProgress, { ICircularProgressProps } from 'components/CircularProgress';
+import CircularProgress, { CircularProgressProps } from 'components/CircularProgress';
 import React, { useEffect, useState } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
@@ -8,7 +8,7 @@ export default {
   component: CircularProgress,
 } as Meta;
 
-const Template: Story<ICircularProgressProps> = (args) => {
+const Template: Story<CircularProgressProps> = (args) => {
   return (
     <AppContainer>
       <CircularProgress {...args} />
@@ -16,7 +16,7 @@ const Template: Story<ICircularProgressProps> = (args) => {
   );
 };
 
-export const Determinate: Story<ICircularProgressProps> = (args) => {
+export const Determinate: Story<CircularProgressProps> = (args) => {
   const [loadProgress, setLoadProgress] = useState(0);
 
   useEffect(() => {
@@ -31,22 +31,25 @@ export const Determinate: Story<ICircularProgressProps> = (args) => {
 
   return (
     <AppContainer>
-      <CircularProgress {...args} progress={loadProgress} />
+      <CircularProgress
+        {...args}
+        progress={loadProgress}
+      />
     </AppContainer>
   );
 };
 
 Determinate.args = {
   type: 'determinate',
-} as ICircularProgressProps;
+} as CircularProgressProps;
 
 export const Indeterminate = Template.bind({});
 Indeterminate.args = {
   type: 'indeterminate',
-} as ICircularProgressProps;
+} as CircularProgressProps;
 
 export const SecondaryColor = Template.bind({});
 SecondaryColor.args = {
   type: 'indeterminate',
   color: 'secondary',
-} as ICircularProgressProps;
+} as CircularProgressProps;

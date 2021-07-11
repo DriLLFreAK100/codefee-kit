@@ -1,25 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC, forwardRef, memo } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
 
 const radius = 20.2;
 const circumference = 2 * Math.PI * radius;
 
-type CircleType = 'determinate' | 'indeterminate';
+export type CircularProgressType = 'determinate' | 'indeterminate';
 
-interface ICircularProgressProps {
+export interface CircularProgressProps {
   color?: 'primary' | 'secondary';
   progress?: number;
-  type?: CircleType;
+  type?: CircularProgressType;
 }
 
-const StyledCircularProgress = styled.div<ICircularProgressProps>`
+const StyledCircularProgress = styled.div<CircularProgressProps>`
   display: inline-block;
   height: ${rem(48)};
   width: ${rem(48)};
 `;
 
-const Svg = styled.svg<ICircularProgressProps>`
+const Svg = styled.svg<CircularProgressProps>`
   @keyframes circular-rotate {
     0% {
       transform: rotate(0deg);
@@ -35,7 +35,7 @@ const Svg = styled.svg<ICircularProgressProps>`
   animation: ${({ type }) => { return type === 'indeterminate' ? 'circular-rotate 1.4s ease-in-out infinite' : 'unset'; }};
 `;
 
-const Circle = styled.circle<ICircularProgressProps>`
+const Circle = styled.circle<CircularProgressProps>`
   stroke: ${({ color }) => {
     if (color === 'primary') return cvar('--color-primary');
     if (color === 'secondary') return cvar('--color-secondary');
@@ -70,7 +70,7 @@ const IndeterminateCircle = styled(Circle)`
   stroke-dashoffset: 0px;
 `;
 
-const getCircleComponent = (type: CircleType): StyledComponent<'circle', any, ICircularProgressProps, never> => {
+const getCircleComponent = (type: CircularProgressType): StyledComponent<'circle', any, CircularProgressProps, never> => {
   switch (type) {
     case 'determinate':
       return DeterminateCircle;
@@ -81,24 +81,31 @@ const getCircleComponent = (type: CircleType): StyledComponent<'circle', any, IC
   }
 };
 
-const CircularProgress: FC<ICircularProgressProps> = ({
+const CircularProgress: FC<CircularProgressProps> = forwardRef<
+  HTMLDivElement,
+  CircularProgressProps
+>(({
   color,
   progress,
   type,
-}: ICircularProgressProps) => {
+}: CircularProgressProps, ref) => {
   const determinateStyle = {
     strokeDasharray: circumference,
     strokeDashoffset: `${circumference - (((progress as number) / 100) * circumference)}`,
   };
 
-  const CircleComponent = getCircleComponent(type as CircleType);
+  const CircleComponent = getCircleComponent(type as CircularProgressType);
 
   return (
     <StyledCircularProgress
+      ref={ref}
       color={color}
       type={type}
     >
-      <Svg type={type} viewBox="22 22 44 44">
+      <Svg
+        type={type}
+        viewBox="22 22 44 44"
+      >
         <CircleComponent
           color={color}
           style={determinateStyle}
@@ -111,7 +118,7 @@ const CircularProgress: FC<ICircularProgressProps> = ({
       </Svg>
     </StyledCircularProgress>
   );
-};
+});
 
 CircularProgress.displayName = 'CircularProgress';
 CircularProgress.defaultProps = {
@@ -120,7 +127,4 @@ CircularProgress.defaultProps = {
   type: 'indeterminate',
 };
 
-export default CircularProgress;
-export type {
-  ICircularProgressProps,
-};
+export default memo(CircularProgress);

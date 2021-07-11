@@ -1,10 +1,12 @@
-import React, { FunctionComponent, ReactNode } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
+import React, {
+  FC, ReactNode, forwardRef, memo,
+} from 'react';
 
-type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
+export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
 
-interface IButtonProps {
+export interface ButtonProps {
   children?: ReactNode;
   disabled?: boolean;
   text?: string;
@@ -12,7 +14,7 @@ interface IButtonProps {
   onClick?: () => void;
 }
 
-const StyledButton = styled.button<IButtonProps>`
+const StyledButton = styled.button<ButtonProps>`
   border: none;
   border-radius: ${rem(4)};
   cursor: pointer;
@@ -136,7 +138,7 @@ const ErrorButton = styled(StyledButton)`
   }
 `;
 
-const getButtonComponent = (type: ButtonType): StyledComponent<'button', any, IButtonProps, never> => {
+const getButtonComponent = (type: ButtonType): StyledComponent<'button', any, ButtonProps, never> => {
   switch (type) {
     case 'primary':
       return PrimaryButton;
@@ -155,17 +157,18 @@ const getButtonComponent = (type: ButtonType): StyledComponent<'button', any, IB
   }
 };
 
-const Button: FunctionComponent<IButtonProps> = ({
+const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   disabled,
   text,
   type,
   onClick,
-}: IButtonProps) => {
+}: ButtonProps, ref) => {
   const Component = getButtonComponent(type as ButtonType);
 
   return (
     <Component
+      ref={ref}
       disabled={disabled}
       type={type as any}
       onClick={onClick}
@@ -173,7 +176,7 @@ const Button: FunctionComponent<IButtonProps> = ({
       {children ?? text}
     </Component>
   );
-};
+});
 
 Button.displayName = 'Button';
 Button.defaultProps = {
@@ -184,7 +187,4 @@ Button.defaultProps = {
   onClick: undefined,
 };
 
-export default Button;
-export type {
-  IButtonProps,
-};
+export default memo(Button);

@@ -3,7 +3,7 @@ import { CodefeeTheme, ITheme } from 'common/Theme';
 import { createGlobalStyle } from 'styled-components';
 import './AppContainer.css';
 
-interface IAppContainer {
+export interface AppContainerProps {
   children?: ReactNode;
   appTheme?: ITheme;
 }
@@ -18,10 +18,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const AppContainer: FC<IAppContainer> = ({
+const AppContainer: FC<AppContainerProps> = ({
   children,
   appTheme,
-}: IAppContainer) => {
+}: AppContainerProps) => {
   return (
     <>
       <GlobalStyle appTheme={appTheme as ITheme} />
@@ -30,10 +30,10 @@ const AppContainer: FC<IAppContainer> = ({
   );
 };
 
+AppContainer.displayName = 'AppContainer';
 AppContainer.defaultProps = {
   children: undefined,
   appTheme: CodefeeTheme,
 };
 
 export default AppContainer;
-export type { IAppContainer };

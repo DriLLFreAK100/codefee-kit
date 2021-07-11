@@ -1,12 +1,14 @@
-import React, { CSSProperties, FunctionComponent, ReactNode } from 'react';
 import styled from 'styled-components';
 import useWindowSize from 'hooks/useWindowSize';
 import { HorizontalAlignment, SizeType, VerticalAlignment } from 'common/Types';
 import { rem } from 'utils/StyleHelper';
+import React, {
+  CSSProperties, forwardRef, FC, ReactNode, memo,
+} from 'react';
 
-type GridSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
+export type GridSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
 
-interface IGrid {
+export interface GridProps {
   children?: ReactNode;
   className?: string;
   fullHeight?: boolean;
@@ -129,7 +131,10 @@ const StyledGrid = styled.div`
   box-sizing: border-box;
 `;
 
-const Grid: FunctionComponent<IGrid> = ({
+const Grid: FC<GridProps> = forwardRef<
+  HTMLDivElement,
+  GridProps
+>(({
   children,
   className,
   fullHeight,
@@ -141,7 +146,7 @@ const Grid: FunctionComponent<IGrid> = ({
   md,
   lg,
   xl,
-}: IGrid) => {
+}: GridProps, ref) => {
   guard(xs, sm, md, lg, xl);
   const { size } = useWindowSize();
   let computedStyle: CSSProperties = { ...style };
@@ -165,11 +170,15 @@ const Grid: FunctionComponent<IGrid> = ({
   }
 
   return (
-    <StyledGrid className={className} style={computedStyle}>
+    <StyledGrid
+      ref={ref}
+      className={className}
+      style={computedStyle}
+    >
       {children}
     </StyledGrid>
   );
-};
+});
 
 Grid.displayName = 'Grid';
 Grid.defaultProps = {
@@ -186,7 +195,4 @@ Grid.defaultProps = {
   xl: undefined,
 };
 
-export default Grid;
-export type {
-  IGrid,
-};
+export default memo(Grid);
