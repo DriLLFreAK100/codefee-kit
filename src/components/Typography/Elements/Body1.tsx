@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { BaseStyle } from './BaseStyles';
 import { cvar, rem } from 'utils/StyleHelper';
+import { BaseStyle } from './BaseStyles';
 import { TypographyElementProps } from '../interface';
 
 const Body1 = styled.p<TypographyElementProps>`

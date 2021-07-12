@@ -131,10 +131,7 @@ const StyledGrid = styled.div`
   box-sizing: border-box;
 `;
 
-const Grid: FC<GridProps> = forwardRef<
-  HTMLDivElement,
-  GridProps
->(({
+const Grid: FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(({
   children,
   className,
   fullHeight,

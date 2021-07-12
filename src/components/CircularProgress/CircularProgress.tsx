@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/indent */
 import React, { FC, forwardRef, memo } from 'react';
-import styled, { StyledComponent } from 'styled-components';
+import styled from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
 
 const radius = 20.2;
@@ -32,7 +33,7 @@ const Svg = styled.svg<CircularProgressProps>`
 
   height: ${rem(48)};
   width: ${rem(48)};
-  animation: ${({ type }) => { return type === 'indeterminate' ? 'circular-rotate 1.4s ease-in-out infinite' : 'unset'; }};
+  animation: ${({ type }) => (type === 'indeterminate' ? 'circular-rotate 1.4s ease-in-out infinite' : 'unset')};
 `;
 
 const Circle = styled.circle<CircularProgressProps>`
@@ -70,7 +71,7 @@ const IndeterminateCircle = styled(Circle)`
   stroke-dashoffset: 0px;
 `;
 
-const getCircleComponent = (type: CircularProgressType): StyledComponent<'circle', any, CircularProgressProps, never> => {
+const getCircleComponent = (type: CircularProgressType) => {
   switch (type) {
     case 'determinate':
       return DeterminateCircle;

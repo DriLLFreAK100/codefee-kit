@@ -1,4 +1,4 @@
-import styled, { StyledComponent } from 'styled-components';
+import styled from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
 import React, {
   FC, ReactNode, forwardRef, memo,
@@ -7,10 +7,10 @@ import React, {
 export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
 
 export interface ButtonProps {
+  buttonType?: ButtonType;
   children?: ReactNode;
   disabled?: boolean;
   text?: string;
-  type?: ButtonType;
   onClick?: () => void;
 }
 
@@ -138,7 +138,7 @@ const ErrorButton = styled(StyledButton)`
   }
 `;
 
-const getButtonComponent = (type: ButtonType): StyledComponent<'button', any, ButtonProps, never> => {
+const getButtonComponent = (type: ButtonType) => {
   switch (type) {
     case 'primary':
       return PrimaryButton;
@@ -161,7 +161,7 @@ const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   disabled,
   text,
-  type,
+  buttonType: type,
   onClick,
 }: ButtonProps, ref) => {
   const Component = getButtonComponent(type as ButtonType);
@@ -169,8 +169,8 @@ const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
   return (
     <Component
       ref={ref}
+      buttonType={type as ButtonType}
       disabled={disabled}
-      type={type as any}
       onClick={onClick}
     >
       {children ?? text}
@@ -181,9 +181,7 @@ const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
 Button.displayName = 'Button';
 Button.defaultProps = {
   children: undefined,
-  disabled: false,
-  text: '',
-  type: 'primary',
+  buttonType: 'primary',
   onClick: undefined,
 };
 

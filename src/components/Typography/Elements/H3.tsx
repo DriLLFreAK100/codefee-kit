@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import { rem } from 'utils/StyleHelper';
 import { BaseHeadingStyle } from './BaseStyles';
 import { TypographyElementProps } from '../interface';
-import { rem } from 'utils/StyleHelper';
 
 const H3 = styled.h3<TypographyElementProps>`
   font-size: ${rem(32)};

@@ -1,3 +1,6 @@
+import React, {
+  FC, forwardRef, memo, ReactNode,
+} from 'react';
 import Body1 from './Elements/Body1';
 import Body2 from './Elements/Body2';
 import Button from './Elements/Button';
@@ -12,9 +15,6 @@ import Paragraph from './Elements/Paragraph';
 import Subtitle1 from './Elements/Subtitle1';
 import Subtitle2 from './Elements/Subtitle2';
 import { TypographyElementProps } from './interface';
-import React, {
-  FC, forwardRef, memo, ReactNode,
-} from 'react';
 
 export type TypographyType =
   'h1' |

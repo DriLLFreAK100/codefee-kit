@@ -5,30 +5,26 @@ import './AppContainer.css';
 
 export interface AppContainerProps {
   children?: ReactNode;
-  appTheme?: ITheme;
+  appTheme: ITheme;
 }
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<AppContainerProps>`
   :root{
-    ${({ appTheme }: any) => Object
+    ${({ appTheme }) => Object
     .keys(appTheme)
-    .map((key: keyof ITheme) => {
-      return `${key}: ${appTheme[key]};`;
-    })};
+    .map((key: keyof ITheme) => `${key}: ${appTheme[key]};`)};
   }
 `;
 
 const AppContainer: FC<AppContainerProps> = ({
   children,
   appTheme,
-}: AppContainerProps) => {
-  return (
-    <>
-      <GlobalStyle appTheme={appTheme as ITheme} />
-      {children}
-    </>
-  );
-};
+}: AppContainerProps) => (
+  <>
+    <GlobalStyle appTheme={appTheme} />
+    {children}
+  </>
+);
 
 AppContainer.displayName = 'AppContainer';
 AppContainer.defaultProps = {
