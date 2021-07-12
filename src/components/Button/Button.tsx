@@ -3,6 +3,7 @@ import { cvar, rem } from 'utils/StyleHelper';
 import React, {
   FC, ReactNode, forwardRef, memo,
 } from 'react';
+import Typography from 'components/Typography';
 
 export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
 
@@ -16,10 +17,12 @@ export interface ButtonProps {
 
 const StyledButton = styled.button<ButtonProps>`
   border: none;
-  border-radius: ${rem(4)};
+  border-radius: ${cvar('--control-border-radius')};
+  box-sizing: border-box;
   cursor: pointer;
+  height: ${cvar('--control-height')};
   outline: none;
-  padding: ${rem(16)};
+  padding: ${rem(14)} ${rem(16)};
   transition: background-color ${cvar('--transition-hover')} ease-in-out;
 
   &:disabled {
@@ -48,23 +51,24 @@ const PrimaryButton = styled(StyledButton)`
 
 const SubtleButton = styled(StyledButton)`
   background-color: white;
-  border: 0.1rem solid  ${cvar('--color-primary')};
+  border: ${rem(1)} solid  ${cvar('--color-primary')};
+  padding: ${rem(13)} ${rem(16)};
   color: black;
 
   :hover {
-    border: 0.1rem solid  ${cvar('--color-primary-light')};
+    border: ${rem(1)} solid  ${cvar('--color-primary-light')};
     background: ${cvar('--color-primary-light')};
     color: ${cvar('--color-primary-on')};
   }
 
   :active {
-    border: 0.1rem solid ${cvar('--color-primary-dark')};
+    border: ${rem(1)} solid ${cvar('--color-primary-dark')};
     background: ${cvar('--color-primary-dark')};
     color:  ${cvar('--color-primary-on')};
   }
 
   :disabled {
-    border: 0.1rem solid ${cvar('--color-primary')};
+    border: ${rem(1)} solid ${cvar('--color-primary')};
     background-color: white;
     color: black;
   }
@@ -173,7 +177,7 @@ const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
       disabled={disabled}
       onClick={onClick}
     >
-      {children ?? text}
+      {children ?? <Typography type="button">{text}</Typography>}
     </Component>
   );
 });

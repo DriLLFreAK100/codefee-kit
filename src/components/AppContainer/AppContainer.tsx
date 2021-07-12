@@ -5,14 +5,14 @@ import './AppContainer.css';
 
 export interface AppContainerProps {
   children?: ReactNode;
-  appTheme: ITheme;
+  appTheme?: ITheme;
 }
 
 const GlobalStyle = createGlobalStyle<AppContainerProps>`
   :root{
     ${({ appTheme }) => Object
-    .keys(appTheme)
-    .map((key: keyof ITheme) => `${key}: ${appTheme[key]};`)};
+    .keys(appTheme as ITheme)
+    .map((key: keyof ITheme) => `${key}: ${(appTheme as ITheme)[key]};`)};
   }
 `;
 
