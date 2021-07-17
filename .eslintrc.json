@@ -24,7 +24,14 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "react/jsx-props-no-spreading": 0
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-max-props-per-line": [
+      2,
+      {
+        "maximum": 1,
+        "when": "multiline"
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
