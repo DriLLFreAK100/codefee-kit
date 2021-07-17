@@ -1,26 +1,25 @@
 /* eslint-disable @typescript-eslint/indent */
-import React, { FC, forwardRef, memo } from 'react';
+import React, {
+  FC, forwardRef, memo, useMemo,
+} from 'react';
 import styled from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
-
-const radius = 20.2;
-const circumference = 2 * Math.PI * radius;
 
 export type CircularProgressType = 'determinate' | 'indeterminate';
 
 export interface CircularProgressProps {
   color?: 'primary' | 'secondary';
   progress?: number;
+  size?: number;
+  strokeWidth?: number;
   type?: CircularProgressType;
 }
 
-const StyledCircularProgress = styled.div<CircularProgressProps>`
-  display: inline-block;
-  height: ${rem(48)};
-  width: ${rem(48)};
-`;
+export interface CircleProps extends CircularProgressProps {
+  circumference: number;
+}
 
-const Svg = styled.svg<CircularProgressProps>`
+const StyledCircularProgress = styled.svg<CircularProgressProps>`
   @keyframes circular-rotate {
     0% {
       transform: rotate(0deg);
@@ -31,12 +30,12 @@ const Svg = styled.svg<CircularProgressProps>`
     }
   }
 
-  height: ${rem(48)};
-  width: ${rem(48)};
+  height: ${({ size }) => rem(size as number)};
+  width: ${({ size }) => rem(size as number)};
   animation: ${({ type }) => (type === 'indeterminate' ? 'circular-rotate 1.4s ease-in-out infinite' : 'unset')};
 `;
 
-const Circle = styled.circle<CircularProgressProps>`
+const StyledCircle = styled.circle<CircleProps>`
   stroke: ${({ color }) => {
     if (color === 'primary') return cvar('--color-primary');
     if (color === 'secondary') return cvar('--color-secondary');
@@ -44,11 +43,13 @@ const Circle = styled.circle<CircularProgressProps>`
   }};
 `;
 
-const DeterminateCircle = styled(Circle)`
+const DeterminateCircle = styled(StyledCircle)`
   transition: stroke-dashoffset 300ms;
+  stroke-dasharray: ${({ circumference }) => circumference};
+  stroke-dashoffset: ${({ circumference, progress }) => `${circumference - (((progress as number) / 100) * circumference)}`};
 `;
 
-const IndeterminateCircle = styled(Circle)`
+const IndeterminateCircle = styled(StyledCircle)`
   @keyframes circular-dash {
     0% {
       stroke-dasharray: 1px, 200px;
@@ -82,41 +83,34 @@ const getCircleComponent = (type: CircularProgressType) => {
   }
 };
 
+const getRadius = (size: number, strokeWidth: number) => (size / 2) - strokeWidth;
+
+const getCircumference = (radius: number) => 2 * Math.PI * radius;
+
 const CircularProgress: FC<CircularProgressProps> = forwardRef<
-  HTMLDivElement,
+  SVGSVGElement,
   CircularProgressProps
->(({
-  color,
-  progress,
-  type,
-}: CircularProgressProps, ref) => {
-  const determinateStyle = {
-    strokeDasharray: circumference,
-    strokeDashoffset: `${circumference - (((progress as number) / 100) * circumference)}`,
-  };
+>((props: CircularProgressProps, ref) => {
+  const { size, strokeWidth, type } = props;
+  const radius = useMemo(() => getRadius(size as number, strokeWidth as number), [size]);
+  const circumference = useMemo(() => getCircumference(radius), [radius]);
 
   const CircleComponent = getCircleComponent(type as CircularProgressType);
 
   return (
     <StyledCircularProgress
       ref={ref}
-      color={color}
+      size={size}
       type={type}
     >
-      <Svg
-        type={type}
-        viewBox="22 22 44 44"
-      >
-        <CircleComponent
-          color={color}
-          style={determinateStyle}
-          cx="44"
-          cy="44"
-          r={radius}
-          fill="none"
-          strokeWidth="3.6"
-        />
-      </Svg>
+      <CircleComponent
+        circumference={circumference}
+        cx={(size as number) / 2}
+        cy={(size as number) / 2}
+        r={radius}
+        fill="none"
+        {...props}
+      />
     </StyledCircularProgress>
   );
 });
@@ -125,6 +119,8 @@ CircularProgress.displayName = 'CircularProgress';
 CircularProgress.defaultProps = {
   color: 'primary',
   progress: 0,
+  size: 48,
+  strokeWidth: 3.6,
   type: 'indeterminate',
 };
 
