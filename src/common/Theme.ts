@@ -28,6 +28,8 @@ export interface ITheme {
   '--font-family-secondary': string;
   '--transition-hover': string;
   '--transition-toggle': string;
+  '--control-border-radius': string;
+  '--control-height': string;
 }
 
 export const CodefeeTheme: ITheme = {
@@ -59,4 +61,6 @@ export const CodefeeTheme: ITheme = {
   '--font-family-secondary': 'Open Sans, sans-serif',
   '--transition-hover': '0.1s',
   '--transition-toggle': '0.3s',
+  '--control-border-radius': '0.25rem',
+  '--control-height': '3rem',
 };

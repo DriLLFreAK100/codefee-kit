@@ -1,3 +1,6 @@
+import React, {
+  FC, forwardRef, memo, ReactNode,
+} from 'react';
 import Body1 from './Elements/Body1';
 import Body2 from './Elements/Body2';
 import Button from './Elements/Button';
@@ -9,7 +12,6 @@ import H4 from './Elements/H4';
 import H5 from './Elements/H5';
 import H6 from './Elements/H6';
 import Paragraph from './Elements/Paragraph';
-import React, { FC, ReactNode } from 'react';
 import Subtitle1 from './Elements/Subtitle1';
 import Subtitle2 from './Elements/Subtitle2';
 import { TypographyElementProps } from './interface';
@@ -68,26 +70,26 @@ const getComponent = (type: TypographyType) => {
   }
 };
 
-const Typography: FC<TypographyProps> = (props: TypographyProps) => {
-  const {
-    className,
-    children,
-    type,
-    ...passThrough
-  } = props;
-
+const Typography: FC<TypographyProps> = forwardRef<HTMLElement, TypographyProps>(({
+  className,
+  children,
+  type,
+  ...passThrough
+}: TypographyProps, ref) => {
   const Component = getComponent(type as TypographyType);
 
   return (
     <Component
+      ref={ref}
       className={className}
       {...passThrough}
     >
       {children}
     </Component>
   );
-};
+});
 
+Typography.displayName = 'Typography';
 Typography.defaultProps = {
   className: '',
   children: undefined,
@@ -96,4 +98,4 @@ Typography.defaultProps = {
   type: 'body1',
 };
 
-export default Typography;
+export default memo(Typography);

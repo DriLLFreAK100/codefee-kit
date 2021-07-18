@@ -3,37 +3,33 @@ import { CodefeeTheme, ITheme } from 'common/Theme';
 import { createGlobalStyle } from 'styled-components';
 import './AppContainer.css';
 
-interface IAppContainer {
+export interface AppContainerProps {
   children?: ReactNode;
   appTheme?: ITheme;
 }
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<AppContainerProps>`
   :root{
-    ${({ appTheme }: any) => Object
-    .keys(appTheme)
-    .map((key: keyof ITheme) => {
-      return `${key}: ${appTheme[key]};`;
-    })};
+    ${({ appTheme }) => Object
+    .keys(appTheme as ITheme)
+    .map((key: keyof ITheme) => `${key}: ${(appTheme as ITheme)[key]};`)};
   }
 `;
 
-const AppContainer: FC<IAppContainer> = ({
+const AppContainer: FC<AppContainerProps> = ({
   children,
   appTheme,
-}: IAppContainer) => {
-  return (
-    <>
-      <GlobalStyle appTheme={appTheme as ITheme} />
-      {children}
-    </>
-  );
-};
+}: AppContainerProps) => (
+  <>
+    <GlobalStyle appTheme={appTheme} />
+    {children}
+  </>
+);
 
+AppContainer.displayName = 'AppContainer';
 AppContainer.defaultProps = {
   children: undefined,
   appTheme: CodefeeTheme,
 };
 
 export default AppContainer;
-export type { IAppContainer };

@@ -1,5 +1,5 @@
 import { Gutter } from 'common';
-import { css } from 'styled-components';
+import { css, FlattenSimpleInterpolation } from 'styled-components';
 import { cvar, rem } from 'utils';
 
 import { TypographyElementProps } from '../interface';
@@ -7,7 +7,7 @@ import { TypographyElementProps } from '../interface';
 export const BaseStyle = ({
   gutterBottom,
   subtle,
-}: TypographyElementProps) => css`
+}: TypographyElementProps) : FlattenSimpleInterpolation => css`
   ${gutterBottom ? `
     margin-bottom: ${rem(gutterBottom)};
   ` : ''}
@@ -22,7 +22,7 @@ export const BaseStyle = ({
 export const BaseHeadingStyle = (
   props: TypographyElementProps,
   defaultGutterBottom: Gutter = 0,
-) => {
+) : FlattenSimpleInterpolation => {
   const { gutterBottom } = props;
 
   return css`

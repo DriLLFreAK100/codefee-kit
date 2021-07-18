@@ -5,12 +5,16 @@
     "es2021": true
   },
   "extends": [
+    "airbnb-typescript",
     "eslint:recommended",
     "plugin:react/recommended",
-    "airbnb"
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": "./tsconfig.eslint.json",
     "ecmaFeatures": {
       "jsx": true
     },
@@ -21,49 +25,13 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": [
-      "error"
-    ],
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
-    "react/jsx-filename-extension": [
-      2,
-      {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
-      }
-    ],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
     "react/jsx-props-no-spreading": 0,
-    "dot-notation": 0,
-    "import/order": 0,
-    "arrow-body-style": 0,
     "react/jsx-max-props-per-line": [
-      1,
-      {
-        "maximum": 1
-      }
-    ],
-    "import/no-extraneous-dependencies": 0,
-    "comma-dangle": [
       2,
-      "always-multiline"
+      {
+        "maximum": 1,
+        "when": "multiline"
+      }
     ]
   },
   "settings": {

@@ -1,23 +1,29 @@
-import React, { FunctionComponent, ReactNode } from 'react';
-import styled, { StyledComponent } from 'styled-components';
+import styled from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
+import React, {
+  FC, ReactNode, forwardRef, memo,
+} from 'react';
+import Typography from 'components/Typography';
 
-type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
+export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
 
-interface IButtonProps {
+export interface ButtonProps {
+  buttonType?: ButtonType;
   children?: ReactNode;
   disabled?: boolean;
   text?: string;
-  type?: ButtonType;
   onClick?: () => void;
 }
 
-const StyledButton = styled.button<IButtonProps>`
+const StyledButton = styled.button<ButtonProps>`
   border: none;
-  border-radius: ${rem(4)};
+  border-radius: ${cvar('--control-border-radius')};
+  box-sizing: border-box;
   cursor: pointer;
+  height: ${cvar('--control-height')};
+  min-width: ${rem(130)};
   outline: none;
-  padding: ${rem(16)};
+  padding: ${rem(14)} ${rem(16)};
   transition: background-color ${cvar('--transition-hover')} ease-in-out;
 
   &:disabled {
@@ -46,23 +52,24 @@ const PrimaryButton = styled(StyledButton)`
 
 const SubtleButton = styled(StyledButton)`
   background-color: white;
-  border: 0.1rem solid  ${cvar('--color-primary')};
+  border: ${rem(1)} solid  ${cvar('--color-primary')};
+  padding: ${rem(13)} ${rem(16)};
   color: black;
 
   :hover {
-    border: 0.1rem solid  ${cvar('--color-primary-light')};
+    border: ${rem(1)} solid  ${cvar('--color-primary-light')};
     background: ${cvar('--color-primary-light')};
     color: ${cvar('--color-primary-on')};
   }
 
   :active {
-    border: 0.1rem solid ${cvar('--color-primary-dark')};
+    border: ${rem(1)} solid ${cvar('--color-primary-dark')};
     background: ${cvar('--color-primary-dark')};
     color:  ${cvar('--color-primary-on')};
   }
 
   :disabled {
-    border: 0.1rem solid ${cvar('--color-primary')};
+    border: ${rem(1)} solid ${cvar('--color-primary')};
     background-color: white;
     color: black;
   }
@@ -136,7 +143,7 @@ const ErrorButton = styled(StyledButton)`
   }
 `;
 
-const getButtonComponent = (type: ButtonType): StyledComponent<'button', any, IButtonProps, never> => {
+const getButtonComponent = (type: ButtonType) => {
   switch (type) {
     case 'primary':
       return PrimaryButton;
@@ -155,36 +162,32 @@ const getButtonComponent = (type: ButtonType): StyledComponent<'button', any, IB
   }
 };
 
-const Button: FunctionComponent<IButtonProps> = ({
+const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   disabled,
   text,
-  type,
+  buttonType: type,
   onClick,
-}: IButtonProps) => {
+}: ButtonProps, ref) => {
   const Component = getButtonComponent(type as ButtonType);
 
   return (
     <Component
+      ref={ref}
+      buttonType={type as ButtonType}
       disabled={disabled}
-      type={type as any}
       onClick={onClick}
     >
-      {children ?? text}
+      {children ?? <Typography type="button">{text}</Typography>}
     </Component>
   );
-};
+});
 
 Button.displayName = 'Button';
 Button.defaultProps = {
   children: undefined,
-  disabled: false,
-  text: '',
-  type: 'primary',
+  buttonType: 'primary',
   onClick: undefined,
 };
 
-export default Button;
-export type {
-  IButtonProps,
-};
+export default memo(Button);
