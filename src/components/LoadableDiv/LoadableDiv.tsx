@@ -3,7 +3,7 @@ import React, {
   FC,
   forwardRef,
   memo,
-  ReactNode
+  ReactNode,
 } from 'react';
 import styled, { CSSProperties } from 'styled-components';
 import { cvar } from 'utils/StyleHelper';
@@ -14,13 +14,19 @@ export interface LoadableDivProps {
   opacity?: number;
   loading: boolean;
   style?: CSSProperties;
+  renderLoader?: () => ReactNode;
+}
+
+interface LoaderProps {
+  $opacity: number;
+  $loading: boolean;
 }
 
 const StyledLoadableDiv = styled.div`
   position: relative;
 `;
 
-const StyledLoader = styled.div<LoadableDivProps>`
+const StyledLoader = styled.div<LoaderProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,15 +35,10 @@ const StyledLoader = styled.div<LoadableDivProps>`
   height: 100%;
   width: 100%;
   position: absolute;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility ${cvar('--transition-hover')} ease-in-out, opacity ${cvar('--transition-hover')} ease-in-out, ;
-
-  ${(props) => !props.loading && `
-    visibility: visible;
-    background: white;
-    opacity: ${props.opacity};
-  `}
+  background: ${({ $opacity }) => `rgba(255, 255, 255, ${$opacity})`};
+  visibility: ${({ $loading }) => ($loading ? 'visible' : 'hidden')};
+  opacity: ${({ $loading }) => ($loading ? 1 : 0)};
+  transition: visibility ${cvar('--transition-toggle')} ease-in-out, opacity ${cvar('--transition-toggle')} ease-in-out;
 `;
 
 const LoadableDiv: FC<LoadableDivProps> = forwardRef<HTMLDivElement, LoadableDivProps>(({
@@ -46,6 +47,7 @@ const LoadableDiv: FC<LoadableDivProps> = forwardRef<HTMLDivElement, LoadableDiv
   loading,
   opacity,
   style,
+  renderLoader,
 }: LoadableDivProps, ref) => (
   <StyledLoadableDiv
     className={className}
@@ -54,10 +56,10 @@ const LoadableDiv: FC<LoadableDivProps> = forwardRef<HTMLDivElement, LoadableDiv
   >
     {children}
     <StyledLoader
-      loading={loading}
-      opacity={opacity}
+      $loading={loading}
+      $opacity={opacity as number}
     >
-      <CircularProgress />
+      {renderLoader ? renderLoader() : <CircularProgress />}
     </StyledLoader>
   </StyledLoadableDiv>
 ));
@@ -68,6 +70,7 @@ LoadableDiv.defaultProps = {
   className: '',
   opacity: 0.6,
   style: {},
+  renderLoader: undefined,
 };
 
 export default memo(LoadableDiv);

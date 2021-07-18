@@ -4,5 +4,6 @@
   justify-content: center;
   height: 200px;
   width: 200px;
-  border: 1px solid black;
+  border-radius: var(--control-border-radius);
+  border: 0.0625rem solid var(--color-primary);
 }

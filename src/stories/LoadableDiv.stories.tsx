@@ -1,8 +1,10 @@
 import AppContainer from 'components/AppContainer';
 import LoadableDiv, { LoadableDivProps } from 'components/LoadableDiv';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './assets/styles/LoadableDiv.module.scss';
 import { Meta, Story } from '@storybook/react/types-6-0';
+import Typography from 'components/Typography';
+import CircularProgress from 'components/CircularProgress';
 /* eslint-disable no-alert */
 
 export default {
@@ -13,33 +15,25 @@ export default {
 const Template: Story<LoadableDivProps> = (args) => {
   return (
     <AppContainer>
-      <LoadableDiv {...args} />
-    </AppContainer>
-  );
-};
-
-export const Sample: Story<LoadableDivProps> = (args) => {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <AppContainer>
       <LoadableDiv
         {...args}
-        loading={loading}
         className={styles.loadableDiv}
       >
-        Testing
+        <Typography>
+          Content
+        </Typography>
       </LoadableDiv>
     </AppContainer>
   );
 };
+
+export const Default = Template.bind({});
+Default.args = {
+  loading: true,
+} as LoadableDivProps;
+
+export const CustomLoader = Template.bind({});
+CustomLoader.args = {
+  loading: true,
+  renderLoader: () => <CircularProgress color='secondary' />,
+} as LoadableDivProps;
