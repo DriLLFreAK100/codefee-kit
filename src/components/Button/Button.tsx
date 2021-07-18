@@ -21,6 +21,7 @@ const StyledButton = styled.button<ButtonProps>`
   box-sizing: border-box;
   cursor: pointer;
   height: ${cvar('--control-height')};
+  min-width: ${rem(130)};
   outline: none;
   padding: ${rem(14)} ${rem(16)};
   transition: background-color ${cvar('--transition-hover')} ease-in-out;
