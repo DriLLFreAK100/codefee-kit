@@ -38,5 +38,9 @@ export default {
       open: true,
     }),
   ],
-  external: ['react', 'react-dom'],
+  external: [
+    'react',
+    'react-dom',
+    'styled-components',
+  ],
 };
