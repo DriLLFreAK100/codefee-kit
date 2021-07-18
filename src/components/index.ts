@@ -10,5 +10,8 @@ export * from './CircularProgress';
 export { default as Grid } from './Grid';
 export * from './Grid';
 
+export { default as LoadArea } from './LoadArea';
+export * from './LoadArea';
+
 export { default as Typography } from './Typography';
 export * from './Typography';

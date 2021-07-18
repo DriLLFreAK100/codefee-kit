@@ -5,7 +5,7 @@ import { Meta, Story } from '@storybook/react/types-6-0';
 import { useRef } from '@storybook/addons';
 
 export default {
-  title: 'Controls/CircularProgress',
+  title: 'Controls/Circular Progress',
   component: CircularProgress,
 } as Meta;
 
