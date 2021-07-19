@@ -5,6 +5,7 @@ import React from 'react';
 import styles from './assets/styles/Typography.module.scss';
 import Typography from 'components/Typography';
 import { Meta } from '@storybook/react/types-6-0';
+import Figure from 'components/Figure';
 
 export default {
   title: 'Foundation/Typography',
@@ -81,13 +82,12 @@ export const Sample = () => {
             like Aldus PageMaker including versions of Lorem Ipsum.
           </Typography>
 
-          <figure>
+          <Figure caption="Kissing Penguins" gutter={12}>
             <img
               src={image}
               alt="penguin"
             />
-            <Typography type="caption">Kissing Penguins</Typography>
-          </figure>
+          </Figure>
 
           <Typography type="p">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -115,14 +115,12 @@ export const Sample = () => {
             like Aldus PageMaker including versions of Lorem Ipsum.
           </Typography>
 
-          <figure>
+          <Figure caption="Penguins Family" gutter={12}>
             <img
               src={image2}
               alt="penguin"
             />
-            <Typography type="caption">Penguins Family</Typography>
-          </figure>
-
+          </Figure>
           <hr />
 
           <Typography

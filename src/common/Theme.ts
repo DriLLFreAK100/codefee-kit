@@ -24,6 +24,7 @@ export interface ITheme {
   '--color-error-light': string;
   '--color-error-dark': string;
   '--color-error-on': string;
+  '--color-bg': string;
   '--font-family-primary': string;
   '--font-family-secondary': string;
   '--transition-hover': string;
@@ -57,6 +58,7 @@ export const CodefeeTheme: ITheme = {
   '--color-error-light': '#e94948',
   '--color-error-dark': '#790000',
   '--color-error-on': '#ffffff',
+  '--color-bg': '#f5f5f5',
   '--font-family-primary': 'Segoe UI, sans-serif',
   '--font-family-secondary': 'Open Sans, sans-serif',
   '--transition-hover': '0.1s',

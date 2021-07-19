@@ -1,5 +1,5 @@
 import React, {
-  FC, forwardRef, memo, ReactNode,
+  FC, forwardRef, memo, ReactNode, CSSProperties,
 } from 'react';
 import Body1 from './Elements/Body1';
 import Body2 from './Elements/Body2';
@@ -34,6 +34,7 @@ export type TypographyType =
 export interface TypographyProps extends TypographyElementProps {
   className?: string;
   children?: ReactNode;
+  style?: CSSProperties;
   type?: TypographyType;
 }
 
@@ -95,6 +96,7 @@ Typography.defaultProps = {
   children: undefined,
   gutterBottom: undefined,
   subtle: false,
+  style: {},
   type: 'body1',
 };
 

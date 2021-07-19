@@ -7,6 +7,9 @@ export * from './Button';
 export { default as CircularProgress } from './CircularProgress';
 export * from './CircularProgress';
 
+export { default as Figure } from './Figure';
+export * from './Figure';
+
 export { default as Grid } from './Grid';
 export * from './Grid';
 
