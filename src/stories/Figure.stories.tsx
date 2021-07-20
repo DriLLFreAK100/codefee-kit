@@ -1,4 +1,3 @@
-import AppContainer from 'components/AppContainer';
 import Figure, { FigureProps } from 'components/Figure';
 import React from 'react';
 import image from './assets/guin2.jpg';
@@ -10,22 +9,26 @@ export default {
   component: Figure,
 } as Meta;
 
-const Template: Story<FigureProps> = (args) => {
-  return (
-    <AppContainer>
-      <Figure {...args} />
-    </AppContainer>
-  );
-};
+const Template: Story<FigureProps> = (args) => <Figure {...args} />;
+
+const caption = (
+  <>
+    Some caption and source <a target="_blank" href="http://www.storytrender.com/wp-content/uploads/2018/11/19_MPM_PENGUIN_FAMILY.jpg">here</a>
+  </>
+);
 
 export const Image = Template.bind({});
 Image.args = {
   children: (
     <img src={image} />
   ),
-  caption: (
-    <>
-      Penguin family from <a target="_blank" href="http://www.storytrender.com/wp-content/uploads/2018/11/19_MPM_PENGUIN_FAMILY.jpg">here</a>
-    </>
+  caption,
+} as FigureProps;
+
+export const Blockquote = Template.bind({});
+Blockquote.args = {
+  children: (
+    <blockquote>Any fool can write code that a computer can understand. Good programmers write code that humans can understand – Martin Fowler</blockquote>
   ),
+  caption,
 } as FigureProps;

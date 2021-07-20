@@ -1,4 +1,3 @@
-import AppContainer from 'components/AppContainer';
 import CircularProgress, { CircularProgressProps } from 'components/CircularProgress';
 import React, { useEffect, useState } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
@@ -9,13 +8,7 @@ export default {
   component: CircularProgress,
 } as Meta;
 
-const Template: Story<CircularProgressProps> = (args) => {
-  return (
-    <AppContainer>
-      <CircularProgress {...args} />
-    </AppContainer>
-  );
-};
+const Template: Story<CircularProgressProps> = (args) => <CircularProgress {...args} />;
 
 export const Determinate: Story<CircularProgressProps> = (args) => {
   const [loadProgress, setLoadProgress] = useState(0);
@@ -32,12 +25,10 @@ export const Determinate: Story<CircularProgressProps> = (args) => {
   }, []);
 
   return (
-    <AppContainer>
-      <CircularProgress
-        {...args}
-        progress={loadProgress}
-      />
-    </AppContainer>
+    <CircularProgress
+      {...args}
+      progress={loadProgress}
+    />
   );
 };
 

@@ -1,4 +1,3 @@
-import AppContainer from 'components/AppContainer';
 import LoadArea, { LoadAreaProps } from 'components/LoadArea';
 import React from 'react';
 import styles from './assets/styles/LoadArea.module.scss';
@@ -14,17 +13,14 @@ export default {
 
 const Template: Story<LoadAreaProps> = (args) => {
   return (
-    <AppContainer>
-      <LoadArea
-        className={styles.loadArea}
-
-        {...args}
-      >
-        <Typography>
-          Content
-        </Typography>
-      </LoadArea>
-    </AppContainer>
+    <LoadArea
+      className={styles.loadArea}
+      {...args}
+    >
+      <Typography>
+        Content
+      </Typography>
+    </LoadArea>
   );
 };
 

@@ -1,3 +1,6 @@
+import React from 'react';
+import AppContainer from '../src/components/AppContainer';
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   layout: 'padded',
@@ -11,3 +14,11 @@ export const parameters = {
     },
   },
 }
+
+export const decorators = [
+  (Story) => (
+    <AppContainer>
+      <Story />
+    </AppContainer>
+  ),
+];

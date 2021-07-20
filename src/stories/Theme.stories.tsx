@@ -1,4 +1,4 @@
-import AppContainer, { IAppContainer } from 'components/AppContainer';
+import AppContainer, { AppContainerProps } from 'components/AppContainer';
 import Button from 'components/Button';
 import React from 'react';
 import { ITheme } from 'common/Theme';
@@ -9,7 +9,7 @@ export default {
   title: 'Foundation/Theme',
 } as Meta;
 
-const Template: Story<IAppContainer> = (args) => {
+const Template: Story<AppContainerProps> = (args) => {
   return (
     <AppContainer {...args}>
       <Button>
@@ -29,4 +29,4 @@ const overridePrimaryColorTheme = {
 export const OverridePrimaryColor = Template.bind({});
 OverridePrimaryColor.args = {
   appTheme: OverrideTheme(overridePrimaryColorTheme),
-} as IAppContainer;
+} as AppContainerProps;
