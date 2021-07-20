@@ -1,4 +1,3 @@
-import AppContainer from 'components/AppContainer';
 import Button, { ButtonProps } from 'components/Button';
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
@@ -9,13 +8,7 @@ export default {
   component: Button,
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => {
-  return (
-    <AppContainer>
-      <Button {...args} />
-    </AppContainer>
-  );
-};
+const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

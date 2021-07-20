@@ -3,12 +3,13 @@ import { cvar, rem } from 'utils';
 import { TypographyElementProps } from '../interface';
 import { withBaseStyle } from './BaseStyles';
 
-const Subtitle2 = styled.h6<TypographyElementProps>`
+const Blockquote = styled.p<TypographyElementProps>`
   font-family: ${cvar('--font-family-primary')};
-  font-size: ${rem(14)};
-  font-weight: 500;
-  letter-spacing: ${rem(0.1)};
-  line-height: ${rem(16)};
+  font-size: ${rem(24)};
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: ${rem(0.5)};
+  line-height: ${rem(36)};
 `;
 
-export default withBaseStyle(Subtitle2);
+export default withBaseStyle(Blockquote);

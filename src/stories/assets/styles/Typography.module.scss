@@ -16,3 +16,9 @@
     text-align: center;
   }
 }
+
+.typographyCustomClassName {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-on);
+  text-transform: uppercase;
+}

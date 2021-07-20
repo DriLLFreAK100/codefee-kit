@@ -1,10 +1,11 @@
-import { Gutter } from 'common';
-import { css, FlattenSimpleInterpolation } from 'styled-components';
+import styled, {
+  css, FlattenSimpleInterpolation, StyledComponent,
+} from 'styled-components';
 import { cvar, rem } from 'utils';
-
+import { Gutter } from 'common';
 import { TypographyElementProps } from '../interface';
 
-export const BaseStyle = ({
+const BaseStyle = ({
   gutterBottom,
   subtle,
 }: TypographyElementProps) : FlattenSimpleInterpolation => css`
@@ -19,9 +20,9 @@ export const BaseStyle = ({
   ` : ''}
 `;
 
-export const BaseHeadingStyle = (
+const BaseHeadingStyle = (
   props: TypographyElementProps,
-  defaultGutterBottom: Gutter = 0,
+  defaultGutterBottom: Gutter,
 ) : FlattenSimpleInterpolation => {
   const { gutterBottom } = props;
 
@@ -31,3 +32,36 @@ export const BaseHeadingStyle = (
     ${BaseStyle({ ...props, gutterBottom: gutterBottom ?? defaultGutterBottom })}
   `;
 };
+
+export const withBaseStyle = (
+  Component: StyledComponent<
+  keyof JSX.IntrinsicElements,
+  never,
+  TypographyElementProps,
+  never
+  >,
+):StyledComponent<
+keyof JSX.IntrinsicElements,
+never,
+TypographyElementProps,
+never
+> => styled(Component)<TypographyElementProps>`
+  ${(props) => BaseStyle(props)};
+`;
+
+export const withHeadingStyle = (
+  Component: StyledComponent<
+  keyof JSX.IntrinsicElements,
+  never,
+  TypographyElementProps,
+  never
+  >,
+  defaultGutterBottom: Gutter = 0,
+):StyledComponent<
+keyof JSX.IntrinsicElements,
+never,
+TypographyElementProps,
+never
+> => styled(Component)<TypographyElementProps>`
+  ${(props) => BaseHeadingStyle(props, defaultGutterBottom)};
+`;
