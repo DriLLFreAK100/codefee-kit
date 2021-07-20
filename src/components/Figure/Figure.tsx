@@ -20,7 +20,7 @@ const StyledFigure = styled.figure<FigureProps>`
 `;
 
 const StyledCaption = styled(Typography)`
-  margin-top: ${rem(4)};
+  margin: ${rem(4)} 0 ${rem(12)};
   font-style: italic;
 `;
 

@@ -1,6 +1,7 @@
-import Figure, { Blockquote, Image } from 'components/Figure';
+import Blockquote from 'components/Blockquote';
 import image from './assets/guin1.jpg';
 import image2 from './assets/guin2.jpg';
+import ImageViewer from 'components/ImageViewer';
 import React from 'react';
 import Separator from 'components/Separator';
 import styles from './assets/styles/Typography.module.scss';
@@ -113,12 +114,12 @@ export const Sample = () => {
           like Aldus PageMaker including versions of Lorem Ipsum.
         </Typography>
 
-        <Figure caption="Kissing Penguins">
-          <Image
-            src={image}
-            alt="penguin"
-          />
-        </Figure>
+        <ImageViewer
+          src={image}
+          alt="penguin"
+          caption="Penguin Family"
+          gutter={12}
+        />
 
         <Typography type="p">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -133,12 +134,10 @@ export const Sample = () => {
           like Aldus PageMaker including versions of Lorem Ipsum.
         </Typography>
 
-        <Figure caption="- Martin Fowler">
-          <Blockquote cite="https://martinfowler.com/books/refactoring.html">
-            Any fool can write code that a computer can understand.
-            Good programmers write code that humans can understand.
-          </Blockquote>
-        </Figure>
+        <Blockquote cite="https://martinfowler.com/books/refactoring.html" caption="Martin Fowler">
+          Any fool can write code that a computer can understand.
+          Good programmers write code that humans can understand.
+        </Blockquote>
 
         <Typography type="p">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -153,12 +152,12 @@ export const Sample = () => {
           like Aldus PageMaker including versions of Lorem Ipsum.
         </Typography>
 
-        <Figure caption="Penguins Family" gutter={12}>
-          <Image
-            src={image2}
-            alt="penguin"
-          />
-        </Figure>
+        <ImageViewer
+          src={image2}
+          alt="penguin"
+          caption="Penguin Family"
+          gutter={12}
+        />
 
         <Separator />
 
