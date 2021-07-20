@@ -1,4 +1,4 @@
-import Figure, { FigureProps } from 'components/Figure';
+import Figure, { Image, FigureProps, Blockquote } from 'components/Figure';
 import React from 'react';
 import image from './assets/guin2.jpg';
 import { Meta, Story } from '@storybook/react/types-6-0';
@@ -17,18 +17,20 @@ const caption = (
   </>
 );
 
-export const Image = Template.bind({});
-Image.args = {
+export const ImageFigure = Template.bind({});
+ImageFigure.args = {
   children: (
-    <img src={image} />
+    <Image src={image} />
   ),
   caption,
 } as FigureProps;
 
-export const Blockquote = Template.bind({});
-Blockquote.args = {
+export const BlockquoteFigure = Template.bind({});
+BlockquoteFigure.args = {
   children: (
-    <blockquote>Any fool can write code that a computer can understand. Good programmers write code that humans can understand – Martin Fowler</blockquote>
+    <Blockquote>
+      Any fool can write code that a computer can understand. Good programmers write code that humans can understand – Martin Fowler
+    </Blockquote>
   ),
   caption,
 } as FigureProps;

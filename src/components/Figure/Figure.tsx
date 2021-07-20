@@ -23,22 +23,25 @@ const StyledCaption = styled(Typography)`
   font-style: italic;
 `;
 
-const Figure: FC<FigureProps> = ({
-  caption,
-  gutter,
-  children,
-}: FigureProps) => (
-  <StyledFigure gutter={gutter}>
-    {children}
-    {
-      caption && (
-        <StyledCaption type="caption">
-          {caption}
-        </StyledCaption>
-      )
-    }
-  </StyledFigure>
-);
+const Figure: FC<FigureProps> = (props: FigureProps) => {
+  const {
+    caption,
+    children,
+  } = props;
+
+  return (
+    <StyledFigure {...props}>
+      {children}
+      {
+        caption && (
+          <StyledCaption type="caption">
+            {caption}
+          </StyledCaption>
+        )
+      }
+    </StyledFigure>
+  );
+};
 
 Figure.displayName = 'Figure';
 Figure.defaultProps = {
