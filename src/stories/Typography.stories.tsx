@@ -1,17 +1,52 @@
+import Figure from 'components/Figure';
 import image from './assets/guin1.jpg';
 import image2 from './assets/guin2.jpg';
 import React from 'react';
 import styles from './assets/styles/Typography.module.scss';
-import Typography from 'components/Typography';
-import { Meta } from '@storybook/react/types-6-0';
-import Figure from 'components/Figure';
+import Typography, { TypographyProps } from 'components/Typography';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
   title: 'Foundation/Typography',
-
+  component: Typography,
 } as Meta;
 
-export const Catalogue = () => <>
+const Template: Story<TypographyProps> = (args) => <Typography {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  children: 'What about a cup of Typography? 😜',
+} as TypographyProps;
+
+export const Subtle = Template.bind({});
+Subtle.args = {
+  children: 'What about a cup of Typography? 😜',
+  subtle: true,
+} as TypographyProps;
+
+export const WithClassName = Template.bind({});
+WithClassName.args = {
+  children: 'With CSS class applied',
+  className: styles.typographyCustomClassName,
+} as TypographyProps;
+
+export const WithStyle = Template.bind({});
+WithStyle.args = {
+  children: 'With inline CSS style applied',
+  style: { textTransform: 'uppercase' },
+} as TypographyProps;
+
+export const WithGutterBottom: Story<TypographyProps> = (args) => <>
+  <Typography {...args}>First</Typography>
+  <Typography {...args}>Middle</Typography>
+  <Typography {...args}>Last </Typography>
+</>;
+WithGutterBottom.args = {
+  gutterBottom: 60,
+} as TypographyProps;
+
+
+export const Showcase = () => <>
   <Typography type="h1">Heading 1</Typography>
   <Typography type="h2">Heading 2</Typography>
   <Typography type="h3">Heading 3</Typography>
@@ -23,7 +58,7 @@ export const Catalogue = () => <>
   <Typography type="body1" gutterBottom={20}>Body 1</Typography>
   <Typography type="body2" gutterBottom={20}>Body 2</Typography>
   <Typography type="button" gutterBottom={20}>Button Text</Typography>
-  <Typography type="caption" gutterBottom={20}>Figure Caption</Typography>
+  <Typography type="caption" gutterBottom={12}>Figure Caption</Typography>
   <Typography type="p">Paragraph</Typography>
 </>
 

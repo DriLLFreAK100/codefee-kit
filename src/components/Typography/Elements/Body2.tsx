@@ -4,7 +4,7 @@ import { BaseStyle } from './BaseStyles';
 import { TypographyElementProps } from '../interface';
 
 const Body2 = styled.p<TypographyElementProps>`
-  ${(props) => BaseStyle(props)}
+  ${(props) => BaseStyle(props)};
   font-family: ${cvar('--font-family-secondary')};
   font-size: ${rem(14)};
   font-weight: normal;
