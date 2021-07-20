@@ -134,7 +134,7 @@ export const Sample = () => {
         </Typography>
 
         <Figure caption="- Martin Fowler">
-          <Blockquote>
+          <Blockquote cite="https://martinfowler.com/books/refactoring.html">
             Any fool can write code that a computer can understand.
             Good programmers write code that humans can understand.
           </Blockquote>
