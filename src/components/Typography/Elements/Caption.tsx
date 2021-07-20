@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { cvar, rem } from 'utils';
-import { BaseStyle } from './BaseStyles';
 import { TypographyElementProps } from '../interface';
+import { withBaseStyle } from './BaseStyles';
 
 const Caption = styled.figcaption<TypographyElementProps>`
-  ${(props) => BaseStyle(props)};
   display: block;
   font-family: ${cvar('--font-family-secondary')};
   font-size: ${rem(12)};
@@ -13,4 +12,4 @@ const Caption = styled.figcaption<TypographyElementProps>`
   line-height: ${rem(16)};
 `;
 
-export default Caption;
+export default withBaseStyle(Caption);

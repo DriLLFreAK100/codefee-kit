@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { cvar, rem } from 'utils';
-import { BaseStyle } from './BaseStyles';
 import { TypographyElementProps } from '../interface';
+import { withBaseStyle } from './BaseStyles';
 
 const Body2 = styled.p<TypographyElementProps>`
-  ${(props) => BaseStyle(props)};
   font-family: ${cvar('--font-family-secondary')};
   font-size: ${rem(14)};
   font-weight: normal;
@@ -12,4 +11,4 @@ const Body2 = styled.p<TypographyElementProps>`
   line-height: ${rem(16)};
 `;
 
-export default Body2;
+export default withBaseStyle(Body2);
