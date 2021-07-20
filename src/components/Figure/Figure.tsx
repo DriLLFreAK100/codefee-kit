@@ -14,7 +14,8 @@ const StyledFigure = styled.figure<FigureProps>`
   border-radius: ${cvar('--control-border-radius')};
   overflow: hidden;
   margin: 0 auto;
-  margin-bottom: ${({ gutter }) => gut(gutter as Gutter)};
+  margin-top: ${({ gutter }) => gut(gutter as Gutter ?? 20)};
+  margin-bottom: ${({ gutter }) => gut(gutter as Gutter ?? 20)};
   text-align: center;
 `;
 
@@ -46,7 +47,7 @@ const Figure: FC<FigureProps> = (props: FigureProps) => {
 Figure.displayName = 'Figure';
 Figure.defaultProps = {
   caption: undefined,
-  gutter: 0,
+  gutter: undefined,
   children: undefined,
 };
 

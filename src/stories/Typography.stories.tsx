@@ -1,7 +1,8 @@
-import Figure from 'components/Figure';
+import Figure, { Blockquote, Image } from 'components/Figure';
 import image from './assets/guin1.jpg';
 import image2 from './assets/guin2.jpg';
 import React from 'react';
+import Separator from 'components/Separator';
 import styles from './assets/styles/Typography.module.scss';
 import Typography, { TypographyProps } from 'components/Typography';
 import { Meta, Story } from '@storybook/react/types-6-0';
@@ -59,6 +60,7 @@ export const Showcase = () => <>
   <Typography type="body2" gutterBottom={20}>Body 2</Typography>
   <Typography type="button" gutterBottom={20}>Button Text</Typography>
   <Typography type="caption" gutterBottom={12}>Figure Caption</Typography>
+  <Typography type="quote" gutterBottom={12}>Quote</Typography>
   <Typography type="p">Paragraph</Typography>
 </>
 
@@ -111,8 +113,8 @@ export const Sample = () => {
           like Aldus PageMaker including versions of Lorem Ipsum.
         </Typography>
 
-        <Figure caption="Kissing Penguins" gutter={12}>
-          <img
+        <Figure caption="Kissing Penguins">
+          <Image
             src={image}
             alt="penguin"
           />
@@ -131,6 +133,13 @@ export const Sample = () => {
           like Aldus PageMaker including versions of Lorem Ipsum.
         </Typography>
 
+        <Figure caption="- Martin Fowler">
+          <Blockquote>
+            Any fool can write code that a computer can understand.
+            Good programmers write code that humans can understand.
+          </Blockquote>
+        </Figure>
+
         <Typography type="p">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
@@ -145,12 +154,13 @@ export const Sample = () => {
         </Typography>
 
         <Figure caption="Penguins Family" gutter={12}>
-          <img
+          <Image
             src={image2}
             alt="penguin"
           />
         </Figure>
-        <hr />
+
+        <Separator />
 
         <Typography
           type="h5"

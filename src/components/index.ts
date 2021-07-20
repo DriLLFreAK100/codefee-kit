@@ -16,5 +16,8 @@ export * from './Grid';
 export { default as LoadArea } from './LoadArea';
 export * from './LoadArea';
 
+export { default as Separator } from './Separator';
+export * from './Separator';
+
 export { default as Typography } from './Typography';
 export * from './Typography';

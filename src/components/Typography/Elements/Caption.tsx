@@ -6,7 +6,7 @@ import { withBaseStyle } from './BaseStyles';
 const Caption = styled.figcaption<TypographyElementProps>`
   display: block;
   font-family: ${cvar('--font-family-secondary')};
-  font-size: ${rem(12)};
+  font-size: ${rem(14)};
   font-weight: normal;
   letter-spacing: ${rem(0.4)};
   line-height: ${rem(16)};

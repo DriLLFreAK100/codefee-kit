@@ -12,6 +12,7 @@ import H4 from './Elements/H4';
 import H5 from './Elements/H5';
 import H6 from './Elements/H6';
 import Paragraph from './Elements/Paragraph';
+import Quote from './Elements/Quote';
 import Subtitle1 from './Elements/Subtitle1';
 import Subtitle2 from './Elements/Subtitle2';
 import { TypographyElementProps } from './interface';
@@ -29,7 +30,8 @@ export type TypographyType =
   'body2' |
   'p' |
   'caption' |
-  'button';
+  'button' |
+  'quote';
 
 export interface TypographyProps extends TypographyElementProps {
   className?: string;
@@ -66,6 +68,8 @@ const getComponent = (type: TypographyType) => {
       return Caption;
     case 'button':
       return Button;
+    case 'quote':
+      return Quote;
     default:
       return Body1;
   }
