@@ -1,7 +1,11 @@
 import Figure, { FigureProps } from 'components/Figure';
-import React, { FC, ImgHTMLAttributes, useState } from 'react';
+import IconButton from 'components/IconButton';
 import styled, { css } from 'styled-components';
 import { cvar } from 'utils';
+import { Times } from 'components/Icons';
+import React, {
+  FC, ImgHTMLAttributes, useState, useCallback,
+} from 'react';
 
 type ImageViewerBaseType = ImgHTMLAttributes<HTMLImageElement> & FigureProps;
 
@@ -31,6 +35,7 @@ const ImageContainer = styled.div<ImageContainerProps>`
   height: calc(100% - 20px);
 
   ${(props) => props.maximize && css`
+    cursor: unset;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,6 +53,17 @@ const ImageContainer = styled.div<ImageContainerProps>`
   `}
 `;
 
+const CloseIcon = styled(IconButton)`
+  cursor: pointer;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+`;
+
+const TimesIcon = styled(Times)`
+  font-size: 1.25rem;
+`;
+
 const ImageViewer: FC<ImageViewerProps> = (props: ImageViewerProps) => {
   const {
     caption,
@@ -56,13 +72,30 @@ const ImageViewer: FC<ImageViewerProps> = (props: ImageViewerProps) => {
 
   const [maximize, setMaximize] = useState(false);
 
-  const handleOnClick = (): void => {
-    setMaximize(!maximize);
-  };
+  const handleOnClickImageContainer = useCallback((): void => {
+    if (!maximize) {
+      setMaximize(true);
+    }
+  }, [maximize]);
+
+  const handleOnClickCloseIcon = useCallback((): void => {
+    setMaximize(false);
+  }, []);
 
   return (
-    <StyledFigure caption={caption} gutter={gutter}>
-      <ImageContainer maximize={maximize} onClick={handleOnClick}>
+    <StyledFigure
+      caption={caption}
+      gutter={gutter}
+    >
+      <ImageContainer
+        maximize={maximize}
+        onClick={handleOnClickImageContainer}
+      >
+        {maximize && (
+          <CloseIcon onClick={handleOnClickCloseIcon}>
+            <TimesIcon />
+          </CloseIcon>
+        )}
         <Image {...props} />
       </ImageContainer>
     </StyledFigure>
