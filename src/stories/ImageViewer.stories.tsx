@@ -19,9 +19,9 @@ const Template: Story<ImageViewerProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   src: image,
-  alt: 'Peguin family photo',
+  alt: 'Filter Coffee',
   caption: <>
-    Some caption and source <a target="_blank" href="http://www.storytrender.com/wp-content/uploads/2018/11/19_MPM_PENGUIN_FAMILY.jpg">here</a>
+    From a <a target="_blank" href="https://www.codefeetime.com/">Codefee Time</a>
   </>,
 } as ImageViewerProps;
 
