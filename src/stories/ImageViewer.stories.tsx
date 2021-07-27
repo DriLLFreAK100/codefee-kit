@@ -1,7 +1,8 @@
-import image from './assets/guin2.jpg';
+import image from './assets/filter-coffee.jpg';
 import ImageViewer, { ImageViewerProps } from 'components/ImageViewer';
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
+import styles from './assets/styles/ImageViewer.module.scss';
 /* eslint-disable no-alert */
 
 export default {
@@ -9,7 +10,11 @@ export default {
   component: ImageViewer,
 } as Meta;
 
-const Template: Story<ImageViewerProps> = (args) => <ImageViewer {...args} />;
+const Template: Story<ImageViewerProps> = (args) => (
+  <div className={styles.ImageViewer}>
+    <ImageViewer {...args} />
+  </div>
+);
 
 export const Default = Template.bind({});
 Default.args = {
