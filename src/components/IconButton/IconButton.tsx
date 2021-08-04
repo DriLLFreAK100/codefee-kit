@@ -3,16 +3,15 @@ import styled, { css } from 'styled-components';
 import { cvar } from 'utils/StyleHelper';
 
 export interface IconButtonProps extends ImgHTMLAttributes<HTMLButtonElement> {
-  $type?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary';
 }
 
-const ThemeStyle = ({ $type }: IconButtonProps) => {
-  switch ($type) {
+const ThemeStyle = ({ variant }: IconButtonProps) => {
+  switch (variant) {
     case 'primary':
       return css`
         background-color: ${cvar('--color-primary')};
         color: ${cvar('--color-primary-on')};
-        transition: background-color ${cvar('--transition-hover')} ease-in-out;
 
         &:hover{
           background-color: ${cvar('--color-primary-light')};
@@ -26,7 +25,6 @@ const ThemeStyle = ({ $type }: IconButtonProps) => {
       return css`
         background-color: ${cvar('--color-secondary')};
         color: ${cvar('--color-secondary-on')};
-        transition: background-color ${cvar('--transition-hover')} ease-in-out;
 
         &:hover{
           background-color: ${cvar('--color-secondary-light')};
@@ -46,6 +44,8 @@ const StyledIconButton = styled.button<IconButtonProps>`
   width: ${cvar('--control-height')};
   border: 0;
   border-radius: 50%;
+  box-shadow: ${cvar('--control-shadow')};
+  transition: background-color ${cvar('--transition-hover')} ease-in-out;
   ${(props) => ThemeStyle(props)};
 `;
 
@@ -53,7 +53,7 @@ const IconButton: FC<IconButtonProps> = (props: IconButtonProps) => <StyledIconB
 
 IconButton.displayName = 'IconButton';
 IconButton.defaultProps = {
-  $type: 'primary',
+  variant: 'primary',
 };
 
 export default IconButton;

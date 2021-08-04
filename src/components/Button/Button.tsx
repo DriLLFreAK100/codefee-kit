@@ -19,6 +19,7 @@ const StyledButton = styled.button<ButtonProps>`
   border: none;
   border-radius: ${cvar('--control-border-radius')};
   box-sizing: border-box;
+  box-shadow: ${cvar('--control-shadow')};
   cursor: pointer;
   height: ${cvar('--control-height')};
   min-width: ${rem(130)};
