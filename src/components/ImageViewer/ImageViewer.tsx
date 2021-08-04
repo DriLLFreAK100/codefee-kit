@@ -30,7 +30,6 @@ interface ImageContainerProps {
 const ImageContainer = styled.div<ImageContainerProps>`
   cursor: pointer;
   display: inline-block;
-  background-color: rgba(0, 0, 0, 0);
   width: 100%;
   height: calc(100% - 20px);
 
@@ -39,7 +38,7 @@ const ImageContainer = styled.div<ImageContainerProps>`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(255, 255, 255, 0.8);
     position: fixed;
     top: 0;
     left: 0;
