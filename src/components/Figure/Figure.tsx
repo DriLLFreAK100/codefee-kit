@@ -17,6 +17,7 @@ const StyledFigure = styled.figure<FigureProps>`
   margin-top: ${({ gutter }) => gut(gutter as Gutter ?? 20)};
   margin-bottom: ${({ gutter }) => gut(gutter as Gutter ?? 20)};
   text-align: center;
+  width: 100%;
 `;
 
 const StyledCaption = styled(Typography)`

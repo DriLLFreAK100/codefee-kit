@@ -1,7 +1,8 @@
-import image from './assets/guin2.jpg';
+import image from './assets/filter-coffee.jpg';
 import ImageViewer, { ImageViewerProps } from 'components/ImageViewer';
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
+import styles from './assets/styles/ImageViewer.module.scss';
 /* eslint-disable no-alert */
 
 export default {
@@ -9,14 +10,18 @@ export default {
   component: ImageViewer,
 } as Meta;
 
-const Template: Story<ImageViewerProps> = (args) => <ImageViewer {...args} />;
+const Template: Story<ImageViewerProps> = (args) => (
+  <div className={styles.ImageViewer}>
+    <ImageViewer {...args} />
+  </div>
+);
 
 export const Default = Template.bind({});
 Default.args = {
   src: image,
-  alt: 'Peguin family photo',
+  alt: 'Filter Coffee',
   caption: <>
-    Some caption and source <a target="_blank" href="http://www.storytrender.com/wp-content/uploads/2018/11/19_MPM_PENGUIN_FAMILY.jpg">here</a>
+    From a <a target="_blank" href="https://www.codefeetime.com/">Codefee Time</a>
   </>,
 } as ImageViewerProps;
 

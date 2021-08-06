@@ -16,6 +16,11 @@ export * from './Figure';
 export { default as Grid } from './Grid';
 export * from './Grid';
 
+export { default as IconButton } from './IconButton';
+export * from './IconButton';
+
+export * from './Icons';
+
 export { default as ImageViewer } from './ImageViewer';
 export * from './ImageViewer';
 
