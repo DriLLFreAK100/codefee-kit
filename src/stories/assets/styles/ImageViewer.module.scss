@@ -1,11 +1,4 @@
-.ImageViewer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-
-  &__figure {
-    height: 30rem;
-    width: 20rem;
-  }
+.Figure {
+  height: 30rem;
+  width: 20rem;
 }

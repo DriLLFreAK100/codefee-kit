@@ -1,10 +1,10 @@
-import React, { forwardRef, ReactNode } from 'react';
+import React, { forwardRef, ReactNode, HtmlHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import Typography from 'components/Typography';
 import { cvar, rem, gut } from 'utils';
 import { Gutter } from 'common';
 
-export interface FigureProps {
+export interface FigureProps extends HtmlHTMLAttributes<HTMLElement> {
   caption?: ReactNode;
   gutter?: Gutter;
   children?: ReactNode;

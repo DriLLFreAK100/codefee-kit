@@ -13,6 +13,7 @@ export interface ImageViewerProps extends ImgHTMLAttributes<HTMLImageElement> {
 
 const Image = styled.img<ImageViewerProps>`
   border-radius: ${cvar('--control-border-radius')};
+  height: 100%;
 `;
 
 interface ImageContainerProps {
@@ -38,6 +39,7 @@ const ImageContainer = styled.div<ImageContainerProps>`
     z-index: 1000;
 
     ${Image}{
+      height: unset;
       max-height: 100vh;
       max-width: 100%;
     }
@@ -48,7 +50,7 @@ const CloseIcon = styled(IconButton)`
   cursor: pointer;
   position: absolute;
   top: 0.5rem;
-  right: 0.5rem;
+  right: 1rem;
 `;
 
 const TimesIcon = styled(Times)`
