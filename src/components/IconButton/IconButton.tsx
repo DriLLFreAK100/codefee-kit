@@ -1,5 +1,5 @@
 import React, {
-  FC, forwardRef, ImgHTMLAttributes, memo,
+  forwardRef, ImgHTMLAttributes,
 } from 'react';
 import styled, { css } from 'styled-components';
 import { cvar } from 'utils/StyleHelper';
@@ -51,7 +51,7 @@ const StyledIconButton = styled.button<IconButtonProps>`
   ${(props) => ThemeStyle(props)};
 `;
 
-const IconButton: FC<IconButtonProps> = forwardRef<HTMLButtonElement, IconButtonProps>(
+const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   (props: IconButtonProps, ref) => <StyledIconButton ref={ref} {...props} />,
 );
 
@@ -60,4 +60,4 @@ IconButton.defaultProps = {
   variant: 'primary',
 };
 
-export default memo(IconButton);
+export default IconButton;

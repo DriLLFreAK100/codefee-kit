@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from 'components/Button';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 /* eslint-disable no-alert */
 

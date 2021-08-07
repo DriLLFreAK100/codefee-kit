@@ -39,6 +39,7 @@ const Separator: FC<SeparatorProps> = ({
   }
 };
 
+Separator.displayName = 'Separator';
 Separator.defaultProps = {
   type: 'line',
 };

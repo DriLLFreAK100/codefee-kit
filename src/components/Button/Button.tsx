@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
 import React, {
-  FC, ReactNode, forwardRef, memo, ButtonHTMLAttributes,
+  ReactNode, forwardRef, ButtonHTMLAttributes,
 } from 'react';
 import Typography from 'components/Typography';
 
@@ -162,7 +162,7 @@ const getButtonComponent = (type: ButtonType) => {
   }
 };
 
-const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props: ButtonProps, ref) => {
     const {
       children,
@@ -194,4 +194,4 @@ Button.defaultProps = {
   onClick: undefined,
 };
 
-export default memo(Button);
+export default Button;

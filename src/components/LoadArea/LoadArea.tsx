@@ -4,7 +4,6 @@ import { cvar } from 'utils/StyleHelper';
 import React, {
   FC,
   forwardRef,
-  memo,
   ReactNode,
 } from 'react';
 
@@ -77,4 +76,4 @@ LoadArea.defaultProps = {
   renderLoader: undefined,
 };
 
-export default memo(LoadArea);
+export default LoadArea;

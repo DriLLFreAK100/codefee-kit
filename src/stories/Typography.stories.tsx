@@ -7,6 +7,7 @@ import Separator from 'components/Separator';
 import styles from './assets/styles/Typography.module.scss';
 import Typography, { TypographyProps } from 'components/Typography';
 import { Meta, Story } from '@storybook/react/types-6-0';
+import Figure from 'components/Figure';
 
 export default {
   title: 'Foundation/Typography',
@@ -114,12 +115,16 @@ export const Sample = () => {
           like Aldus PageMaker including versions of Lorem Ipsum.
         </Typography>
 
-        <ImageViewer
-          src={image}
-          alt="penguin"
+        <Figure
           caption="Penguin Family"
           gutter={12}
-        />
+        >
+          <ImageViewer
+            src={image}
+            alt="penguin"
+          />
+        </Figure>
+
 
         <Typography type="p">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -152,12 +157,15 @@ export const Sample = () => {
           like Aldus PageMaker including versions of Lorem Ipsum.
         </Typography>
 
-        <ImageViewer
-          src={image2}
-          alt="penguin"
+        <Figure
           caption="Penguin Family"
           gutter={12}
-        />
+        >
+          <ImageViewer
+            src={image2}
+            alt="penguin"
+          />
+        </Figure>
 
         <Separator />
 

@@ -1,26 +1,18 @@
-import Figure, { FigureProps } from 'components/Figure';
 import IconButton from 'components/IconButton';
 import styled, { css } from 'styled-components';
 import { cvar } from 'utils';
 import { Times } from 'components/Icons';
 import React, {
-  FC, ImgHTMLAttributes, useState, useCallback,
+  ImgHTMLAttributes, useState, forwardRef,
 } from 'react';
 
-type ImageViewerBaseType = ImgHTMLAttributes<HTMLImageElement> & FigureProps;
-
-export interface ImageViewerProps extends ImageViewerBaseType {
+export interface ImageViewerProps extends ImgHTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
 }
 
-const StyledFigure = styled(Figure)`
-  height: 100%;
-`;
-
 const Image = styled.img<ImageViewerProps>`
   border-radius: ${cvar('--control-border-radius')};
-  height: 100%;
 `;
 
 interface ImageContainerProps {
@@ -30,7 +22,6 @@ interface ImageContainerProps {
 const ImageContainer = styled.div<ImageContainerProps>`
   cursor: pointer;
   display: inline-block;
-  width: 100%;
   height: calc(100% - 20px);
 
   ${(props) => props.maximize && css`
@@ -44,6 +35,7 @@ const ImageContainer = styled.div<ImageContainerProps>`
     left: 0;
     height: 100vh;
     width: 100vw;
+    z-index: 1000;
 
     ${Image}{
       max-height: 100vh;
@@ -63,30 +55,23 @@ const TimesIcon = styled(Times)`
   font-size: 1.25rem;
 `;
 
-const ImageViewer: FC<ImageViewerProps> = (props: ImageViewerProps) => {
-  const {
-    caption,
-    gutter,
-  } = props;
+const ImageViewer = forwardRef<HTMLDivElement, ImageViewerProps>(
+  (props: ImageViewerProps, ref) => {
+    const [maximize, setMaximize] = useState(false);
 
-  const [maximize, setMaximize] = useState(false);
+    const handleOnClickImageContainer = (): void => {
+      if (!maximize) {
+        setMaximize(true);
+      }
+    };
 
-  const handleOnClickImageContainer = useCallback((): void => {
-    if (!maximize) {
-      setMaximize(true);
-    }
-  }, [maximize]);
+    const handleOnClickCloseIcon = (): void => {
+      setMaximize(false);
+    };
 
-  const handleOnClickCloseIcon = useCallback((): void => {
-    setMaximize(false);
-  }, []);
-
-  return (
-    <StyledFigure
-      caption={caption}
-      gutter={gutter}
-    >
+    return (
       <ImageContainer
+        ref={ref}
         maximize={maximize}
         onClick={handleOnClickImageContainer}
       >
@@ -97,13 +82,10 @@ const ImageViewer: FC<ImageViewerProps> = (props: ImageViewerProps) => {
         )}
         <Image {...props} />
       </ImageContainer>
-    </StyledFigure>
-  );
-};
+    );
+  },
+);
 
 ImageViewer.displayName = 'ImageViewer';
-ImageViewer.defaultProps = {
-  caption: undefined,
-};
 
 export default ImageViewer;

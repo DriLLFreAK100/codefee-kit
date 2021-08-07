@@ -20,6 +20,7 @@ export const Default = Template.bind({});
 Default.args = {
   src: image,
   alt: 'Filter Coffee',
+  className: styles.ImageViewer__figure,
   caption: <>
     From a <a target="_blank" href="https://www.codefeetime.com/">Codefee Time</a>
   </>,
