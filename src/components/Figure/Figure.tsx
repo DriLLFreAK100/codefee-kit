@@ -1,10 +1,10 @@
-import React, { FC, ReactNode } from 'react';
+import React, { forwardRef, ReactNode, HtmlHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import Typography from 'components/Typography';
 import { cvar, rem, gut } from 'utils';
 import { Gutter } from 'common';
 
-export interface FigureProps {
+export interface FigureProps extends HtmlHTMLAttributes<HTMLElement> {
   caption?: ReactNode;
   gutter?: Gutter;
   children?: ReactNode;
@@ -25,25 +25,27 @@ const StyledCaption = styled(Typography)`
   font-style: italic;
 `;
 
-const Figure: FC<FigureProps> = (props: FigureProps) => {
-  const {
-    caption,
-    children,
-  } = props;
+const Figure = forwardRef<HTMLElement, FigureProps>(
+  (props: FigureProps, ref) => {
+    const {
+      caption,
+      children,
+    } = props;
 
-  return (
-    <StyledFigure {...props}>
-      {children}
-      {
-        caption && (
-          <StyledCaption type="caption">
-            {caption}
-          </StyledCaption>
-        )
-      }
-    </StyledFigure>
-  );
-};
+    return (
+      <StyledFigure ref={ref} {...props}>
+        {children}
+        {
+          caption && (
+            <StyledCaption type="caption">
+              {caption}
+            </StyledCaption>
+          )
+        }
+      </StyledFigure>
+    );
+  },
+);
 
 Figure.displayName = 'Figure';
 Figure.defaultProps = {

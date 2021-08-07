@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from 'components/Button';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 /* eslint-disable no-alert */
 
@@ -18,31 +18,31 @@ Primary.args = {
 export const Subtle = Template.bind({});
 Subtle.args = {
   text: 'Click Me!',
-  buttonType: 'subtle',
+  variant: 'subtle',
 } as ButtonProps;
 
 export const Info = Template.bind({});
 Info.args = {
   text: 'Click Me!',
-  buttonType: 'info',
+  variant: 'info',
 } as ButtonProps;
 
 export const Success = Template.bind({});
 Success.args = {
   text: 'Click Me!',
-  buttonType: 'success',
+  variant: 'success',
 } as ButtonProps;
 
 export const Warning = Template.bind({});
 Warning.args = {
   text: 'Click Me!',
-  buttonType: 'warning',
+  variant: 'warning',
 } as ButtonProps;
 
 export const Error = Template.bind({});
 Error.args = {
   text: 'Click Me!',
-  buttonType: 'error',
+  variant: 'error',
 } as ButtonProps;
 
 export const Disabled = Template.bind({});

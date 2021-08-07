@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/indent */
 import React, {
-  FC, forwardRef, memo, useMemo,
+  forwardRef, useMemo,
 } from 'react';
 import styled, {
   css, CSSProperties, Keyframes, keyframes,
@@ -108,58 +108,57 @@ const getRadius = (size: number, strokeWidth: number) => (size - strokeWidth) / 
 
 const getCircumference = (radius: number) => 2 * Math.PI * radius;
 
-const CircularProgress: FC<CircularProgressProps> = forwardRef<
-  SVGSVGElement,
-  CircularProgressProps
->((props: CircularProgressProps, ref) => {
-  const {
-    progress,
-    size,
-    type,
-  } = props;
+const CircularProgress = forwardRef<SVGSVGElement, CircularProgressProps>(
+  (props: CircularProgressProps, ref) => {
+    const {
+      progress,
+      size,
+      type,
+    } = props;
 
-  const {
-    strokeWidth,
-    radius,
-    circumference,
-  } = useMemo(() => {
-    const pStrokeWidth = getStrokeWidth(size as number);
-    const pRadius = getRadius(size as number, pStrokeWidth);
-    const pCircumference = getCircumference(pRadius);
+    const {
+      strokeWidth,
+      radius,
+      circumference,
+    } = useMemo(() => {
+      const pStrokeWidth = getStrokeWidth(size as number);
+      const pRadius = getRadius(size as number, pStrokeWidth);
+      const pCircumference = getCircumference(pRadius);
 
-    return {
-      strokeWidth: pStrokeWidth,
-      radius: pRadius,
-      circumference: pCircumference,
-    };
-  }, [size]);
+      return {
+        strokeWidth: pStrokeWidth,
+        radius: pRadius,
+        circumference: pCircumference,
+      };
+    }, [size]);
 
-  const CircleComponent = getCircleComponent(type as CircularProgressType);
-  const {
-    style,
-    indeterminateAnimation,
-  } = getCircleProps(type as CircularProgressType, circumference, progress as number);
+    const CircleComponent = getCircleComponent(type as CircularProgressType);
+    const {
+      style,
+      indeterminateAnimation,
+    } = getCircleProps(type as CircularProgressType, circumference, progress as number);
 
-  return (
-    <StyledCircularProgress
-      ref={ref}
-      size={size}
-      type={type}
-    >
-      <CircleComponent
-        circumference={circumference}
-        indeterminateAnimation={indeterminateAnimation}
-        style={style}
-        cx={(size as number) / 2}
-        cy={(size as number) / 2}
-        r={radius}
-        fill="none"
-        strokeWidth={strokeWidth}
-        {...props}
-      />
-    </StyledCircularProgress>
-  );
-});
+    return (
+      <StyledCircularProgress
+        ref={ref}
+        size={size}
+        type={type}
+      >
+        <CircleComponent
+          circumference={circumference}
+          indeterminateAnimation={indeterminateAnimation}
+          style={style}
+          cx={(size as number) / 2}
+          cy={(size as number) / 2}
+          r={radius}
+          fill="none"
+          strokeWidth={strokeWidth}
+          {...props}
+        />
+      </StyledCircularProgress>
+    );
+  },
+);
 
 CircularProgress.displayName = 'CircularProgress';
 CircularProgress.defaultProps = {
@@ -169,4 +168,4 @@ CircularProgress.defaultProps = {
   type: 'indeterminate',
 };
 
-export default memo(CircularProgress);
+export default CircularProgress;

@@ -3,7 +3,7 @@ import useWindowSize from 'hooks/useWindowSize';
 import { HorizontalAlignment, SizeType, VerticalAlignment } from 'common/Types';
 import { rem } from 'utils/StyleHelper';
 import React, {
-  CSSProperties, forwardRef, FC, ReactNode, memo,
+  CSSProperties, forwardRef, ReactNode,
 } from 'react';
 
 export type GridSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
@@ -131,7 +131,7 @@ const StyledGrid = styled.div`
   box-sizing: border-box;
 `;
 
-const Grid: FC<GridProps> = forwardRef<HTMLDivElement, GridProps>(({
+const Grid = forwardRef<HTMLDivElement, GridProps>(({
   children,
   className,
   fullHeight,
@@ -192,4 +192,4 @@ Grid.defaultProps = {
   xl: undefined,
 };
 
-export default memo(Grid);
+export default Grid;

@@ -1,5 +1,7 @@
 import Figure from 'components/Figure';
-import React, { BlockquoteHTMLAttributes, FC, ReactNode } from 'react';
+import React, {
+  BlockquoteHTMLAttributes, forwardRef, ReactNode,
+} from 'react';
 import styled, { css } from 'styled-components';
 import Typography from 'components/Typography';
 import { cvar, rem } from 'utils';
@@ -42,23 +44,25 @@ const StyledBlockquote = styled.blockquote<BlockquoteProps>`
   padding: 0 ${rem(120)};
 `;
 
-const Blockquote: FC<BlockquoteProps> = (props: BlockquoteProps) => {
-  const {
-    caption,
-    children,
-    gutter,
-  } = props;
+const Blockquote = forwardRef<HTMLElement, BlockquoteProps>(
+  (props: BlockquoteProps, ref) => {
+    const {
+      caption,
+      children,
+      gutter,
+    } = props;
 
-  return (
-    <StyledFigure caption={caption} gutter={gutter}>
-      <StyledBlockquote {...props}>
-        <Typography type="quote">
-          {children}
-        </Typography>
-      </StyledBlockquote>
-    </StyledFigure>
-  );
-};
+    return (
+      <StyledFigure ref={ref} caption={caption} gutter={gutter}>
+        <StyledBlockquote {...props}>
+          <Typography type="quote">
+            {children}
+          </Typography>
+        </StyledBlockquote>
+      </StyledFigure>
+    );
+  },
+);
 
 Blockquote.displayName = 'Blockquote';
 Blockquote.defaultProps = {

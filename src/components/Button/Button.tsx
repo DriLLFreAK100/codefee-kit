@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
 import React, {
-  FC, ReactNode, forwardRef, memo,
+  ReactNode, forwardRef, ButtonHTMLAttributes,
 } from 'react';
 import Typography from 'components/Typography';
 
 export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
 
-export interface ButtonProps {
-  buttonType?: ButtonType;
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
-  disabled?: boolean;
   text?: string;
+  variant?: ButtonType;
   onClick?: () => void;
 }
 
@@ -163,32 +162,36 @@ const getButtonComponent = (type: ButtonType) => {
   }
 };
 
-const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
-  children,
-  disabled,
-  text,
-  buttonType: type,
-  onClick,
-}: ButtonProps, ref) => {
-  const Component = getButtonComponent(type as ButtonType);
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (props: ButtonProps, ref) => {
+    const {
+      children,
+      text,
+      variant,
+      onClick,
+      ...passThrough
+    } = props;
 
-  return (
-    <Component
-      ref={ref}
-      buttonType={type as ButtonType}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      {children ?? <Typography type="button">{text}</Typography>}
-    </Component>
-  );
-});
+    const Component = getButtonComponent(variant as ButtonType);
+
+    return (
+      <Component
+        ref={ref}
+        variant={variant as ButtonType}
+        onClick={onClick}
+        {...passThrough}
+      >
+        {children ?? <Typography type="button">{text}</Typography>}
+      </Component>
+    );
+  },
+);
 
 Button.displayName = 'Button';
 Button.defaultProps = {
   children: undefined,
-  buttonType: 'primary',
+  variant: 'primary',
   onClick: undefined,
 };
 
-export default memo(Button);
+export default Button;

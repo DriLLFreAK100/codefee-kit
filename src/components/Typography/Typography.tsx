@@ -1,5 +1,5 @@
 import React, {
-  FC, forwardRef, memo, ReactNode, CSSProperties,
+  FC, forwardRef, ReactNode, CSSProperties,
 } from 'react';
 import Body1 from './Elements/Body1';
 import Body2 from './Elements/Body2';
@@ -104,4 +104,4 @@ Typography.defaultProps = {
   type: 'body1',
 };
 
-export default memo(Typography);
+export default Typography;

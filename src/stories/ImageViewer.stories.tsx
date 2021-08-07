@@ -3,6 +3,7 @@ import ImageViewer, { ImageViewerProps } from 'components/ImageViewer';
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import styles from './assets/styles/ImageViewer.module.scss';
+import Figure from 'components/Figure';
 /* eslint-disable no-alert */
 
 export default {
@@ -11,17 +12,19 @@ export default {
 } as Meta;
 
 const Template: Story<ImageViewerProps> = (args) => (
-  <div className={styles.ImageViewer}>
+  <Figure
+    className={styles.Figure}
+    caption={<>
+      From a <a target="_blank" href="https://www.codefeetime.com/">Codefee Time</a>
+    </>}
+  >
     <ImageViewer {...args} />
-  </div>
+  </Figure>
 );
 
 export const Default = Template.bind({});
 Default.args = {
   src: image,
   alt: 'Filter Coffee',
-  caption: <>
-    From a <a target="_blank" href="https://www.codefeetime.com/">Codefee Time</a>
-  </>,
 } as ImageViewerProps;
 
