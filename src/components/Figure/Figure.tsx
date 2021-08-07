@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, forwardRef, ReactNode } from 'react';
 import styled from 'styled-components';
 import Typography from 'components/Typography';
 import { cvar, rem, gut } from 'utils';
@@ -25,25 +25,27 @@ const StyledCaption = styled(Typography)`
   font-style: italic;
 `;
 
-const Figure: FC<FigureProps> = (props: FigureProps) => {
-  const {
-    caption,
-    children,
-  } = props;
+const Figure: FC<FigureProps> = forwardRef<HTMLElement, FigureProps>(
+  (props: FigureProps, ref) => {
+    const {
+      caption,
+      children,
+    } = props;
 
-  return (
-    <StyledFigure {...props}>
-      {children}
-      {
-        caption && (
-          <StyledCaption type="caption">
-            {caption}
-          </StyledCaption>
-        )
-      }
-    </StyledFigure>
-  );
-};
+    return (
+      <StyledFigure ref={ref} {...props}>
+        {children}
+        {
+          caption && (
+            <StyledCaption type="caption">
+              {caption}
+            </StyledCaption>
+          )
+        }
+      </StyledFigure>
+    );
+  },
+);
 
 Figure.displayName = 'Figure';
 Figure.defaultProps = {
