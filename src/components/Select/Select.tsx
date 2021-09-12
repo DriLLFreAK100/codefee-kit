@@ -7,7 +7,6 @@ import React, {
   useImperativeHandle,
   ForwardRefExoticComponent,
 } from 'react';
-import Typography from 'components/Typography';
 import * as S from './Select.style';
 
 export interface SelectOptionRequiredType {
@@ -18,30 +17,33 @@ export type SelectOptionType = { [key: string]: unknown } & SelectOptionRequired
 
 export interface SelectProps {
   options: SelectOptionType[];
+  selected?: SelectOptionType;
+  onChange: (option: SelectOptionType) => void;
   getOptionLabel?: (option?: SelectOptionType) => ReactNode;
   getOptionValue?: (option?: SelectOptionType) => unknown;
-  template?: (item: SelectOptionType, props: SelectProps) => HTMLOptionElement;
+  template?: (option: SelectOptionType, props: SelectProps) => HTMLOptionElement;
 }
 
 const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
   (props: SelectProps, ref) => {
     const {
       options,
+      selected,
       getOptionLabel,
       getOptionValue,
+      onChange,
       ...passThrough
     } = props;
 
     const selectRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState<SelectOptionType | undefined>(undefined);
 
     const handleOnClickSelect = (): void => {
       setOpen(!open);
     };
 
     const handleOnClickOption = (option: SelectOptionType): void => {
-      setSelected(option);
+      onChange(option);
       setOpen(false);
     };
 
@@ -69,10 +71,10 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
         {...passThrough}
       >
         <S.Select onClick={handleOnClickSelect}>
-          <Typography type="subtitle1">
+          <S.Label type="subtitle1">
             {getOptionLabel?.(selected)}
-          </Typography>
-
+          </S.Label>
+          <S.AngleIcon open={open} />
         </S.Select>
         {
           open && (
