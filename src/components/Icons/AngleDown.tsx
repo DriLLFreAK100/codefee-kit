@@ -1,10 +1,10 @@
 import React, { SVGAttributes, forwardRef } from 'react';
 import Icon from './Icon';
 
-export type TimesProps = SVGAttributes<SVGSVGElement>;
+export type AngleDownProps = SVGAttributes<SVGSVGElement>;
 
-const Times = forwardRef<SVGSVGElement, TimesProps>(
-  (props: TimesProps, ref) => (
+const AngleDown = forwardRef<SVGSVGElement, AngleDownProps>(
+  (props: AngleDownProps, ref) => (
     <Icon
       ref={ref}
       {...props}
@@ -14,6 +14,6 @@ const Times = forwardRef<SVGSVGElement, TimesProps>(
   ),
 );
 
-Times.displayName = 'Times';
+AngleDown.displayName = 'AngleDown';
 
-export default Times;
+export default AngleDown;
