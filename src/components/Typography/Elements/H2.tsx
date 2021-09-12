@@ -1,11 +1,20 @@
-import styled from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import { Gutter } from 'common';
 import { rem } from 'utils/StyleHelper';
 import { TypographyElementProps } from '../interface';
-import { withHeadingStyle } from './BaseStyles';
+import { BaseHeadingStyle } from './BaseStyles';
 
-const H2 = styled.h2<TypographyElementProps>`
+export const H2Style = (
+  props: TypographyElementProps = {},
+  defaultGutterBottom: Gutter = 0,
+): FlattenSimpleInterpolation => css`
   font-size: ${rem(40)};
   line-height: ${rem(52)};
+  ${BaseHeadingStyle(props, defaultGutterBottom)};
 `;
 
-export default withHeadingStyle(H2, 24);
+const H2 = styled.h2<TypographyElementProps>`
+  ${(props) => H2Style(props, 24)}
+`;
+
+export default H2;

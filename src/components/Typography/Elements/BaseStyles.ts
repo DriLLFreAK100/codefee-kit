@@ -1,28 +1,30 @@
-import styled, {
-  css, FlattenSimpleInterpolation, StyledComponent,
-} from 'styled-components';
+import { css, FlattenSimpleInterpolation } from 'styled-components';
 import { cvar, rem } from 'utils';
 import { Gutter } from 'common';
 import { TypographyElementProps } from '../interface';
 
-const BaseStyle = ({
-  gutterBottom,
-  subtle,
-}: TypographyElementProps) : FlattenSimpleInterpolation => css`
-  ${gutterBottom ? `
-    margin-bottom: ${rem(gutterBottom)};
-  ` : ''}
-  
-  ${subtle ? `
-    color: gray;
-    font-style: italic;
-    font-weight: 300;
-  ` : ''}
-`;
+export const BaseStyle = (props: TypographyElementProps = {}) : FlattenSimpleInterpolation => {
+  const {
+    gutterBottom,
+    subtle,
+  } = props;
 
-const BaseHeadingStyle = (
-  props: TypographyElementProps,
-  defaultGutterBottom: Gutter,
+  return css`
+    ${gutterBottom ? `
+      margin-bottom: ${rem(gutterBottom)};
+    ` : ''}
+    
+    ${subtle ? `
+      color: gray;
+      font-style: italic;
+      font-weight: 300;
+    ` : ''}
+  `;
+};
+
+export const BaseHeadingStyle = (
+  props: TypographyElementProps = {},
+  defaultGutterBottom: Gutter = 0,
 ) : FlattenSimpleInterpolation => {
   const { gutterBottom } = props;
 
@@ -32,36 +34,3 @@ const BaseHeadingStyle = (
     ${BaseStyle({ ...props, gutterBottom: gutterBottom ?? defaultGutterBottom })}
   `;
 };
-
-export const withBaseStyle = (
-  Component: StyledComponent<
-  keyof JSX.IntrinsicElements,
-  never,
-  TypographyElementProps,
-  never
-  >,
-):StyledComponent<
-keyof JSX.IntrinsicElements,
-never,
-TypographyElementProps,
-never
-> => styled(Component)<TypographyElementProps>`
-  ${(props) => BaseStyle(props)};
-`;
-
-export const withHeadingStyle = (
-  Component: StyledComponent<
-  keyof JSX.IntrinsicElements,
-  never,
-  TypographyElementProps,
-  never
-  >,
-  defaultGutterBottom: Gutter = 0,
-):StyledComponent<
-keyof JSX.IntrinsicElements,
-never,
-TypographyElementProps,
-never
-> => styled(Component)<TypographyElementProps>`
-  ${(props) => BaseHeadingStyle(props, defaultGutterBottom)};
-`;

@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import { cvar, rem } from 'utils';
 import { TypographyElementProps } from '../interface';
-import { withBaseStyle } from './BaseStyles';
+import { BaseStyle } from './BaseStyles';
 
-const Button = styled.span<TypographyElementProps>`
+export const ButtonStyle = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
   display: block;
   font-family: ${cvar('--font-family-secondary')};
   font-weight: 500;
@@ -11,6 +11,11 @@ const Button = styled.span<TypographyElementProps>`
   letter-spacing: ${rem(1.25)};
   text-transform: uppercase;
   line-height: ${rem(16)};
+  ${BaseStyle(props)};
 `;
 
-export default withBaseStyle(Button);
+const Button = styled.span<TypographyElementProps>`
+  ${(props) => ButtonStyle(props)}
+`;
+
+export default Button;
