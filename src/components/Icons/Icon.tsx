@@ -5,7 +5,7 @@ export type IconProps = SVGAttributes<SVGSVGElement>;
 
 const StyledIcon = styled.svg`
   overflow: visible;
-  width: 0.6875em;
+  width: 1em;
   top: 0;
   right: 0;
   display: inline-block;

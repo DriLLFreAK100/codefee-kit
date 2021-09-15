@@ -1,10 +1,8 @@
-import React, { SVGAttributes, forwardRef } from 'react';
-import Icon from './Icon';
+import React, { forwardRef } from 'react';
+import Icon, { IconProps } from './Icon';
 
-export type AngleDownProps = SVGAttributes<SVGSVGElement>;
-
-const AngleDown = forwardRef<SVGSVGElement, AngleDownProps>(
-  (props: AngleDownProps, ref) => (
+const AngleDown = forwardRef<SVGSVGElement, IconProps>(
+  (props: IconProps, ref) => (
     <Icon
       ref={ref}
       {...props}

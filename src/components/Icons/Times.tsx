@@ -1,10 +1,8 @@
-import React, { SVGAttributes, forwardRef } from 'react';
-import Icon from './Icon';
+import React, { forwardRef } from 'react';
+import Icon, { IconProps } from './Icon';
 
-export type TimesProps = SVGAttributes<SVGSVGElement>;
-
-const Times = forwardRef<SVGSVGElement, TimesProps>(
-  (props: TimesProps, ref) => (
+const Times = forwardRef<SVGSVGElement, IconProps>(
+  (props: IconProps, ref) => (
     <Icon
       ref={ref}
       {...props}
