@@ -19,9 +19,8 @@ export interface SelectProps {
   options: SelectOptionType[];
   selected?: SelectOptionType;
   onChange: (option: SelectOptionType) => void;
-  getOptionLabel?: (option?: SelectOptionType) => ReactNode;
-  getOptionValue?: (option?: SelectOptionType) => unknown;
-  template?: (option: SelectOptionType, props: SelectProps) => HTMLOptionElement;
+  optionTemplate?: (option: SelectOptionType, props: SelectProps) => ReactNode;
+  selectedTemplate?: (selected: SelectOptionType | undefined, props: SelectProps) => ReactNode;
 }
 
 const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
@@ -29,10 +28,9 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
     const {
       options,
       selected,
-      getOptionLabel,
-      getOptionValue,
       onChange,
-      ...passThrough
+      optionTemplate,
+      selectedTemplate,
     } = props;
 
     const selectRef = useRef<HTMLDivElement>(null);
@@ -66,13 +64,10 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
     }, [ref, open]);
 
     return (
-      <S.Host
-        ref={selectRef}
-        {...passThrough}
-      >
+      <S.Host ref={selectRef}>
         <S.Select onClick={handleOnClickSelect}>
           <S.Label type="subtitle1">
-            {getOptionLabel?.(selected)}
+            {selectedTemplate?.(selected, props)}
           </S.Label>
           <S.AngleIcon open={open} />
         </S.Select>
@@ -84,7 +79,7 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
                   key={option.id}
                   onClick={() => handleOnClickOption(option)}
                 >
-                  {getOptionLabel?.(option)}
+                  {optionTemplate?.(option, props)}
                 </S.Option>
               ))}
             </S.OptionContainer>
@@ -97,9 +92,8 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
 
 Select.displayName = 'Select';
 Select.defaultProps = {
-  getOptionLabel: (option) => option?.label as ReactNode,
-  getOptionValue: (option) => option?.value,
-  template: undefined,
+  optionTemplate: (option: SelectOptionType) => option.label as ReactNode,
+  selectedTemplate: (option: SelectOptionType) => option?.label as ReactNode,
 };
 
 export default Select;

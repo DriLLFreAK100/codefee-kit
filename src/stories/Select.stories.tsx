@@ -1,7 +1,9 @@
 import Select, { SelectOptionType, SelectProps } from 'components/Select';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import { useState } from '@storybook/addons';
+import { Coffee, Times } from 'components/Icons';
+import styles from './assets/styles/Select.module.scss';
 /* eslint-disable no-alert */
 
 export default {
@@ -41,15 +43,39 @@ CustomLabelField.args = {
     { id: 2, name: 'Robusta', value: 'robusta' },
     { id: 3, name: 'Liberica', value: 'liberica' },
   ],
-  getOptionLabel: (option?: SelectOptionType) => option?.name,
+  optionTemplate: (option: SelectOptionType) => option.name,
+  selectedTemplate: (option?: SelectOptionType) => option?.name,
 } as unknown as SelectProps;
 
-export const CustomValueField = Template.bind({});
-CustomValueField.args = {
+export const CustomOptionTemplate = Template.bind({});
+CustomOptionTemplate.args = {
   options: [
     { id: 1, label: 'Arabica', data: 'arabica' },
     { id: 2, label: 'Robusta', data: 'robusta' },
     { id: 3, label: 'Liberica', data: 'liberica' },
   ],
-  getOptionValue: (option?: SelectOptionType) => option?.data,
+  optionTemplate: (option: SelectOptionType) => (
+    <div className={styles.customOptionTemplate}>
+      <div className={styles.customOptionTemplate__label}>
+        {option.label as ReactNode}
+      </div>
+      <Times />
+    </div>
+  ),
 } as unknown as SelectProps;
+
+export const CustomSelectedTemplate = Template.bind({});
+CustomSelectedTemplate.args = {
+  options: [
+    { id: 1, label: 'Arabica', data: 'arabica' },
+    { id: 2, label: 'Robusta', data: 'robusta' },
+    { id: 3, label: 'Liberica', data: 'liberica' },
+  ],
+  selectedTemplate: (option?: SelectOptionType) => option ? (
+    <div className={styles.customSelectedTemplate}>
+      <Coffee className={styles.customSelectedTemplate__icon} />
+      {option?.label as ReactNode}
+    </div>
+  ) : undefined,
+} as unknown as SelectProps;
+
