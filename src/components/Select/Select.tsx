@@ -5,7 +5,6 @@ import React, {
   useEffect,
   useRef,
   useImperativeHandle,
-  ForwardRefExoticComponent,
 } from 'react';
 import * as S from './Select.style';
 
@@ -23,7 +22,7 @@ export interface SelectProps {
   selectedTemplate?: (selected: SelectOptionType | undefined, props: SelectProps) => ReactNode;
 }
 
-const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
+const Select = forwardRef(
   (props: SelectProps, ref) => {
     const {
       options,
