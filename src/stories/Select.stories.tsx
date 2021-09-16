@@ -25,14 +25,9 @@ const Template: Story<SelectProps> = (args) => {
     setSelected(option);
   };
 
-  const handleSetRef = (ref: HTMLDivElement) => {
-    console.log(`Select Ref: ${ref}`);
-  }
-
   return (
     <Select
       {...args}
-      ref={handleSetRef}
       selected={selected}
       onChange={handleOnChange}
     />

@@ -1,10 +1,11 @@
+import useClickOutside from 'hooks/useClickOutside';
 import React, {
   forwardRef,
   ReactNode,
   useState,
-  useEffect,
   useRef,
   useImperativeHandle,
+  useCallback,
 } from 'react';
 import * as S from './Select.style';
 
@@ -35,6 +36,12 @@ const Select = forwardRef(
     const selectRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
 
+    const handleClickOutside = useCallback(() => {
+      if (open) {
+        setOpen(false);
+      }
+    }, [open]);
+
     const handleOnClickSelect = (): void => {
       setOpen(!open);
     };
@@ -54,16 +61,7 @@ const Select = forwardRef(
       node: selectRef?.current,
     }), []);
 
-    useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (open && selectRef?.current && !selectRef?.current?.contains(event.target as Node)) {
-          setOpen(false);
-        }
-      };
-
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
-    }, [ref, open]);
+    useClickOutside(selectRef, handleClickOutside);
 
     return (
       <S.Host ref={selectRef}>
