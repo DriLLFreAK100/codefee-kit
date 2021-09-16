@@ -41,7 +41,10 @@ const Select: ForwardRefExoticComponent<SelectProps> = forwardRef(
     };
 
     const handleOnClickOption = (option: SelectOptionType): void => {
-      onChange(option);
+      if (selected !== option) {
+        onChange(option);
+      }
+
       setOpen(false);
     };
 
