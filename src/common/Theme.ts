@@ -31,6 +31,7 @@ export interface ITheme {
   '--transition-toggle': string;
   '--control-border-radius': string;
   '--control-height': string;
+  '--control-bg-color': string;
   '--control-shadow': string;
 }
 
@@ -66,5 +67,6 @@ export const CodefeeTheme: ITheme = {
   '--transition-toggle': '0.2s',
   '--control-border-radius': '0.25rem',
   '--control-height': '3rem',
+  '--control-bg-color': '#ffffff',
   '--control-shadow': '0 0.125rem 0.25rem 0 rgba(109, 109, 109, 0.3)',
 };

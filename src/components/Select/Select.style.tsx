@@ -5,6 +5,7 @@ import { cvar, rem } from 'utils/StyleHelper';
 
 export const Host = styled.div`
   box-sizing: border-box;
+  background-color: ${cvar('--control-bg-color')};
   display: inline-block;
   height: ${cvar('--control-height')};
   min-width: ${rem(200)};
@@ -17,6 +18,7 @@ export const Host = styled.div`
 export const Select = styled.div`
   display: flex;
   align-items: center;  
+  background-color: inherit;
   box-sizing: border-box;
   cursor: pointer;
   height: 100%;
@@ -45,6 +47,7 @@ export const AngleIcon = styled(AngleDown) <{ open: boolean }>`
 `;
 
 export const OptionContainer = styled.ul`
+  background-color: inherit;
   box-sizing: border-box;
   border: ${rem(1)} solid ${cvar('--color-primary')};
   border-radius: 0 0 ${cvar('--control-border-radius')} ${cvar('--control-border-radius')};
