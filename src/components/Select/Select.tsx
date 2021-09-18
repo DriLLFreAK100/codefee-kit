@@ -1,10 +1,10 @@
 import useClickOutside from 'hooks/useClickOutside';
+import useExposeRef from 'hooks/useExposeRef';
 import React, {
   forwardRef,
   ReactNode,
   useState,
   useRef,
-  useImperativeHandle,
   useCallback,
 } from 'react';
 import * as S from './Select.style';
@@ -18,6 +18,7 @@ export type SelectOptionType = { [key: string]: unknown } & SelectOptionRequired
 export interface SelectProps {
   options: SelectOptionType[];
   selected?: SelectOptionType;
+  multiselect?: boolean;
   onChange: (option: SelectOptionType) => void;
   optionTemplate?: (option: SelectOptionType, props: SelectProps) => ReactNode;
   selectedTemplate?: (selected: SelectOptionType | undefined, props: SelectProps) => ReactNode;
@@ -54,14 +55,8 @@ const Select = forwardRef(
       setOpen(false);
     };
 
-    useImperativeHandle(ref, () => ({
-      focus: () => {
-        selectRef?.current?.focus();
-      },
-      node: selectRef?.current,
-    }), []);
-
     useClickOutside(selectRef, handleClickOutside);
+    useExposeRef(ref, selectRef);
 
     return (
       <S.Host ref={selectRef}>
