@@ -71,20 +71,16 @@ const Select = forwardRef(
           </S.Label>
           <S.AngleIcon open={open} />
         </S.Select>
-        {
-          open && (
-            <S.OptionContainer>
-              {options.map((option) => (
-                <S.Option
-                  key={option.id}
-                  onClick={() => handleOnClickOption(option)}
-                >
-                  {optionTemplate?.(option, props)}
-                </S.Option>
-              ))}
-            </S.OptionContainer>
-          )
-        }
+        <S.OptionContainer open={open}>
+          {options.map((option) => (
+            <S.Option
+              key={option.id}
+              onClick={() => handleOnClickOption(option)}
+            >
+              {optionTemplate?.(option, props)}
+            </S.Option>
+          ))}
+        </S.OptionContainer>
       </S.Host>
     );
   },

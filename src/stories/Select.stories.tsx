@@ -2,7 +2,7 @@ import Select, { SelectOptionType, SelectProps } from 'components/Select';
 import React, { ReactNode } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import { useState } from '@storybook/addons';
-import { Coffee, Times } from 'components/Icons';
+import { Coffee } from 'components/Icons';
 import styles from './assets/styles/Select.module.scss';
 
 /* eslint-disable no-alert */
@@ -55,10 +55,8 @@ CustomOptionTemplate.args = {
   options: defaultOptions,
   optionTemplate: (option: SelectOptionType) => (
     <div className={styles.customOptionTemplate}>
-      <div className={styles.customOptionTemplate__label}>
-        {option.label as ReactNode}
-      </div>
-      <Times />
+      <Coffee className={styles.customOptionTemplate__icon} />
+      {option.label as ReactNode}
     </div>
   ),
 } as unknown as SelectProps;

@@ -6,6 +6,10 @@
 .customOptionTemplate {
   @extend .customTemplate;
 
+  &__icon {
+    margin-right: 0.25rem;
+  }
+
   &__label {
     flex: 1;
   }

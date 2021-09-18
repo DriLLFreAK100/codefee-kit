@@ -46,7 +46,7 @@ export const AngleIcon = styled(AngleDown) <{ open: boolean }>`
   transform: ${({ open }) => (open ? 'rotate(180deg)' : 'rotate(360deg)')};
 `;
 
-export const OptionContainer = styled.ul`
+export const OptionContainer = styled.ul<{ open: boolean }>`
   background-color: inherit;
   box-sizing: border-box;
   border: ${rem(1)} solid ${cvar('--color-primary')};
@@ -57,6 +57,7 @@ export const OptionContainer = styled.ul`
   left: 0;
   width: 100%;
   max-height: ${rem(300)};
+  visibility: ${({ open }) => (open ? 'visible' : 'hidden')};
 `;
 
 export const Option = styled.li`
