@@ -1,4 +1,7 @@
-import Select from './Select';
+export * from './Interfaces';
 
-export default Select;
+export { default as Select } from './Select';
 export * from './Select';
+
+export { default as Multiselect } from './Multiselect';
+export * from './Multiselect';

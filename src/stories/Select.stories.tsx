@@ -1,9 +1,15 @@
-import Select, { SelectOptionType, SelectProps } from 'components/Select';
 import React, { ReactNode } from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
-import { useState } from '@storybook/addons';
-import { Coffee } from 'components/Icons';
 import styles from './assets/styles/Select.module.scss';
+import { Coffee } from 'components/Icons';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import {
+  Multiselect,
+  MultiselectProps,
+  Select,
+  SelectOptionType,
+  SelectProps
+} from 'components/Select';
+import { useState } from '@storybook/addons';
 
 /* eslint-disable no-alert */
 
@@ -75,3 +81,24 @@ CustomSelectedTemplate.args = {
     </div>
   ) : undefined,
 } as unknown as SelectProps;
+
+const MultiSelectTemplate: Story<MultiselectProps> = (args) => {
+  const [selected, setSelected] = useState<SelectOptionType[] | undefined>([]);
+
+  const handleOnChange = (options: SelectOptionType[]) => {
+    setSelected(options);
+  };
+
+  return (
+    <Multiselect
+      {...args}
+      selected={selected}
+      onChange={handleOnChange}
+    />
+  );
+};
+
+export const MultiselectDefault = MultiSelectTemplate.bind({});
+MultiselectDefault.args = {
+  options: defaultOptions,
+} as unknown as MultiselectProps;
