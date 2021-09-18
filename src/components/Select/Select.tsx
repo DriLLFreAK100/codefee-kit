@@ -1,3 +1,4 @@
+import { ListObjectRequiredProps } from 'common/Interfaces';
 import useClickOutside from 'hooks/useClickOutside';
 import useExposeRef from 'hooks/useExposeRef';
 import React, {
@@ -9,11 +10,9 @@ import React, {
 } from 'react';
 import * as S from './Select.style';
 
-export interface SelectOptionRequiredType {
-  id: number | string;
-}
-
-export type SelectOptionType = { [key: string]: unknown } & SelectOptionRequiredType;
+export type SelectOptionType =
+  { [key: string]: unknown }
+  & ListObjectRequiredProps<number | string>;
 
 export interface SelectProps {
   options: SelectOptionType[];
@@ -34,7 +33,7 @@ const Select = forwardRef(
       selectedTemplate,
     } = props;
 
-    const selectRef = useRef<HTMLDivElement>(null);
+    const hostRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
 
     const handleClickOutside = useCallback(() => {
@@ -55,11 +54,11 @@ const Select = forwardRef(
       setOpen(false);
     };
 
-    useClickOutside(selectRef, handleClickOutside);
-    useExposeRef(ref, selectRef);
+    useClickOutside(hostRef, handleClickOutside);
+    useExposeRef(ref, hostRef);
 
     return (
-      <S.Host ref={selectRef}>
+      <S.Host ref={hostRef}>
         <S.Select onClick={handleOnClickSelect}>
           <S.Label type="subtitle1">
             {selectedTemplate?.(selected, props)}
