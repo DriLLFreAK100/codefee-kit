@@ -26,6 +26,10 @@ const getDeviceSize = (windowSize: number): SizeType => {
   return 'xl';
 };
 
+/**
+ * Return window size information and screen SizeType
+ * @returns Window sizes and types
+ */
 const useWindowSize = (): {
   width?: number
   height?: number;
