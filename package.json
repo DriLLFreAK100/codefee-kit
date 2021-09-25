@@ -8,6 +8,9 @@
     "README.md"
   ],
   "outputDir": "./dist",
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
