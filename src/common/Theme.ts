@@ -24,13 +24,19 @@ export interface ITheme {
   '--color-error-light': string;
   '--color-error-dark': string;
   '--color-error-on': string;
-  '--color-bg': string;
+  '--color-gray-1': string;
+  '--color-gray-2': string;
+  '--color-gray-3': string;
+  '--color-gray-4': string;
+  '--color-gray-5': string;
+  '--color-gray-6': string;
   '--font-family-primary': string;
   '--font-family-secondary': string;
   '--transition-hover': string;
   '--transition-toggle': string;
   '--control-border-radius': string;
   '--control-height': string;
+  '--control-bg-color': string;
   '--control-shadow': string;
 }
 
@@ -59,12 +65,18 @@ export const CodefeeTheme: ITheme = {
   '--color-error-light': '#e94948',
   '--color-error-dark': '#790000',
   '--color-error-on': '#ffffff',
-  '--color-bg': '#f5f5f5',
+  '--color-gray-1': '#f5f5f5',
+  '--color-gray-2': '#edf9f9',
+  '--color-gray-3': '#e4eeef',
+  '--color-gray-4': '#acc0c4',
+  '--color-gray-5': '#82939a',
+  '--color-gray-6': '#5d6d78',
   '--font-family-primary': 'Segoe UI, sans-serif',
   '--font-family-secondary': 'Open Sans, sans-serif',
   '--transition-hover': '0.1s',
-  '--transition-toggle': '0.3s',
+  '--transition-toggle': '0.2s',
   '--control-border-radius': '0.25rem',
   '--control-height': '3rem',
+  '--control-bg-color': '#ffffff',
   '--control-shadow': '0 0.125rem 0.25rem 0 rgba(109, 109, 109, 0.3)',
 };

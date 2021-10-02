@@ -1,14 +1,19 @@
-import styled from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import { cvar, rem } from 'utils';
 import { TypographyElementProps } from '../interface';
-import { withBaseStyle } from './BaseStyles';
+import { BaseStyle } from './BaseStyles';
 
-const Subtitle1 = styled.h6<TypographyElementProps>`
+export const Subtitle1Style = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
   font-family: ${cvar('--font-family-primary')};
   font-size: ${rem(16)};
   font-weight: normal;
   letter-spacing: ${rem(0.15)};
   line-height: ${rem(16)};
+  ${BaseStyle(props)};
 `;
 
-export default withBaseStyle(Subtitle1);
+const Subtitle1 = styled.h6<TypographyElementProps>`
+  ${(props) => Subtitle1Style(props)}
+`;
+
+export default Subtitle1;

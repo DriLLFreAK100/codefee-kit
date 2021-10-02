@@ -28,6 +28,9 @@
       ],
       "utils/*": [
         "utils/*"
+      ],
+      "styles/*": [
+        "styles/*"
       ]
     }
   },

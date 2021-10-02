@@ -7,6 +7,9 @@ export * from './Blockquote';
 export { default as Button } from './Button';
 export * from './Button';
 
+export { default as Checkbox } from './Checkbox';
+export * from './Checkbox';
+
 export { default as CircularProgress } from './CircularProgress';
 export * from './CircularProgress';
 
@@ -26,6 +29,8 @@ export * from './ImageViewer';
 
 export { default as LoadArea } from './LoadArea';
 export * from './LoadArea';
+
+export * from './Select';
 
 export { default as Separator } from './Separator';
 export * from './Separator';
