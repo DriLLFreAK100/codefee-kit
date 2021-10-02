@@ -1,12 +1,19 @@
+import styled from 'styled-components';
 import Typography from 'components/Typography';
 import { cvar, rem } from 'utils/StyleHelper';
-import styled from 'styled-components';
+import { Gutter } from 'common';
+import { GutterStyle } from 'styles';
 
-export const Checkbox = styled.label<{ disabled?: boolean }>`
+export const Checkbox = styled.label<{
+  disabled?: boolean;
+  gutterBottom: Gutter;
+}>`
   display: inline-block;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   height: ${rem(24)};
   position: relative;
+  user-select: none;
+  ${({ gutterBottom }) => GutterStyle({ bottom: gutterBottom })}
 `;
 
 export const Input = styled.input`

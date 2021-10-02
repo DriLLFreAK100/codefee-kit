@@ -1,13 +1,15 @@
+import { Gutter } from 'common';
 import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useCallback,
 } from 'react';
 import * as S from './Checkbox.style';
 
-export interface CheckboxProps extends HtmlHTMLAttributes<HTMLInputElement> {
+export interface CheckboxProps extends HtmlHTMLAttributes<HTMLLabelElement> {
   checked: boolean;
   disabled?: boolean;
+  gutterBottom?: Gutter;
+  inputProps?: HtmlHTMLAttributes<HTMLInputElement>,
   label?: string;
-  name: string;
   onValueChange?: (checked: boolean) => void;
 }
 
@@ -16,8 +18,9 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
     const {
       checked,
       disabled,
+      gutterBottom,
+      inputProps,
       label,
-      name,
       onValueChange,
       ...passThrough
     } = props;
@@ -28,17 +31,17 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
 
     return (
       <S.Checkbox
-        htmlFor={name}
         ref={ref}
         disabled={disabled}
+        gutterBottom={gutterBottom as Gutter}
+        {...passThrough}
       >
         <S.Input
           type="checkbox"
-          name={name}
           checked={checked}
           disabled={disabled}
           onChange={handleOnChange}
-          {...passThrough}
+          {...inputProps}
         />
         <S.Label>
           {label}
@@ -51,6 +54,9 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
 
 Checkbox.displayName = 'Checkbox';
 Checkbox.defaultProps = {
+  disabled: false,
+  gutterBottom: 12,
+  inputProps: undefined,
   label: '',
   onValueChange: undefined,
 };

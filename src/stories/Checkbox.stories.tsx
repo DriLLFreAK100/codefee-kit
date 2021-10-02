@@ -1,7 +1,6 @@
 import Checkbox, { CheckboxProps } from 'components/Checkbox';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { useCallback, useState } from '@storybook/client-api';
 /* eslint-disable no-alert */
 
 export default {
@@ -13,13 +12,12 @@ const Template: Story<CheckboxProps> = (args) => <Checkbox {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  disabled: true,
+  disabled: false,
   checked: true,
   label: 'Love Coffee?',
-  name: 'is-coffee-lover'
 } as CheckboxProps;
 
-export const StatefulSample: Story<CheckboxProps> = (args) => {
+const StatefulTemplate: Story<CheckboxProps> = (args) => {
   const [checked, setChecked] = useState(false);
 
   const handleValueChange = useCallback((value: boolean) => {
@@ -34,3 +32,8 @@ export const StatefulSample: Story<CheckboxProps> = (args) => {
     />
   );
 }
+
+export const StatefulSample = StatefulTemplate.bind({});
+StatefulSample.args = {
+  label: 'Love Coffee?',
+} as CheckboxProps;
