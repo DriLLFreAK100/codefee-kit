@@ -1,4 +1,4 @@
-import { ForwardedRef, RefObject, useImperativeHandle } from 'react';
+import { RefObject, useImperativeHandle } from 'react';
 
 /**
  * Expose a component's local ref to Forwarded Ref as a 'node' property.
@@ -7,7 +7,7 @@ import { ForwardedRef, RefObject, useImperativeHandle } from 'react';
  * @param internalRef Local Ref to be synced with parent compoonent
  */
 const useExposeRef = (
-  forwardedRef: ForwardedRef<unknown>,
+  forwardedRef: React.MutableRefObject<unknown> | ((instance: unknown) => void) | null,
   internalRef: RefObject<unknown>,
 ): void => {
   useImperativeHandle(forwardedRef, () => ({

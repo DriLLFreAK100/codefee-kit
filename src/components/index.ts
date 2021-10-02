@@ -27,7 +27,6 @@ export * from './ImageViewer';
 export { default as LoadArea } from './LoadArea';
 export * from './LoadArea';
 
-export { default as Select } from './Select';
 export * from './Select';
 
 export { default as Separator } from './Separator';
