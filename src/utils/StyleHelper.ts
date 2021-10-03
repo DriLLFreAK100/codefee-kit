@@ -10,9 +10,14 @@ import { ITheme } from 'common/Theme';
 export const rem = (px: number, basePx = 16): string => `${px / basePx}rem`;
 
 /**
- * Get Custom CSS Variable
+ * Get CSS Variable
  */
 export const cvar = (key: keyof ITheme): string => `var(${key})`;
+
+/**
+ * Get Generic Custom CSS Variable
+ */
+export const cvarGen = <T>(key: keyof T): string => `var(${key as string})`;
 
 /**
  * Get Gutter size in rem
@@ -20,3 +25,13 @@ export const cvar = (key: keyof ITheme): string => `var(${key})`;
  * @returns CSS rem value
  */
 export const gut = (value: Gutter): string => rem(value);
+
+/**
+ * Transform Json to a CSS string
+ * @param json Json specifying CSS Properties or CSS Variables
+ * @returns CSS string
+ */
+export const jsonToCss = <T>(json: T): string => Object
+  .entries(json)
+  .map(([key, value]) => `${key}: ${value as string}`)
+  .join(';');

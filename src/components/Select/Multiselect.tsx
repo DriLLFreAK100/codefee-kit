@@ -1,7 +1,6 @@
 import React, { forwardRef, ReactNode, useState } from 'react';
-import BaseSelect from './BaseSelect';
+import * as S from './Multiselect.style';
 import { SelectOptionType } from './Interfaces';
-import * as S from './Select.style';
 
 export interface MultiselectProps {
   options: SelectOptionType[];
@@ -16,11 +15,20 @@ export interface MultiselectProps {
 
 const DefaultSelectedTemplate = (options: SelectOptionType[]): ReactNode => `${options?.length || 0} selected`;
 
-const DefaultOptionTemplate = ({ label }: SelectOptionType): ReactNode => (
-  <div>
-    {label as ReactNode}
-  </div>
-);
+const DefaultOptionTemplate = (
+  option: SelectOptionType,
+  { selected }: MultiselectProps,
+): ReactNode => {
+  const { label } = option;
+
+  return (
+    <S.CheckboxOption
+      gutterBottom={0}
+      checked={selected?.includes(option) || false}
+      label={label as string}
+    />
+  );
+};
 
 const Multiselect = forwardRef(
   (props: MultiselectProps, ref) => {
@@ -43,12 +51,10 @@ const Multiselect = forwardRef(
           option,
         ]);
       }
-
-      setOpen(false);
     };
 
     return (
-      <BaseSelect
+      <S.MultiselectLayout
         ref={ref}
         open={open}
         setOpen={setOpen}
@@ -57,14 +63,36 @@ const Multiselect = forwardRef(
             {selectedTemplate?.(selected, props)}
           </S.Label>
         )}
-        optionNodes={options.map((option) => (
-          <S.Option
-            key={option.id}
-            onClick={() => handleOnClickOption(option)}
-          >
-            {optionTemplate?.(option, props)}
-          </S.Option>
-        ))}
+        optionNodes={[
+          <S.HeaderControlsLayout key="selection-header">
+            <S.OptionsControl>
+              <S.OptionsControlText type="button">Unselect All</S.OptionsControlText>
+            </S.OptionsControl>
+            <S.OptionsControl>
+              <S.OptionsControlText type="button">Select All</S.OptionsControlText>
+            </S.OptionsControl>
+          </S.HeaderControlsLayout>,
+          <ul key="selection-nodes">
+            {
+              options.map((option) => (
+                <S.MultiselectOption
+                  key={option.id}
+                  onClick={() => handleOnClickOption(option)}
+                >
+                  {optionTemplate?.(option, props)}
+                </S.MultiselectOption>
+              ))
+            }
+          </ul>,
+          <S.FooterControlsLayout key="selection-footer">
+            <S.OptionsControl>
+              <S.OptionsControlText type="button">Cancel</S.OptionsControlText>
+            </S.OptionsControl>
+            <S.OptionsControl>
+              <S.OptionsControlText type="button">Apply</S.OptionsControlText>
+            </S.OptionsControl>
+          </S.FooterControlsLayout>,
+        ]}
       />
     );
   },

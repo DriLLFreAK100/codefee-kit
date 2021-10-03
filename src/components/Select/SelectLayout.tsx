@@ -9,16 +9,18 @@ import React, {
 } from 'react';
 import * as S from './Select.style';
 
-export interface BaseSelectProps {
+export interface SelectLayoutProps {
+  className?: string;
   open: boolean;
   optionNodes: ReactNode;
   selectedDisplay: ReactNode;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BaseSelect = forwardRef(
-  (props: BaseSelectProps, ref) => {
+const SelectLayout = forwardRef(
+  (props: SelectLayoutProps, ref) => {
     const {
+      className,
       open,
       optionNodes,
       selectedDisplay,
@@ -41,8 +43,14 @@ const BaseSelect = forwardRef(
     useExposeRef(ref, hostRef);
 
     return (
-      <S.Host ref={hostRef}>
-        <S.Select onClick={handleOnClickSelect}>
+      <S.Host
+        ref={hostRef}
+        className={className}
+      >
+        <S.Select
+          open={open}
+          onClick={handleOnClickSelect}
+        >
           {selectedDisplay}
           <S.AngleIcon open={open} />
         </S.Select>
@@ -54,6 +62,9 @@ const BaseSelect = forwardRef(
   },
 );
 
-BaseSelect.displayName = 'BaseSelect';
+SelectLayout.displayName = 'SelectLayout';
+SelectLayout.defaultProps = {
+  className: '',
+};
 
-export default BaseSelect;
+export default SelectLayout;
