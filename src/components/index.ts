@@ -11,7 +11,6 @@ export { default as Checkbox } from './Checkbox';
 export * from './Checkbox';
 
 export { default as CircularProgress } from './CircularProgress';
-export * from './CircularProgress';
 
 export { default as Figure } from './Figure';
 export * from './Figure';
