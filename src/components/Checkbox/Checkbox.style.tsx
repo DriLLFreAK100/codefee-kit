@@ -16,7 +16,7 @@ export interface CheckboxCssVarProps {
   '--cf-checkbox-color-label': string;
 }
 
-export const defaultCssVar: CheckboxCssVarProps = {
+export const DefaultCssVar: CheckboxCssVarProps = {
   '--cf-checkbox-color-border': cvar('--color-primary'),
   '--cf-checkbox-color-border-hover': cvar('--color-primary-light'),
   '--cf-checkbox-color-border-active': cvar('--color-primary-dark'),
@@ -26,7 +26,7 @@ export const defaultCssVar: CheckboxCssVarProps = {
   '--cf-checkbox-color-label': 'unset',
 };
 
-export const CheckboxCssVar = css`${jsonToCss(defaultCssVar)}`;
+export const CheckboxCssVar = css`${jsonToCss(DefaultCssVar)}`;
 
 export const Checkbox = styled.label<{ disabled?: boolean; gutterBottom: Gutter; }>`
   display: inline-block;
