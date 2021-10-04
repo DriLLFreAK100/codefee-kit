@@ -46,7 +46,7 @@ export const FooterControlsLayout = styled(ControlsLayout)`
   border-top: ${rem(1)} solid ${cvar('--color-primary')};
 `;
 
-export const OptionsControl = styled.button`
+export const ControlButton = styled.button`
   border: none;
   background: inherit;
   flex: 1;
@@ -70,7 +70,7 @@ export const OptionsControl = styled.button`
   }
 `;
 
-export const OptionsControlText = styled(Typography)`
+export const ControlButtonText = styled(Typography)`
   color: ${cvar('--color-gray-7')};
 
   &:hover,

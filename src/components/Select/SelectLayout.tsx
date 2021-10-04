@@ -14,6 +14,7 @@ export interface SelectLayoutProps {
   open: boolean;
   optionNodes: ReactNode;
   selectedDisplay: ReactNode;
+  onClickOutside?: () => void;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -24,16 +25,19 @@ const SelectLayout = forwardRef(
       open,
       optionNodes,
       selectedDisplay,
+      onClickOutside,
       setOpen,
     } = props;
 
     const hostRef = useRef<HTMLDivElement>(null);
 
     const handleClickOutside = useCallback(() => {
+      onClickOutside?.();
+
       if (open) {
         setOpen(false);
       }
-    }, [open, setOpen]);
+    }, [open, setOpen, onClickOutside]);
 
     const handleOnClickSelect = (): void => {
       setOpen(!open);
@@ -65,6 +69,7 @@ const SelectLayout = forwardRef(
 SelectLayout.displayName = 'SelectLayout';
 SelectLayout.defaultProps = {
   className: '',
+  onClickOutside: undefined,
 };
 
 export default SelectLayout;
