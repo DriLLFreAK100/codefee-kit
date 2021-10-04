@@ -13,6 +13,7 @@ export interface CheckboxCssVarProps {
   '--cf-checkbox-color-checked-bg': string;
   '--cf-checkbox-color-disabled': string;
   '--cf-checkbox-color-checkmark': string;
+  '--cf-checkbox-color-checkmark-disabled': string;
   '--cf-checkbox-color-label': string;
 }
 
@@ -23,6 +24,7 @@ export const DefaultCssVar: CheckboxCssVarProps = {
   '--cf-checkbox-color-checked-bg': cvar('--color-primary'),
   '--cf-checkbox-color-disabled': cvar('--color-gray-4'),
   '--cf-checkbox-color-checkmark': cvar('--color-primary-on'),
+  '--cf-checkbox-color-checkmark-disabled': cvar('--color-primary-on'),
   '--cf-checkbox-color-label': 'unset',
 };
 
@@ -36,6 +38,19 @@ export const Checkbox = styled.label<{ disabled?: boolean; gutterBottom: Gutter;
   user-select: none;
   ${({ gutterBottom }) => GutterStyle({ bottom: gutterBottom })};
   ${CheckboxCssVar}
+`;
+
+export const Checkmark = styled.span<{ checked: boolean; disabled?: boolean; }>`
+  position: absolute;
+  left: ${rem(7)};
+  top: ${rem(1.5)};
+  width: ${rem(4)};
+  height: ${rem(11)};
+  border-color: ${({ disabled }) => cvarGen<CheckboxCssVarProps>(disabled ? '--cf-checkbox-color-checkmark-disabled' : '--cf-checkbox-color-checkmark')};
+  border-style: solid;
+  border-width: 0 ${rem(2)} ${rem(2)} 0;
+  transform: rotate(405deg);
+  visibility: ${({ checked }) => (checked ? 'visible' : 'hidden')};
 `;
 
 export const Input = styled.input`
@@ -74,16 +89,4 @@ export const Label = styled(Typography)`
   display: inline-block;
   vertical-align: middle;
   color: ${cvarGen('--cf-checkbox-color-label')};
-`;
-
-export const Checkmark = styled.span<{ checked: boolean }>`
-  position: absolute;
-  left: ${rem(7)};
-  top: ${rem(2)};
-  width: ${rem(4)};
-  height: ${rem(11)};
-  border: solid ${cvarGen<CheckboxCssVarProps>('--cf-checkbox-color-checkmark')};
-  border-width: 0 ${rem(2)} ${rem(2)} 0;
-  transform: rotate(405deg);
-  visibility: ${({ checked }) => (checked ? 'visible' : 'hidden')};
 `;

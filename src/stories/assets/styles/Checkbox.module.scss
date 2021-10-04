@@ -1,0 +1,10 @@
+.CustomColor.CustomColor {
+  --cf-checkbox-color-border: var(--color-secondary);
+  --cf-checkbox-color-border-hover: var(--color-secondary-light);
+  --cf-checkbox-color-border-active: var(--color-secondary-dark);
+  --cf-checkbox-color-checked-bg: var(--color-secondary);
+  --cf-checkbox-color-disabled: var(--color-gray-5);
+  --cf-checkbox-color-checkmark: var(--color-secondary-on);
+  --cf-checkbox-color-label: var(--color-gray-6);
+  --cf-checkbox-color-disabled-checkmark: var(--color-primary-on);
+}

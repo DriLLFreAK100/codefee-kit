@@ -46,7 +46,10 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
         <S.Label type="body2">
           {label}
         </S.Label>
-        <S.Checkmark checked={checked} />
+        <S.Checkmark
+          checked={checked}
+          disabled={disabled}
+        />
       </S.Checkbox>
     );
   },
