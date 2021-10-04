@@ -15,7 +15,7 @@ export const Host = styled.div`
   ${Subtitle1Style()}
 `;
 
-export const Select = styled.div`
+export const Select = styled.div<{ open: boolean }>`
   display: flex;
   align-items: center;  
   background-color: inherit;
@@ -24,7 +24,7 @@ export const Select = styled.div`
   height: 100%;
   width: 100%;
   padding: ${rem(8)};
-  border-radius: ${cvar('--control-border-radius')};
+  border-radius: ${({ open }) => (open ? `${cvar('--control-border-radius')} ${cvar('--control-border-radius')} 0 0` : cvar('--control-border-radius'))};
   border: ${rem(1)} solid ${cvar('--color-primary')};
   transition: border-color ${cvar('--transition-hover')} ease-in-out;
 
@@ -46,7 +46,7 @@ export const AngleIcon = styled(AngleDown) <{ open: boolean }>`
   transform: ${({ open }) => (open ? 'rotate(180deg)' : 'rotate(360deg)')};
 `;
 
-export const OptionContainer = styled.ul<{ open: boolean }>`
+export const OptionContainer = styled.div<{ open: boolean }>`
   background-color: inherit;
   box-sizing: border-box;
   border: ${rem(1)} solid ${cvar('--color-primary')};

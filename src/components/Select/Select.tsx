@@ -4,7 +4,7 @@ import React, {
   useState,
 } from 'react';
 import * as S from './Select.style';
-import BaseSelect from './BaseSelect';
+import SelectLayout from './SelectLayout';
 import { SelectOptionType } from './Interfaces';
 
 export interface SelectProps {
@@ -36,7 +36,7 @@ const Select = forwardRef(
     };
 
     return (
-      <BaseSelect
+      <SelectLayout
         ref={ref}
         open={open}
         setOpen={setOpen}
@@ -45,14 +45,20 @@ const Select = forwardRef(
             {selectedTemplate?.(selected, props)}
           </S.Label>
         )}
-        optionNodes={options.map((option) => (
-          <S.Option
-            key={option.id}
-            onClick={() => handleOnClickOption(option)}
-          >
-            {optionTemplate?.(option, props)}
-          </S.Option>
-        ))}
+        optionNodes={(
+          <ul>
+            {
+              options.map((option) => (
+                <S.Option
+                  key={option.id}
+                  onClick={() => handleOnClickOption(option)}
+                >
+                  {optionTemplate?.(option, props)}
+                </S.Option>
+              ))
+            }
+          </ul>
+        )}
       />
     );
   },

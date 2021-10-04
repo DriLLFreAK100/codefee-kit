@@ -43,10 +43,13 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           onChange={handleOnChange}
           {...inputProps}
         />
-        <S.Label>
+        <S.Label type="body2">
           {label}
         </S.Label>
-        <S.Checkmark checked={checked} />
+        <S.Checkmark
+          checked={checked}
+          disabled={disabled}
+        />
       </S.Checkbox>
     );
   },

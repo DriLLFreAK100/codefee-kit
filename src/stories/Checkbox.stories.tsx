@@ -1,6 +1,7 @@
 import Checkbox, { CheckboxProps } from 'components/Checkbox';
 import React, { useCallback, useState } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
+import styles from './assets/styles/Checkbox.module.scss';
 /* eslint-disable no-alert */
 
 export default {
@@ -35,5 +36,13 @@ const StatefulTemplate: Story<CheckboxProps> = (args) => {
 
 export const StatefulSample = StatefulTemplate.bind({});
 StatefulSample.args = {
+  label: 'Love Coffee?',
+} as CheckboxProps;
+
+export const CustomColor = Template.bind({});
+CustomColor.args = {
+  className: styles.CustomColor,
+  disabled: false,
+  checked: true,
   label: 'Love Coffee?',
 } as CheckboxProps;

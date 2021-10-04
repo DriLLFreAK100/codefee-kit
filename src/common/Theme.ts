@@ -30,6 +30,7 @@ export interface ITheme {
   '--color-gray-4': string;
   '--color-gray-5': string;
   '--color-gray-6': string;
+  '--color-gray-7': string;
   '--font-family-primary': string;
   '--font-family-secondary': string;
   '--transition-hover': string;
@@ -71,6 +72,7 @@ export const CodefeeTheme: ITheme = {
   '--color-gray-4': '#acc0c4',
   '--color-gray-5': '#82939a',
   '--color-gray-6': '#5d6d78',
+  '--color-gray-7': '#46535E',
   '--font-family-primary': 'Segoe UI, sans-serif',
   '--font-family-secondary': 'Open Sans, sans-serif',
   '--transition-hover': '0.1s',
