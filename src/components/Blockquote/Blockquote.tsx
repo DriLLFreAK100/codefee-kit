@@ -1,11 +1,9 @@
-import Figure from 'components/Figure';
+import Typography from 'components/Typography';
+import { Gutter } from 'common/Types';
 import React, {
   BlockquoteHTMLAttributes, forwardRef, ReactNode,
 } from 'react';
-import styled, { css } from 'styled-components';
-import Typography from 'components/Typography';
-import { cvar, rem } from 'utils';
-import { Gutter } from 'common/Types';
+import * as S from './Blockquote.style';
 
 export interface BlockquoteProps extends BlockquoteHTMLAttributes<HTMLQuoteElement> {
   cite?: string;
@@ -13,36 +11,6 @@ export interface BlockquoteProps extends BlockquoteHTMLAttributes<HTMLQuoteEleme
   children?: ReactNode;
   gutter?: Gutter;
 }
-
-const QuoteBorderStyle = css`
-  border-radius: ${cvar('--control-border-radius')};
-  content: '';
-  background-image: linear-gradient(to right, ${cvar('--color-secondary-light')}, ${cvar('--color-secondary-dark')}, ${cvar('--color-secondary-light')});
-  left: calc(50% - ${rem(10)});
-  height: ${rem(2)};
-  width: ${rem(20)};
-  position: absolute;
-`;
-
-const StyledFigure = styled(Figure)`
-  position: relative;
-
-  ::before {
-    ${QuoteBorderStyle}
-    top: 0;
-  }
-
-  ::after {
-    ${QuoteBorderStyle}
-    bottom: 0;
-  }
-`;
-
-const StyledBlockquote = styled.blockquote<BlockquoteProps>`
-  border-radius: ${cvar('--control-border-radius')};
-  margin-bottom: ${rem(20)};
-  padding: 0 ${rem(120)};
-`;
 
 const Blockquote = forwardRef<HTMLElement, BlockquoteProps>(
   (props: BlockquoteProps, ref) => {
@@ -53,13 +21,13 @@ const Blockquote = forwardRef<HTMLElement, BlockquoteProps>(
     } = props;
 
     return (
-      <StyledFigure ref={ref} caption={caption} gutter={gutter}>
-        <StyledBlockquote {...props}>
+      <S.Figure ref={ref} caption={caption} gutter={gutter}>
+        <S.Blockquote {...props}>
           <Typography type="quote">
             {children}
           </Typography>
-        </StyledBlockquote>
-      </StyledFigure>
+        </S.Blockquote>
+      </S.Figure>
     );
   },
 );

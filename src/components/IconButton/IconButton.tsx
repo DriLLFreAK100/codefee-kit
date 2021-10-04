@@ -1,63 +1,45 @@
 import React, {
   forwardRef, ImgHTMLAttributes,
 } from 'react';
-import styled, { css } from 'styled-components';
-import { cvar } from 'utils/StyleHelper';
+import * as S from './IconButton.style';
+
+export type IconButtonVariantType = 'primary' | 'secondary';
 
 export interface IconButtonProps extends ImgHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary';
+  variant?: IconButtonVariantType;
+  onClick?: () => void;
 }
 
-const ThemeStyle = ({ variant }: IconButtonProps) => {
+const getComponent = (variant: IconButtonVariantType) => {
   switch (variant) {
     case 'primary':
-      return css`
-        background-color: ${cvar('--color-primary')};
-        color: ${cvar('--color-primary-on')};
-
-        &:hover{
-          background-color: ${cvar('--color-primary-light')};
-        }
-
-        &:active{
-          background-color: ${cvar('--color-primary-dark')};
-        }
-      `;
+      return S.PrimaryIconButton;
     case 'secondary':
-      return css`
-        background-color: ${cvar('--color-secondary')};
-        color: ${cvar('--color-secondary-on')};
-
-        &:hover{
-          background-color: ${cvar('--color-secondary-light')};
-        }
-
-        &:active{
-          background-color: ${cvar('--color-secondary-dark')};
-        }
-      `;
+      return S.SecondaryIconButton;
     default:
-      return css``;
+      return S.PrimaryIconButton;
   }
 };
 
-const StyledIconButton = styled.button<IconButtonProps>`
-  height: ${cvar('--control-height')};
-  width: ${cvar('--control-height')};
-  border: 0;
-  border-radius: 50%;
-  box-shadow: ${cvar('--control-shadow')};
-  transition: background-color ${cvar('--transition-hover')} ease-in-out;
-  ${(props) => ThemeStyle(props)};
-`;
-
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  (props: IconButtonProps, ref) => <StyledIconButton ref={ref} {...props} />,
+  (props: IconButtonProps, ref) => {
+    const {
+      variant,
+      ...passThrough
+    } = props;
+
+    const Component = getComponent(variant as IconButtonVariantType);
+
+    return (
+      <Component ref={ref} {...passThrough} />
+    );
+  },
 );
 
 IconButton.displayName = 'IconButton';
 IconButton.defaultProps = {
   variant: 'primary',
+  onClick: undefined,
 };
 
 export default IconButton;
