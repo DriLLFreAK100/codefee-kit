@@ -21,7 +21,7 @@ Primary.args = {
   variant: 'primary',
 } as IconButtonProps;
 
-export const Subtle = Template.bind({});
-Subtle.args = {
+export const Secondary = Template.bind({});
+Secondary.args = {
   variant: 'secondary',
 } as IconButtonProps;
