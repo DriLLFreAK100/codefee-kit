@@ -1,10 +1,10 @@
-import styled from 'styled-components';
 import useWindowSize from 'hooks/useWindowSize';
 import { HorizontalAlignment, SizeType, VerticalAlignment } from 'common/Types';
 import { rem } from 'utils/StyleHelper';
 import React, {
   CSSProperties, forwardRef, ReactNode,
 } from 'react';
+import * as S from './Grid.style';
 
 export type GridSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
 
@@ -125,12 +125,6 @@ const getYAlign = (value?: VerticalAlignment): CSSProperties => {
   return result;
 };
 
-const StyledGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-`;
-
 const Grid = forwardRef<HTMLDivElement, GridProps>(({
   children,
   className,
@@ -167,13 +161,13 @@ const Grid = forwardRef<HTMLDivElement, GridProps>(({
   }
 
   return (
-    <StyledGrid
+    <S.Grid
       ref={ref}
       className={className}
       style={computedStyle}
     >
       {children}
-    </StyledGrid>
+    </S.Grid>
   );
 });
 
