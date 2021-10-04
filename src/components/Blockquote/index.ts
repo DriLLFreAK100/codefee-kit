@@ -1,6 +1,7 @@
+import Blockquote from './Blockquote';
 import { BlockquoteCss, FigureCss } from './Blockquote.style';
 
-export { default as Blockquote } from './Blockquote';
+export default Blockquote;
 export * from './Blockquote';
 
 export const BlockquoteStyles = {
