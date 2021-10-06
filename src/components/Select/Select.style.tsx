@@ -1,7 +1,7 @@
-import { AngleDown } from 'components/Icons';
-import Typography, { Subtitle1Style } from 'components/Typography';
 import styled from 'styled-components';
+import { AngleDown } from 'components/Icons';
 import { cvar, rem } from 'utils/StyleHelper';
+import { Typography, TypographyStyles } from 'components/Typography';
 
 export const Host = styled.div`
   box-sizing: border-box;
@@ -12,7 +12,7 @@ export const Host = styled.div`
   appearance: none;
   position: relative;
   user-select: none;
-  ${Subtitle1Style()}
+  ${TypographyStyles.Subtitle1Css()}
 `;
 
 export const Select = styled.div<{ open: boolean }>`

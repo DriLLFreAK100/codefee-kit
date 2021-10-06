@@ -1,5 +1,5 @@
-import Typography from 'components/Typography';
 import { Gutter } from 'common/Types';
+import { Typography } from 'components/Typography';
 import React, {
   BlockquoteHTMLAttributes, forwardRef, ReactNode,
 } from 'react';

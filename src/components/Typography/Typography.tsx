@@ -1,21 +1,8 @@
 import React, {
   FC, forwardRef, ReactNode, CSSProperties,
 } from 'react';
-import Body1 from './Elements/Body1';
-import Body2 from './Elements/Body2';
-import Button from './Elements/Button';
-import Caption from './Elements/Caption';
-import H1 from './Elements/H1';
-import H2 from './Elements/H2';
-import H3 from './Elements/H3';
-import H4 from './Elements/H4';
-import H5 from './Elements/H5';
-import H6 from './Elements/H6';
-import Paragraph from './Elements/Paragraph';
-import Quote from './Elements/Quote';
-import Subtitle1 from './Elements/Subtitle1';
-import Subtitle2 from './Elements/Subtitle2';
 import { TypographyElementProps } from './interface';
+import * as S from './Typography.style';
 
 export type TypographyType =
   'h1' |
@@ -43,35 +30,35 @@ export interface TypographyProps extends TypographyElementProps {
 const getComponent = (type: TypographyType) => {
   switch (type) {
     case 'h1':
-      return H1;
+      return S.H1;
     case 'h2':
-      return H2;
+      return S.H2;
     case 'h3':
-      return H3;
+      return S.H3;
     case 'h4':
-      return H4;
+      return S.H4;
     case 'h5':
-      return H5;
+      return S.H5;
     case 'h6':
-      return H6;
+      return S.H6;
     case 'subtitle1':
-      return Subtitle1;
+      return S.Subtitle1;
     case 'subtitle2':
-      return Subtitle2;
+      return S.Subtitle2;
     case 'body1':
-      return Body1;
+      return S.Body1;
     case 'body2':
-      return Body2;
+      return S.Body2;
     case 'p':
-      return Paragraph;
+      return S.Paragraph;
     case 'caption':
-      return Caption;
+      return S.Caption;
     case 'button':
-      return Button;
+      return S.Button;
     case 'quote':
-      return Quote;
+      return S.Blockquote;
     default:
-      return Body1;
+      return S.Body1;
   }
 };
 

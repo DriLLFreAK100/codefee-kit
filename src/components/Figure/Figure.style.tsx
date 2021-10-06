@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import { CaptionStyle } from 'components/Typography';
-import { cvar, rem, gut } from 'utils';
+import { cvar, gut, rem } from 'utils';
 import { Gutter } from 'common';
+import { TypographyStyles } from 'components/Typography';
 
 export const FigureCss = css<{ gutter?: Gutter }>`
   border-radius: ${cvar('--control-border-radius')};
@@ -14,7 +14,7 @@ export const FigureCss = css<{ gutter?: Gutter }>`
 `;
 
 export const CaptionCss = css`
-  ${CaptionStyle()}
+  ${TypographyStyles.CaptionCss()}
   margin: ${rem(4)} 0 ${rem(12)};
   font-style: italic;
 `;

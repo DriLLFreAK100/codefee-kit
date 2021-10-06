@@ -34,5 +34,4 @@ export * from './Select';
 export { default as Separator } from './Separator';
 export * from './Separator';
 
-export { default as Typography } from './Typography';
 export * from './Typography';

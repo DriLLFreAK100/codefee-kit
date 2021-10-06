@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
-import Typography from 'components/Typography';
+import { Gutter } from 'common';
+import { GutterStyle } from 'styles';
+import { Typography } from 'components/Typography';
 import {
   cvar, cvarGen, jsonToCss, rem,
 } from 'utils/StyleHelper';
-import { Gutter } from 'common';
-import { GutterStyle } from 'styles';
 
 export interface CheckboxCssVarProps {
   '--cf-checkbox-color-border': string;
