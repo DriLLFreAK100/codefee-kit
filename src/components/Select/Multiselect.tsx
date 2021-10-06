@@ -2,7 +2,7 @@ import React, {
   forwardRef, ReactNode, useCallback, useEffect, useState,
 } from 'react';
 import * as S from './Multiselect.style';
-import { SelectOptionType } from './Interfaces';
+import { SelectOptionType } from './Common';
 
 export interface MultiselectControlLabels {
   UnselectAll: ReactNode;

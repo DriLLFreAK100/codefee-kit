@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import * as S from './Select.style';
 import SelectLayout from './SelectLayout';
-import { SelectOptionType } from './Interfaces';
+import { SelectOptionType } from './Common';
 
 export interface SelectProps {
   options: SelectOptionType[];

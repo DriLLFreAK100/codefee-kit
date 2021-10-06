@@ -1,7 +1,7 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import { cvar, rem } from 'utils';
 import { Gutter } from 'common';
-import { TypographyElementProps } from './interface';
+import { TypographyElementProps } from './Common';
 
 const BaseCss = (props: TypographyElementProps = {}): FlattenSimpleInterpolation => {
   const {

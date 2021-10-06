@@ -1,7 +1,7 @@
 import React, {
   FC, forwardRef, ReactNode, CSSProperties,
 } from 'react';
-import { TypographyElementProps } from './interface';
+import { TypographyElementProps } from './Common';
 import * as S from './Typography.style';
 
 export type TypographyType =
