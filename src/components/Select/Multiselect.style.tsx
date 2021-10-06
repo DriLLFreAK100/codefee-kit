@@ -1,10 +1,10 @@
 import Checkbox from 'components/Checkbox';
 import styled, { css } from 'styled-components';
-import { cvar, jsonToCss, rem } from 'utils/StyleHelper';
 import { CheckboxCssVarProps } from 'components/Checkbox/Checkbox.style';
-import Typography from 'components/Typography';
-import SelectLayout from './SelectLayout';
+import { cvar, jsonToCss, rem } from 'utils/StyleHelper';
+import { Typography } from 'components/Typography';
 import { Option } from './Select.style';
+import SelectLayout from './SelectLayout';
 
 export { Label } from './Select.style';
 

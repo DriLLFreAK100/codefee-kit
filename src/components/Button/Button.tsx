@@ -1,4 +1,4 @@
-import Typography from 'components/Typography';
+import { Typography } from 'components/Typography';
 import React, {
   ReactNode, forwardRef, ButtonHTMLAttributes,
 } from 'react';
