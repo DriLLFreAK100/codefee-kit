@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import styles from './assets/styles/Select.module.scss';
 import { Coffee } from 'components/Icons';
 import { Meta, Story } from '@storybook/react/types-6-0';
@@ -9,7 +9,6 @@ import {
   SelectOptionType,
   SelectProps
 } from 'components/Select';
-import { useState } from '@storybook/addons';
 
 /* eslint-disable no-alert */
 

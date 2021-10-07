@@ -1,9 +1,9 @@
 import image from './assets/filter-coffee.jpg';
 import ImageViewer, { ImageViewerProps } from 'components/ImageViewer';
 import React from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
 import styles from './assets/styles/ImageViewer.module.scss';
-import Figure from 'components/Figure';
+import { Figure } from 'components/Figure';
+import { Meta, Story } from '@storybook/react/types-6-0';
 /* eslint-disable no-alert */
 
 export default {
