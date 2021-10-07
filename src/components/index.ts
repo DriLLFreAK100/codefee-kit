@@ -1,7 +1,6 @@
 export { default as AppContainer } from './AppContainer';
 export * from './AppContainer';
 
-export { default as Blockquote } from './Blockquote';
 export * from './Blockquote';
 
 export { default as Button } from './Button';
@@ -12,7 +11,6 @@ export * from './Checkbox';
 
 export { default as CircularProgress } from './CircularProgress';
 
-export { default as Figure } from './Figure';
 export * from './Figure';
 
 export { default as Grid } from './Grid';

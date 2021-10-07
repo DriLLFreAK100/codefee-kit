@@ -1,5 +1,5 @@
-import Blockquote, { BlockquoteProps } from 'components/Blockquote';
 import React from 'react';
+import { Blockquote, BlockquoteProps } from 'components/Blockquote';
 import { Meta, Story } from '@storybook/react/types-6-0';
 /* eslint-disable no-alert */
 

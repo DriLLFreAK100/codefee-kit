@@ -1,11 +1,11 @@
-import Blockquote from 'components/Blockquote';
-import Figure from 'components/Figure';
 import image from './assets/guin1.jpg';
 import image2 from './assets/guin2.jpg';
 import ImageViewer from 'components/ImageViewer';
 import React from 'react';
 import Separator from 'components/Separator';
 import styles from './assets/styles/Typography.module.scss';
+import { Blockquote } from 'components/Blockquote';
+import { Figure } from 'components/Figure';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import { Typography, TypographyProps } from 'components/Typography';
 

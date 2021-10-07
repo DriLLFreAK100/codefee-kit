@@ -3,7 +3,7 @@ import { cvar, gut, rem } from 'utils';
 import { Gutter } from 'common';
 import { TypographyStyles } from 'components/Typography';
 
-export const FigureCss = css<{ gutter?: Gutter }>`
+const FigureCss = css<{ gutter?: Gutter }>`
   border-radius: ${cvar('--control-border-radius')};
   overflow: hidden;
   margin: 0 auto;
@@ -13,7 +13,7 @@ export const FigureCss = css<{ gutter?: Gutter }>`
   width: 100%;
 `;
 
-export const CaptionCss = css`
+const CaptionCss = css`
   ${TypographyStyles.CaptionCss()}
   margin: ${rem(4)} 0 ${rem(12)};
   font-style: italic;
@@ -22,3 +22,8 @@ export const CaptionCss = css`
 export const Figure = styled.figure<{ gutter?: Gutter }>`${FigureCss}`;
 
 export const Caption = styled.figcaption`${CaptionCss}`;
+
+export default {
+  FigureCss,
+  CaptionCss,
+};
