@@ -1,6 +1,6 @@
-import FigureComponent from 'components/Figure';
 import styled, { css } from 'styled-components';
 import { cvar, rem } from 'utils';
+import { Figure as FigureComponent } from 'components/Figure';
 
 const QuoteBorderStyle = css`
   border-radius: ${cvar('--control-border-radius')};
@@ -12,7 +12,7 @@ const QuoteBorderStyle = css`
   position: absolute;
 `;
 
-export const FigureCss = css`
+const FigureCss = css`
   position: relative;
 
   ::before {
@@ -26,7 +26,7 @@ export const FigureCss = css`
   }
 `;
 
-export const BlockquoteCss = css`
+const BlockquoteCss = css`
   border-radius: ${cvar('--control-border-radius')};
   margin-bottom: ${rem(20)};
   padding: 0 ${rem(120)};
@@ -35,3 +35,8 @@ export const BlockquoteCss = css`
 export const Figure = styled(FigureComponent)`${FigureCss}`;
 
 export const Blockquote = styled.blockquote`${BlockquoteCss}`;
+
+export default {
+  FigureCss,
+  BlockquoteCss,
+};
