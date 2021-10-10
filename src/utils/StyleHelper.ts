@@ -31,7 +31,7 @@ export const gut = (value: Gutter): string => rem(value);
  * @param json Json specifying CSS Properties or CSS Variables
  * @returns CSS string
  */
-export const jsonToCss = <T>(json: T): string => Object
+export const jsonToCss = <T>(json: T): string => `${Object
   .entries(json)
   .map(([key, value]) => `${key}: ${value as string}`)
-  .join(';');
+  .join(';')};`;
