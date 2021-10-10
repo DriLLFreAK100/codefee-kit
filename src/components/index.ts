@@ -1,4 +1,3 @@
-export { default as AppContainer } from './AppContainer';
 export * from './AppContainer';
 
 export * from './Blockquote';
