@@ -1,4 +1,4 @@
-import AppContainer, { AppContainerProps } from 'components/AppContainer';
+import { AppContainer, AppContainerProps } from 'components/AppContainer';
 import Button from 'components/Button';
 import React from 'react';
 import { ITheme } from 'common/Theme';
