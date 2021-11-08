@@ -1,5 +1,5 @@
 import { SizeType } from 'common/Types';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 interface WindowSize {
   width?: number;
@@ -40,7 +40,7 @@ const useWindowSize = (): {
     height: undefined,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
