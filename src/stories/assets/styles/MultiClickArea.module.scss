@@ -1,0 +1,9 @@
+.multiClickArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 200px;
+  border-radius: var(--control-border-radius);
+  border: 0.0625rem solid var(--color-primary);
+}

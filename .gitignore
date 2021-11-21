@@ -11,3 +11,7 @@ bundle-analysis.html
 
 # Dev files
 debug.log
+
+# Codefee Architect templates
+.cf-template
+cf-template.config.json
