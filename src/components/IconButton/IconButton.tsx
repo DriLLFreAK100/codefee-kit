@@ -1,13 +1,12 @@
 import React, {
-  forwardRef, ImgHTMLAttributes,
+  forwardRef, ButtonHTMLAttributes,
 } from 'react';
 import * as S from './IconButton.style';
 
 export type IconButtonVariantType = 'primary' | 'secondary';
 
-export interface IconButtonProps extends ImgHTMLAttributes<HTMLButtonElement> {
+export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: IconButtonVariantType;
-  onClick?: () => void;
 }
 
 const getComponent = (variant: IconButtonVariantType) => {
@@ -39,7 +38,6 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 IconButton.displayName = 'IconButton';
 IconButton.defaultProps = {
   variant: 'primary',
-  onClick: undefined,
 };
 
 export default IconButton;
