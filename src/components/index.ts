@@ -23,8 +23,12 @@ export * from './Icons';
 export { default as ImageViewer } from './ImageViewer';
 export * from './ImageViewer';
 
+export * from './Link';
+
 export { default as LoadArea } from './LoadArea';
 export * from './LoadArea';
+
+export * from './MultiClickArea';
 
 export * from './Select';
 
