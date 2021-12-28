@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import MultiClickArea, { MultiClickAreaProps } from '.';
+import MultiClickArea, { MultiClickAreaProps } from './MultiClickArea';
 
 const withMultiClick = (
   WrappedComponent: ReactNode,
