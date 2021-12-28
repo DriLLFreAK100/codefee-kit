@@ -10,7 +10,7 @@ defaults: &defaults
     - image: cimg/node:16.13.1-browsers
 
 jobs:
-  test-build:
+  build:
     <<: *defaults
     steps:
       - checkout
@@ -21,9 +21,6 @@ jobs:
             - v1-dependencies-
 
       - run: npm install
-      - run:
-          name: Run tests
-          command: npm test
       - run:
           name: Run build
           command: npm run build
@@ -50,15 +47,15 @@ jobs:
 
 workflows:
   version: 2
-  test-build-deploy:
+  build-deploy:
     jobs:
-      - test-build:
+      - build:
           filters:
             tags:
               only: /^v.*/
       - deploy:
           requires:
-            - test-build
+            - build
           filters:
             tags:
               only: /^v.*/
