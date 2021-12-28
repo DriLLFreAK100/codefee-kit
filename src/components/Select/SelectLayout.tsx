@@ -6,19 +6,20 @@ import React, {
   useRef,
   useCallback,
   Dispatch,
+  HtmlHTMLAttributes,
 } from 'react';
 import * as S from './Select.style';
 
-export interface SelectLayoutProps {
+export type SelectLayoutProps = {
   className?: string;
   open: boolean;
   optionNodes: ReactNode;
   selectedDisplay: ReactNode;
   onClickOutside?: () => void;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
-}
+} & HtmlHTMLAttributes<HTMLDivElement>;
 
-const SelectLayout = forwardRef(
+const SelectLayout = forwardRef<HTMLDivElement, SelectLayoutProps>(
   (props: SelectLayoutProps, ref) => {
     const {
       className,
@@ -27,6 +28,7 @@ const SelectLayout = forwardRef(
       selectedDisplay,
       onClickOutside,
       setOpen,
+      ...passThrough
     } = props;
 
     const hostRef = useRef<HTMLDivElement>(null);
@@ -50,6 +52,7 @@ const SelectLayout = forwardRef(
       <S.Host
         ref={hostRef}
         className={className}
+        {...passThrough}
       >
         <S.Select
           open={open}

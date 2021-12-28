@@ -1,5 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import styles from './assets/styles/Select.module.scss';
+import { action } from '@storybook/addon-actions';
 import { Coffee } from 'components/Icons';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import {
@@ -28,13 +29,14 @@ const Template: Story<SelectProps> = (args) => {
 
   const handleOnChange = (option: SelectOptionType) => {
     setSelected(option);
+    action('selected')(option);
   };
 
   return (
     <Select
       {...args}
       selected={selected}
-      onChange={handleOnChange}
+      onSelectedChange={handleOnChange}
     />
   );
 };
@@ -86,13 +88,14 @@ const MultiSelectTemplate: Story<MultiselectProps> = (args) => {
 
   const handleOnChange = (options: SelectOptionType[]) => {
     setSelected(options);
+    action('selected')(options);
   };
 
   return (
     <Multiselect
       {...args}
       selected={selected}
-      onChange={handleOnChange}
+      onSelectedChange={handleOnChange}
     />
   );
 };
