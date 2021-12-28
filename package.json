@@ -1,6 +1,6 @@
 {
   "name": "codefee-kit",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "description": "A simple UI kit for React projects",
   "main": "dist/index.js",
   "files": [

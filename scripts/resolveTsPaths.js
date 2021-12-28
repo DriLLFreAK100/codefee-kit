@@ -33,7 +33,7 @@ const resolveTsPaths = ({
         const prefix = [...Array(level).keys()].reduce((a, c) => a.concat('../'), '');
 
         paths.forEach(path => {
-          fileData = fileData.replace(`from '${path}`, `from '${prefix}${path}`);
+          fileData = fileData.replaceAll(`from '${path}`, `from '${prefix}${path}`);
         });
 
         fs.writeFileSync(fullDir, fileData);
