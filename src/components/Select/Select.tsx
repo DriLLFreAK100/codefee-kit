@@ -1,5 +1,6 @@
 import React, {
   forwardRef,
+  HtmlHTMLAttributes,
   ReactNode,
   useState,
 } from 'react';
@@ -7,29 +8,30 @@ import * as S from './Select.style';
 import SelectLayout from './SelectLayout';
 import { SelectOptionType } from './Common';
 
-export interface SelectProps {
+export type SelectProps = {
   options: SelectOptionType[];
   selected?: SelectOptionType;
-  onChange: (option: SelectOptionType) => void;
+  onSelectedChange: (option: SelectOptionType) => void;
   optionTemplate?: (option: SelectOptionType, props: SelectProps) => ReactNode;
   selectedTemplate?: (selected: SelectOptionType | undefined, props: SelectProps) => ReactNode;
-}
+} & HtmlHTMLAttributes<HTMLDivElement>;
 
-const Select = forwardRef(
+const Select = forwardRef<HTMLDivElement, SelectProps>(
   (props: SelectProps, ref) => {
     const {
       options,
       selected,
-      onChange,
+      onSelectedChange,
       optionTemplate,
       selectedTemplate,
+      ...passThrough
     } = props;
 
     const [open, setOpen] = useState(false);
 
     const handleOnClickOption = (option: SelectOptionType): void => {
       if (selected !== option) {
-        onChange(option);
+        onSelectedChange(option);
       }
 
       setOpen(false);
@@ -59,6 +61,7 @@ const Select = forwardRef(
             }
           </ul>
         )}
+        {...passThrough}
       />
     );
   },

@@ -1,5 +1,5 @@
 import React, {
-  forwardRef, ReactNode, useCallback, useEffect, useState,
+  forwardRef, HtmlHTMLAttributes, ReactNode, useCallback, useEffect, useState,
 } from 'react';
 import * as S from './Multiselect.style';
 import { SelectOptionType } from './Common';
@@ -11,11 +11,11 @@ export interface MultiselectControlLabels {
   Apply: ReactNode;
 }
 
-export interface MultiselectProps {
+export type MultiselectProps = {
   controlLabels?: MultiselectControlLabels;
   options: SelectOptionType[];
   selected?: SelectOptionType[];
-  onChange: (options: SelectOptionType[]) => void;
+  onSelectedChange: (options: SelectOptionType[]) => void;
   optionTemplate?: (
     option: SelectOptionType,
     internalSelected: SelectOptionType[],
@@ -25,7 +25,7 @@ export interface MultiselectProps {
     selected: SelectOptionType[] | undefined,
     props: MultiselectProps,
   ) => ReactNode;
-}
+} & HtmlHTMLAttributes<HTMLDivElement>;
 
 export const DefaultSelectedTemplate = (options: SelectOptionType[]): ReactNode => `${options?.length || 0} selected`;
 
@@ -108,15 +108,16 @@ export const FooterControlsLayout = ({
   );
 };
 
-const Multiselect = forwardRef(
+const Multiselect = forwardRef<HTMLDivElement, MultiselectProps>(
   (props: MultiselectProps, ref) => {
     const {
       controlLabels,
       options,
       selected,
-      onChange,
+      onSelectedChange,
       optionTemplate,
       selectedTemplate,
+      ...passThrough
     } = props;
 
     const [open, setOpen] = useState(false);
@@ -148,7 +149,7 @@ const Multiselect = forwardRef(
     }, [selected]);
 
     const handleApply = () => {
-      onChange(internalSelected);
+      onSelectedChange(internalSelected);
       setOpen(false);
     };
 
@@ -193,6 +194,7 @@ const Multiselect = forwardRef(
           />,
         ]}
         onClickOutside={handleCancel}
+        {...passThrough}
       />
     );
   },
