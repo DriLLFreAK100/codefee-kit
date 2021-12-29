@@ -11,6 +11,23 @@ export type SliderProps = {
   onValueChange?: (value: number) => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
+type RangeValue = {
+  min: number;
+  max: number;
+  value: number;
+};
+
+const getRangeValue = (el: HTMLDivElement): RangeValue => {
+  const {
+    left,
+    right,
+  } = el.getBoundingClientRect();
+
+  const value = right - left;
+
+  return { min: left, max: right, value };
+};
+
 const Slider = forwardRef<HTMLDivElement, SliderProps>(
   (props: SliderProps, ref) => {
     const {
@@ -29,12 +46,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
 
     const computeKnobPosition = useCallback(() => {
       if (hostRef.current) {
-        const {
-          left: minRange,
-          right: maxRange,
-        } = hostRef.current.getBoundingClientRect();
-
-        const rangeValue = maxRange - minRange;
+        const { value: rangeValue } = getRangeValue(hostRef.current);
         const maxOffset = rangeValue - knobDimension;
         const offset = (value as number * rangeValue) / (max as number);
 
@@ -44,14 +56,8 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
 
     const handleOnDrag = (e: DragEvent | MouseEvent) => {
       if (railRef.current) {
-        const {
-          left: minBound,
-          right: maxBound,
-        } = railRef.current?.getBoundingClientRect();
-
-        const totalRange = maxBound - minBound;
-        const dragRange = e.clientX - minBound;
-
+        const { value: totalRange, min } = getRangeValue(railRef.current);
+        const dragRange = e.clientX - min;
         let dragValue = (dragRange / totalRange) * 100;
 
         if (dragValue < 0) {
