@@ -1,10 +1,9 @@
 import image from './assets/filter-coffee.jpg';
-import MultiClickArea, { MultiClickAreaProps } from 'components/MultiClickArea';
 import React from 'react';
 import styles from './assets/styles/MultiClickArea.module.scss';
-import withMultiClick from 'components/MultiClickArea/withMultiClick';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react/types-6-0';
+import { MultiClickArea, MultiClickAreaProps, withMultiClick } from 'components/MultiClickArea';
 import { Typography } from 'components/Typography';
 /* eslint-disable no-alert */
 
