@@ -54,13 +54,13 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       }
     }, [max, value]);
 
-    const handleOnDrag = (e: DragEvent | MouseEvent) => {
+    const handleOnDrag = (e: DragEvent | MouseEvent, isEnd = false) => {
       if (railRef.current) {
         const { value: totalRange, min } = getRangeValue(railRef.current);
         const dragRange = e.clientX - min;
         let dragValue = (dragRange / totalRange) * 100;
 
-        if (dragValue < 0) {
+        if (dragRange < 0 && isEnd) {
           dragValue = 0;
         } else if (dragValue > 100) {
           dragValue = 100;
@@ -75,6 +75,10 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       e.dataTransfer.effectAllowed = 'move';
     };
 
+    const handleOnDragEnd = (e: DragEvent) => {
+      handleOnDrag(e, true);
+    };
+
     useEffect(() => {
       computeKnobPosition();
     }, [computeKnobPosition]);
@@ -86,7 +90,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         onClick={handleOnDrag}
         onDragStart={handleOnDragStart}
         onDrag={handleOnDrag}
-        onDragEnd={handleOnDrag}
+        onDragEnd={handleOnDragEnd}
         {...passThrough}
       >
         <S.Rail ref={railRef} />
