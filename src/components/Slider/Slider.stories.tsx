@@ -19,11 +19,13 @@ const Template: Story<SliderProps> = (args: SliderProps) => {
   }, [args.value]);
 
   return (
-    <Slider
-      {...args}
-      value={value}
-      onValueChange={handleOnValueChange}
-    />
+    <>
+      <Slider
+        {...args}
+        value={value}
+        onValueChange={handleOnValueChange}
+      />
+    </>
   );
 };
 
