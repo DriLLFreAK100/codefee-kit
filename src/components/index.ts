@@ -36,4 +36,7 @@ export * from './Select';
 export { default as Separator } from './Separator';
 export * from './Separator';
 
+export { default as Slider } from './Slider';
+export * from './Slider';
+
 export * from './Typography';
