@@ -12,26 +12,24 @@ export const Slider = styled.div`
 
 export const Rail = styled.div`
   height: ${rem(4)};
-  width: calc(100% - ${rem(knobDimension)});
+  width: 100%;
   background-color: ${cvar('--color-primary-light')};
   opacity: 0.5;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   position: absolute;
   border-radius: ${rem(4)};
 `;
 
 export const Track = styled.div`
-  height: ${rem(4)};
+  height: ${rem(6)};
   background-color: ${cvar('--color-primary')};
   border: 1px solid ${cvar('--color-primary')};
+  box-sizing: border-box;
   top: 50%;
-  left: ${rem(knobDimension / 2)};
   transform: translateY(-50%);
   position: absolute;
-  border-radius: ${rem(4)};
-  max-width: calc(100% - ${rem(knobDimension)});
+  border-radius: ${rem(4)} 0 0 ${rem(4)};
 `;
 
 export const Knob = styled.div`
