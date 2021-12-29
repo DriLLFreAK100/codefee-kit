@@ -29,4 +29,11 @@ const Template: Story<SliderProps> = (args: SliderProps) => {
 
 export const Default = Template.bind({});
 Default.args = {
+  value: 20,
+} as SliderProps;
+
+export const CustomMax = Template.bind({});
+CustomMax.args = {
+  value: 10,
+  max: 20,
 } as SliderProps;
