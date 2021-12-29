@@ -58,12 +58,12 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       if (railRef.current) {
         const { value: totalRange, min } = getRangeValue(railRef.current);
         const dragRange = e.clientX - min;
-        let dragValue = (dragRange / totalRange) * 100;
+        let dragValue = (dragRange / totalRange) * (max as number);
 
         if (dragRange < 0 && isEnd) {
           dragValue = 0;
-        } else if (dragValue > 100) {
-          dragValue = 100;
+        } else if (dragValue > (max as number)) {
+          dragValue = max as number;
         }
 
         onValueChange?.(dragValue);
