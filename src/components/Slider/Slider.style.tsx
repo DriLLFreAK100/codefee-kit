@@ -1,44 +1,46 @@
+import styled from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
-import styled, { css } from 'styled-components';
-
-const controlDimension = rem(24);
+import { knobDimension } from './Common';
 
 export const Slider = styled.div`
+  cursor: pointer;
+  touch-action: none;
   min-width: ${rem(100)};
-  height: ${controlDimension};
+  height: ${rem(knobDimension)};
   position: relative;
-`;
-
-const Shared = css`
-  top: 50%;
-  transform: translateY(-50%);
-  position: absolute;
 `;
 
 export const Rail = styled.div`
   height: ${rem(4)};
-  width: 100%;
+  width: calc(100% - ${rem(knobDimension)});
   background-color: ${cvar('--color-primary-light')};
   opacity: 0.5;
-  ${Shared}
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: ${rem(4)};
 `;
 
 export const Track = styled.div`
   height: ${rem(4)};
-  width: 50%;
   background-color: ${cvar('--color-primary')};
   border: 1px solid ${cvar('--color-primary')};
-  ${Shared}
+  top: 50%;
+  left: ${rem(knobDimension / 2)};
+  transform: translateY(-50%);
+  position: absolute;
+  border-radius: ${rem(4)};
+  max-width: calc(100% - ${rem(knobDimension)});
 `;
 
 export const Knob = styled.div`
-  cursor: pointer;
-  height: ${controlDimension};
-  width: ${controlDimension};
+  height: ${rem(knobDimension)};
+  width: ${rem(knobDimension)};
   background-color: ${cvar('--color-primary')};
   border-radius: 50%;
   transition: background-color ${cvar('--transition-hover')};
-  ${Shared}
+  position: absolute;
 
   &:hover{
     background-color: ${cvar('--color-primary-light')};
