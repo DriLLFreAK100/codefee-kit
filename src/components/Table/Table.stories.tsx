@@ -16,15 +16,15 @@ Default.args = {
     { id: 2, name: 'Robusta', details: "Known to taste slightly 'burnt'" },
     { id: 3, name: 'Liberica', details: 'It is favoured for its smooth aftertaste and lingering taste of rich dark chocolate' },
   ],
-  colDef: [
+  colDefs: [
     {
-      id: 1, header: 'ID', field: 'id', size: 1,
+      id: 1, header: 'ID', field: 'id', size: 1, align: 'left',
     },
     {
-      id: 2, header: 'Name', field: 'name', size: 1,
+      id: 2, header: 'Name', field: 'name', size: 2, align: 'center',
     },
     {
-      id: 3, header: 'Details', field: 'details', size: 2,
+      id: 3, header: 'Details', field: 'details', size: 7, align: 'right',
     },
   ],
 } as TableProps;

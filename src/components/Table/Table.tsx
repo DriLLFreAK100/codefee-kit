@@ -1,21 +1,43 @@
+import React, { forwardRef, ReactNode, TableHTMLAttributes } from 'react';
+import * as S from './Table.styled';
+import { ColumnDefinition, getColumnFlexBasis } from './Common';
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { forwardRef, TableHTMLAttributes } from 'react';
-import * as S from './Table.styled';
-import { ColumnDefinition } from './Common';
 
 export type TableProps = {
   data: any[];
-  colDef: ColumnDefinition[];
+  colDefs: ColumnDefinition[];
+  rowTemplate?: (colDef: ColumnDefinition[], data: any) => ReactNode;
 } & TableHTMLAttributes<HTMLTableElement>;
+
+const defaultRowTemplate = (colDefs: ColumnDefinition[], data: any): ReactNode => (
+  <S.Tr>
+    {
+      colDefs.map((colDef) => {
+        const { id, field, align } = colDef;
+
+        return (
+          <S.Td
+            key={id}
+            style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
+            align={align || 'left'}
+          >
+            {data[field || '']}
+          </S.Td>
+        );
+      })
+    }
+  </S.Tr>
+);
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (props: TableProps, ref) => {
     const {
       data,
-      colDef,
+      colDefs,
+      rowTemplate,
       ...passThrough
     } = props;
 
@@ -27,25 +49,27 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         <S.Thead>
           <S.Tr>
             {
-              colDef.map(({
-                id, header,
-              }) => (
-                <S.Th key={id}>{header}</S.Th>
-              ))
+              colDefs.map((colDef) => {
+                const { id, header, align } = colDef;
+                return (
+                  <S.Th
+                    key={id}
+                    style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
+                    align={align || 'left'}
+                  >
+                    {header}
+                  </S.Th>
+                );
+              })
             }
           </S.Tr>
         </S.Thead>
         <S.Tbody>
           {
-            data.map((d, index) => (
-              <S.Tr key={index}>
-                {
-                  colDef.map(({ id, field }) => (
-                    <S.Td key={id}>{d[field || '']}</S.Td>
-                  ))
-                }
-              </S.Tr>
-            ))
+            data.map((datum) => {
+              const template = rowTemplate ?? defaultRowTemplate;
+              return template(colDefs, datum);
+            })
           }
         </S.Tbody>
       </S.Table>
@@ -55,6 +79,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
 Table.displayName = 'Table';
 Table.defaultProps = {
+  rowTemplate: undefined,
 };
 
 export default Table;

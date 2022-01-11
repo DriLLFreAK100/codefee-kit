@@ -1,7 +1,9 @@
+import styled, { css } from 'styled-components';
 import {
   cvar, cvarGen, jsonToCss, rem,
 } from 'utils/StyleHelper';
-import styled, { css } from 'styled-components';
+import { TypographyStyles } from 'components/Typography';
+import { Alignment, FlexAlignmentMap } from './Common';
 
 export type CheckboxCssVarProps = {
   '--cf-table-row-height': string;
@@ -34,10 +36,26 @@ export const Tbody = styled.tbody`
 export const Tr = styled.tr`
   height: ${cssVar('--cf-table-row-height')};
   border-bottom: ${rem(1)} solid ${cssVar('--cf-table-row-border-color')};
+  display: flex;
+  width: 100%;
+  padding: 0 ${rem(20)};
+  box-sizing: border-box;
 `;
 
-export const Th = styled.th`
+export const Th = styled.th<{ align: Alignment }>`
+  font-size: ${rem(18)};
+  font-family: ${cvar('--font-family-primary')};
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: ${({ align }) => FlexAlignmentMap[align]};
+  height: ${cssVar('--cf-table-row-height')};
 `;
 
-export const Td = styled.td`
+export const Td = styled.td<{ align: Alignment }>`
+  ${TypographyStyles.Body1Css()}
+  display: flex;
+  align-items: center;
+  justify-content: ${({ align }) => FlexAlignmentMap[align]};
+  height: ${cssVar('--cf-table-row-height')};
 `;
