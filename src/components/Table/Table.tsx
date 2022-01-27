@@ -1,6 +1,6 @@
 import React, { forwardRef, ReactNode, TableHTMLAttributes } from 'react';
 import * as S from './Table.styled';
-import { ColumnDefinition, getColumnFlexBasis } from './Common';
+import { DataColumnDefinition, FooterColumnDefinition, getColumnFlexBasis } from './Common';
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -8,12 +8,20 @@ import { ColumnDefinition, getColumnFlexBasis } from './Common';
 
 export type TableProps = {
   data: any[];
-  colDefs: ColumnDefinition[];
-  rowTemplate?: (colDef: ColumnDefinition[], data: any) => ReactNode;
+  colDefs: DataColumnDefinition[];
+  footerDefs?: FooterColumnDefinition[];
+  rowTemplate?: (colDef: DataColumnDefinition[], data: any, rowIndex: number) => ReactNode;
 } & TableHTMLAttributes<HTMLTableElement>;
 
-const defaultRowTemplate = (colDefs: ColumnDefinition[], data: any): ReactNode => (
-  <S.Tr>
+const defaultBodyRowTemplate = (
+  colDefs: DataColumnDefinition[],
+  data: any,
+  rowIndex: number,
+): ReactNode => (
+  <S.Tr
+    key={rowIndex}
+    segment="body"
+  >
     {
       colDefs.map((colDef) => {
         const { id, field, align } = colDef;
@@ -32,22 +40,44 @@ const defaultRowTemplate = (colDefs: ColumnDefinition[], data: any): ReactNode =
   </S.Tr>
 );
 
+const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): ReactNode => (
+  <S.Tr segment="foot">
+    {
+      footerDefs.map((footerDef) => {
+        const { id, align, value } = footerDef;
+        return (
+          <S.Td
+            key={id}
+            style={{ flexBasis: getColumnFlexBasis(footerDef, footerDefs) }}
+            align={align || 'left'}
+          >
+            {value}
+          </S.Td>
+        );
+      })
+    }
+  </S.Tr>
+);
+
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (props: TableProps, ref) => {
     const {
       data,
       colDefs,
+      footerDefs,
       rowTemplate,
       ...passThrough
     } = props;
+
+    const hasFooter = (footerDefs || []).length > 0;
 
     return (
       <S.Table
         ref={ref}
         {...passThrough}
       >
-        <S.Thead>
-          <S.Tr>
+        <S.THead>
+          <S.Tr segment="head">
             {
               colDefs.map((colDef) => {
                 const { id, header, align } = colDef;
@@ -63,15 +93,25 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               })
             }
           </S.Tr>
-        </S.Thead>
-        <S.Tbody>
+        </S.THead>
+
+        <S.TBody>
           {
-            data.map((datum) => {
-              const template = rowTemplate ?? defaultRowTemplate;
-              return template(colDefs, datum);
+            data.map((datum, index) => {
+              const template = rowTemplate ?? defaultBodyRowTemplate;
+              return template(colDefs, datum, index);
             })
           }
-        </S.Tbody>
+        </S.TBody>
+
+        {
+          hasFooter ? (
+            <S.TFooter>
+              {defaultFooterRowTemplate(footerDefs as FooterColumnDefinition[])}
+            </S.TFooter>
+          ) : null
+        }
+
       </S.Table>
     );
   },
@@ -80,6 +120,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 Table.displayName = 'Table';
 Table.defaultProps = {
   rowTemplate: undefined,
+  footerDefs: [],
 };
 
 export default Table;

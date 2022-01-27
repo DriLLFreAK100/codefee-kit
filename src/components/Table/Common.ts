@@ -1,6 +1,9 @@
 import { ListObjectRequiredProps } from 'common';
+import { ReactNode } from 'react';
 
 export type Alignment = 'left' | 'right' | 'center';
+
+export type TableSegment = 'head' | 'body' | 'foot';
 
 export const FlexAlignmentMap: { [key in Alignment]: string } = {
   left: 'flex-start',
@@ -9,11 +12,18 @@ export const FlexAlignmentMap: { [key in Alignment]: string } = {
 };
 
 export type ColumnDefinition = {
-  header?: string;
-  field?: string;
   size?: number;
   align?: Alignment;
-} & ListObjectRequiredProps<number>;
+};
+
+export type DataColumnDefinition = {
+  header?: string;
+  field?: string;
+} & ColumnDefinition & ListObjectRequiredProps<number>;
+
+export type FooterColumnDefinition = {
+  value?: ReactNode;
+} & ColumnDefinition & ListObjectRequiredProps<number>;
 
 export const getColumnFlexBasis = (
   current: ColumnDefinition,

@@ -1,30 +1,58 @@
 import React from 'react';
 import Table, { TableProps } from 'components/Table';
 import { Meta, Story } from '@storybook/react/types-6-0';
+import styled from 'styled-components';
+import CoffeeDistributor2019 from '../../stories/assets/coffee-distributor-2019';
 
 export default {
   title: 'Controls/Table',
   component: Table,
 } as Meta<TableProps>;
 
-const Template: Story<TableProps> = (args: TableProps) => <Table {...args} />;
+const StyledTable = styled(Table)`
+  height: 90vh;
+`;
 
-export const Default = Template.bind({});
-Default.args = {
-  data: [
-    { id: 1, name: 'Arabica', details: 'Known for its cup excellence' },
-    { id: 2, name: 'Robusta', details: "Known to taste slightly 'burnt'" },
-    { id: 3, name: 'Liberica', details: 'It is favoured for its smooth aftertaste and lingering taste of rich dark chocolate' },
-  ],
+const Template: Story<TableProps> = (args: TableProps) => <StyledTable {...args} />;
+const baseProps = {
+  data: CoffeeDistributor2019,
   colDefs: [
     {
-      id: 1, header: 'ID', field: 'id', size: 1, align: 'left',
+      id: 1, header: 'Rank', field: 'Rank', align: 'left',
     },
     {
-      id: 2, header: 'Name', field: 'name', size: 2, align: 'center',
+      id: 2, header: 'Country', field: 'Country', align: 'left',
     },
     {
-      id: 3, header: 'Details', field: 'details', size: 7, align: 'right',
+      id: 3, header: 'Bags', field: 'Bags', align: 'right',
+    },
+    {
+      id: 4, header: 'MetricTons', field: 'MetricTons', align: 'right',
+    },
+    {
+      id: 5, header: 'Pounds', field: 'Pounds', align: 'right',
+    },
+  ],
+} as TableProps;
+
+export const Default = Template.bind({});
+Default.args = { ...baseProps };
+
+export const WithFooter = Template.bind({});
+WithFooter.args = {
+  ...baseProps,
+  footerDefs: [
+    {
+      id: 1, size: 2, align: 'left', value: 'TOTAL',
+    },
+    {
+      id: 2, size: 1, align: 'right', value: CoffeeDistributor2019.reduce((a, c) => a + parseInt(c.Bags, 10), 0),
+    },
+    {
+      id: 3, size: 1, align: 'right', value: CoffeeDistributor2019.reduce((a, c) => a + parseInt(c.MetricTons, 10), 0),
+    },
+    {
+      id: 4, size: 1, align: 'right', value: CoffeeDistributor2019.reduce((a, c) => a + parseInt(c.Pounds, 10), 0),
     },
   ],
 } as TableProps;
