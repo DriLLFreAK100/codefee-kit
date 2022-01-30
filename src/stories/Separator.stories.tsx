@@ -1,6 +1,6 @@
-import Separator, { SeparatorProps } from 'components/Separator';
 import React from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import Separator, { SeparatorProps } from 'components/Separator';
+import { Meta, Story } from '@storybook/react';
 /* eslint-disable no-alert */
 
 export default {

@@ -2,15 +2,14 @@ import React, { ReactNode, useState } from 'react';
 import styles from './assets/styles/Select.module.scss';
 import { action } from '@storybook/addon-actions';
 import { Coffee } from 'components/Icons';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react';
 import {
   Multiselect,
   MultiselectProps,
   Select,
   SelectOptionType,
-  SelectProps
+  SelectProps,
 } from 'components/Select';
-
 /* eslint-disable no-alert */
 
 export default {

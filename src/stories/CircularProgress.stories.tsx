@@ -1,7 +1,6 @@
 import CircularProgress, { CircularProgressProps } from 'components/CircularProgress';
-import React, { useEffect, useState } from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
-import { useRef } from '@storybook/addons';
+import React, { useEffect, useState, useRef } from 'react';
+import { Meta, Story } from '@storybook/react';
 
 export default {
   title: 'Controls/Circular Progress',

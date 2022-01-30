@@ -6,7 +6,7 @@ import Separator from 'components/Separator';
 import styles from './assets/styles/Typography.module.scss';
 import { Blockquote } from 'components/Blockquote';
 import { Figure } from 'components/Figure';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react';
 import { Typography, TypographyProps } from 'components/Typography';
 
 export default {

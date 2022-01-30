@@ -1,6 +1,6 @@
-import Slider, { SliderProps } from 'components/Slider';
 import React, { useEffect, useState } from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import Slider, { SliderProps } from 'components/Slider';
+import { Meta, Story } from '@storybook/react';
 
 export default {
   title: 'Controls/Slider',

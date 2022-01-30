@@ -1,8 +1,8 @@
-import { AppContainer, AppContainerProps } from 'components/AppContainer';
 import Button from 'components/Button';
 import React from 'react';
+import { AppContainer, AppContainerProps } from 'components/AppContainer';
 import { ITheme } from 'common/Theme';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react';
 import { OverrideTheme } from 'utils/ThemeHelper';
 
 export default {
