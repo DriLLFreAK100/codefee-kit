@@ -66,7 +66,10 @@ export const Tr = styled.tr<{ segment?: TableSegment }>`
   box-sizing: border-box;
 `;
 
-export const Th = styled.th<{ align: Alignment }>`
+export const Th = styled.th<{
+  align: Alignment;
+  sortable?: boolean;
+}>`
   font-size: ${rem(18)};
   font-family: ${cvar('--font-family-primary')};
   font-weight: 600;
@@ -74,6 +77,7 @@ export const Th = styled.th<{ align: Alignment }>`
   align-items: center;
   justify-content: ${({ align }) => FlexAlignmentMap[align]};
   height: 100%;
+  cursor: ${({ sortable }) => (sortable ? 'pointer' : 'initial')};
 `;
 
 export const Td = styled.td<{ align: Alignment }>`

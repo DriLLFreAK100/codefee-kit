@@ -5,6 +5,8 @@ export type Alignment = 'left' | 'right' | 'center';
 
 export type TableSegment = 'head' | 'body' | 'foot';
 
+export type OrderByDirection = 'asc' | 'desc';
+
 export const FlexAlignmentMap: { [key in Alignment]: string } = {
   left: 'flex-start',
   center: 'center',
@@ -19,6 +21,8 @@ export type ColumnDefinition = {
 export type DataColumnDefinition = {
   header?: string;
   field?: string;
+  sortable?: boolean;
+  formatter?: (datum: unknown) => ReactNode;
 } & ColumnDefinition & ListObjectRequiredProps<number>;
 
 export type FooterColumnDefinition = {

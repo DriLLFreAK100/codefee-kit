@@ -15,7 +15,13 @@ const StyledTable = styled(Table)`
 
 const Template: Story<TableProps> = (args: TableProps) => <StyledTable {...args} />;
 const baseProps = {
-  data: CoffeeDistributor2019,
+  data: CoffeeDistributor2019.map((c) => ({
+    ...c,
+    Rank: parseInt(c.Rank, 10),
+    Bags: parseInt(c.Bags, 10),
+    MetricTons: parseInt(c.MetricTons, 10),
+    Pounds: parseInt(c.Pounds, 10),
+  })),
   colDefs: [
     {
       id: 1, header: 'Rank', field: 'Rank', align: 'left',

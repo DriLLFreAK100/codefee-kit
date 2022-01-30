@@ -58,7 +58,7 @@
     "@storybook/addons": "6.4.16",
     "@storybook/react": "6.4.16",
     "@storybook/theming": "6.4.16",
-    "@types/lodash": "4.14.162",
+    "@types/lodash-es": "4.17.5",
     "@types/styled-components": "5.1.7",
     "@typescript-eslint/eslint-plugin": "4.17.0",
     "@typescript-eslint/parser": "4.4.0",
@@ -76,7 +76,7 @@
     "eslint-plugin-storybook": "^0.5.6",
     "file-loader": "6.1.0",
     "husky": "4.3.0",
-    "lodash": "4.17.20",
+    "lodash-es": "4.17.21",
     "postcss": "8.1.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -99,7 +99,8 @@
   "peerDependencies": {
     "react": ">=16.13.1",
     "react-dom": ">=16.13.1",
-    "styled-components": ">= 3"
+    "styled-components": ">= 3",
+    "lodash-es": ">=4"
   },
   "resolutions": {
     "styled-components": "^5"
