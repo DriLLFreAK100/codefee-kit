@@ -11,6 +11,8 @@ export type TableProps = {
   colDefs: DataColumnDefinition[];
   footerDefs?: FooterColumnDefinition[];
   rowTemplate?: (colDef: DataColumnDefinition[], data: any, rowIndex: number) => ReactNode;
+  headerRowTemplate?: (colDef: DataColumnDefinition[]) => ReactNode;
+  footerRowTemplate?: (colDef: FooterColumnDefinition[]) => ReactNode;
 } & TableHTMLAttributes<HTMLTableElement>;
 
 const defaultBodyRowTemplate = (
@@ -40,6 +42,23 @@ const defaultBodyRowTemplate = (
   </S.Tr>
 );
 
+const defaultHeaderRowTemplate = (colDefs: DataColumnDefinition[]): ReactNode => (
+  <S.Tr segment="head">
+    {colDefs.map((colDef) => {
+      const { id, header, align } = colDef;
+      return (
+        <S.Th
+          key={id}
+          style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
+          align={align || 'left'}
+        >
+          {header}
+        </S.Th>
+      );
+    })}
+  </S.Tr>
+);
+
 const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): ReactNode => (
   <S.Tr segment="foot">
     {
@@ -66,10 +85,15 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       colDefs,
       footerDefs,
       rowTemplate,
+      headerRowTemplate,
+      footerRowTemplate,
       ...passThrough
     } = props;
 
     const hasFooter = (footerDefs || []).length > 0;
+    const makeBodyRow = rowTemplate ?? defaultBodyRowTemplate;
+    const makeHeaderRow = headerRowTemplate ?? defaultHeaderRowTemplate;
+    const makeFooterRow = footerRowTemplate ?? defaultFooterRowTemplate;
 
     return (
       <S.Table
@@ -77,40 +101,18 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         {...passThrough}
       >
         <S.THead>
-          <S.Tr segment="head">
-            {
-              colDefs.map((colDef) => {
-                const { id, header, align } = colDef;
-                return (
-                  <S.Th
-                    key={id}
-                    style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
-                    align={align || 'left'}
-                  >
-                    {header}
-                  </S.Th>
-                );
-              })
-            }
-          </S.Tr>
+          {makeHeaderRow(colDefs)}
         </S.THead>
 
         <S.TBody>
-          {
-            data.map((datum, index) => {
-              const template = rowTemplate ?? defaultBodyRowTemplate;
-              return template(colDefs, datum, index);
-            })
-          }
+          {data.map((datum, index) => makeBodyRow(colDefs, datum, index))}
         </S.TBody>
 
-        {
-          hasFooter ? (
-            <S.TFooter>
-              {defaultFooterRowTemplate(footerDefs as FooterColumnDefinition[])}
-            </S.TFooter>
-          ) : null
-        }
+        {hasFooter ? (
+          <S.TFooter>
+            {makeFooterRow(footerDefs as FooterColumnDefinition[])}
+          </S.TFooter>
+        ) : null}
 
       </S.Table>
     );
@@ -119,8 +121,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
 Table.displayName = 'Table';
 Table.defaultProps = {
-  rowTemplate: undefined,
   footerDefs: [],
+  rowTemplate: undefined,
+  headerRowTemplate: undefined,
+  footerRowTemplate: undefined,
 };
 
 export default Table;

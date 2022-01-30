@@ -1,7 +1,7 @@
 import React from 'react';
-import Table, { TableProps } from 'components/Table';
-import { Meta, Story } from '@storybook/react/types-6-0';
 import styled from 'styled-components';
+import Table, { TableProps } from 'components/Table';
+import { Meta, Story } from '@storybook/react';
 import CoffeeDistributor2019 from '../../stories/assets/coffee-distributor-2019';
 
 export default {
@@ -56,3 +56,9 @@ WithFooter.args = {
     },
   ],
 } as TableProps;
+
+export const WithSort = Template.bind({});
+WithSort.args = {
+  ...baseProps,
+  colDefs: baseProps.colDefs.map((c) => ({ ...c, sortable: true })),
+};
