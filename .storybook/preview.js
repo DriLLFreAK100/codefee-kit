@@ -2,7 +2,6 @@ import React from 'react';
 import { AppContainer } from '../src/components/AppContainer';
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
   layout: 'padded',
   backgrounds: {
     grid: {
