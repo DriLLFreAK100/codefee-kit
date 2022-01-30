@@ -41,6 +41,16 @@ const getRowHeight = (segment: TableSegment) => {
   }
 };
 
+const CellPaddingCss = css`
+  &:first-child {
+    padding-left: ${rem(20)};
+  }
+
+  &:last-child {
+    padding-right: ${rem(20)};
+  }
+`;
+
 export const Table = styled.table`
   ${TableCssVar};
   box-shadow: ${cvar('--control-shadow')};
@@ -67,7 +77,6 @@ export const Tr = styled.tr<{ segment?: TableSegment }>`
   border-top: ${rem(1)} solid ${({ segment }) => (segment === 'foot' ? cssVar('--cf-table-row-border-color') : 'none')};
   display: flex;
   width: 100%;
-  padding: 0 ${rem(20)};
   box-sizing: border-box;
 `;
 
@@ -91,6 +100,7 @@ export const Th = styled.th<{
   box-sizing: border-box;
   transition: color ${cvar('--transition-toggle')}, border-bottom-color ${cvar('--transition-toggle')};
   user-select: none;
+  ${CellPaddingCss};
 `;
 
 export const Td = styled.td<{ align: Alignment }>`
@@ -99,6 +109,7 @@ export const Td = styled.td<{ align: Alignment }>`
   align-items: center;
   justify-content: ${({ align }) => FlexAlignmentMap[align]};
   height: 100%;
+  ${CellPaddingCss};
 `;
 
 export const TFooter = styled.tfoot`
