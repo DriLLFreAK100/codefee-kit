@@ -1,15 +1,19 @@
 import styled, { css } from 'styled-components';
+import { AngleDown } from 'components/Icons';
+import { TypographyStyles } from 'components/Typography';
 import {
   cvar, cvarGen, jsonToCss, rem,
 } from 'utils/StyleHelper';
-import { TypographyStyles } from 'components/Typography';
-import { Alignment, TableSegment, FlexAlignmentMap } from './Common';
+import {
+  Alignment, FlexAlignmentMap, OrderByDirection, TableSegment,
+} from './Common';
 
 export type CheckboxCssVarProps = {
   '--cf-table-head-row-height': string;
   '--cf-table-body-row-height': string;
   '--cf-table-foot-row-height': string;
   '--cf-table-row-border-color': string;
+  '--cf-table-sort-active-color': string;
 };
 
 export const DefaultCssVar: CheckboxCssVarProps = {
@@ -17,6 +21,7 @@ export const DefaultCssVar: CheckboxCssVarProps = {
   '--cf-table-body-row-height': rem(60),
   '--cf-table-foot-row-height': rem(60),
   '--cf-table-row-border-color': cvar('--color-gray-3'),
+  '--cf-table-sort-active-color': cvar('--color-primary-dark'),
 };
 
 export const TableCssVar = css`${jsonToCss(DefaultCssVar)}`;
@@ -69,6 +74,7 @@ export const Tr = styled.tr<{ segment?: TableSegment }>`
 export const Th = styled.th<{
   align: Alignment;
   sortable?: boolean;
+  isSortActive?: boolean;
 }>`
   font-size: ${rem(18)};
   font-family: ${cvar('--font-family-primary')};
@@ -78,6 +84,13 @@ export const Th = styled.th<{
   justify-content: ${({ align }) => FlexAlignmentMap[align]};
   height: 100%;
   cursor: ${({ sortable }) => (sortable ? 'pointer' : 'initial')};
+  color: ${({ isSortActive }) => (isSortActive ? cssVar('--cf-table-sort-active-color') : 'initial')};
+  border-bottom-width: ${rem(4)};
+  border-bottom-style: solid;
+  border-bottom-color: ${({ isSortActive }) => (isSortActive ? cssVar('--cf-table-sort-active-color') : 'transparent')};
+  box-sizing: border-box;
+  transition: color ${cvar('--transition-toggle')}, border-bottom-color ${cvar('--transition-toggle')};
+  user-select: none;
 `;
 
 export const Td = styled.td<{ align: Alignment }>`
@@ -97,4 +110,13 @@ export const TFooter = styled.tfoot`
     font-family: ${cvar('--font-family-primary')};
     font-weight: 600;
   }
+`;
+
+export const SortIcon = styled(AngleDown) <{
+  direction: OrderByDirection;
+}>`
+  color: ${cssVar('--cf-table-sort-active-color')};
+  margin-left: ${rem(4)};
+  transform: ${({ direction }) => (direction === 'desc' ? 'rotate(180deg)' : 'rotate(360deg)')};
+  transition: color ${cvar('--transition-toggle')}, transform ${cvar('--transition-toggle')};
 `;

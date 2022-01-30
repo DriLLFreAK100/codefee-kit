@@ -1,6 +1,6 @@
 import orderBy from 'lodash-es/orderBy';
 import React, {
-  forwardRef, ReactNode, TableHTMLAttributes, useRef, useState,
+  forwardRef, ReactNode, TableHTMLAttributes, useCallback, useMemo, useRef, useState,
 } from 'react';
 import * as S from './Table.styled';
 import {
@@ -49,18 +49,23 @@ const defaultBodyRowTemplate = (
 
 const defaultHeaderRowTemplate = (
   colDefs: DataColumnDefinition[],
+  sortState: [string, OrderByDirection],
   onClickHeader?: (colDef: DataColumnDefinition) => void,
 ): ReactNode => {
   const handleOnClickHeader = (colDef: DataColumnDefinition) => () => {
     onClickHeader?.(colDef);
   };
 
+  const [sortKey, sortDirection] = sortState;
+
   return (
     <S.Tr segment="head">
       {colDefs.map((colDef) => {
         const {
-          id, header, align, sortable,
+          id, header, field, align, sortable,
         } = colDef;
+
+        const isSortActive = sortKey === field;
 
         return (
           <S.Th
@@ -68,9 +73,11 @@ const defaultHeaderRowTemplate = (
             style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
             align={align || 'left'}
             sortable={sortable}
+            isSortActive={isSortActive}
             onClick={handleOnClickHeader(colDef)}
           >
             {header}
+            {isSortActive ? <S.SortIcon direction={sortDirection} /> : null}
           </S.Th>
         );
       })}
@@ -110,51 +117,51 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const [computedData, setComputedData] = useState<any[]>(data);
     const sortByKey = useRef<[string, OrderByDirection]>(['', 'asc']);
 
-    const handleOnClickHeader = ({ field }: DataColumnDefinition) => {
-      if (field) {
-        const [key] = sortByKey.current;
-
-        if (key === field) {
-          const [, order] = sortByKey.current;
-          sortByKey.current = order === 'asc' ? [field, 'desc'] : [field, 'asc'];
+    const handleOnClickHeader = useCallback(({ field, sortable }: DataColumnDefinition) => {
+      if (sortable && field) {
+        if (sortByKey.current[0] === field) {
+          sortByKey.current = sortByKey.current[1] === 'asc' ? [field, 'desc'] : ['', 'asc'];
         } else {
           sortByKey.current = [field, 'asc'];
         }
 
-        const [, order] = sortByKey.current;
-
         setComputedData(orderBy(
           computedData,
           (c) => c[field],
-          order,
+          sortByKey.current[1],
         ));
       }
-    };
+    }, [computedData]);
 
     const hasFooter = (footerDefs || []).length > 0;
     const makeBodyRow = rowTemplate ?? defaultBodyRowTemplate;
     const makeHeaderRow = headerRowTemplate ?? defaultHeaderRowTemplate;
     const makeFooterRow = footerRowTemplate ?? defaultFooterRowTemplate;
 
+    const headerRow = useMemo(
+      () => makeHeaderRow(colDefs, sortByKey.current, handleOnClickHeader),
+      [colDefs, handleOnClickHeader, makeHeaderRow],
+    );
+
+    const bodyRows = useMemo(
+      () => computedData.map((datum, index) => makeBodyRow(colDefs, datum, index)),
+      [colDefs, computedData, makeBodyRow],
+    );
+
+    const footerRow = useMemo(() => (hasFooter ? (
+      <S.TFooter>
+        {makeFooterRow(footerDefs as FooterColumnDefinition[])}
+      </S.TFooter>
+    ) : null), [footerDefs, hasFooter, makeFooterRow]);
+
     return (
       <S.Table
         ref={ref}
         {...passThrough}
       >
-        <S.THead>
-          {makeHeaderRow(colDefs, handleOnClickHeader)}
-        </S.THead>
-
-        <S.TBody>
-          {computedData.map((datum, index) => makeBodyRow(colDefs, datum, index))}
-        </S.TBody>
-
-        {hasFooter ? (
-          <S.TFooter>
-            {makeFooterRow(footerDefs as FooterColumnDefinition[])}
-          </S.TFooter>
-        ) : null}
-
+        <S.THead>{headerRow}</S.THead>
+        <S.TBody>{bodyRows}</S.TBody>
+        {footerRow}
       </S.Table>
     );
   },
