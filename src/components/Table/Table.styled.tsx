@@ -71,13 +71,17 @@ export const TBody = styled.tbody`
   overflow-y: scroll;
 `;
 
-export const Tr = styled.tr<{ segment?: TableSegment }>`
+export const Tr = styled.tr<{
+  segment?: TableSegment,
+  isClickable?: boolean,
+}>`
   height: ${({ segment }) => getRowHeight(segment || 'body')} ;
   border-bottom: ${rem(1)} solid ${({ segment }) => (segment === 'body' ? cssVar('--cf-table-row-border-color') : 'none')};
   border-top: ${rem(1)} solid ${({ segment }) => (segment === 'foot' ? cssVar('--cf-table-row-border-color') : 'none')};
   display: flex;
   width: 100%;
   box-sizing: border-box;
+  cursor: ${({ isClickable }) => (isClickable ? 'pointer' : 'initial')};
 `;
 
 export const Th = styled.th<{

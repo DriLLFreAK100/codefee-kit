@@ -17,7 +17,14 @@ export type TableProps = {
   colDefs: DataColumnDefinition[];
   footerDefs?: FooterColumnDefinition[];
   onClickHeader?: (colDef: DataColumnDefinition) => void;
-  rowTemplate?: (colDef: DataColumnDefinition[], data: any, rowIndex: number) => ReactNode;
+  onClickRow?: (data: any, props: TableProps) => void;
+  rowTemplate?: (
+    colDef: DataColumnDefinition[],
+    data: any,
+    rowIndex: number,
+    isClickable: boolean,
+    onClickRow?: (data: any) => void,
+  ) => ReactNode;
   headerRowTemplate?: (colDef: DataColumnDefinition[]) => ReactNode;
   footerRowTemplate?: (colDef: FooterColumnDefinition[]) => ReactNode;
 } & TableHTMLAttributes<HTMLTableElement>;
@@ -26,26 +33,36 @@ const defaultBodyRowTemplate = (
   colDefs: DataColumnDefinition[],
   data: any,
   rowIndex: number,
-): ReactNode => (
-  <S.Tr
-    key={rowIndex}
-    segment="body"
-  >
-    {colDefs.map((colDef) => {
-      const { id, field, align } = colDef;
+  isClickable: boolean,
+  onClickRow?: (data: any) => void,
+): ReactNode => {
+  const handleOnClickRow = (): void => {
+    onClickRow?.(data);
+  };
 
-      return (
-        <S.Td
-          key={id}
-          style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
-          align={align || 'left'}
-        >
-          {data[field || '']}
-        </S.Td>
-      );
-    })}
-  </S.Tr>
-);
+  return (
+    <S.Tr
+      key={rowIndex}
+      segment="body"
+      isClickable={isClickable}
+      onClick={handleOnClickRow}
+    >
+      {colDefs.map((colDef) => {
+        const { id, field, align } = colDef;
+
+        return (
+          <S.Td
+            key={id}
+            style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
+            align={align || 'left'}
+          >
+            {data[field || '']}
+          </S.Td>
+        );
+      })}
+    </S.Tr>
+  );
+};
 
 const defaultHeaderRowTemplate = (
   colDefs: DataColumnDefinition[],
@@ -108,6 +125,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       data,
       colDefs,
       footerDefs,
+      onClickHeader,
+      onClickRow,
       rowTemplate,
       headerRowTemplate,
       footerRowTemplate,
@@ -117,7 +136,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const [computedData, setComputedData] = useState<any[]>(data);
     const sortByKey = useRef<[string, OrderByDirection]>(['', 'asc']);
 
-    const handleOnClickHeader = useCallback(({ field, sortable }: DataColumnDefinition) => {
+    const handleOnClickHeader = useCallback((colDef: DataColumnDefinition) => {
+      const { field, sortable } = colDef;
+
       if (sortable && field) {
         if (sortByKey.current[0] === field) {
           sortByKey.current = sortByKey.current[1] === 'asc' ? [field, 'desc'] : ['', 'asc'];
@@ -130,8 +151,14 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           (c) => c[field],
           sortByKey.current[1],
         ));
+
+        onClickHeader?.(colDef);
       }
-    }, [computedData]);
+    }, [computedData, onClickHeader]);
+
+    const handleOnClickRow = useCallback((rowData: any) => {
+      onClickRow?.(rowData, props);
+    }, [onClickRow, props]);
 
     const hasFooter = (footerDefs || []).length > 0;
     const makeBodyRow = rowTemplate ?? defaultBodyRowTemplate;
@@ -144,8 +171,14 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     );
 
     const bodyRows = useMemo(
-      () => computedData.map((datum, index) => makeBodyRow(colDefs, datum, index)),
-      [colDefs, computedData, makeBodyRow],
+      () => computedData.map((datum, index) => makeBodyRow(
+        colDefs,
+        datum,
+        index,
+        !!onClickRow,
+        handleOnClickRow,
+      )),
+      [computedData, makeBodyRow, colDefs, onClickRow, handleOnClickRow],
     );
 
     const footerRow = useMemo(() => (hasFooter ? (
@@ -171,6 +204,7 @@ Table.displayName = 'Table';
 Table.defaultProps = {
   footerDefs: [],
   onClickHeader: undefined,
+  onClickRow: undefined,
   rowTemplate: undefined,
   headerRowTemplate: undefined,
   footerRowTemplate: undefined,

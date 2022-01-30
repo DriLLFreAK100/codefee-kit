@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Table, { TableProps } from 'components/Table';
 import { Meta, Story } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import CoffeeDistributor2019 from '../../stories/assets/coffee-distributor-2019';
 
 export default {
@@ -67,4 +68,10 @@ export const WithSort = Template.bind({});
 WithSort.args = {
   ...baseProps,
   colDefs: baseProps.colDefs.map((c) => ({ ...c, sortable: true })),
-};
+} as TableProps;
+
+export const WithRowClick = Template.bind({});
+WithRowClick.args = {
+  ...baseProps,
+  onClickRow: action('Row Clicked!'),
+} as TableProps;
