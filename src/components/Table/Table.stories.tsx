@@ -1,8 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import Table, { TableProps, DataColumnDefinition } from 'components/Table';
 import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { cvar, rem } from 'utils/StyleHelper';
+import Table, {
+  TableProps, DataColumnDefinition, TableStyles, getColumnFlexBasis,
+} from '.';
 import CoffeeDistributor2019 from '../../stories/assets/coffee-distributor-2019';
 
 export default {
@@ -110,7 +114,7 @@ WithCustomCellRender.args = {
       id: 5, header: 'Pounds', field: 'Pounds', align: 'right',
     },
   ] as DataColumnDefinition[],
-};
+} as TableProps;
 
 export const WithCustomCellRenderBaseOnRowData = Template.bind({});
 WithCustomCellRenderBaseOnRowData.args = {
@@ -147,4 +151,69 @@ WithCustomCellRenderBaseOnRowData.args = {
       id: 5, header: 'Pounds', field: 'Pounds', align: 'right',
     },
   ] as DataColumnDefinition[],
-};
+} as TableProps;
+
+export const WithCustomRowTemplate = Template.bind({});
+const CustomStyledRow = styled(TableStyles.Tr)`
+  background-color: ${cvar('--color-info')};
+  color: ${cvar('--color-info-on')};
+  height: ${rem(24)};
+`;
+
+WithCustomRowTemplate.args = {
+  ...baseProps,
+  // eslint-disable-next-line react/display-name
+  rowTemplate: (
+    colDefs: DataColumnDefinition[],
+    data: any,
+    rowIndex: number,
+    isClickable: boolean,
+    onClickRow?: ((data: any) => void) | undefined,
+  ) => {
+    const handleOnClickRow = (): void => {
+      onClickRow?.(data);
+    };
+
+    return (
+      <CustomStyledRow
+        key={rowIndex}
+        segment="body"
+        isClickable={isClickable}
+        onClick={handleOnClickRow}
+      >
+        {colDefs.map((colDef) => {
+          const {
+            id,
+            field,
+            align,
+            render,
+          } = colDef;
+
+          const datum = data[field || ''];
+
+          return (
+            <TableStyles.Td
+              key={id}
+              style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
+              align={align || 'left'}
+            >
+              {render ? render(datum, data) : datum}
+            </TableStyles.Td>
+          );
+        })}
+      </CustomStyledRow>
+    );
+  },
+} as TableProps;
+
+const StyledOverrideCssVarTable = styled(StyledTable)`
+  --cf-table-head-row-height: ${rem(48)};
+  --cf-table-body-row-height: ${rem(24)};
+  --cf-table-row-border-color: ${cvar('--color-info')};
+`;
+
+const OverrideCssVarTemplate: Story<TableProps> = (
+  args: TableProps,
+) => <StyledOverrideCssVarTable {...args} />;
+export const WithOverrideCssVariable = OverrideCssVarTemplate.bind({});
+WithOverrideCssVariable.args = { ...baseProps };
