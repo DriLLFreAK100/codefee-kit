@@ -1,15 +1,26 @@
-import orderBy from 'lodash-es/orderBy';
 import React, {
-  forwardRef, ReactNode, TableHTMLAttributes, useCallback, useMemo, useRef, useState,
+  forwardRef,
+  ReactNode,
+  TableHTMLAttributes,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
 } from 'react';
 import * as S from './Table.styled';
 import {
-  DataColumnDefinition, FooterColumnDefinition, getColumnFlexBasis, OrderByDirection,
+  defaultBodyRowTemplate,
+  defaultFooterRowTemplate,
+  defaultHeaderRowTemplate,
+} from './Templates';
+import {
+  DataColumnDefinition,
+  defaultSortKey,
+  FooterColumnDefinition,
+  OrderByDirection,
+  SortKey,
+  trySortData,
 } from './Common';
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export type TableProps = {
@@ -25,99 +36,13 @@ export type TableProps = {
     isClickable: boolean,
     onClickRow?: (data: any) => void,
   ) => ReactNode;
-  headerRowTemplate?: (colDef: DataColumnDefinition[]) => ReactNode;
+  headerRowTemplate?: (
+    colDefs: DataColumnDefinition[],
+    sortState: [string, OrderByDirection],
+    onClickHeader?: (colDef: DataColumnDefinition) => void,
+  ) => ReactNode;
   footerRowTemplate?: (colDef: FooterColumnDefinition[]) => ReactNode;
 } & TableHTMLAttributes<HTMLTableElement>;
-
-const defaultBodyRowTemplate = (
-  colDefs: DataColumnDefinition[],
-  data: any,
-  rowIndex: number,
-  isClickable: boolean,
-  onClickRow?: (data: any) => void,
-): ReactNode => {
-  const handleOnClickRow = (): void => {
-    onClickRow?.(data);
-  };
-
-  return (
-    <S.Tr
-      key={rowIndex}
-      segment="body"
-      isClickable={isClickable}
-      onClick={handleOnClickRow}
-    >
-      {colDefs.map((colDef) => {
-        const { id, field, align } = colDef;
-
-        return (
-          <S.Td
-            key={id}
-            style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
-            align={align || 'left'}
-          >
-            {data[field || '']}
-          </S.Td>
-        );
-      })}
-    </S.Tr>
-  );
-};
-
-const defaultHeaderRowTemplate = (
-  colDefs: DataColumnDefinition[],
-  sortState: [string, OrderByDirection],
-  onClickHeader?: (colDef: DataColumnDefinition) => void,
-): ReactNode => {
-  const handleOnClickHeader = (colDef: DataColumnDefinition) => () => {
-    onClickHeader?.(colDef);
-  };
-
-  const [sortKey, sortDirection] = sortState;
-
-  return (
-    <S.Tr segment="head">
-      {colDefs.map((colDef) => {
-        const {
-          id, header, field, align, sortable,
-        } = colDef;
-
-        const isSortActive = sortKey === field;
-
-        return (
-          <S.Th
-            key={id}
-            style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
-            align={align || 'left'}
-            sortable={sortable}
-            isSortActive={isSortActive}
-            onClick={handleOnClickHeader(colDef)}
-          >
-            {header}
-            {isSortActive ? <S.SortIcon direction={sortDirection} /> : null}
-          </S.Th>
-        );
-      })}
-    </S.Tr>
-  );
-};
-
-const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): ReactNode => (
-  <S.Tr segment="foot">
-    {footerDefs.map((footerDef) => {
-      const { id, align, value } = footerDef;
-      return (
-        <S.Td
-          key={id}
-          style={{ flexBasis: getColumnFlexBasis(footerDef, footerDefs) }}
-          align={align || 'left'}
-        >
-          {value}
-        </S.Td>
-      );
-    })}
-  </S.Tr>
-);
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (props: TableProps, ref) => {
@@ -134,58 +59,47 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     } = props;
 
     const [computedData, setComputedData] = useState<any[]>(data);
-    const sortByKey = useRef<[string, OrderByDirection]>(['', 'asc']);
+    const sortKey = useRef<SortKey>(defaultSortKey);
 
     const handleOnClickHeader = useCallback((colDef: DataColumnDefinition) => {
-      const { field, sortable } = colDef;
+      trySortData(
+        computedData,
+        colDef,
+        sortKey.current,
+        ([updatedSortKey, sortedData]) => {
+          sortKey.current = updatedSortKey;
+          setComputedData(sortedData);
+        },
+      );
 
-      if (sortable && field) {
-        if (sortByKey.current[0] === field) {
-          sortByKey.current = sortByKey.current[1] === 'asc' ? [field, 'desc'] : ['', 'asc'];
-        } else {
-          sortByKey.current = [field, 'asc'];
-        }
-
-        setComputedData(orderBy(
-          computedData,
-          (c) => c[field],
-          sortByKey.current[1],
-        ));
-
-        onClickHeader?.(colDef);
-      }
+      onClickHeader?.(colDef);
     }, [computedData, onClickHeader]);
 
     const handleOnClickRow = useCallback((rowData: any) => {
       onClickRow?.(rowData);
     }, [onClickRow]);
 
-    const hasFooter = (footerDefs || []).length > 0;
-    const makeBodyRow = rowTemplate ?? defaultBodyRowTemplate;
-    const makeHeaderRow = headerRowTemplate ?? defaultHeaderRowTemplate;
-    const makeFooterRow = footerRowTemplate ?? defaultFooterRowTemplate;
-
     const headerRow = useMemo(
-      () => makeHeaderRow(colDefs, sortByKey.current, handleOnClickHeader),
-      [colDefs, handleOnClickHeader, makeHeaderRow],
+      () => headerRowTemplate?.(colDefs, sortKey.current, handleOnClickHeader),
+      [colDefs, handleOnClickHeader, headerRowTemplate],
     );
 
     const bodyRows = useMemo(
-      () => computedData.map((datum, index) => makeBodyRow(
+      () => computedData.map((datum, index) => rowTemplate?.(
         colDefs,
         datum,
         index,
         !!onClickRow,
         handleOnClickRow,
       )),
-      [computedData, makeBodyRow, colDefs, onClickRow, handleOnClickRow],
+      [computedData, rowTemplate, colDefs, onClickRow, handleOnClickRow],
     );
 
-    const footerRow = useMemo(() => (hasFooter ? (
+    const footerRow = useMemo(() => ((footerDefs || []).length > 0 ? (
       <S.TFooter>
-        {makeFooterRow(footerDefs as FooterColumnDefinition[])}
+        {footerRowTemplate?.(footerDefs as FooterColumnDefinition[])}
       </S.TFooter>
-    ) : null), [footerDefs, hasFooter, makeFooterRow]);
+    ) : null), [footerDefs, footerRowTemplate]);
 
     return (
       <S.Table
@@ -205,9 +119,9 @@ Table.defaultProps = {
   footerDefs: [],
   onClickHeader: undefined,
   onClickRow: undefined,
-  rowTemplate: undefined,
-  headerRowTemplate: undefined,
-  footerRowTemplate: undefined,
+  rowTemplate: defaultBodyRowTemplate,
+  headerRowTemplate: defaultHeaderRowTemplate,
+  footerRowTemplate: defaultFooterRowTemplate,
 };
 
 export default Table;
