@@ -3,7 +3,7 @@ import ImageViewer, { ImageViewerProps } from 'components/ImageViewer';
 import React from 'react';
 import styles from './assets/styles/ImageViewer.module.scss';
 import { Figure } from 'components/Figure';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react';
 /* eslint-disable no-alert */
 
 export default {

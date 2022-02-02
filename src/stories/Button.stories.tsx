@@ -1,11 +1,14 @@
 import Button, { ButtonProps } from 'components/Button';
 import React from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react';
 /* eslint-disable no-alert */
 
 export default {
   title: 'Controls/Button',
   component: Button,
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+  },
 } as Meta;
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;

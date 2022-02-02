@@ -1,6 +1,6 @@
 import Checkbox, { CheckboxProps } from 'components/Checkbox';
 import React, { useCallback, useState } from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react';
 import styles from './assets/styles/Checkbox.module.scss';
 /* eslint-disable no-alert */
 

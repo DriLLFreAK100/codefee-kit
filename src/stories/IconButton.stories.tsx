@@ -1,9 +1,9 @@
 import IconButton, { IconButtonProps } from 'components/IconButton';
 import React from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
-import { action } from '@storybook/addon-actions';
-import { Times } from 'components/Icons';
 import styles from './assets/styles/IconButton.module.scss';
+import { action } from '@storybook/addon-actions';
+import { Meta, Story } from '@storybook/react';
+import { Times } from 'components/Icons';
 /* eslint-disable no-alert */
 
 export default {

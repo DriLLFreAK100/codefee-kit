@@ -39,4 +39,7 @@ export * from './Separator';
 export { default as Slider } from './Slider';
 export * from './Slider';
 
+export { default as Table } from './Table';
+export * from './Table';
+
 export * from './Typography';

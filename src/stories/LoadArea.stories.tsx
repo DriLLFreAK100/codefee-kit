@@ -2,7 +2,7 @@ import CircularProgress from 'components/CircularProgress';
 import LoadArea, { LoadAreaProps } from 'components/LoadArea';
 import React from 'react';
 import styles from './assets/styles/LoadArea.module.scss';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react';
 import { Typography } from 'components/Typography';
 /* eslint-disable no-alert */
 

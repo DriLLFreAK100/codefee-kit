@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  storybook:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=Docker
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - 6006:6006

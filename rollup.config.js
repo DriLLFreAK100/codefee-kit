@@ -42,5 +42,6 @@ export default {
     'react',
     'react-dom',
     'styled-components',
+    'lodash-es',
   ],
 };

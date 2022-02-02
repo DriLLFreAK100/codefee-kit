@@ -1,0 +1,16 @@
+# General
+.vscode/
+node_modules
+
+# Build outputs
+dist
+storybook-static
+*.tgz
+bundle-analysis.html
+
+# Dev files
+debug.log
+
+# Codefee Architect templates
+.cf-template
+cf-template.config.json

@@ -1,6 +1,6 @@
 {
   "name": "codefee-kit",
-  "version": "0.0.42-alpha.6",
+  "version": "0.0.42-alpha.7",
   "description": "A simple UI kit for React projects",
   "main": "dist/index.js",
   "files": [
@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
+    "storybook:docker": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
     "lint:fix": "eslint src/**/*.ts src/**/*.tsx --fix",
@@ -52,15 +53,16 @@
     "@rollup/plugin-commonjs": "17.1.0",
     "@rollup/plugin-node-resolve": "11.2.0",
     "@rollup/plugin-typescript": "8.3.0",
-    "@storybook/addon-essentials": "6.4.9",
-    "@storybook/addon-storysource": "6.4.9",
-    "@storybook/addons": "6.4.9",
-    "@storybook/react": "6.4.9",
-    "@storybook/theming": "6.4.9",
-    "@types/lodash": "4.14.162",
+    "@storybook/addon-essentials": "6.4.16",
+    "@storybook/addon-storysource": "6.4.16",
+    "@storybook/addons": "6.4.16",
+    "@storybook/react": "6.4.16",
+    "@storybook/theming": "6.4.16",
+    "@types/lodash-es": "4.17.5",
     "@types/styled-components": "5.1.7",
     "@typescript-eslint/eslint-plugin": "4.17.0",
     "@typescript-eslint/parser": "4.4.0",
+    "cross-env": "7.0.3",
     "css-loader": "4.3.0",
     "eslint": "7.10.0",
     "eslint-config-airbnb": "18.2.0",
@@ -71,9 +73,10 @@
     "eslint-plugin-jsx-a11y": "6.3.1",
     "eslint-plugin-react": "7.21.3",
     "eslint-plugin-react-hooks": "4.1.2",
+    "eslint-plugin-storybook": "^0.5.6",
     "file-loader": "6.1.0",
     "husky": "4.3.0",
-    "lodash": "4.17.20",
+    "lodash-es": "4.17.21",
     "postcss": "8.1.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -96,7 +99,8 @@
   "peerDependencies": {
     "react": ">=16.13.1",
     "react-dom": ">=16.13.1",
-    "styled-components": ">= 3"
+    "styled-components": ">= 3",
+    "lodash-es": ">=4"
   },
   "resolutions": {
     "styled-components": "^5"

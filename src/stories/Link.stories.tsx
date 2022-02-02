@@ -1,9 +1,9 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
 import Link from 'components/Link';
-import { LinkProps } from 'components/Link/Common';
-import { Typography } from 'components/Typography';
+import React from 'react';
 import { cvar } from 'utils/StyleHelper';
+import { LinkProps } from 'components/Link/Common';
+import { Meta, Story } from '@storybook/react';
+import { Typography } from 'components/Typography';
 /* eslint-disable no-alert */
 
 export default {

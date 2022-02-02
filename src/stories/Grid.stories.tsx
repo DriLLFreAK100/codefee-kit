@@ -1,7 +1,7 @@
 import Grid from 'components/Grid';
 import React from 'react';
 import { getRandomColor } from 'utils/CommonHelper';
-import { Meta } from '@storybook/react/types-6-0';
+import { Meta } from '@storybook/react';
 
 export default {
   title: 'Layout/Grid',
