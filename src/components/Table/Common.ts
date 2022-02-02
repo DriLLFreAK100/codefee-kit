@@ -27,7 +27,7 @@ export type DataColumnDefinition = {
   header?: string;
   field?: string;
   sortable?: boolean;
-  formatter?: (datum: unknown) => ReactNode;
+  render?: (cellData: any, rowData: any) => ReactNode,
 } & ColumnDefinition & ListObjectRequiredProps<number>;
 
 export type FooterColumnDefinition = {

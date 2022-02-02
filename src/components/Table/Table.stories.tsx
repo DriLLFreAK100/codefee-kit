@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import Table, { TableProps } from 'components/Table';
+import Table, { TableProps, DataColumnDefinition } from 'components/Table';
 import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import CoffeeDistributor2019 from '../../stories/assets/coffee-distributor-2019';
@@ -39,7 +39,7 @@ const baseProps = {
     {
       id: 5, header: 'Pounds', field: 'Pounds', align: 'right',
     },
-  ],
+  ] as DataColumnDefinition[],
 } as TableProps;
 
 export const Default = Template.bind({});
@@ -75,3 +75,76 @@ WithRowClick.args = {
   ...baseProps,
   onClickRow: action('Row Clicked!'),
 } as TableProps;
+
+export const WithCustomCellRender = Template.bind({});
+WithCustomCellRender.args = {
+  ...baseProps,
+  colDefs: [
+    {
+      id: 1,
+      header: 'Rank',
+      field: 'Rank',
+      align: 'left',
+      render: (cellData) => {
+        if ([1, 2, 3].includes(cellData)) {
+          return (
+            <span style={{ color: 'darkgoldenrod' }}>
+              {cellData}
+              {[...new Array(cellData)].map(() => '*')}
+            </span>
+          );
+        }
+        return cellData as ReactNode;
+      },
+    },
+    {
+      id: 2, header: 'Country', field: 'Country', align: 'left',
+    },
+    {
+      id: 3, header: 'Bags', field: 'Bags', align: 'right',
+    },
+    {
+      id: 4, header: 'MetricTons', field: 'MetricTons', align: 'right',
+    },
+    {
+      id: 5, header: 'Pounds', field: 'Pounds', align: 'right',
+    },
+  ] as DataColumnDefinition[],
+};
+
+export const WithCustomCellRenderBaseOnRowData = Template.bind({});
+WithCustomCellRenderBaseOnRowData.args = {
+  ...baseProps,
+  colDefs: [
+    {
+      id: 1,
+      header: 'Rank',
+      field: 'Rank',
+      align: 'left',
+      render: (cellData, rowData) => {
+        const { Bags } = rowData;
+        if (Bags > 10000000) {
+          return (
+            <span style={{ color: 'darkgoldenrod' }}>
+              {cellData}
+              {[...new Array(cellData)].map(() => '*')}
+            </span>
+          );
+        }
+        return cellData as ReactNode;
+      },
+    },
+    {
+      id: 2, header: 'Country', field: 'Country', align: 'left',
+    },
+    {
+      id: 3, header: 'Bags', field: 'Bags', align: 'right',
+    },
+    {
+      id: 4, header: 'MetricTons', field: 'MetricTons', align: 'right',
+    },
+    {
+      id: 5, header: 'Pounds', field: 'Pounds', align: 'right',
+    },
+  ] as DataColumnDefinition[],
+};

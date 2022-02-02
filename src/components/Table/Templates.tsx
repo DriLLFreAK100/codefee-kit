@@ -9,6 +9,7 @@ import {
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 export const defaultBodyRowTemplate = (
   colDefs: DataColumnDefinition[],
@@ -29,7 +30,14 @@ export const defaultBodyRowTemplate = (
       onClick={handleOnClickRow}
     >
       {colDefs.map((colDef) => {
-        const { id, field, align } = colDef;
+        const {
+          id,
+          field,
+          align,
+          render,
+        } = colDef;
+
+        const datum = data[field || ''];
 
         return (
           <S.Td
@@ -37,7 +45,7 @@ export const defaultBodyRowTemplate = (
             style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
             align={align || 'left'}
           >
-            {data[field || '']}
+            {render ? render(datum, data) : datum}
           </S.Td>
         );
       })}
