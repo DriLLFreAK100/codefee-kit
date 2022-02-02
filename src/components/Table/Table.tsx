@@ -17,7 +17,7 @@ export type TableProps = {
   colDefs: DataColumnDefinition[];
   footerDefs?: FooterColumnDefinition[];
   onClickHeader?: (colDef: DataColumnDefinition) => void;
-  onClickRow?: (data: any, props: TableProps) => void;
+  onClickRow?: (data: any) => void;
   rowTemplate?: (
     colDef: DataColumnDefinition[],
     data: any,
@@ -157,8 +157,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     }, [computedData, onClickHeader]);
 
     const handleOnClickRow = useCallback((rowData: any) => {
-      onClickRow?.(rowData, props);
-    }, [onClickRow, props]);
+      onClickRow?.(rowData);
+    }, [onClickRow]);
 
     const hasFooter = (footerDefs || []).length > 0;
     const makeBodyRow = rowTemplate ?? defaultBodyRowTemplate;
