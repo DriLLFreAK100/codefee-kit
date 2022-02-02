@@ -4,6 +4,7 @@ import {
   DataColumnDefinition,
   FooterColumnDefinition,
   getColumnFlexBasis,
+  getContentTitle,
   OrderByDirection,
 } from './Common';
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -38,14 +39,18 @@ export const defaultBodyRowTemplate = (
         } = colDef;
 
         const datum = data[field || ''];
+        const node: ReactNode = render ? render(datum, data) : datum;
 
         return (
           <S.Td
             key={id}
             style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
             align={align || 'left'}
+            title={getContentTitle(node)}
           >
-            {render ? render(datum, data) : datum}
+            <S.CellContent>
+              {node}
+            </S.CellContent>
           </S.Td>
         );
       })}
@@ -68,7 +73,7 @@ export const defaultHeaderRowTemplate = (
     <S.Tr segment="head">
       {colDefs.map((colDef) => {
         const {
-          id, header, field, align, sortable,
+          id, header, field, align, disableSort,
         } = colDef;
 
         const isSortActive = sortKey === field;
@@ -78,7 +83,7 @@ export const defaultHeaderRowTemplate = (
             key={id}
             style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
             align={align || 'left'}
-            sortable={sortable}
+            sortable={!disableSort}
             isSortActive={isSortActive}
             onClick={handleOnClickHeader(colDef)}
           >
@@ -101,7 +106,9 @@ export const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): 
           style={{ flexBasis: getColumnFlexBasis(footerDef, footerDefs) }}
           align={align || 'left'}
         >
-          {value}
+          <S.CellContent>
+            {value}
+          </S.CellContent>
         </S.Td>
       );
     })}

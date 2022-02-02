@@ -41,7 +41,9 @@ const getRowHeight = (segment: TableSegment) => {
   }
 };
 
-const CellPaddingCss = css`
+const CellCss = css`
+  min-width: 0;
+
   &:first-child {
     padding-left: ${rem(20)};
   }
@@ -71,11 +73,13 @@ export const TBody = styled.tbody`
   overflow-y: scroll;
 `;
 
-export const Tr = styled.tr<{
-  segment?: TableSegment,
-  isClickable?: boolean,
-}>`
-  height: ${({ segment }) => getRowHeight(segment || 'body')} ;
+type TrProps = {
+  segment?: TableSegment;
+  isClickable?: boolean;
+};
+
+export const Tr = styled.tr<TrProps>`
+  height: ${({ segment }) => getRowHeight(segment || 'body')};
   border-bottom: ${rem(1)} solid ${({ segment }) => (segment === 'body' ? cssVar('--cf-table-row-border-color') : 'none')};
   border-top: ${rem(1)} solid ${({ segment }) => (segment === 'foot' ? cssVar('--cf-table-row-border-color') : 'none')};
   display: flex;
@@ -84,11 +88,13 @@ export const Tr = styled.tr<{
   cursor: ${({ isClickable }) => (isClickable ? 'pointer' : 'initial')};
 `;
 
-export const Th = styled.th<{
+type ThProps = {
   align: Alignment;
   sortable?: boolean;
   isSortActive?: boolean;
-}>`
+};
+
+export const Th = styled.th<ThProps>`
   font-size: ${rem(18)};
   font-family: ${cvar('--font-family-primary')};
   font-weight: 600;
@@ -104,7 +110,7 @@ export const Th = styled.th<{
   box-sizing: border-box;
   transition: color ${cvar('--transition-toggle')}, border-bottom-color ${cvar('--transition-toggle')};
   user-select: none;
-  ${CellPaddingCss};
+  ${CellCss};
 `;
 
 export const Td = styled.td<{ align: Alignment }>`
@@ -113,7 +119,14 @@ export const Td = styled.td<{ align: Alignment }>`
   align-items: center;
   justify-content: ${({ align }) => FlexAlignmentMap[align]};
   height: 100%;
-  ${CellPaddingCss};
+  box-sizing: border-box;
+  ${CellCss};
+`;
+
+export const CellContent = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const TFooter = styled.tfoot`
@@ -127,9 +140,7 @@ export const TFooter = styled.tfoot`
   }
 `;
 
-export const SortIcon = styled(AngleDown) <{
-  direction: OrderByDirection;
-}>`
+export const SortIcon = styled(AngleDown) <{ direction: OrderByDirection }>`
   color: ${cssVar('--cf-table-sort-active-color')};
   margin-left: ${rem(4)};
   transform: ${({ direction }) => (direction === 'desc' ? 'rotate(180deg)' : 'rotate(360deg)')};

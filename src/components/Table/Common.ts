@@ -26,7 +26,7 @@ export type ColumnDefinition = {
 export type DataColumnDefinition = {
   header?: string;
   field?: string;
-  sortable?: boolean;
+  disableSort?: boolean;
   render?: (cellData: any, rowData: any) => ReactNode,
 } & ColumnDefinition & ListObjectRequiredProps<number>;
 
@@ -52,11 +52,11 @@ export const trySortData = (
   sortKey: SortKey,
   onSort: (output: [updatedSortKey: SortKey, sortedData: any]) => void,
 ): void => {
-  const { field, sortable } = colDef;
+  const { field, disableSort } = colDef;
   const [sortField, sortDirection] = sortKey;
   let updatedSortKey = defaultSortKey;
 
-  if (sortable && field) {
+  if (!disableSort && field) {
     if (sortField === field) {
       updatedSortKey = sortDirection === 'asc' ? [field, 'desc'] : defaultSortKey;
     } else {
@@ -72,4 +72,11 @@ export const trySortData = (
       ),
     ]);
   }
+};
+
+export const getContentTitle = (node: ReactNode): string | undefined => {
+  if (['number', 'string'].includes(typeof node)) {
+    return node as string;
+  }
+  return undefined;
 };

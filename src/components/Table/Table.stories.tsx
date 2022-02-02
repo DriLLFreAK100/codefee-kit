@@ -5,7 +5,7 @@ import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { cvar, rem } from 'utils/StyleHelper';
 import Table, {
-  TableProps, DataColumnDefinition, TableStyles, getColumnFlexBasis,
+  TableProps, DataColumnDefinition, TableStyles, getColumnFlexBasis, getContentTitle,
 } from '.';
 import CoffeeDistributor2019 from '../../stories/assets/coffee-distributor-2019';
 
@@ -68,10 +68,10 @@ WithFooter.args = {
   ],
 } as TableProps;
 
-export const WithSort = Template.bind({});
-WithSort.args = {
+export const WithDisableSort = Template.bind({});
+WithDisableSort.args = {
   ...baseProps,
-  colDefs: baseProps.colDefs.map((c) => ({ ...c, sortable: true })),
+  colDefs: baseProps.colDefs.map((c) => ({ ...c, disableSort: true })),
 } as TableProps;
 
 export const WithRowClick = Template.bind({});
@@ -190,14 +190,18 @@ WithCustomRowTemplate.args = {
           } = colDef;
 
           const datum = data[field || ''];
+          const node: ReactNode = render ? render(datum, data) : datum;
 
           return (
             <TableStyles.Td
               key={id}
               style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
               align={align || 'left'}
+              title={getContentTitle(node)}
             >
-              {render ? render(datum, data) : datum}
+              <TableStyles.CellContent>
+                {node}
+              </TableStyles.CellContent>
             </TableStyles.Td>
           );
         })}
