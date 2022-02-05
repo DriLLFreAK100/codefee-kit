@@ -18,7 +18,10 @@ const StyledIcon = styled.svg`
  */
 const Icon = forwardRef<SVGSVGElement, IconProps>(
   (props: IconProps, ref) => {
-    const { children, ...passThrough } = props;
+    const {
+      children,
+      ...passThrough
+    } = props;
 
     return (
       <StyledIcon

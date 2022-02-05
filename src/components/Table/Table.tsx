@@ -68,12 +68,12 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         sortKey.current,
         ([updatedSortKey, sortedData]) => {
           sortKey.current = updatedSortKey;
-          setComputedData(sortedData);
+          setComputedData(sortKey.current[0] ? sortedData : data);
         },
       );
 
       onClickHeader?.(colDef);
-    }, [computedData, onClickHeader]);
+    }, [computedData, data, onClickHeader]);
 
     const handleOnClickRow = useCallback((rowData: any) => {
       onClickRow?.(rowData);
