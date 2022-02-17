@@ -3,6 +3,7 @@ import React, {
   ReactNode,
   TableHTMLAttributes,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -60,6 +61,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
     const [computedData, setComputedData] = useState<any[]>(data);
     const sortKey = useRef<SortKey>(defaultSortKey);
+
+    useEffect(() => setComputedData(data), [data]);
 
     const handleOnClickHeader = useCallback((colDef: DataColumnDefinition) => {
       trySortData(
