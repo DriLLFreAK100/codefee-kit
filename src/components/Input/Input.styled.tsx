@@ -5,6 +5,7 @@ import { InputProps } from './Common';
 
 export type InputCssVar = {
   '--cf-input-border-color': string;
+  '--cf-input-border-color-hover': string;
   '--cf-input-border-color-error': string;
   '--cf-input-border-color-focus': string;
   '--cf-input-background-color': string;
@@ -12,8 +13,9 @@ export type InputCssVar = {
 
 const [defaultCssVar, cssVar] = makeCssVar<InputCssVar>({
   '--cf-input-border-color': cvar('--color-gray-5'),
+  '--cf-input-border-color-hover': cvar('--color-gray-4'),
   '--cf-input-border-color-error': cvar('--color-error'),
-  '--cf-input-border-color-focus': cvar('--color-gray-4'),
+  '--cf-input-border-color-focus': cvar('--color-gray-6'),
   '--cf-input-background-color': cvar('--control-bg-color'),
 });
 
@@ -35,6 +37,10 @@ export const Input = styled.input<InputProps>`
 
   &:disabled {
     opacity: 0.7;
+  }
+
+  &:hover{
+    border-color: ${cssVar('--cf-input-border-color-hover')};
   }
 
   &:focus{
