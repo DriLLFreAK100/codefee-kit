@@ -1,11 +1,22 @@
 import styled from 'styled-components';
 import { AngleDown } from 'components/Icons';
-import { cvar, rem } from 'utils/StyleHelper';
+import {
+  cvar, makeCssVar, rem,
+} from 'utils/StyleHelper';
 import { TypographyStyles } from 'components/Typography';
 
+export type SelectCssVarProps = {
+  '--cf-select-background-color': string;
+};
+
+const [defaultCssVar, cssVar] = makeCssVar<SelectCssVarProps>({
+  '--cf-select-background-color': cvar('--control-bg-color'),
+});
+
 export const Host = styled.div`
+  ${defaultCssVar};
   box-sizing: border-box;
-  background-color: inherit;
+  background-color: ${cssVar('--cf-select-background-color')};
   display: inline-block;
   height: ${cvar('--control-height')};
   min-width: ${rem(200)};

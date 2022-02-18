@@ -2,13 +2,14 @@ import styled, { css } from 'styled-components';
 import { AngleDown } from 'components/Icons';
 import { TypographyStyles } from 'components/Typography';
 import {
-  cvar, cvarGen, jsonToCss, rem,
+  cvar, makeCssVar, rem,
 } from 'utils/StyleHelper';
 import {
   Alignment, FlexAlignmentMap, OrderByDirection, TableSegment,
 } from './Common';
 
-export type CheckboxCssVarProps = {
+export type TableCssVarProps = {
+  '--cf-table-background-color': string;
   '--cf-table-head-row-height': string;
   '--cf-table-body-row-height': string;
   '--cf-table-foot-row-height': string;
@@ -16,17 +17,14 @@ export type CheckboxCssVarProps = {
   '--cf-table-sort-active-color': string;
 };
 
-export const DefaultCssVar: CheckboxCssVarProps = {
+const [defaultCssVar, cssVar] = makeCssVar<TableCssVarProps>({
+  '--cf-table-background-color': cvar('--control-bg-color'),
   '--cf-table-head-row-height': rem(60),
   '--cf-table-body-row-height': rem(60),
   '--cf-table-foot-row-height': rem(60),
   '--cf-table-row-border-color': cvar('--color-gray-3'),
   '--cf-table-sort-active-color': cvar('--color-primary-dark'),
-};
-
-export const TableCssVar = css`${jsonToCss(DefaultCssVar)}`;
-
-const cssVar = (p: keyof CheckboxCssVarProps) => cvarGen<CheckboxCssVarProps>(p);
+});
 
 const getRowHeight = (segment: TableSegment) => {
   switch (segment) {
@@ -54,13 +52,15 @@ const CellCss = css`
 `;
 
 export const Table = styled.table`
-  ${TableCssVar};
+  ${defaultCssVar};
   box-shadow: ${cvar('--control-shadow')};
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   width: 100%;
+  background-color: ${cssVar('--cf-table-background-color')};
+  border-radius: ${cvar('--control-border-radius')};
 `;
 
 export const THead = styled.thead`

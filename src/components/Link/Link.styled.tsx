@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import {
-  cvar, cvarGen, jsonToCss, rem,
+  cvar, makeCssVar, rem,
 } from 'utils/StyleHelper';
 import { TypographyStyles } from 'components/Typography';
 import { LinkProps } from './Common';
@@ -11,38 +11,36 @@ export interface LinkCssVarProps {
   '--cf-link-color-active': string;
 }
 
-export const DefaultCssVar: LinkCssVarProps = {
+const [defaultCssVar, cssVar] = makeCssVar<LinkCssVarProps>({
   '--cf-link-color': cvar('--color-primary'),
   '--cf-link-color-hover': cvar('--color-primary-light'),
   '--cf-link-color-active': cvar('--color-primary-dark'),
-};
-
-export const LinkCssVar = css`${jsonToCss(DefaultCssVar)}`;
+});
 
 export const Link = styled.a<LinkProps>`
   ${TypographyStyles.Body1Css()}
-  ${LinkCssVar}
+  ${defaultCssVar}
   cursor: pointer;
-  color: ${cvarGen<LinkCssVarProps>('--cf-link-color')};
+  color: ${cssVar('--cf-link-color')};
   user-select: none;
   transition: border-width ${cvar('--transition-toggle')}, color ${cvar('--transition-hover')}, border-color ${cvar('--transition-hover')};
-  border-bottom: 1px solid ${cvarGen<LinkCssVarProps>('--cf-link-color')};
+  border-bottom: 1px solid ${cssVar('--cf-link-color')};
   text-decoration: none;
 
   ${({ active }) => (active ? `
-     color: ${cvarGen<LinkCssVarProps>('--cf-link-color-hover')};
-     border-bottom: ${rem(4)} solid ${cvarGen<LinkCssVarProps>('--cf-link-color-hover')};
+     color: ${cssVar('--cf-link-color-hover')};
+     border-bottom: ${rem(4)} solid ${cssVar('--cf-link-color-hover')};
      font-weight: 700;
   ` : null)}
 
   &:hover{
-    color: ${cvarGen<LinkCssVarProps>('--cf-link-color-hover')};
-    border-bottom: ${rem(4)} solid ${cvarGen<LinkCssVarProps>('--cf-link-color-hover')};
+    color: ${cssVar('--cf-link-color-hover')};
+    border-bottom: ${rem(4)} solid ${cssVar('--cf-link-color-hover')};
   }
 
   &:active{
-    color: ${cvarGen<LinkCssVarProps>('--cf-link-color-active')};
-    border-bottom-color: ${rem(4)} solid ${cvarGen<LinkCssVarProps>('--cf-link-color-active')};
+    color: ${cssVar('--cf-link-color-active')};
+    border-bottom-color: ${rem(4)} solid ${cssVar('--cf-link-color-active')};
   }
 
   &:focus{
