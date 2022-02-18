@@ -27,7 +27,22 @@ const Template: Story<InputProps> = (args: InputProps) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
+const baseProps: InputProps = {
   value: 'Coffee Time~',
+};
+
+export const Default = Template.bind({});
+Default.args = { ...baseProps };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  ...baseProps,
+  disabled: true,
 } as InputProps;
+
+export const Error = Template.bind({});
+Error.args = {
+  ...baseProps,
+  error: true,
+} as InputProps;
+

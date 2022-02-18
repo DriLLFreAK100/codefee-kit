@@ -1,7 +1,6 @@
-import React, { forwardRef, InputHTMLAttributes } from 'react';
+import React, { forwardRef } from 'react';
+import { InputProps } from './Common';
 import * as S from './Input.styled';
-
-export type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (props: InputProps, ref) => (
@@ -14,6 +13,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = 'Input';
 Input.defaultProps = {
+  error: false,
 };
 
 export default Input;
