@@ -5,7 +5,7 @@ import React, {
   ReactNode,
   CSSProperties,
 } from 'react';
-import * as S from './LoadArea.style';
+import * as S from './LoadArea.styled';
 
 export interface LoadAreaProps {
   children?: ReactNode;

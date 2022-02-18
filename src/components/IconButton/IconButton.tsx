@@ -1,7 +1,7 @@
 import React, {
   forwardRef, ButtonHTMLAttributes,
 } from 'react';
-import * as S from './IconButton.style';
+import * as S from './IconButton.styled';
 
 export type IconButtonVariantType = 'primary' | 'secondary';
 

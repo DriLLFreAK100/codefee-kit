@@ -1,7 +1,7 @@
 import React, {
   forwardRef, InputHTMLAttributes, ChangeEvent,
 } from 'react';
-import * as S from './Slider.style';
+import * as S from './Slider.styled';
 
 export type SliderProps = {
   onValueChange?: (value: number) => void;

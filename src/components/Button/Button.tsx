@@ -2,7 +2,7 @@ import { Typography } from 'components/Typography';
 import React, {
   ReactNode, forwardRef, ButtonHTMLAttributes,
 } from 'react';
-import * as S from './Button.style';
+import * as S from './Button.styled';
 
 export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
 

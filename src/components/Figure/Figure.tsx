@@ -1,6 +1,6 @@
 import React, { forwardRef, ReactNode, HtmlHTMLAttributes } from 'react';
 import { Gutter } from 'common';
-import * as S from './Figure.style';
+import * as S from './Figure.styled';
 
 export interface FigureProps extends HtmlHTMLAttributes<HTMLElement> {
   caption?: ReactNode;

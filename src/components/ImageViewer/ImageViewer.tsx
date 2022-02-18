@@ -1,5 +1,5 @@
 import React, { forwardRef, ImgHTMLAttributes, useState } from 'react';
-import * as S from './ImageViewer.style';
+import * as S from './ImageViewer.styled';
 
 export interface ImageViewerProps extends ImgHTMLAttributes<HTMLImageElement> {
   src: string;

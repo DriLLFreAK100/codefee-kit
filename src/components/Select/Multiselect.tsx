@@ -1,7 +1,7 @@
 import React, {
   forwardRef, HtmlHTMLAttributes, ReactNode, useCallback, useEffect, useState,
 } from 'react';
-import * as S from './Multiselect.style';
+import * as S from './Multiselect.styled';
 import { SelectOptionType } from './Common';
 
 export interface MultiselectControlLabels {

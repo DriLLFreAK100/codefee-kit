@@ -4,7 +4,7 @@ import React, {
   ReactNode,
   useState,
 } from 'react';
-import * as S from './Select.style';
+import * as S from './Select.styled';
 import SelectLayout from './SelectLayout';
 import { SelectOptionType } from './Common';
 

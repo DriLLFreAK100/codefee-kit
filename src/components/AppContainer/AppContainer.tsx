@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import { CodefeeTheme, ITheme } from 'common/Theme';
 import { createGlobalStyle } from 'styled-components';
-import { GlobalResetCss } from './AppContainer.style';
+import { GlobalResetCss } from './AppContainer.styled';
 
 export interface AppContainerProps {
   children?: ReactNode;

@@ -8,7 +8,7 @@ import React, {
   Dispatch,
   HtmlHTMLAttributes,
 } from 'react';
-import * as S from './SelectLayout.style';
+import * as S from './SelectLayout.styled';
 
 export type SelectLayoutProps = {
   className?: string;

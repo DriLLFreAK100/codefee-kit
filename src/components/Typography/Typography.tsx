@@ -2,7 +2,7 @@ import React, {
   FC, forwardRef, ReactNode, CSSProperties,
 } from 'react';
 import { TypographyElementProps } from './Common';
-import * as S from './Typography.style';
+import * as S from './Typography.styled';
 
 export type TypographyType =
   'h1' |
