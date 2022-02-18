@@ -1,6 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+import peerDeps from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import visualizer from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
@@ -24,6 +25,7 @@ export default {
     sourcemap: true,
   },
   plugins: [
+    peerDeps(),
     resolve(),
     commonjs(),
     typescript({
@@ -37,11 +39,5 @@ export default {
       filename: 'bundle-analysis.html',
       open: true,
     }),
-  ],
-  external: [
-    'react',
-    'react-dom',
-    'styled-components',
-    'lodash-es',
   ],
 };
