@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import * as S from './IconButton.styled';
 
-export type IconButtonVariantType = 'primary' | 'secondary';
+export type IconButtonVariantType = 'primary' | 'secondary' | 'subtle';
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: IconButtonVariantType;
@@ -15,6 +15,8 @@ const getComponent = (variant: IconButtonVariantType) => {
       return S.PrimaryIconButton;
     case 'secondary':
       return S.SecondaryIconButton;
+    case 'subtle':
+      return S.SubtleIconButton;
     default:
       return S.PrimaryIconButton;
   }

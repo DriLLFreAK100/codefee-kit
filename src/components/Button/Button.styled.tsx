@@ -39,7 +39,7 @@ export const PrimaryButton = styled(StyledButton)`
 
 export const SubtleButton = styled(StyledButton)`
   background-color: inherit;
-  border: ${rem(1)} solid  ${cvar('--color-primary')};
+  border: ${rem(1)} solid ${cvar('--color-primary')};
   padding: ${rem(13)} ${rem(16)};
   color: black;
 
