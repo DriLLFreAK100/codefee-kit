@@ -41,12 +41,10 @@ export const SubtleIconButton = styled(IconButton)`
   box-shadow: unset;
 
   &:hover{
-    background-color: ${cvar('--color-gray-4')};
-    color: ${cvar('--color-primary-on')};
+    background-color: ${cvar('--color-gray-2')};
   }
 
   &:active{
-    background-color: ${cvar('--color-gray-6')};
-    color: ${cvar('--color-primary-on')};
+    background-color: ${cvar('--color-gray-3')};
   }
 `;
