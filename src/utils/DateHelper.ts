@@ -11,7 +11,7 @@ export const defaultMonthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Ju
 
 export type Day = {
   type: DayPeriod,
-  value: EasyDate;
+  easyDate: EasyDate;
 };
 
 class EasyDate {
@@ -51,7 +51,7 @@ class EasyDate {
 
     return arr.map((d) => ({
       type: 'current',
-      value: new EasyDate(new Date(
+      easyDate: new EasyDate(new Date(
         this.year,
         this.month,
         d,
@@ -66,21 +66,21 @@ class EasyDate {
       .reverse()
       .map((day) => ({
         type: 'prev',
-        value: new EasyDate(new Date(
+        easyDate: new EasyDate(new Date(
           this.previousMonth.year,
           this.previousMonth.month,
           day,
         )),
       }));
 
-    const currentMonth: Day[] = this.daysInMonthArr.map(({ value }) => ({
+    const currentMonth: Day[] = this.daysInMonthArr.map(({ easyDate }) => ({
       type: 'current',
-      value,
+      easyDate,
     }));
 
     const nextMonth: Day[] = fillArray(6 - this.lastDay).map((_, i) => ({
       type: 'next',
-      value: new EasyDate(new Date(
+      easyDate: new EasyDate(new Date(
         this.nextMonth.year,
         this.nextMonth.month,
         i + 1,

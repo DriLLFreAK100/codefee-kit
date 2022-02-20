@@ -18,16 +18,18 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
     const {
       monthLabels,
       dayIndicatorLabels,
+      onDateChange,
       ...passThrough
     } = props;
 
     const [selectedDate, setSelectedDate] = useState(new EasyDate());
     const [viewMonth, setViewMonth] = useState(selectedDate);
 
-    const handleClickDate = useCallback(({ value }: Day) => () => {
-      setSelectedDate(value);
-      setViewMonth(value);
-    }, []);
+    const handleClickDate = useCallback(({ easyDate }: Day) => () => {
+      setSelectedDate(easyDate);
+      setViewMonth(easyDate);
+      onDateChange(easyDate.value);
+    }, [onDateChange]);
 
     const handleClickPrev = useCallback(() => {
       setViewMonth(viewMonth.previousMonth);
@@ -67,7 +69,7 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
         <S.DaySelector>
           {
             viewMonth.daysInMonthArrPadded.map((d) => {
-              const { type, value } = d;
+              const { type, easyDate: value } = d;
 
               return (
                 <S.DayTile

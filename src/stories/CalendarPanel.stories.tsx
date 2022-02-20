@@ -1,5 +1,6 @@
 import React from 'react';
 import CalendarPanel, { CalendarPanelProps } from 'components/CalendarPanel';
+import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
 
 export default {
@@ -7,7 +8,13 @@ export default {
   component: CalendarPanel,
 } as Meta<CalendarPanelProps>;
 
-const Template: Story<CalendarPanelProps> = (args: CalendarPanelProps) => <CalendarPanel {...args} />;
+const Template: Story<CalendarPanelProps> = (args: CalendarPanelProps) => {
+  return (
+    <CalendarPanel
+      {...args}
+      onDateChange={action('onDateChange')} />
+  );
+};
 
 export const Default = Template.bind({});
 Default.args = {} as CalendarPanelProps;
