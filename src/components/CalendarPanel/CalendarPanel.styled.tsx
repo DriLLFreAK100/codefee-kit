@@ -1,5 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { cvar, rem, makeCssVar } from 'utils/StyleHelper';
+import { Typography, TypographyStyles } from '../Typography';
+import { DayTileIconButton, NavIconButton } from './Shared';
 
 export type CalendarPanelCssVar = {
   '--cf-calendar-panel-background-color': string;
@@ -20,11 +22,49 @@ export const CalendarPanel = styled.div`
 
 export const NavigationPanel = styled.div`
   box-sizing: border-box;
-  height: ${rem(48)};
+  display: flex;
+  height: ${rem(52)};
   border-bottom: ${rem(1)} solid ${cvar('--color-gray-3')};
+  padding: ${rem(2)};
+`;
+
+export const Title = styled(Typography)`
+  flex: 1;
+  text-align: center;
+  line-height: ${rem(48)};
+`;
+
+export const NavButton = styled(NavIconButton)`
+  font-size: ${rem(20)};
 `;
 
 export const DaySelector = styled.div`
   box-sizing: border-box;
   height: ${rem(288)};
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const DayIndicator = styled.div`
+  display: flex;
+  height: ${rem(28)};
+`;
+
+export const DayIndicatorTile = styled.span`
+  ${TypographyStyles.Subtitle2Css()};
+  font-size: ${rem(12)};
+  flex-basis: calc(1 / 7 * 100%);
+  text-align: center;
+  line-height: ${rem(28)};
+  color: ${cvar('--color-gray-5')};
+  text-transform: uppercase;
+`;
+
+const ArchiveDayCss = css`
+  color: ${cvar('--color-gray-4')};
+`;
+
+export const DayTile = styled(DayTileIconButton)`
+  flex-basis: calc(1 / 7 * 100%);
+  ${({ dayPeriod }) => ['prev', 'next'].includes(dayPeriod) && ArchiveDayCss};
 `;
