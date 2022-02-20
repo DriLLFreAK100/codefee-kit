@@ -1,12 +1,12 @@
 import Checkbox from 'components/Checkbox';
 import styled, { css } from 'styled-components';
-import { CheckboxCssVarProps } from 'components/Checkbox/Checkbox.style';
+import { CheckboxCssVarProps } from 'components/Checkbox/Checkbox.styled';
 import { cvar, jsonToCss, rem } from 'utils/StyleHelper';
 import { Typography } from 'components/Typography';
-import { Option } from './Select.style';
+import { Option } from './Select.styled';
 import SelectLayout from './SelectLayout';
 
-export { Label } from './Select.style';
+export { Label } from './Select.styled';
 
 export const MultiselectLayout = styled(SelectLayout)`
   &&{

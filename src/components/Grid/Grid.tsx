@@ -4,7 +4,7 @@ import { rem } from 'utils/StyleHelper';
 import React, {
   CSSProperties, forwardRef, ReactNode,
 } from 'react';
-import * as S from './Grid.style';
+import * as S from './Grid.styled';
 
 export type GridSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
 

@@ -26,10 +26,25 @@ export const PrimaryIconButton = styled(IconButton)`
 export const SecondaryIconButton = styled(IconButton)`
   background-color: ${cvar('--color-secondary')};
   color: ${cvar('--color-secondary-on')};
+
   &:hover{
     background-color: ${cvar('--color-secondary-light')};
   }
+
   &:active{
     background-color: ${cvar('--color-secondary-dark')};
+  }
+`;
+
+export const SubtleIconButton = styled(IconButton)`
+  background-color: inherit;
+  box-shadow: unset;
+
+  &:hover{
+    background-color: ${cvar('--color-gray-2')};
+  }
+
+  &:active{
+    background-color: ${cvar('--color-gray-3')};
   }
 `;

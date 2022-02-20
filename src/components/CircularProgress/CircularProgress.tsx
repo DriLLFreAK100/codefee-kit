@@ -3,7 +3,7 @@ import React, {
   forwardRef, useMemo,
 } from 'react';
 import { CSSProperties, Keyframes, keyframes } from 'styled-components';
-import * as S from './CircularProgress.style';
+import * as S from './CircularProgress.styled';
 import { CircularProgressProps, CircularProgressType } from './Common';
 
 const getCircleComponent = (type: CircularProgressType) => {

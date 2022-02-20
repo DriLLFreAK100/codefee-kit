@@ -3,7 +3,7 @@ import { Typography } from 'components/Typography';
 import React, {
   BlockquoteHTMLAttributes, forwardRef, ReactNode,
 } from 'react';
-import * as S from './Blockquote.style';
+import * as S from './Blockquote.styled';
 
 export interface BlockquoteProps extends BlockquoteHTMLAttributes<HTMLQuoteElement> {
   cite?: string;

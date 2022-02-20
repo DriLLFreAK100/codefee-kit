@@ -1,7 +1,7 @@
 import React, {
   forwardRef, HtmlHTMLAttributes, MouseEvent, useCallback, useRef,
 } from 'react';
-import * as S from './MultiClickArea.style';
+import * as S from './MultiClickArea.styled';
 
 export type MultiClickAreaProps = {
   countTarget?: number;

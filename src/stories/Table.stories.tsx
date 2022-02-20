@@ -6,8 +6,8 @@ import { action } from '@storybook/addon-actions';
 import { cvar, rem } from 'utils/StyleHelper';
 import Table, {
   TableProps, DataColumnDefinition, TableStyles, getColumnFlexBasis, getContentTitle,
-} from '.';
-import CoffeeDistributor2019 from '../../stories/assets/coffee-distributor-2019';
+} from '../components/Table';
+import CoffeeDistributor2019 from './assets/coffee-distributor-2019';
 
 export default {
   title: 'Controls/Table',

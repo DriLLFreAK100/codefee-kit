@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 export * from './AppContainer';
 
 export * from './Blockquote';
@@ -22,6 +23,9 @@ export * from './Icons';
 
 export { default as ImageViewer } from './ImageViewer';
 export * from './ImageViewer';
+
+export { default as Input } from './Input';
+export * from './Input';
 
 export { default as Link } from './Link';
 export * from './Link';

@@ -2,7 +2,7 @@ import { Gutter } from 'common';
 import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useCallback,
 } from 'react';
-import * as S from './Checkbox.style';
+import * as S from './Checkbox.styled';
 
 export interface CheckboxProps extends HtmlHTMLAttributes<HTMLLabelElement> {
   checked: boolean;

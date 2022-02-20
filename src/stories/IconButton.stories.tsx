@@ -28,3 +28,9 @@ Secondary.args = {
   variant: 'secondary',
   onClick: action('Clicked!'),
 } as IconButtonProps;
+
+export const Subtle = Template.bind({});
+Subtle.args = {
+  variant: 'subtle',
+  onClick: action('Clicked!'),
+} as IconButtonProps;

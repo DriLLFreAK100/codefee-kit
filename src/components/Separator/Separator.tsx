@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import * as S from './Separator.style';
+import * as S from './Separator.styled';
 
 export type SeparatorType = 'line' | 'dot';
 
