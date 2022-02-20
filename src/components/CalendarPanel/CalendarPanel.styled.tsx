@@ -16,7 +16,7 @@ export const CalendarPanel = styled.div`
   box-sizing: border-box;
   box-shadow: ${cvar('--control-shadow')};
   border-radius: ${cvar('--control-border-radius')};
-  width: ${rem(340)};
+  width: ${rem(368)};
   background-color: ${cssVar('--cf-calendar-panel-background-color')};
 `;
 
@@ -40,14 +40,16 @@ export const NavButton = styled(NavIconButton)`
 
 export const DaySelector = styled.div`
   box-sizing: border-box;
-  height: ${rem(288)};
   display: flex;
   flex-wrap: wrap;
+  padding: ${rem(16)};
 `;
 
 export const DayIndicator = styled.div`
+  box-sizing: border-box;
   display: flex;
   height: ${rem(28)};
+  padding: ${rem(16)};
 `;
 
 export const DayIndicatorTile = styled.span`

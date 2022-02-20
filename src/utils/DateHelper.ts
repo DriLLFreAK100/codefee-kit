@@ -1,6 +1,19 @@
 import { fillArray } from './ArrayHelper';
-
+/* eslint-disable prefer-template */
+/* eslint-disable default-case */
 /* eslint-disable no-plusplus */
+
+export type DayPeriod = 'current' | 'prev' | 'next';
+
+export type DateDisplayReservedWords = 'yyyy' | 'MM' | 'MMM' | 'dd';
+
+export const defaultMonthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+export type Day = {
+  type: DayPeriod,
+  value: EasyDate;
+};
+
 class EasyDate {
   public value: Date;
 
@@ -14,6 +27,10 @@ class EasyDate {
 
   public get month(): number {
     return this.value.getMonth();
+  }
+
+  public get date(): number {
+    return this.value.getDate();
   }
 
   public get firstDay(): number {
@@ -34,16 +51,27 @@ class EasyDate {
 
     return arr.map((d) => ({
       type: 'current',
-      value: d,
+      value: new EasyDate(new Date(
+        this.year,
+        this.month,
+        d,
+      )),
     }));
   }
 
   public get daysInMonthArrPadded(): Day[] {
     let prevMonthDays = this.previousMonth.daysInMonth;
-    const prevMonth: Day[] = fillArray(this.firstDay).map(() => ({
-      type: 'prev',
-      value: prevMonthDays--,
-    }));
+    const prevMonth: Day[] = fillArray(this.firstDay)
+      .map(() => prevMonthDays--)
+      .reverse()
+      .map((day) => ({
+        type: 'prev',
+        value: new EasyDate(new Date(
+          this.previousMonth.year,
+          this.previousMonth.month,
+          day,
+        )),
+      }));
 
     const currentMonth: Day[] = this.daysInMonthArr.map(({ value }) => ({
       type: 'current',
@@ -52,7 +80,11 @@ class EasyDate {
 
     const nextMonth: Day[] = fillArray(6 - this.lastDay).map((_, i) => ({
       type: 'next',
-      value: i + 1,
+      value: new EasyDate(new Date(
+        this.nextMonth.year,
+        this.nextMonth.month,
+        i + 1,
+      )),
     }));
 
     return [
@@ -73,13 +105,27 @@ class EasyDate {
     p.setMonth(p.getMonth() + 1);
     return new EasyDate(p);
   }
+
+  public format(
+    format = 'yyyy/MM/dd',
+    monthLabels = defaultMonthLabels,
+  ): string {
+    const replacer: { [key in DateDisplayReservedWords]: () => string } = {
+      yyyy: () => this.year.toString(),
+      MMM: () => monthLabels[this.month],
+      MM: () => (this.month + 1).toString().padStart(2, '0'),
+      dd: () => this.date.toString().padStart(2, '0'),
+    };
+    const reservedWords = Object.keys(replacer) as DateDisplayReservedWords[];
+
+    let display: string = format;
+
+    reservedWords.forEach((r) => {
+      display = display.replace(r, replacer[r]());
+    });
+
+    return display;
+  }
 }
-
-export type DayPeriod = 'current' | 'prev' | 'next';
-
-export type Day = {
-  type: DayPeriod,
-  value: number;
-};
 
 export default EasyDate;

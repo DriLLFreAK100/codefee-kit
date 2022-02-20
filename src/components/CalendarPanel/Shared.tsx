@@ -3,23 +3,25 @@ import React, { FC } from 'react';
 import { DayPeriod } from 'utils/DateHelper';
 import IconButton, { IconButtonProps } from '../IconButton';
 
-type TileIconProps = {
+type DayTileIconProps = {
+  isActive: boolean;
   dayPeriod: DayPeriod;
 } & IconButtonProps;
 
-export const DayTileIconButton: FC<TileIconProps> = ({
+export const DayTileIconButton: FC<DayTileIconProps> = ({
+  isActive = false,
   children = null,
   ...passThrough
 }) => (
   <IconButton
-    variant="subtle"
+    variant={isActive ? 'primary' : 'subtle'}
     {...passThrough}
   >
     {children}
   </IconButton>
 );
 
-export const NavIconButton: FC = ({
+export const NavIconButton: FC<IconButtonProps> = ({
   children = null,
   ...passThrough
 }) => (
