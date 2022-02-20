@@ -1,7 +1,7 @@
 import React, {
   forwardRef, HtmlHTMLAttributes, useCallback, useState,
 } from 'react';
-import EasyDate, { Day, DayPeriod, defaultMonthLabels } from 'utils/DateHelper';
+import EasyDate, { Day, defaultMonthLabels } from 'utils/DateHelper';
 import { AngleLeft, AngleRight } from '../Icons';
 import * as S from './CalendarPanel.styled';
 
@@ -20,14 +20,13 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
       dayIndicatorLabels,
       ...passThrough
     } = props;
-    // const [dateInfoLevel] = useState<DateInfoLevel>('day');
 
     const [selectedDate, setSelectedDate] = useState(new EasyDate());
     const [viewMonth, setViewMonth] = useState(selectedDate);
-    const [viewState] = useState<DayPeriod>('current');
 
-    const handleClickDate = useCallback((day: Day) => () => {
-      setSelectedDate(day.value);
+    const handleClickDate = useCallback(({ value }: Day) => () => {
+      setSelectedDate(value);
+      setViewMonth(value);
     }, []);
 
     const handleClickPrev = useCallback(() => {
@@ -54,6 +53,7 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
             <AngleRight />
           </S.NavButton>
         </S.NavigationPanel>
+
         <S.DayIndicator>
           {
             dayIndicatorLabels?.map((d) => (
@@ -64,64 +64,24 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
           }
         </S.DayIndicator>
 
-        <S.SelectorContainer>
-          <S.SelectorWindow dayPeriod={viewState}>
-            <S.DaySelector>
-              {
-                viewMonth.previousMonth.daysInMonthArrPadded.map((d) => {
-                  const { type, value } = d;
-                  return (
-                    <S.DayTile
-                      key={value.format()}
-                      dayPeriod={type}
-                      isActive={value.format() === selectedDate.format()}
-                      onClick={handleClickDate(d)}
-                    >
-                      {value.date}
-                    </S.DayTile>
-                  );
-                })
-              }
-            </S.DaySelector>
+        <S.DaySelector>
+          {
+            viewMonth.daysInMonthArrPadded.map((d) => {
+              const { type, value } = d;
+              return (
+                <S.DayTile
+                  key={value.format()}
+                  dayPeriod={type}
+                  isActive={value.format() === selectedDate.format()}
+                  onClick={handleClickDate(d)}
+                >
+                  {value.date}
+                </S.DayTile>
+              );
+            })
+          }
+        </S.DaySelector>
 
-            <S.DaySelector>
-              {
-                viewMonth.daysInMonthArrPadded.map((d) => {
-                  const { type, value } = d;
-                  return (
-                    <S.DayTile
-                      key={value.format()}
-                      dayPeriod={type}
-                      isActive={value.format() === selectedDate.format()}
-                      onClick={handleClickDate(d)}
-                    >
-                      {value.date}
-                    </S.DayTile>
-                  );
-                })
-              }
-            </S.DaySelector>
-
-            <S.DaySelector>
-              {
-                viewMonth.nextMonth.daysInMonthArrPadded.map((d) => {
-                  const { type, value } = d;
-                  return (
-                    <S.DayTile
-                      key={value.format()}
-                      dayPeriod={type}
-                      isActive={value.format() === selectedDate.format()}
-                      onClick={handleClickDate(d)}
-                    >
-                      {value.date}
-                    </S.DayTile>
-                  );
-                })
-              }
-            </S.DaySelector>
-          </S.SelectorWindow>
-
-        </S.SelectorContainer>
       </S.CalendarPanel>
     );
   },

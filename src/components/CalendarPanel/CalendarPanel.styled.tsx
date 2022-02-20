@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
-import { DayPeriod } from 'index';
 import { DayTileIconButton, NavIconButton } from './Shared';
 import { Typography, TypographyStyles } from '../Typography';
 
@@ -37,31 +36,6 @@ export const Title = styled(Typography)`
 
 export const NavButton = styled(NavIconButton)`
   font-size: ${rem(20)};
-`;
-
-export const SelectorContainer = styled.div`
-  width: ${rem(368)};
-  overflow: hidden;
-`;
-
-const WindowingCss = (dayPeriod: DayPeriod) => {
-  switch (dayPeriod) {
-    case 'prev':
-      return css`transform: translateX(0);`;
-    case 'next':
-      return css`transform: translateX(-${rem(368 * 2)});`;
-    case 'current':
-    default:
-      return css`transform: translateX(-${rem(368)});`;
-  }
-};
-
-export const SelectorWindow = styled.div<{ dayPeriod?: DayPeriod }>`
-  display: flex;
-  flex-direction: row;
-  width: ${rem(368 * 3)};
-  ${({ dayPeriod }) => WindowingCss(dayPeriod || 'current')};
-  transition: transform ${cvar('--transition-toggle')};
 `;
 
 export const DaySelector = styled.div`
