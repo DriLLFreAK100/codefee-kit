@@ -45,6 +45,7 @@ export const DaySelector = styled.div`
   flex: 1;
   padding: ${rem(16)};
   min-width: ${rem(368)};
+  height: ${rem(320)};
 `;
 
 export const DayIndicator = styled.div`

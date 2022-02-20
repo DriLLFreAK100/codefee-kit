@@ -95,15 +95,11 @@ class EasyDate {
   }
 
   public get previousMonth(): EasyDate {
-    const p = new Date(this.value);
-    p.setMonth(p.getMonth() - 1);
-    return new EasyDate(p);
+    return new EasyDate(new Date(this.year, this.month - 1));
   }
 
   public get nextMonth(): EasyDate {
-    const p = new Date(this.value);
-    p.setMonth(p.getMonth() + 1);
-    return new EasyDate(p);
+    return new EasyDate(new Date(this.year, this.month + 1));
   }
 
   public format(

@@ -68,6 +68,7 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
           {
             viewMonth.daysInMonthArrPadded.map((d) => {
               const { type, value } = d;
+
               return (
                 <S.DayTile
                   key={value.format()}
