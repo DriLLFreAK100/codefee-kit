@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
-import { cvar, rem, makeCssVar } from 'utils/StyleHelper';
-import { Typography, TypographyStyles } from '../Typography';
+import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
+import { DayPeriod } from 'index';
 import { DayTileIconButton, NavIconButton } from './Shared';
+import { Typography, TypographyStyles } from '../Typography';
 
 export type CalendarPanelCssVar = {
   '--cf-calendar-panel-background-color': string;
@@ -38,11 +39,38 @@ export const NavButton = styled(NavIconButton)`
   font-size: ${rem(20)};
 `;
 
+export const SelectorContainer = styled.div`
+  width: ${rem(368)};
+  overflow: hidden;
+`;
+
+const WindowingCss = (dayPeriod: DayPeriod) => {
+  switch (dayPeriod) {
+    case 'prev':
+      return css`transform: translateX(0);`;
+    case 'next':
+      return css`transform: translateX(-${rem(368 * 2)});`;
+    case 'current':
+    default:
+      return css`transform: translateX(-${rem(368)});`;
+  }
+};
+
+export const SelectorWindow = styled.div<{ dayPeriod?: DayPeriod }>`
+  display: flex;
+  flex-direction: row;
+  width: ${rem(368 * 3)};
+  ${({ dayPeriod }) => WindowingCss(dayPeriod || 'current')};
+  transition: transform ${cvar('--transition-toggle')};
+`;
+
 export const DaySelector = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
+  flex: 1;
   padding: ${rem(16)};
+  min-width: ${rem(368)};
 `;
 
 export const DayIndicator = styled.div`
