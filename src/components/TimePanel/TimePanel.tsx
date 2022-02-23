@@ -8,63 +8,91 @@ export type Time = {
 };
 
 export type TimePanelProps = {
-  onTimeChange: (time: Time) => void;
+  time?: Time;
+  onTimeChange?: (time: Time) => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
 const hourMarks = fillArray(12);
 
 const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
-  (props: TimePanelProps, ref) => (
-    <S.TimePanel ref={ref}>
-      <S.Clock
-        width="268"
-        height="268"
-        viewBox="0 0 600 600"
+  (props: TimePanelProps, ref) => {
+    const {
+      time,
+      onTimeChange,
+      ...passThrough
+    } = props;
+
+    const { hour, minute } = time as Time;
+    const hourDeg = hour * 30 + (minute * 0.5);
+    const minuteDeg = minute * 6;
+
+    return (
+      <S.TimePanel
+        ref={ref}
+        {...passThrough}
       >
-        <S.ClockFrame
-          cx="300"
-          cy="300"
-          r="296"
-        />
-
-        <S.HourMarkGroup>
-          {hourMarks.map((i) => (
-            <S.HourMark
-              key={i}
-              hour={i}
-              x1="0"
-              x2="280"
-              y1="0"
-              y2="0"
+        <S.Clock
+          width="268"
+          height="268"
+          viewBox="0 0 600 600"
+        >
+          <g>
+            <S.ClockFrame
+              cx="300"
+              cy="300"
+              r="296"
             />
-          ))}
-        </S.HourMarkGroup>
 
-        {/* <S.HourMark x1="300" x2="300" y1="16" y2="56" />
-          <S.HourMark x1="584" x2="544" y1="300" y2="300" />
-          <S.HourMark x1="300" x2="300" y1="584" y2="544" />
-          <S.HourMark x1="16" x2="56" y1="300" y2="300" /> */}
-        {/* <S.CenterDot className="mid-circle" cx="300" cy="300" r="16.2" /> */}
+            <S.CenterDot
+              cx="300"
+              cy="300"
+              r="16"
+            />
+          </g>
 
-        {/* <g id="hour">
-          <path className="hour-arm" d="M300.5 298V142" />
-          <circle className="sizing-box" cx="300" cy="300" r="253.9" />
-        </g>
-        <g id="minute">
-          <path className="minute-arm" d="M300.5 298V67" />
-          <circle className="sizing-box" cx="300" cy="300" r="253.9" />
-        </g>
-        <g id="second">
-          <path className="second-arm" d="M300.5 350V55" />
-          <circle className="sizing-box" cx="300" cy="300" r="253.9" />
-        </g> */}
-      </S.Clock>
-    </S.TimePanel>
-  ),
+          <S.CenterGroup>
+            {hourMarks.map((i) => (
+              <S.HourMark
+                key={i}
+                hour={i}
+                x1="0"
+                x2="0"
+                y1="0"
+                y2="-280"
+              />
+            ))}
+          </S.CenterGroup>
+
+          <S.CenterGroup>
+            <S.HourArm
+              x1="0"
+              x2="0"
+              y1="0"
+              y2="-160"
+              transform={`rotate(${hourDeg})`}
+            />
+
+            <S.MinuteArm
+              x1="0"
+              x2="0"
+              y1="0"
+              y2="-220"
+              transform={`rotate(${minuteDeg})`}
+            />
+          </S.CenterGroup>
+        </S.Clock>
+      </S.TimePanel>
+    );
+  },
 );
 
 TimePanel.displayName = 'TimePanel';
 TimePanel.defaultProps = {
+  time: {
+    hour: 12,
+    minute: 0,
+  },
+  onTimeChange: undefined,
 };
 
 export default TimePanel;
