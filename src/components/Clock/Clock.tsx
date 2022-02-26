@@ -1,4 +1,4 @@
-import React, { forwardRef, SVGAttributes } from 'react';
+import React, { forwardRef, SVGAttributes, useCallback } from 'react';
 import * as S from './Clock.styled';
 import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
@@ -30,6 +30,20 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
     const hourDeg = hour * 30;
     const minuteDeg = minute * 6;
 
+    const handleOnMinuteChange = useCallback((minute$: number) => {
+      onTimeChange?.({
+        hour,
+        minute: minute$,
+      });
+    }, [hour, onTimeChange]);
+
+    const handleOnHourChange = useCallback((hour$: number) => {
+      onTimeChange?.({
+        hour: hour$,
+        minute,
+      });
+    }, [minute, onTimeChange]);
+
     return (
       <S.Clock
         ref={ref}
@@ -53,8 +67,20 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
         </g>
 
         {clockMode === 'view' && <ViewMode hourDeg={hourDeg + (minute * 0.5)} minuteDeg={minuteDeg} />}
-        {clockMode === 'edit-hour' && <EditHourMode hourDeg={hourDeg} />}
-        {clockMode === 'edit-minute' && <EditMinuteMode minuteDeg={minuteDeg} />}
+
+        {clockMode === 'edit-hour' && (
+          <EditHourMode
+            hourDeg={hourDeg}
+            onHourChange={handleOnHourChange}
+          />
+        )}
+
+        {clockMode === 'edit-minute' && (
+          <EditMinuteMode
+            minuteDeg={minuteDeg}
+            onMinuteChange={handleOnMinuteChange}
+          />
+        )}
       </S.Clock>
     );
   },

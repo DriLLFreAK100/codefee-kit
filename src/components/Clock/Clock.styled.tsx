@@ -4,8 +4,8 @@ import { cvar, rem, makeCssVar } from 'utils/StyleHelper';
 export type TimePanelCssVar = {
   '--cf-clock-background-color': string;
   '--cf-clock-frame-color': string;
-  '--cf-clock-hour-color': string;
-  '--cf-clock-hour-quarter-color': string
+  '--cf-clock-hour-tick-color': string;
+  '--cf-clock-hour-quarter-tick-color': string
   '--cf-clock-center-dot-color': string;
   '--cf-clock-arm-hour-color': string;
   '--cf-clock-arm-minute-color': string;
@@ -14,8 +14,8 @@ export type TimePanelCssVar = {
 const [defaultCssVar, cssVar] = makeCssVar<TimePanelCssVar>({
   '--cf-clock-background-color': cvar('--control-bg-color'),
   '--cf-clock-frame-color': cvar('--color-gray-3'),
-  '--cf-clock-hour-color': cvar('--color-gray-4'),
-  '--cf-clock-hour-quarter-color': cvar('--color-gray-5'),
+  '--cf-clock-hour-tick-color': cvar('--color-gray-4'),
+  '--cf-clock-hour-quarter-tick-color': cvar('--color-gray-5'),
   '--cf-clock-center-dot-color': cvar('--color-gray-7'),
   '--cf-clock-arm-hour-color': cvar('--color-gray-7'),
   '--cf-clock-arm-minute-color': cvar('--color-gray-7'),
@@ -36,7 +36,7 @@ export const CenterDot = styled.circle`
 `;
 
 const HourMarkCss = (isQuarter: boolean) => css`
-  stroke: ${isQuarter ? cssVar('--cf-clock-hour-quarter-color') : cssVar('--cf-clock-hour-color')};
+  stroke: ${isQuarter ? cssVar('--cf-clock-hour-quarter-tick-color') : cssVar('--cf-clock-hour-tick-color')};
   stroke-width: ${isQuarter ? rem(8) : rem(4)};
   stroke-dasharray: ${isQuarter ? `0 ${rem(240)} ${rem(40)}` : `0 ${rem(260)} ${rem(20)}`};
 `;
@@ -46,7 +46,8 @@ export const HourMark = styled.line<{ hour: number }>`
   transform: rotate(${({ hour }) => hour * 30}deg);
 `;
 
-export const HourText = styled.text<{ hour: number }>`
+export const Text = styled.text<{ hour: number }>`
+  cursor: pointer;
   font-size: ${rem(40)};
   font-family: ${cvar('--font-family-secondary')};
 `;

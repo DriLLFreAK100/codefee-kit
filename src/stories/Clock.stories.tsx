@@ -1,5 +1,6 @@
 import React from 'react';
 import Clock, { ClockProps } from 'components/Clock';
+import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
 
 export default {
@@ -13,6 +14,7 @@ const baseProps: ClockProps = {
     hour: current.getHours(),
     minute: current.getMinutes(),
   },
+  onTimeChange: action('onTimeChange'),
 };
 
 const Template: Story<ClockProps> = (args: ClockProps) => <Clock {...args} />;
