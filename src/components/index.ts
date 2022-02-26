@@ -11,6 +11,9 @@ export * from './Checkbox';
 
 export { default as CircularProgress } from './CircularProgress';
 
+export { default as Clock } from './Clock';
+export * from './Clock';
+
 export * from './Figure';
 
 export { default as Grid } from './Grid';

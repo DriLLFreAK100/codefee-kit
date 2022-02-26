@@ -3,17 +3,12 @@ import * as S from './Clock.styled';
 import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
 import ViewMode from './ViewMode';
-
-type ClockMode = 'view' | 'edit-hour' | 'edit-minute';
-
-export type Time = {
-  hour: number;
-  minute: number;
-};
+import { ClockMode, Time, ViewStyle } from './Common';
 
 export type ClockProps = {
   clockMode?: ClockMode;
   time?: Time;
+  viewStyle?: ViewStyle;
   onTimeChange?: (time: Time) => void;
 } & SVGAttributes<SVGSVGElement>;
 
@@ -22,6 +17,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
     const {
       clockMode,
       time,
+      viewStyle,
       onTimeChange,
       ...passThrough
     } = props;
@@ -66,7 +62,13 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
           />
         </g>
 
-        {clockMode === 'view' && <ViewMode hourDeg={hourDeg + (minute * 0.5)} minuteDeg={minuteDeg} />}
+        {clockMode === 'view' && (
+          <ViewMode
+            hourDeg={hourDeg + (minute * 0.5)}
+            minuteDeg={minuteDeg}
+            viewStyle={viewStyle}
+          />
+        )}
 
         {clockMode === 'edit-hour' && (
           <EditHourMode
@@ -93,6 +95,7 @@ Clock.defaultProps = {
     hour: 12,
     minute: 0,
   },
+  viewStyle: 'line',
   onTimeChange: undefined,
 };
 

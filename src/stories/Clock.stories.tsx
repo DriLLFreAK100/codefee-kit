@@ -10,6 +10,8 @@ export default {
 
 const current = new Date();
 const baseProps: ClockProps = {
+  clockMode: 'view',
+  viewStyle: 'line',
   time: {
     hour: current.getHours(),
     minute: current.getMinutes(),
@@ -21,18 +23,23 @@ const Template: Story<ClockProps> = (args: ClockProps) => <Clock {...args} />;
 
 export const ViewMode = Template.bind({});
 ViewMode.args = {
-  clockMode: 'view',
   ...baseProps,
+} as ClockProps;
+
+export const HourTextViewStyle = Template.bind({});
+HourTextViewStyle.args = {
+  ...baseProps,
+  viewStyle: 'hourText',
 } as ClockProps;
 
 export const EditHourMode = Template.bind({});
 EditHourMode.args = {
-  clockMode: 'edit-hour',
   ...baseProps,
+  clockMode: 'edit-hour',
 } as ClockProps;
 
 export const EditMinuteMode = Template.bind({});
 EditMinuteMode.args = {
-  clockMode: 'edit-minute',
   ...baseProps,
+  clockMode: 'edit-minute',
 } as ClockProps;

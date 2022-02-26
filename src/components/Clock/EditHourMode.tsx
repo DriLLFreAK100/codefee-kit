@@ -1,9 +1,7 @@
 import React, { FC, useCallback } from 'react';
-import { fillArray } from 'utils/ArrayHelper';
 import { polarToCartesian } from 'utils/MathHelper';
 import * as S from './Clock.styled';
-
-const hourMarks = fillArray(12);
+import { clockMarks } from './Common';
 
 type EditHourModeProps = {
   hourDeg: number;
@@ -21,7 +19,7 @@ const EditHourMode: FC<EditHourModeProps> = ({
   return (
     <>
       <S.CenterGroup>
-        {hourMarks.map((i) => {
+        {clockMarks.map((i) => {
           const { x, y } = polarToCartesian(0, 0, 260, i * 30);
           const hour = i === 0 ? 12 : i;
 
@@ -31,6 +29,7 @@ const EditHourMode: FC<EditHourModeProps> = ({
               hour={i}
               x={x}
               y={y}
+              isEdit
               onClick={handleOnClickText(hour)}
             >
               <tspan
