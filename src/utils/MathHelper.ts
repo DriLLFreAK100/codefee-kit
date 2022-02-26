@@ -3,6 +3,9 @@ export type Coordinates = {
   y: number;
 };
 
+/**
+ * Adapted from https://nyxo.app/creating-a-clock-face-in-react-native-with-svg
+ */
 export const polarToCartesian = (
   centerX: number,
   centerY: number,

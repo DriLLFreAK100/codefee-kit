@@ -7,7 +7,30 @@ export default {
   component: Clock,
 } as Meta<ClockProps>;
 
+const current = new Date();
+const baseProps: ClockProps = {
+  time: {
+    hour: current.getHours(),
+    minute: current.getMinutes(),
+  },
+};
+
 const Template: Story<ClockProps> = (args: ClockProps) => <Clock {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {} as ClockProps;
+export const ViewMode = Template.bind({});
+ViewMode.args = {
+  clockMode: 'view',
+  ...baseProps,
+} as ClockProps;
+
+export const EditHourMode = Template.bind({});
+EditHourMode.args = {
+  clockMode: 'edit-hour',
+  ...baseProps,
+} as ClockProps;
+
+export const EditMinuteMode = Template.bind({});
+EditMinuteMode.args = {
+  clockMode: 'edit-minute',
+  ...baseProps,
+} as ClockProps;

@@ -28,7 +28,7 @@ const ViewMode: FC<ViewModeProps> = ({
     </S.CenterGroup>
 
     <S.CenterGroup>
-      <S.HourArm
+      <S.LongArm
         x1="0"
         x2="0"
         y1="0"
@@ -36,7 +36,7 @@ const ViewMode: FC<ViewModeProps> = ({
         transform={`rotate(${hourDeg})`}
       />
 
-      <S.MinuteArm
+      <S.ShortArm
         x1="0"
         x2="0"
         y1="0"

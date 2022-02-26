@@ -43,7 +43,7 @@ const HourMarkCss = (isQuarter: boolean) => css`
 
 export const HourMark = styled.line<{ hour: number }>`
   ${({ hour }) => HourMarkCss(hour % 3 === 0)};
-  transform: rotate((${({ hour }) => hour * 30})deg);
+  transform: rotate(${({ hour }) => hour * 30}deg);
 `;
 
 export const HourText = styled.text<{ hour: number }>`
@@ -60,13 +60,13 @@ const ArmCss = css`
   transition: transform 1.4s ease-in-out;
 `;
 
-export const HourArm = styled.line`
+export const LongArm = styled.line`
   stroke: ${cssVar('--cf-clock-arm-hour-color')};
   stroke-width: ${rem(16)};
   ${ArmCss};
 `;
 
-export const MinuteArm = styled.line`
+export const ShortArm = styled.line`
   stroke: ${cssVar('--cf-clock-arm-minute-color')};
   stroke-width: ${rem(12)};
   ${ArmCss};
