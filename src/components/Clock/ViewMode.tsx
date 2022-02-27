@@ -86,7 +86,6 @@ const ViewMode: FC<ViewModeProps> = ({
             y1="0"
             y2="-220"
             transform={`rotate(${secondsDeg})`}
-            isSeconds
           />
         )}
       </S.CenterGroup>

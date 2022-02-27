@@ -49,6 +49,7 @@ const EditHourMode: FC<EditHourModeProps> = ({
           x2="0"
           y1="0"
           y2="-220"
+          isAnimatable
           transform={`rotate(${hourDeg})`}
         />
       </S.CenterGroup>

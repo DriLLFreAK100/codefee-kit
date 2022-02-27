@@ -52,15 +52,16 @@ export const Text = styled.text<{ isEdit?: boolean }>`
   cursor: ${({ isEdit }) => (isEdit ? 'pointer' : 'initial')} ;
   font-size: ${rem(40)};
   font-family: ${cvar('--font-family-secondary')};
+  user-select: none;
 `;
 
 export const CenterGroup = styled.g`
   transform: translate(${rem(300)}, ${rem(300)});
 `;
 
-const ArmCss = css<{ isSeconds?: boolean }>`
+const ArmCss = css<{ isAnimatable?: boolean }>`
   stroke-linecap: round;
-  transition: ${({ isSeconds }) => (isSeconds ? 'none' : 'transform 1s ease-in-out')} ;
+  transition: ${({ isAnimatable }) => (isAnimatable ? 'transform 1s ease-in-out' : 'none')} ;
 `;
 
 export const LongArm = styled.line`

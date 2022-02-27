@@ -1,7 +1,8 @@
 import { switchComponents } from 'utils/ConditionHelper';
 import React, {
-  forwardRef, SVGAttributes, useCallback, useLayoutEffect, useState,
+  forwardRef, MouseEvent, SVGAttributes, useCallback, useLayoutEffect, useRef, useState,
 } from 'react';
+import { calcAngle, roundByStep } from 'utils/MathHelper';
 import * as S from './Clock.styled';
 import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
@@ -38,6 +39,10 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
     } = props;
 
     const [internalTime, setInternalTime] = useState(time);
+    const isDragging = useRef(false);
+    const canDrag = ['edit-hour', 'edit-minute'].includes(clockMode as ClockMode);
+
+    const centerDotEl = useRef<SVGCircleElement>(null);
 
     const { hour, minute, seconds } = internalTime as Time;
     const hourDeg = normalizeHour(hour) * 30;
@@ -57,6 +62,38 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
         minute,
       });
     }, [minute, onTimeChange]);
+
+    const handleStartDrag = useCallback((evt: MouseEvent<SVGCircleElement>) => {
+      if (canDrag) {
+        isDragging.current = true;
+      }
+    }, [canDrag]);
+
+    const handleDragging = useCallback(({ clientX, clientY }: MouseEvent<SVGCircleElement>) => {
+      if (canDrag && centerDotEl.current && isDragging.current) {
+        const {
+          x, y, right, bottom,
+        } = centerDotEl.current.getBoundingClientRect();
+
+        const cX = x + ((right - x) / 2);
+        const cY = y + ((bottom - y) / 2);
+
+        const angle = calcAngle(
+          { x: cX, y: cY },
+          { x: cX, y: cY - 20 },
+          { x: clientX, y: clientY },
+        );
+
+        const relativeHour = (roundByStep(angle, 30) / 30);
+        console.log(relativeHour === 0 ? 12 : relativeHour);
+      }
+    }, [canDrag]);
+
+    const handleEndDrag = useCallback((evt: MouseEvent<SVGCircleElement>) => {
+      if (canDrag) {
+        isDragging.current = false;
+      }
+    }, [canDrag]);
 
     const getViewContent = (isRealtime = false) => (
       <ViewMode
@@ -106,9 +143,13 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
             cx="300"
             cy="300"
             r="296"
+            onMouseDown={handleStartDrag}
+            onMouseMove={handleDragging}
+            onMouseUp={handleEndDrag}
           />
 
           <S.CenterDot
+            ref={centerDotEl}
             cx="300"
             cy="300"
             r="16"
