@@ -1,11 +1,13 @@
-import React, { forwardRef, SVGAttributes, useCallback } from 'react';
+import React, {
+  forwardRef, SVGAttributes, useCallback, useLayoutEffect, useState,
+} from 'react';
 import { switchComponents } from 'utils/ConditionHelper';
 import * as S from './Clock.styled';
 import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
 import ViewMode from './ViewMode';
 import {
-  ClockMode, defaultHourMarks, defaultMinuteMarks, Time, ViewStyle,
+  ClockMode, computeRealtimeClock, defaultHourMarks, defaultMinuteMarks, Time, ViewStyle,
 } from './Common';
 
 export type ClockProps = {
@@ -29,9 +31,12 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       ...passThrough
     } = props;
 
-    const { hour, minute } = time as Time;
+    const [internalTime, setInternalTime] = useState(time);
+
+    const { hour, minute, seconds } = internalTime as Time;
     const hourDeg = hour * 30;
-    const minuteDeg = minute * 6;
+    const minuteDeg = minute * 6 + (((seconds || 0) / 60) * 6);
+    const secondsDeg = (seconds || 0) * 6;
 
     const handleOnMinuteChange = useCallback((minute$: number) => {
       onTimeChange?.({
@@ -47,12 +52,19 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       });
     }, [minute, onTimeChange]);
 
-    const clockContent = switchComponents(clockMode as ClockMode, {
-      view: <ViewMode
+    const getViewContent = (isRealtime = false) => (
+      <ViewMode
         hourDeg={hourDeg + (minute * 0.5)}
         minuteDeg={minuteDeg}
+        secondsDeg={secondsDeg}
         viewStyle={viewStyle}
-      />,
+        isRealtime={isRealtime}
+      />
+    );
+
+    const clockContent = switchComponents(clockMode as ClockMode, {
+      view: getViewContent(),
+      'view-realtime': getViewContent(true),
       'edit-hour': <EditHourMode
         hourDeg={hourDeg}
         hourMarks={hourMarks as string[]}
@@ -64,6 +76,16 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
         onMinuteChange={handleOnMinuteChange}
       />,
     });
+
+    useLayoutEffect(() => {
+      setInternalTime(time);
+    }, [time]);
+
+    useLayoutEffect(() => {
+      if (clockMode === 'view-realtime') {
+        computeRealtimeClock(setInternalTime);
+      }
+    }, [clockMode]);
 
     return (
       <S.Clock

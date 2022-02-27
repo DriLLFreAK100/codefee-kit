@@ -45,10 +45,10 @@ ViewMode.args = {
   ...baseProps,
 } as ClockProps;
 
-export const HourTextViewStyle = Template.bind({});
-HourTextViewStyle.args = {
+export const ViewRealtime = Template.bind({});
+ViewRealtime.args = {
   ...baseProps,
-  viewStyle: 'hourText',
+  clockMode: 'view-realtime',
 } as ClockProps;
 
 export const EditHourMode = Template.bind({});
@@ -61,6 +61,12 @@ export const EditMinuteMode = Template.bind({});
 EditMinuteMode.args = {
   ...baseProps,
   clockMode: 'edit-minute',
+} as ClockProps;
+
+export const HourTextViewStyle = Template.bind({});
+HourTextViewStyle.args = {
+  ...baseProps,
+  viewStyle: 'hourText',
 } as ClockProps;
 
 export const CustomHourMarks = Template.bind({});

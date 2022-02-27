@@ -7,8 +7,9 @@ export type TimePanelCssVar = {
   '--cf-clock-hour-tick-color': string;
   '--cf-clock-hour-quarter-tick-color': string
   '--cf-clock-center-dot-color': string;
-  '--cf-clock-arm-hour-color': string;
-  '--cf-clock-arm-minute-color': string;
+  '--cf-clock-arm-long-color': string;
+  '--cf-clock-arm-short-color': string;
+  '--cf-clock-arm-seconds-color': string;
 };
 
 const [defaultCssVar, cssVar] = makeCssVar<TimePanelCssVar>({
@@ -17,8 +18,9 @@ const [defaultCssVar, cssVar] = makeCssVar<TimePanelCssVar>({
   '--cf-clock-hour-tick-color': cvar('--color-gray-4'),
   '--cf-clock-hour-quarter-tick-color': cvar('--color-gray-5'),
   '--cf-clock-center-dot-color': cvar('--color-gray-7'),
-  '--cf-clock-arm-hour-color': cvar('--color-gray-7'),
-  '--cf-clock-arm-minute-color': cvar('--color-gray-7'),
+  '--cf-clock-arm-long-color': cvar('--color-gray-7'),
+  '--cf-clock-arm-short-color': cvar('--color-gray-7'),
+  '--cf-clock-arm-seconds-color': cvar('--color-secondary-dark'),
 });
 
 export const Clock = styled.svg`
@@ -56,19 +58,25 @@ export const CenterGroup = styled.g`
   transform: translate(${rem(300)}, ${rem(300)});
 `;
 
-const ArmCss = css`
+const ArmCss = css<{ isSeconds?: boolean }>`
   stroke-linecap: round;
-  transition: transform 1.4s ease-in-out;
+  transition: ${({ isSeconds }) => (isSeconds ? 'none' : 'transform 1s ease-in-out')} ;
 `;
 
-export const LongArm = styled.line`
-  stroke: ${cssVar('--cf-clock-arm-hour-color')};
+export const ShortArm = styled.line`
+  stroke: ${cssVar('--cf-clock-arm-short-color')};
   stroke-width: ${rem(16)};
   ${ArmCss};
 `;
 
-export const ShortArm = styled.line`
-  stroke: ${cssVar('--cf-clock-arm-minute-color')};
+export const LongArm = styled.line`
+  stroke: ${cssVar('--cf-clock-arm-long-color')};
   stroke-width: ${rem(12)};
+  ${ArmCss};
+`;
+
+export const SecondsArm = styled.line`
+  stroke: ${cssVar('--cf-clock-arm-seconds-color')};
+  stroke-width: ${rem(4)};
   ${ArmCss};
 `;

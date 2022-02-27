@@ -6,6 +6,8 @@ import { clockMarks, ViewStyle } from './Common';
 type ViewModeProps = {
   hourDeg: number;
   minuteDeg: number;
+  secondsDeg: number;
+  isRealtime?: boolean;
   viewStyle?: ViewStyle;
 };
 
@@ -48,6 +50,8 @@ const componentDict: { [key in ViewStyle]: JSX.Element[] } = {
 const ViewMode: FC<ViewModeProps> = ({
   hourDeg,
   minuteDeg,
+  secondsDeg,
+  isRealtime,
   viewStyle,
 }: ViewModeProps) => {
   const HourViewComponent = componentDict[viewStyle as ViewStyle];
@@ -59,7 +63,7 @@ const ViewMode: FC<ViewModeProps> = ({
       </S.CenterGroup>
 
       <S.CenterGroup>
-        <S.LongArm
+        <S.ShortArm
           x1="0"
           x2="0"
           y1="0"
@@ -67,13 +71,24 @@ const ViewMode: FC<ViewModeProps> = ({
           transform={`rotate(${hourDeg})`}
         />
 
-        <S.ShortArm
+        <S.LongArm
           x1="0"
           x2="0"
           y1="0"
           y2="-220"
           transform={`rotate(${minuteDeg})`}
         />
+
+        {isRealtime && (
+          <S.SecondsArm
+            x1="0"
+            x2="0"
+            y1="0"
+            y2="-220"
+            transform={`rotate(${secondsDeg})`}
+            isSeconds
+          />
+        )}
       </S.CenterGroup>
     </>
   );
@@ -81,6 +96,7 @@ const ViewMode: FC<ViewModeProps> = ({
 
 ViewMode.displayName = 'ViewMode';
 ViewMode.defaultProps = {
+  isRealtime: false,
   viewStyle: 'line',
 };
 
