@@ -9,4 +9,11 @@ export type Time = {
   minute: number;
 };
 
-export const clockMarks = fillArray(12);
+export const clockMarks: number[] = fillArray(12);
+
+export const defaultHourMarks: string[] = fillArray(12, (i) => (i === 0 ? 12 : i).toString());
+
+export const defaultMinuteMarks: string[] = fillArray(
+  12,
+  (i) => (i === 0 ? (60).toString() : (i * 5).toString().padStart(2, '0')),
+);

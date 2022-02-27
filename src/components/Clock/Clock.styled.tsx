@@ -46,7 +46,7 @@ export const HourMark = styled.line<{ hour: number }>`
   transform: rotate(${({ hour }) => hour * 30}deg);
 `;
 
-export const Text = styled.text<{ hour: number; isEdit?: boolean }>`
+export const Text = styled.text<{ isEdit?: boolean }>`
   cursor: ${({ isEdit }) => (isEdit ? 'pointer' : 'initial')} ;
   font-size: ${rem(40)};
   font-family: ${cvar('--font-family-secondary')};

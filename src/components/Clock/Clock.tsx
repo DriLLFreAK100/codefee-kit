@@ -3,10 +3,14 @@ import * as S from './Clock.styled';
 import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
 import ViewMode from './ViewMode';
-import { ClockMode, Time, ViewStyle } from './Common';
+import {
+  ClockMode, defaultHourMarks, defaultMinuteMarks, Time, ViewStyle,
+} from './Common';
 
 export type ClockProps = {
   clockMode?: ClockMode;
+  hourMarks?: string[],
+  minuteMarks?: string[],
   time?: Time;
   viewStyle?: ViewStyle;
   onTimeChange?: (time: Time) => void;
@@ -16,6 +20,8 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
   (props: ClockProps, ref) => {
     const {
       clockMode,
+      hourMarks,
+      minuteMarks,
       time,
       viewStyle,
       onTimeChange,
@@ -73,6 +79,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
         {clockMode === 'edit-hour' && (
           <EditHourMode
             hourDeg={hourDeg}
+            hourMarks={hourMarks as string[]}
             onHourChange={handleOnHourChange}
           />
         )}
@@ -80,6 +87,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
         {clockMode === 'edit-minute' && (
           <EditMinuteMode
             minuteDeg={minuteDeg}
+            minuteMarks={minuteMarks as string[]}
             onMinuteChange={handleOnMinuteChange}
           />
         )}
@@ -91,6 +99,8 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
 Clock.displayName = 'Clock';
 Clock.defaultProps = {
   clockMode: 'view',
+  hourMarks: defaultHourMarks,
+  minuteMarks: defaultMinuteMarks,
   time: {
     hour: 12,
     minute: 0,

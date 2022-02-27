@@ -5,11 +5,13 @@ import { clockMarks } from './Common';
 
 type EditHourModeProps = {
   hourDeg: number;
+  hourMarks: string[];
   onHourChange?: (hour: number) => void;
 };
 
 const EditHourMode: FC<EditHourModeProps> = ({
   hourDeg,
+  hourMarks,
   onHourChange,
 }: EditHourModeProps) => {
   const handleOnClickText = useCallback((minute: number) => () => {
@@ -21,22 +23,20 @@ const EditHourMode: FC<EditHourModeProps> = ({
       <S.CenterGroup>
         {clockMarks.map((i) => {
           const { x, y } = polarToCartesian(0, 0, 260, i * 30);
-          const hour = i === 0 ? 12 : i;
 
           return (
             <S.Text
               key={i}
-              hour={i}
               x={x}
               y={y}
               isEdit
-              onClick={handleOnClickText(hour)}
+              onClick={handleOnClickText(i === 0 ? 12 : i)}
             >
               <tspan
                 textAnchor="middle"
                 alignmentBaseline="central"
               >
-                {hour}
+                {hourMarks[i]}
               </tspan>
             </S.Text>
           );

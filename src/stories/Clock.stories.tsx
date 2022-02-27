@@ -1,5 +1,5 @@
-import React from 'react';
-import Clock, { ClockProps } from 'components/Clock';
+import React, { useCallback, useEffect, useState } from 'react';
+import Clock, { ClockProps, defaultHourMarks, defaultMinuteMarks, Time } from 'components/Clock';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
 
@@ -10,16 +10,35 @@ export default {
 
 const current = new Date();
 const baseProps: ClockProps = {
-  clockMode: 'view',
-  viewStyle: 'line',
   time: {
     hour: current.getHours(),
     minute: current.getMinutes(),
   },
-  onTimeChange: action('onTimeChange'),
+  clockMode: 'view',
+  viewStyle: 'line',
+  hourMarks: defaultHourMarks,
+  minuteMarks: defaultMinuteMarks,
 };
 
-const Template: Story<ClockProps> = (args: ClockProps) => <Clock {...args} />;
+const Template: Story<ClockProps> = (args: ClockProps) => {
+  const [time, setTime] = useState(args.time);
+
+  const handleOnTimeChange = useCallback((time: Time) => {
+    action('onTimeChange')
+  }, []);
+
+  useEffect(() => {
+    setTime(args.time);
+  }, [args.time]);
+
+  return (
+    <Clock
+      {...args}
+      time={time}
+      onTimeChange={handleOnTimeChange}
+    />
+  );
+};
 
 export const ViewMode = Template.bind({});
 ViewMode.args = {
@@ -42,4 +61,18 @@ export const EditMinuteMode = Template.bind({});
 EditMinuteMode.args = {
   ...baseProps,
   clockMode: 'edit-minute',
+} as ClockProps;
+
+export const CustomHourMarks = Template.bind({});
+CustomHourMarks.args = {
+  ...baseProps,
+  clockMode: 'edit-hour',
+  hourMarks: ['12', '', '', '3', '', '', '6', '', '', '9', '', '']
+} as ClockProps;
+
+export const CustomMinuteMarks = Template.bind({});
+CustomMinuteMarks.args = {
+  ...baseProps,
+  clockMode: 'edit-minute',
+  minuteMarks: ['60', '', '', '15', '', '', '30', '', '', '45', '', '']
 } as ClockProps;

@@ -5,11 +5,13 @@ import { clockMarks } from './Common';
 
 type EditMinuteModeProps = {
   minuteDeg: number;
+  minuteMarks: string[];
   onMinuteChange?: (minute: number) => void;
 };
 
 const EditMinuteMode: FC<EditMinuteModeProps> = ({
   minuteDeg,
+  minuteMarks,
   onMinuteChange,
 }: EditMinuteModeProps) => {
   const handleOnClickText = useCallback((minute: number) => () => {
@@ -26,7 +28,6 @@ const EditMinuteMode: FC<EditMinuteModeProps> = ({
           return (
             <S.Text
               key={i}
-              hour={i}
               x={x}
               y={y}
               isEdit
@@ -36,7 +37,7 @@ const EditMinuteMode: FC<EditMinuteModeProps> = ({
                 textAnchor="middle"
                 alignmentBaseline="central"
               >
-                {i === 0 ? 60 : minute.toString().padStart(2, '0')}
+                {minuteMarks[i]}
               </tspan>
             </S.Text>
           );
