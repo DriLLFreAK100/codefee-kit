@@ -63,15 +63,15 @@ const ArmCss = css<{ isSeconds?: boolean }>`
   transition: ${({ isSeconds }) => (isSeconds ? 'none' : 'transform 1s ease-in-out')} ;
 `;
 
-export const ShortArm = styled.line`
-  stroke: ${cssVar('--cf-clock-arm-short-color')};
-  stroke-width: ${rem(16)};
-  ${ArmCss};
-`;
-
 export const LongArm = styled.line`
   stroke: ${cssVar('--cf-clock-arm-long-color')};
   stroke-width: ${rem(12)};
+  ${ArmCss};
+`;
+
+export const ShortArm = styled.line`
+  stroke: ${cssVar('--cf-clock-arm-short-color')};
+  stroke-width: ${rem(16)};
   ${ArmCss};
 `;
 

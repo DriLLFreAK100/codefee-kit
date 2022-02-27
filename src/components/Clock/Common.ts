@@ -31,3 +31,5 @@ export const computeRealtimeClock = (setState: (value: SetStateAction<Time>) => 
 
   requestAnimationFrame(() => computeRealtimeClock(setState));
 };
+
+export const normalizeHour = (hour: number): number => (hour > 12 ? hour - 12 : hour);

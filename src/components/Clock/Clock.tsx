@@ -1,13 +1,19 @@
+import { switchComponents } from 'utils/ConditionHelper';
 import React, {
   forwardRef, SVGAttributes, useCallback, useLayoutEffect, useState,
 } from 'react';
-import { switchComponents } from 'utils/ConditionHelper';
 import * as S from './Clock.styled';
 import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
 import ViewMode from './ViewMode';
 import {
-  ClockMode, computeRealtimeClock, defaultHourMarks, defaultMinuteMarks, Time, ViewStyle,
+  ClockMode,
+  computeRealtimeClock,
+  defaultHourMarks,
+  defaultMinuteMarks,
+  normalizeHour,
+  Time,
+  ViewStyle,
 } from './Common';
 
 export type ClockProps = {
@@ -34,7 +40,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
     const [internalTime, setInternalTime] = useState(time);
 
     const { hour, minute, seconds } = internalTime as Time;
-    const hourDeg = hour * 30;
+    const hourDeg = normalizeHour(hour) * 30;
     const minuteDeg = minute * 6 + (((seconds || 0) / 60) * 6);
     const secondsDeg = (seconds || 0) * 6;
 

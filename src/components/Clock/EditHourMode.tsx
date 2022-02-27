@@ -44,7 +44,7 @@ const EditHourMode: FC<EditHourModeProps> = ({
       </S.CenterGroup>
 
       <S.CenterGroup>
-        <S.ShortArm
+        <S.LongArm
           x1="0"
           x2="0"
           y1="0"

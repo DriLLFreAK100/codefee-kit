@@ -24,7 +24,8 @@ const Template: Story<ClockProps> = (args: ClockProps) => {
   const [time, setTime] = useState(args.time);
 
   const handleOnTimeChange = useCallback((time: Time) => {
-    action('onTimeChange')
+    action('onTimeChange')(time);
+    setTime(time);
   }, []);
 
   useEffect(() => {
