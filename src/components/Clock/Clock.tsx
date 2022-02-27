@@ -1,4 +1,5 @@
 import React, { forwardRef, SVGAttributes, useCallback } from 'react';
+import { switchComponents } from 'utils/ConditionHelper';
 import * as S from './Clock.styled';
 import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
@@ -46,6 +47,24 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       });
     }, [minute, onTimeChange]);
 
+    const clockContent = switchComponents(clockMode as ClockMode, {
+      view: <ViewMode
+        hourDeg={hourDeg + (minute * 0.5)}
+        minuteDeg={minuteDeg}
+        viewStyle={viewStyle}
+      />,
+      'edit-hour': <EditHourMode
+        hourDeg={hourDeg}
+        hourMarks={hourMarks as string[]}
+        onHourChange={handleOnHourChange}
+      />,
+      'edit-minute': <EditMinuteMode
+        minuteDeg={minuteDeg}
+        minuteMarks={minuteMarks as string[]}
+        onMinuteChange={handleOnMinuteChange}
+      />,
+    });
+
     return (
       <S.Clock
         ref={ref}
@@ -68,29 +87,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
           />
         </g>
 
-        {clockMode === 'view' && (
-          <ViewMode
-            hourDeg={hourDeg + (minute * 0.5)}
-            minuteDeg={minuteDeg}
-            viewStyle={viewStyle}
-          />
-        )}
-
-        {clockMode === 'edit-hour' && (
-          <EditHourMode
-            hourDeg={hourDeg}
-            hourMarks={hourMarks as string[]}
-            onHourChange={handleOnHourChange}
-          />
-        )}
-
-        {clockMode === 'edit-minute' && (
-          <EditMinuteMode
-            minuteDeg={minuteDeg}
-            minuteMarks={minuteMarks as string[]}
-            onMinuteChange={handleOnMinuteChange}
-          />
-        )}
+        {clockContent}
       </S.Clock>
     );
   },

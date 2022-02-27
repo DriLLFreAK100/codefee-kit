@@ -16,7 +16,6 @@ const hourTextStyle = clockMarks.map((i) => {
   return (
     <S.Text
       key={i}
-      hour={i}
       x={x}
       y={y}
     >
