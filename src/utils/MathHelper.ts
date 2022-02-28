@@ -20,6 +20,13 @@ export const polarToCartesian = (
   };
 };
 
+/**
+ * Calculate angle between 3 given points
+ * @param center center point in the 3-point angle
+ * @param start start point (0deg reference point)
+ * @param end end point
+ * @returns angle between 3 given points
+ */
 export const calcAngle = (
   center: Coordinate,
   start: Coordinate,
@@ -50,6 +57,12 @@ export const calcAngle = (
   return 180 - angleDeg;
 };
 
+/**
+ * Round off a value to nearest given step
+ * @param value Target value
+ * @param step range of one increment
+ * @returns value rounded off to nearest step
+ */
 export const roundByStep = (value: number, step: number): number => {
   let curr = 0;
   let startDiff = Math.abs(value - curr);
