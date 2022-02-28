@@ -14,10 +14,7 @@ const Template: Story<ButtonGroupProps> = (args: ButtonGroupProps) => {
   const handleOnButtonClick = useCallback((btn: ButtonGroupButton) => {
     action('onButtonClick')(btn);
 
-    setButtonStates(buttonStates.map(b => {
-      b.selected = b.id === btn.id;
-      return b;
-    }));
+    setButtonStates(buttonStates.map((b) => ({ ...b, selected: b.id === btn.id })));
   }, []);
 
   useEffect(() => {

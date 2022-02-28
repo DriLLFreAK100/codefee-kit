@@ -14,6 +14,8 @@ export type Day = {
   easyDate: EasyDate;
 };
 
+const padTime = (val: string) => val.padStart(2, '0');
+
 class EasyDate {
   public value: Date;
 
@@ -33,6 +35,18 @@ class EasyDate {
     return this.value.getDate();
   }
 
+  public get hours(): number {
+    return this.value.getHours();
+  }
+
+  public get minutes(): number {
+    return this.value.getMinutes();
+  }
+
+  public get seconds(): number {
+    return this.value.getSeconds();
+  }
+
   public get firstDay(): number {
     return new Date(this.year, this.month, 1).getDay();
   }
@@ -46,7 +60,7 @@ class EasyDate {
   }
 
   public get daysInMonthArr(): Day[] {
-    const arr = fillArray(this.daysInMonth + 1);
+    const arr = fillArray<number>(this.daysInMonth + 1);
     arr.shift();
 
     return arr.map((d) => ({
@@ -121,6 +135,18 @@ class EasyDate {
     });
 
     return display;
+  }
+
+  public get hoursString(): string {
+    return padTime(this.hours.toString());
+  }
+
+  public get minutesString(): string {
+    return padTime(this.minutes.toString());
+  }
+
+  public get secondsString(): string {
+    return padTime(this.seconds.toString());
   }
 }
 
