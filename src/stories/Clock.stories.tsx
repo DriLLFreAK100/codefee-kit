@@ -11,8 +11,8 @@ export default {
 const current = new Date();
 const baseProps: ClockProps = {
   time: {
-    hour: current.getHours(),
-    minute: current.getMinutes(),
+    hours: current.getHours(),
+    minutes: current.getMinutes(),
   },
   clockMode: 'view',
   viewStyle: 'line',

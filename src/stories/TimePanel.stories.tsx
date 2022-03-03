@@ -14,8 +14,8 @@ const Template: Story<TimePanelProps> = (args: TimePanelProps) => <TimePanel {..
 export const Default = Template.bind({});
 Default.args = {
   time: {
-    hour: current.getHours(),
-    minute: current.getMinutes(),
+    hours: current.getHours(),
+    minutes: current.getMinutes(),
   },
 } as TimePanelProps;
 

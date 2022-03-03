@@ -20,11 +20,18 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
       ...passThrough
     } = props;
 
-    const [dateTime] = useState(new EasyDate());
-    const [amPmStates, setAmPmStates] = useState(makeAmPmButtons(dateTime.hours));
+    const [{
+      hours,
+      hoursString,
+      minutes,
+      minutesString,
+    }] = useState(new EasyDate());
+
+    const [amPmStates, setAmPmStates] = useState(makeAmPmButtons(hours));
+
     const clockDisplayTime: Time = {
-      hour: dateTime.hours,
-      minute: dateTime.minutes,
+      hours,
+      minutes,
     };
 
     const handleAmPmClick = useCallback((btn: ButtonGroupButton) => {
@@ -38,9 +45,9 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
       >
         <S.InputBar>
           <S.HourMinuteGroup>
-            <S.HourInput value={dateTime.hoursString} />
+            <S.HourInput value={hoursString} />
             <S.HourMinuteColon>:</S.HourMinuteColon>
-            <S.MinuteInput value={dateTime.minutesString} />
+            <S.MinuteInput value={minutesString} />
           </S.HourMinuteGroup>
 
           <S.AmPmButtonGroup
@@ -58,8 +65,8 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
 TimePanel.displayName = 'TimePanel';
 TimePanel.defaultProps = {
   time: {
-    hour: 12,
-    minute: 0,
+    hours: 12,
+    minutes: 0,
   },
   onTimeChange: undefined,
 };

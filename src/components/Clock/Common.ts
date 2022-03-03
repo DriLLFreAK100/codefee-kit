@@ -6,8 +6,8 @@ export type ClockMode = 'view' | 'view-realtime' | 'edit-hour' | 'edit-minute';
 export type ViewStyle = 'line' | 'hourText';
 
 export type Time = {
-  hour: number;
-  minute: number;
+  hours: number;
+  minutes: number;
   seconds?: number;
 };
 
@@ -24,8 +24,8 @@ export const computeRealtimeClock = (setState: (value: SetStateAction<Time>) => 
   const curr = new Date();
 
   setState({
-    hour: curr.getHours(),
-    minute: curr.getMinutes(),
+    hours: curr.getHours(),
+    minutes: curr.getMinutes(),
     seconds: curr.getSeconds(),
   });
 

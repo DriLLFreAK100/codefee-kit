@@ -44,24 +44,24 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
 
     const centerDotEl = useRef<SVGCircleElement>(null);
 
-    const { hour, minute, seconds } = internalTime as Time;
-    const hourDeg = normalizeHour(hour) * 30;
-    const minuteDeg = minute * 6 + (((seconds || 0) / 60) * 6);
+    const { hours, minutes, seconds } = internalTime as Time;
+    const hourDeg = normalizeHour(hours) * 30;
+    const minuteDeg = minutes * 6 + (((seconds || 0) / 60) * 6);
     const secondsDeg = (seconds || 0) * 6;
 
-    const handleOnMinuteChange = useCallback((minute$: number) => {
+    const handleOnMinuteChange = useCallback((minutes$: number) => {
       onTimeChange?.({
-        hour,
-        minute: minute$,
+        hours,
+        minutes: minutes$,
       });
-    }, [hour, onTimeChange]);
+    }, [hours, onTimeChange]);
 
     const handleOnHourChange = useCallback((hour$: number) => {
       onTimeChange?.({
-        hour: hour$,
-        minute,
+        hours: hour$,
+        minutes,
       });
-    }, [minute, onTimeChange]);
+    }, [minutes, onTimeChange]);
 
     const handleStartDrag = useCallback((evt: MouseEvent<SVGCircleElement>) => {
       if (canDrag) {
@@ -97,7 +97,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
 
     const getViewContent = (isRealtime = false) => (
       <ViewMode
-        hourDeg={hourDeg + (minute * 0.5)}
+        hourDeg={hourDeg + (minutes * 0.5)}
         minuteDeg={minuteDeg}
         secondsDeg={secondsDeg}
         viewStyle={viewStyle}
@@ -168,8 +168,8 @@ Clock.defaultProps = {
   hourMarks: defaultHourMarks,
   minuteMarks: defaultMinuteMarks,
   time: {
-    hour: 12,
-    minute: 0,
+    hours: 12,
+    minutes: 0,
   },
   viewStyle: 'line',
   onTimeChange: undefined,
