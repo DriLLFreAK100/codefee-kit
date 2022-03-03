@@ -6,10 +6,16 @@ export * from './Blockquote';
 export { default as Button } from './Button';
 export * from './Button';
 
+export { default as ButtonGroup } from './ButtonGroup';
+export * from './ButtonGroup';
+
 export { default as Checkbox } from './Checkbox';
 export * from './Checkbox';
 
 export { default as CircularProgress } from './CircularProgress';
+
+export { default as Clock } from './Clock';
+export * from './Clock';
 
 export * from './Figure';
 

@@ -46,7 +46,7 @@ class EasyDate {
   }
 
   public get daysInMonthArr(): Day[] {
-    const arr = fillArray(this.daysInMonth + 1);
+    const arr = fillArray<number>(this.daysInMonth + 1);
     arr.shift();
 
     return arr.map((d) => ({

@@ -1,4 +1,7 @@
 /* eslint-disable import/prefer-default-export */
-export const fillArray = (
+const stockFill = (index: number) => index;
+
+export const fillArray = <T>(
   count: number,
-): number[] => new Array(count).fill(null).map((_, i) => i);
+  callback: (index: number) => unknown = stockFill,
+): T[] => new Array(count).fill(null).map((_, i) => callback(i)) as T[];

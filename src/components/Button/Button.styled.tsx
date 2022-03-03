@@ -1,23 +1,27 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
 
-const StyledButton = styled.button`
+export const ButtonCss = css`
   border: none;
   border-radius: ${cvar('--control-border-radius')};
   box-sizing: border-box;
-  box-shadow: ${cvar('--control-shadow')};
   cursor: pointer;
   height: ${cvar('--control-height')};
-  min-width: ${rem(130)};
   outline: none;
   padding: ${rem(14)} ${rem(16)};
-  transition: background-color ${cvar('--transition-hover')} ease-in-out;
+  transition: background-color ${cvar('--transition-hover')} ease-in-out, color ${cvar('--transition-hover')} ease-in-out;
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
     transition: none;
   }
+`;
+
+const StyledButton = styled.button`
+  ${ButtonCss};
+  box-shadow: ${cvar('--control-shadow')};
+  min-width: ${rem(130)};
 `;
 
 export const PrimaryButton = styled(StyledButton)`
