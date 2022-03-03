@@ -2,7 +2,7 @@ import Clock from 'components/Clock';
 import EasyTime, { Time, TimeUnit } from 'utils/TimeHelper';
 import React, {
   ChangeEvent,
-  forwardRef, HtmlHTMLAttributes, useCallback, useMemo, useState,
+  forwardRef, HtmlHTMLAttributes, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { AmPmButton, makeAmPmButtons } from './Common';
 import * as S from './TimePanel.styled';
@@ -29,10 +29,15 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
       minutesString,
     } = easyTime;
 
+    const amPmButtons: AmPmButton[] = makeAmPmButtons(hours);
+
     const [hourValue, setHourValue] = useState<number | string>(hoursString);
     const [minuteValue, setMinuteValue] = useState<number | string>(minutesString);
 
-    const amPmButtons: AmPmButton[] = makeAmPmButtons(hours);
+    useEffect(() => {
+      setHourValue(hoursString);
+      setMinuteValue(minutesString);
+    }, [hoursString, minutesString]);
 
     const handleAmPmClick = useCallback(({ content }: AmPmButton) => {
       onTimeChange?.(easyTime.setPeriod(content).clonedValue);
