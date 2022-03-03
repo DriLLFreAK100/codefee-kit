@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import TimePanel, { TimePanelProps } from 'components/TimePanel';
 import { Meta, Story } from '@storybook/react';
 import { Time } from 'utils/TimeHelper';
@@ -16,6 +16,10 @@ const Template: Story<TimePanelProps> = (args: TimePanelProps) => {
   const handleOnTimeChange = useCallback((time: Time) => {
     setInternalTime(time);
   }, []);
+
+  useEffect(() => {
+    setInternalTime(args.time);
+  }, [args.time]);
 
   return (
     <TimePanel
