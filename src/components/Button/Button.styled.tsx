@@ -9,7 +9,7 @@ export const ButtonCss = css`
   height: ${cvar('--control-height')};
   outline: none;
   padding: ${rem(14)} ${rem(16)};
-  transition: background-color ${cvar('--transition-hover')} ease-in-out;
+  transition: background-color ${cvar('--transition-hover')} ease-in-out, color ${cvar('--transition-hover')} ease-in-out;
 
   &:disabled {
     cursor: not-allowed;

@@ -14,8 +14,6 @@ export type Day = {
   easyDate: EasyDate;
 };
 
-const padTime = (val: string) => val.padStart(2, '0');
-
 class EasyDate {
   public value: Date;
 
@@ -33,18 +31,6 @@ class EasyDate {
 
   public get date(): number {
     return this.value.getDate();
-  }
-
-  public get hours(): number {
-    return this.value.getHours();
-  }
-
-  public get minutes(): number {
-    return this.value.getMinutes();
-  }
-
-  public get seconds(): number {
-    return this.value.getSeconds();
   }
 
   public get firstDay(): number {
@@ -135,18 +121,6 @@ class EasyDate {
     });
 
     return display;
-  }
-
-  public get hoursString(): string {
-    return padTime(this.hours.toString());
-  }
-
-  public get minutesString(): string {
-    return padTime(this.minutes.toString());
-  }
-
-  public get secondsString(): string {
-    return padTime(this.seconds.toString());
   }
 }
 

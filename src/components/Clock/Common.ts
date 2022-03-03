@@ -1,15 +1,10 @@
 import { SetStateAction } from 'react';
 import { fillArray } from 'utils/ArrayHelper';
+import { Time } from 'utils/TimeHelper';
 
 export type ClockMode = 'view' | 'view-realtime' | 'edit-hour' | 'edit-minute';
 
 export type ViewStyle = 'line' | 'hourText';
-
-export type Time = {
-  hours: number;
-  minutes: number;
-  seconds?: number;
-};
 
 export const clockMarks: number[] = fillArray(12);
 

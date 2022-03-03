@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import TimePanel, { TimePanelProps } from 'components/TimePanel';
 import { Meta, Story } from '@storybook/react';
+import { Time } from 'utils/TimeHelper';
 
 export default {
   title: 'Controls/TimePanel',
@@ -9,7 +10,20 @@ export default {
 
 const current = new Date();
 
-const Template: Story<TimePanelProps> = (args: TimePanelProps) => <TimePanel {...args} />;
+const Template: Story<TimePanelProps> = (args: TimePanelProps) => {
+  const [internalTime, setInternalTime] = useState(args.time);
+
+  const handleOnTimeChange = useCallback((time: Time) => {
+    setInternalTime(time);
+  }, []);
+
+  return (
+    <TimePanel
+      {...args}
+      time={internalTime}
+      onTimeChange={handleOnTimeChange} />
+  );
+};
 
 export const Default = Template.bind({});
 Default.args = {
@@ -18,4 +32,3 @@ Default.args = {
     minutes: current.getMinutes(),
   },
 } as TimePanelProps;
-

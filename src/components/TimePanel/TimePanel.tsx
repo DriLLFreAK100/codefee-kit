@@ -1,10 +1,10 @@
-import Clock, { Time } from 'components/Clock';
-import { ButtonGroupButton } from 'components/ButtonGroup';
+import Clock from 'components/Clock';
+import EasyTime, { Time, TimeUnit } from 'utils/TimeHelper';
 import React, {
-  forwardRef, HtmlHTMLAttributes, useCallback, useState,
+  ChangeEvent,
+  forwardRef, HtmlHTMLAttributes, useCallback, useMemo, useState,
 } from 'react';
-import EasyDate from 'utils/DateHelper';
-import { makeAmPmButtons } from './Common';
+import { AmPmButton, makeAmPmButtons } from './Common';
 import * as S from './TimePanel.styled';
 
 export type TimePanelProps = {
@@ -20,23 +20,57 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
       ...passThrough
     } = props;
 
-    const [{
+    const easyTime = useMemo(() => new EasyTime(time), [time]);
+
+    const {
       hours,
       hoursString,
       minutes,
       minutesString,
-    }] = useState(new EasyDate());
+    } = easyTime;
 
-    const [amPmStates, setAmPmStates] = useState(makeAmPmButtons(hours));
+    const [hourValue, setHourValue] = useState<number | string>(hoursString);
+    const [minuteValue, setMinuteValue] = useState<number | string>(minutesString);
 
-    const clockDisplayTime: Time = {
-      hours,
-      minutes,
-    };
+    const amPmButtons: AmPmButton[] = makeAmPmButtons(hours);
 
-    const handleAmPmClick = useCallback((btn: ButtonGroupButton) => {
-      setAmPmStates(amPmStates.map((a) => ({ ...a, selected: a.id === btn.id })));
-    }, [amPmStates]);
+    const handleAmPmClick = useCallback(({ content }: AmPmButton) => {
+      onTimeChange?.(easyTime.setPeriod(content).clonedValue);
+    }, [easyTime, onTimeChange]);
+
+    const handleHoursMinutesChange = useCallback(
+      (unit: TimeUnit) => (evt: ChangeEvent<HTMLInputElement>) => {
+        const val = parseInt(evt.target.value || '0', 10);
+
+        if (unit === 'hour') {
+          const newVal = easyTime.setHours(val).clonedValue;
+          onTimeChange?.(newVal);
+          setHourValue(newVal.hours);
+          return;
+        }
+
+        const newVal = easyTime.setMinutes(val).clonedValue;
+        onTimeChange?.(newVal);
+        setMinuteValue(newVal.minutes);
+      },
+      [easyTime, onTimeChange],
+    );
+
+    const handleOnFocus = useCallback((unit: TimeUnit) => () => {
+      if (unit === 'hour') {
+        setHourValue(hours);
+        return;
+      }
+      setMinuteValue(minutes);
+    }, [hours, minutes]);
+
+    const handleOnBlur = useCallback((unit: TimeUnit) => () => {
+      if (unit === 'hour') {
+        setHourValue(hoursString);
+        return;
+      }
+      setMinuteValue(minutesString);
+    }, [hoursString, minutesString]);
 
     return (
       <S.TimePanel
@@ -45,18 +79,34 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
       >
         <S.InputBar>
           <S.HourMinuteGroup>
-            <S.HourInput value={hoursString} />
+            <S.HourInput
+              value={hourValue}
+              onFocus={handleOnFocus('hour')}
+              onBlur={handleOnBlur('hour')}
+              onChange={handleHoursMinutesChange('hour')}
+            />
+
             <S.HourMinuteColon>:</S.HourMinuteColon>
-            <S.MinuteInput value={minutesString} />
+
+            <S.MinuteInput
+              value={minuteValue}
+              onFocus={handleOnFocus('minute')}
+              onBlur={handleOnBlur('minute')}
+              onChange={handleHoursMinutesChange('minute')}
+            />
           </S.HourMinuteGroup>
 
           <S.AmPmButtonGroup
-            buttons={amPmStates}
+            buttons={amPmButtons}
             onButtonClick={handleAmPmClick}
           />
         </S.InputBar>
 
-        <Clock time={clockDisplayTime} />
+        <Clock time={{
+          hours,
+          minutes,
+        }}
+        />
       </S.TimePanel>
     );
   },

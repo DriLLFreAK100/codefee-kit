@@ -48,7 +48,6 @@ export const Button = styled.button<{ selected: boolean }>`
   border-width: ${rem(1)} 0 ${rem(1)} ${rem(1)};
   height: 100%;
   
-  
   &:first-child{
     border-radius: ${cvar('--control-border-radius')} 0 0 ${cvar('--control-border-radius')};
   }

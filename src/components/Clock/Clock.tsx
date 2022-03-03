@@ -3,6 +3,7 @@ import React, {
   forwardRef, MouseEvent, SVGAttributes, useCallback, useLayoutEffect, useRef, useState,
 } from 'react';
 import { calcAngle, roundByStep } from 'utils/MathHelper';
+import { Time } from 'utils/TimeHelper';
 import * as S from './Clock.styled';
 import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
@@ -13,7 +14,6 @@ import {
   defaultHourMarks,
   defaultMinuteMarks,
   normalizeHour,
-  Time,
   ViewStyle,
 } from './Common';
 

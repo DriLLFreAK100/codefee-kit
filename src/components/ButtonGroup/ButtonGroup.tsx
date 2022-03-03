@@ -4,14 +4,14 @@ import React, {
 import { ListObjectRequiredProps } from 'common/Interfaces';
 import * as S from './ButtonGroup.styled';
 
-export type ButtonGroupButton = {
-  content: ReactNode;
+export type ButtonGroupButton<T> = {
+  content: T;
   selected: boolean;
 } & ListObjectRequiredProps<number | string>;
 
-export type ButtonGroupProps = {
-  buttons: ButtonGroupButton[];
-  onButtonClick?: (button: ButtonGroupButton) => void;
+export type ButtonGroupProps<T = ReactNode> = {
+  buttons: ButtonGroupButton<T>[];
+  onButtonClick?: (button: ButtonGroupButton<T>) => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
 const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
@@ -22,7 +22,7 @@ const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       ...passThrough
     } = props;
 
-    const handleClickButton = useCallback((btn: ButtonGroupButton) => () => {
+    const handleClickButton = useCallback((btn: ButtonGroupButton<ReactNode>) => () => {
       onButtonClick?.(btn);
     }, [onButtonClick]);
 
