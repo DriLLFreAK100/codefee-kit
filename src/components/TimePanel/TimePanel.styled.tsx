@@ -1,8 +1,8 @@
-import ButtonGroup from 'components/ButtonGroup';
 import Input from 'components/Input';
 import styled, { css } from 'styled-components';
 import { cvar, rem, makeCssVar } from 'utils/StyleHelper';
 import { Typography } from 'components/Typography';
+import ClockComponent from 'components/Clock';
 
 export type TimePanelCssVar = {
   '--cf-time-panel-background-color': string;
@@ -51,5 +51,11 @@ export const HourMinuteColon = styled(Typography)`
   line-height: ${cvar('--control-height')};
 `;
 
-export const AmPmButtonGroup = styled(ButtonGroup)`
+export const ClockContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const Clock = styled(ClockComponent)`
+  width: ${rem(240)};
 `;

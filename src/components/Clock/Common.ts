@@ -1,5 +1,6 @@
 import { SetStateAction } from 'react';
 import { fillArray } from 'utils/ArrayHelper';
+import { calcAngle, roundByStep } from 'utils/MathHelper';
 import { Time } from 'utils/TimeHelper';
 
 export type ClockMode = 'view' | 'view-realtime' | 'edit-hour' | 'edit-minute';
@@ -28,3 +29,44 @@ export const computeRealtimeClock = (setState: (value: SetStateAction<Time>) => 
 };
 
 export const normalizeHour = (hour: number): number => (hour > 12 ? hour - 12 : hour);
+
+export const calcTouchPointAngle = (
+  centerPoint: DOMRect,
+  touchX: number,
+  touchY: number,
+): number => {
+  const {
+    x, y, right, bottom,
+  } = centerPoint;
+
+  const cX = x + ((right - x) / 2);
+  const cY = y + ((bottom - y) / 2);
+
+  const angle = calcAngle(
+    { x: cX, y: cY },
+    { x: cX, y: cY - 20 },
+    { x: touchX, y: touchY },
+  );
+
+  return angle;
+};
+
+export const calcTouchHours = (
+  centerPoint: DOMRect,
+  touchX: number,
+  touchY: number,
+): number => {
+  const angle = calcTouchPointAngle(centerPoint, touchX, touchY);
+  const relativeHours = (roundByStep(angle, 30) / 30);
+  return relativeHours === 0 ? 12 : relativeHours;
+};
+
+export const calcTouchMinutes = (
+  centerPoint: DOMRect,
+  touchX: number,
+  touchY: number,
+): number => {
+  const angle = calcTouchPointAngle(centerPoint, touchX, touchY);
+  const relativeMinutes = (roundByStep(angle, 6) / 6);
+  return relativeMinutes === 60 ? 0 : relativeMinutes;
+};

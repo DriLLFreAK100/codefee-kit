@@ -1,4 +1,4 @@
-import Clock from 'components/Clock';
+import ButtonGroup from 'components/ButtonGroup';
 import EasyTime, { Time, TimeUnit } from 'utils/TimeHelper';
 import React, {
   ChangeEvent,
@@ -101,17 +101,19 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
             />
           </S.HourMinuteGroup>
 
-          <S.AmPmButtonGroup
+          <ButtonGroup
             buttons={amPmButtons}
             onButtonClick={handleAmPmClick}
           />
         </S.InputBar>
 
-        <Clock time={{
-          hours,
-          minutes,
-        }}
-        />
+        <S.ClockContainer>
+          <S.Clock time={{
+            hours,
+            minutes,
+          }}
+          />
+        </S.ClockContainer>
       </S.TimePanel>
     );
   },

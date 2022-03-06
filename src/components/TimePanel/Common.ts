@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { ButtonGroupButton } from 'components/ButtonGroup';
 import { TimePeriod } from 'utils/TimeHelper';
 
