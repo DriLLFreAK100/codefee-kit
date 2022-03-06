@@ -59,9 +59,8 @@ export const CenterGroup = styled.g`
   transform: translate(${rem(300)}, ${rem(300)});
 `;
 
-const ArmCss = css<{ isAnimatable?: boolean }>`
+const ArmCss = css`
   stroke-linecap: round;
-  transition: ${({ isAnimatable }) => (isAnimatable ? 'transform 1s ease-in-out' : 'none')} ;
 `;
 
 export const LongArm = styled.line`

@@ -2,13 +2,14 @@ import { switchComponents } from 'utils/ConditionHelper';
 import React, {
   forwardRef, MouseEvent, SVGAttributes, useCallback, useLayoutEffect, useRef, useState,
 } from 'react';
-import { calcAngle, roundByStep } from 'utils/MathHelper';
 import { Time } from 'utils/TimeHelper';
 import * as S from './Clock.styled';
 import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
 import ViewMode from './ViewMode';
 import {
+  calcTouchHours,
+  calcTouchMinutes,
   ClockMode,
   computeRealtimeClock,
   defaultHourMarks,
@@ -63,37 +64,46 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       });
     }, [minutes, onTimeChange]);
 
-    const handleStartDrag = useCallback((evt: MouseEvent<SVGCircleElement>) => {
-      if (canDrag) {
-        isDragging.current = true;
-      }
-    }, [canDrag]);
-
     const handleDragging = useCallback(({ clientX, clientY }: MouseEvent<SVGCircleElement>) => {
       if (canDrag && centerDotEl.current && isDragging.current) {
-        const {
-          x, y, right, bottom,
-        } = centerDotEl.current.getBoundingClientRect();
+        if (clockMode === 'edit-hour') {
+          onTimeChange?.({
+            ...time as Time,
+            hours: calcTouchHours(
+              centerDotEl.current.getBoundingClientRect(),
+              clientX,
+              clientY,
+            ),
+          });
+          return;
+        }
 
-        const cX = x + ((right - x) / 2);
-        const cY = y + ((bottom - y) / 2);
-
-        const angle = calcAngle(
-          { x: cX, y: cY },
-          { x: cX, y: cY - 20 },
-          { x: clientX, y: clientY },
-        );
-
-        const relativeHour = (roundByStep(angle, 30) / 30);
-        console.log(relativeHour === 0 ? 12 : relativeHour);
+        if (clockMode === 'edit-minute') {
+          onTimeChange?.({
+            ...time as Time,
+            minutes: calcTouchMinutes(
+              centerDotEl.current.getBoundingClientRect(),
+              clientX,
+              clientY,
+            ),
+          });
+        }
       }
-    }, [canDrag]);
+    }, [canDrag, clockMode, onTimeChange, time]);
 
-    const handleEndDrag = useCallback((evt: MouseEvent<SVGCircleElement>) => {
+    const handleDragStart = useCallback((e: MouseEvent<SVGCircleElement>) => {
+      if (canDrag) {
+        isDragging.current = true;
+        handleDragging(e);
+      }
+    }, [canDrag, handleDragging]);
+
+    const handleDragEnd = useCallback((e: MouseEvent<SVGCircleElement>) => {
       if (canDrag) {
         isDragging.current = false;
+        handleDragging(e);
       }
-    }, [canDrag]);
+    }, [canDrag, handleDragging]);
 
     const getViewContent = (isRealtime = false) => (
       <ViewMode
@@ -143,9 +153,9 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
             cx="300"
             cy="300"
             r="296"
-            onMouseDown={handleStartDrag}
+            onMouseDown={handleDragStart}
             onMouseMove={handleDragging}
-            onMouseUp={handleEndDrag}
+            onMouseUp={handleDragEnd}
           />
 
           <S.CenterDot
