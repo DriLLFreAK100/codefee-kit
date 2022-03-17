@@ -22,7 +22,6 @@ export * from './Figure';
 export { default as Grid } from './Grid';
 export * from './Grid';
 
-export { default as IconButton } from './IconButton';
 export * from './IconButton';
 
 export * from './Icons';

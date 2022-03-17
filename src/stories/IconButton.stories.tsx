@@ -1,4 +1,4 @@
-import IconButton, { IconButtonProps } from 'components/IconButton';
+import { IconButton, IconButtonProps } from 'components/IconButton';
 import React from 'react';
 import styles from './assets/styles/IconButton.module.scss';
 import { action } from '@storybook/addon-actions';

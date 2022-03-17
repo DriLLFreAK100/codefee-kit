@@ -1,4 +1,4 @@
-import IconButton from './IconButton';
-
-export default IconButton;
+export { default as IconButton } from './IconButton';
 export * from './IconButton';
+
+export { default as IconButtonStyles } from './IconButton.styled';
