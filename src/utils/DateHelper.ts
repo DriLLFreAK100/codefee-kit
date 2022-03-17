@@ -122,6 +122,11 @@ class EasyDate {
 
     return display;
   }
+
+  public setMonth(month: number): EasyDate {
+    this.value.setMonth(month);
+    return this;
+  }
 }
 
 export default EasyDate;
