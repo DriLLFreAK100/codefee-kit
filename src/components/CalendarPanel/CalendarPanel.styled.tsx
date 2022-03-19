@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
-import { DayTileIconButton, NavIconButton } from './Shared';
-import { Typography, TypographyStyles } from '../Typography';
+import { TypographyStyles } from 'components/Typography';
+import { IconButtonStyles } from 'components/IconButton';
+import { DayTileIconButton, TileIconButton, NavIconButton } from './Common';
 
 export type CalendarPanelCssVar = {
   '--cf-calendar-panel-background-color': string;
@@ -28,31 +29,43 @@ export const NavigationPanel = styled.div`
   padding: ${rem(2)};
 `;
 
-export const Title = styled(Typography)`
+export const TitleButton = styled.button`
+  ${IconButtonStyles.SubtleIconButtonCss};  
   flex: 1;
   text-align: center;
   line-height: ${rem(48)};
+  border-radius: ${cvar('--control-border-radius')};
 `;
 
 export const NavButton = styled(NavIconButton)`
   font-size: ${rem(20)};
 `;
 
-export const DaySelector = styled.div`
+const SelectorCss = css`
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
   flex: 1;
-  padding: ${rem(16)};
   min-width: ${rem(368)};
-  height: ${rem(320)};
+`;
+
+export const DaySelector = styled.div`
+  ${SelectorCss};
+  padding: 0 ${rem(16)} ${rem(16)};
+  height: ${rem(304)};
+`;
+
+export const MonthYearSelector = styled.div`
+  ${SelectorCss};
+  padding: ${rem(24)} ${rem(16)} ;
+  height: ${rem(352)};
 `;
 
 export const DayIndicator = styled.div`
   box-sizing: border-box;
   display: flex;
-  height: ${rem(28)};
-  padding: ${rem(16)};
+  height: ${rem(48)};
+  padding: ${rem(22)} ${rem(16)} ${rem(10)};
 `;
 
 export const DayIndicatorTile = styled.span`
@@ -60,7 +73,7 @@ export const DayIndicatorTile = styled.span`
   font-size: ${rem(12)};
   flex-basis: calc(1 / 7 * 100%);
   text-align: center;
-  line-height: ${rem(28)};
+  line-height: ${rem(16)};
   color: ${cvar('--color-gray-5')};
   text-transform: uppercase;
 `;
@@ -72,4 +85,10 @@ const ArchiveDayCss = css`
 export const DayTile = styled(DayTileIconButton)`
   flex-basis: calc(1 / 7 * 100%);
   ${({ dayPeriod }) => ['prev', 'next'].includes(dayPeriod) && ArchiveDayCss};
+`;
+
+export const YearMonthTile = styled(TileIconButton)`
+  width: ${rem(84)};
+  height: ${rem(84)};
+  flex-basis: 25%;
 `;

@@ -1,4 +1,4 @@
-import IconButton from 'components/IconButton';
+import { IconButton } from 'components/IconButton';
 import styled, { css } from 'styled-components';
 import { cvar } from 'utils';
 import { Times } from 'components/Icons';

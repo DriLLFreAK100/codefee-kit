@@ -14,11 +14,28 @@ export type Day = {
   easyDate: EasyDate;
 };
 
+export type EasyDateOptions = {
+  yearFrame: number
+};
+
+export const defaultEasyDateOptions: EasyDateOptions = {
+  yearFrame: 12,
+};
+
 class EasyDate {
   public value: Date;
 
-  constructor(date: Date = new Date()) {
+  private options: EasyDateOptions;
+
+  constructor(
+    date: Date = new Date(),
+    options = defaultEasyDateOptions,
+  ) {
     this.value = date;
+    this.options = {
+      ...defaultEasyDateOptions,
+      ...options,
+    };
   }
 
   public get year(): number {
@@ -94,6 +111,26 @@ class EasyDate {
     ];
   }
 
+  public get yearsInFrame(): number[] {
+    const paddedYears = [];
+    const yearPosition = this.year % this.yearFrame;
+
+    for (let a = 0; a < this.yearFrame; a++) {
+      const diff = yearPosition - a;
+      paddedYears.push(this.year - diff);
+    }
+
+    return paddedYears;
+  }
+
+  public get previousYearByFrame(): EasyDate {
+    return new EasyDate(new Date(this.year - this.yearFrame, this.month));
+  }
+
+  public get nextYearByFrame(): EasyDate {
+    return new EasyDate(new Date(this.year + this.yearFrame, this.month - 1));
+  }
+
   public get previousMonth(): EasyDate {
     return new EasyDate(new Date(this.year, this.month - 1));
   }
@@ -121,6 +158,20 @@ class EasyDate {
     });
 
     return display;
+  }
+
+  public setMonth(month: number): EasyDate {
+    this.value.setMonth(month);
+    return this;
+  }
+
+  public setYear(year: number): EasyDate {
+    this.value.setFullYear(year);
+    return this;
+  }
+
+  private get yearFrame(): number {
+    return this.options.yearFrame;
   }
 }
 

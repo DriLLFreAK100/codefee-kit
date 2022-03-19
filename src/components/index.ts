@@ -9,6 +9,9 @@ export * from './Button';
 export { default as ButtonGroup } from './ButtonGroup';
 export * from './ButtonGroup';
 
+export { default as CalendarPanel } from './CalendarPanel';
+export * from './CalendarPanel';
+
 export { default as Checkbox } from './Checkbox';
 export * from './Checkbox';
 
@@ -22,7 +25,6 @@ export * from './Figure';
 export { default as Grid } from './Grid';
 export * from './Grid';
 
-export { default as IconButton } from './IconButton';
 export * from './IconButton';
 
 export * from './Icons';
@@ -51,5 +53,8 @@ export * from './Slider';
 
 export { default as Table } from './Table';
 export * from './Table';
+
+export { default as TimePanel } from './TimePanel';
+export * from './TimePanel';
 
 export * from './Typography';
