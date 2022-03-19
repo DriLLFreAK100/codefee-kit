@@ -12,7 +12,9 @@ const Template: Story<CalendarPanelProps> = (args: CalendarPanelProps) => {
   return (
     <CalendarPanel
       {...args}
-      onDateChange={action('onDateChange')} />
+      onDateChange={action('onDateChange')}
+      onMonthChange={action('onMonthChange')}
+      onYearChange={action('onYearChange')} />
   );
 };
 

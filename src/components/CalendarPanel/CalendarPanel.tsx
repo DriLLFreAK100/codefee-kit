@@ -2,10 +2,10 @@ import EasyDate, { Day, defaultMonthLabels } from 'utils/DateHelper';
 import { AngleLeft, AngleRight } from 'components/Icons';
 import { Typography } from 'components/Typography';
 import React, {
-  FC, forwardRef, HtmlHTMLAttributes, useCallback, useState,
+  FC, forwardRef, HtmlHTMLAttributes, useCallback, useMemo, useState,
 } from 'react';
 import * as S from './CalendarPanel.styled';
-import { DateInfoLevel, getTitle, switchLevel } from './Common';
+import { DateInfoLevel, switchLevel } from './Common';
 
 type DayViewProps = {
   dayIndicatorLabels: string[];
@@ -78,16 +78,21 @@ const MonthView: FC<MonthViewProps> = ({
 
 type YearViewProps = {
   selectedDate: EasyDate;
+  viewDate: EasyDate;
+  handleClickYear: (year: number) => () => void;
 };
 
 const YearView: FC<YearViewProps> = ({
   selectedDate,
+  viewDate,
+  handleClickYear,
 }: YearViewProps) => (
   <S.MonthYearSelector>
-    {selectedDate.yearsArrPadded.map((year) => (
+    {viewDate.yearsInFrame.map((year) => (
       <S.YearMonthTile
         key={year}
         isActive={selectedDate.year === year}
+        onClick={handleClickYear(year)}
       >
         {year}
       </S.YearMonthTile>
@@ -98,7 +103,10 @@ const YearView: FC<YearViewProps> = ({
 export type CalendarPanelProps = {
   dayIndicatorLabels?: string[];
   monthLabels?: string[];
+  placeholderYearLabel?: string;
   onDateChange: (date: Date) => void;
+  onMonthChange: (date: Date) => void;
+  onYearChange: (date: Date) => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
 const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
@@ -106,7 +114,10 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
     const {
       monthLabels,
       dayIndicatorLabels,
+      placeholderYearLabel,
       onDateChange,
+      onMonthChange,
+      onYearChange,
       ...passThrough
     } = props;
 
@@ -124,17 +135,35 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
       const updated = new EasyDate(selectedDate.setMonth(month).value);
       setSelectedDate(updated);
       setViewDate(updated);
-      onDateChange(updated.value);
+      onMonthChange(updated.value);
       setLevel('day');
-    }, [onDateChange, selectedDate]);
+    }, [onMonthChange, selectedDate]);
+
+    const handleClickYear = useCallback((year: number) => () => {
+      const updated = new EasyDate(selectedDate.setYear(year).value);
+      setSelectedDate(updated);
+      setViewDate(updated);
+      onYearChange(updated.value);
+      setLevel('month');
+    }, [onYearChange, selectedDate]);
 
     const handleClickPrev = useCallback(() => {
-      setViewDate(viewDate.previousMonth);
-    }, [viewDate.previousMonth]);
+      switchLevel(
+        level,
+        () => setViewDate(viewDate.previousMonth),
+        undefined,
+        () => setViewDate(viewDate.previousYearByFrame),
+      );
+    }, [level, viewDate.previousMonth, viewDate.previousYearByFrame]);
 
     const handleClickNext = useCallback(() => {
-      setViewDate(viewDate.nextMonth);
-    }, [viewDate.nextMonth]);
+      switchLevel(
+        level,
+        () => setViewDate(viewDate.nextMonth),
+        undefined,
+        () => setViewDate(viewDate.nextYearByFrame),
+      );
+    }, [level, viewDate.nextMonth, viewDate.nextYearByFrame]);
 
     const handleClickTitleButton = useCallback(() => {
       switchLevel(
@@ -144,7 +173,13 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
       );
     }, [level]);
 
-    const title = getTitle(viewDate, level, monthLabels as string[]);
+    const title = switchLevel(
+      level,
+      () => viewDate.format('MMM yyyy', monthLabels),
+      () => viewDate.format('yyyy'),
+      () => placeholderYearLabel,
+    ) as string;
+
     const isDisableTitle = level === 'year';
 
     const ViewComponent = switchLevel(
@@ -167,9 +202,23 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
       () => (
         <YearView
           selectedDate={selectedDate}
+          viewDate={viewDate}
+          handleClickYear={handleClickYear}
         />
       ),
     );
+
+    const PrevNavButton = useMemo(() => level !== 'month' && (
+      <S.NavButton onClick={handleClickPrev}>
+        <AngleLeft />
+      </S.NavButton>
+    ), [handleClickPrev, level]);
+
+    const NextNavButton = useMemo(() => level !== 'month' && (
+      <S.NavButton onClick={handleClickNext}>
+        <AngleRight />
+      </S.NavButton>
+    ), [handleClickNext, level]);
 
     return (
       <S.CalendarPanel
@@ -177,10 +226,7 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
         {...passThrough}
       >
         <S.NavigationPanel>
-          <S.NavButton onClick={handleClickPrev}>
-            <AngleLeft />
-          </S.NavButton>
-
+          {PrevNavButton}
           <S.TitleButton
             disabled={isDisableTitle}
             onClick={handleClickTitleButton}
@@ -189,10 +235,7 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
               {title}
             </Typography>
           </S.TitleButton>
-
-          <S.NavButton onClick={handleClickNext}>
-            <AngleRight />
-          </S.NavButton>
+          {NextNavButton}
         </S.NavigationPanel>
 
         {ViewComponent}
@@ -205,6 +248,7 @@ CalendarPanel.displayName = 'CalendarPanel';
 CalendarPanel.defaultProps = {
   dayIndicatorLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   monthLabels: defaultMonthLabels,
+  placeholderYearLabel: 'Year',
 };
 
 export default CalendarPanel;

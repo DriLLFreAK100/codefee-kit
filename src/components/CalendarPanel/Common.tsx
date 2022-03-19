@@ -1,5 +1,5 @@
-import EasyDate, { DayPeriod } from 'utils/DateHelper';
 import React, { FC } from 'react';
+import { DayPeriod } from 'utils/DateHelper';
 import { IconButton, IconButtonProps } from '../IconButton';
 
 export type DateInfoLevel = 'year' | 'month' | 'day';
@@ -59,13 +59,3 @@ export const switchLevel = <T extends unknown>(
       return defaultFunc?.();
   }
 };
-
-export const getTitle = (
-  date: EasyDate,
-  level: DateInfoLevel,
-  monthLabels: string[],
-): string => switchLevel(
-  level,
-  () => date.format('MMM yyyy', monthLabels),
-  () => date.format('yyyy'),
-) as string;

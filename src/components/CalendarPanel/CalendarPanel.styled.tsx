@@ -51,14 +51,14 @@ const SelectorCss = css`
 
 export const DaySelector = styled.div`
   ${SelectorCss};
-  padding: 0 ${rem(16)};
-  height: ${rem(288)};
+  padding: 0 ${rem(16)} ${rem(16)};
+  height: ${rem(304)};
 `;
 
 export const MonthYearSelector = styled.div`
   ${SelectorCss};
-  padding: ${rem(16)} ${rem(16)} 0;
-  height: ${rem(336)};
+  padding: ${rem(24)} ${rem(16)} ;
+  height: ${rem(352)};
 `;
 
 export const DayIndicator = styled.div`
@@ -90,11 +90,5 @@ export const DayTile = styled(DayTileIconButton)`
 export const YearMonthTile = styled(TileIconButton)`
   width: ${rem(84)};
   height: ${rem(84)};
-  flex-basis: 25%;
-`;
-
-export const YearTile = styled(TileIconButton)`
-  width: ${rem(84)};
-  height: ${rem(72)};
   flex-basis: 25%;
 `;
