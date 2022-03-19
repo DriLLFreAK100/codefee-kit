@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.12](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.11...v0.0.42-alpha.12) (2022-03-19)
+
+
+### Features
+
+* **calendar-panel:** impl year month date selection functionalities ([05fec1e](https://github.com/DriLLFreAK100/codefee-kit/commit/05fec1e9325561d1f83294f1d68c3ed1546bdc05))
+* **calendar-panel:** include year view layout ([692178a](https://github.com/DriLLFreAK100/codefee-kit/commit/692178ab96e60a73513e92c6aef9ac20e33c7e0c))
+* **calendar-panel:** month view ([7daf393](https://github.com/DriLLFreAK100/codefee-kit/commit/7daf393ced1f466c1255d07d5492a6625e92d50a))
+* **clock:** hour and minute edit mode ([2444a44](https://github.com/DriLLFreAK100/codefee-kit/commit/2444a44309423b4a105c2f36e608c35b6f963af0))
+* export calendar-panel and time-panel ([d6d4062](https://github.com/DriLLFreAK100/codefee-kit/commit/d6d4062a139eafcfa65f2f7f61b170c9faf90f74))
+* **icon-button:** export styles and update disabled state style ([197ec6c](https://github.com/DriLLFreAK100/codefee-kit/commit/197ec6ca53abbf89e08f264bd92935469f83b265))
+* **icons:** keyboard and clock icons ([01601dd](https://github.com/DriLLFreAK100/codefee-kit/commit/01601dd362a0441b875df6112912dbc6d9083b06))
+* **time-panel:** make clock smaller ([cbc3b31](https://github.com/DriLLFreAK100/codefee-kit/commit/cbc3b319e90f1cb92609f82b3c5e529c256c0057))
+
+
+### Bug Fixes
+
+* **time-panel:** time props input effect ([c2c7b27](https://github.com/DriLLFreAK100/codefee-kit/commit/c2c7b276435ba2d16cb834c02f2ecf1fd0873f0d))
+
 ### [0.0.42-alpha.11](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.41...v0.0.42-alpha.11) (2022-03-03)
 
 
