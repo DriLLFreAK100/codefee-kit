@@ -1,13 +1,18 @@
 import React from 'react';
 import DatePicker, { DatePickerProps } from 'components/DatePicker';
 import { Meta, Story } from '@storybook/react';
+import { Typography } from 'components/Typography';
 
 export default {
   title: 'Controls/DatePicker',
   component: DatePicker,
 } as Meta<DatePickerProps>;
 
-const Template: Story<DatePickerProps> = (args: DatePickerProps) => <DatePicker {...args} />;
+const Template: Story<DatePickerProps> = (args: DatePickerProps) => (
+  <Typography>
+    Brewing underway...
+  </Typography>
+);
 
 export const Default = Template.bind({});
 Default.args = {} as DatePickerProps;
