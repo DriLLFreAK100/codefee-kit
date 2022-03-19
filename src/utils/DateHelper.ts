@@ -94,6 +94,18 @@ class EasyDate {
     ];
   }
 
+  public get yearsArrPadded(): number[] {
+    const paddedYears = [];
+    const yearPosition = this.year % 12;
+
+    for (let a = 0; a < 12; a++) {
+      const diff = yearPosition - a;
+      paddedYears.push(this.year - diff);
+    }
+
+    return paddedYears;
+  }
+
   public get previousMonth(): EasyDate {
     return new EasyDate(new Date(this.year, this.month - 1));
   }

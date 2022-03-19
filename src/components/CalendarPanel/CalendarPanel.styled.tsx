@@ -55,7 +55,7 @@ export const DaySelector = styled.div`
   height: ${rem(288)};
 `;
 
-export const MonthSelector = styled.div`
+export const MonthYearSelector = styled.div`
   ${SelectorCss};
   padding: ${rem(16)} ${rem(16)} 0;
   height: ${rem(336)};
@@ -87,7 +87,7 @@ export const DayTile = styled(DayTileIconButton)`
   ${({ dayPeriod }) => ['prev', 'next'].includes(dayPeriod) && ArchiveDayCss};
 `;
 
-export const MonthTile = styled(TileIconButton)`
+export const YearMonthTile = styled(TileIconButton)`
   width: ${rem(84)};
   height: ${rem(84)};
   flex-basis: 25%;

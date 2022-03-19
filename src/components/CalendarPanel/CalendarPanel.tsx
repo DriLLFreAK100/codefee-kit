@@ -63,17 +63,36 @@ const MonthView: FC<MonthViewProps> = ({
   selectedDate,
   handleClickMonth,
 }: MonthViewProps) => (
-  <S.MonthSelector>
+  <S.MonthYearSelector>
     {monthLabels.map((label, i) => (
-      <S.MonthTile
+      <S.YearMonthTile
         key={label}
         isActive={selectedDate.month === i}
         onClick={handleClickMonth(i)}
       >
         {label}
-      </S.MonthTile>
+      </S.YearMonthTile>
     ))}
-  </S.MonthSelector>
+  </S.MonthYearSelector>
+);
+
+type YearViewProps = {
+  selectedDate: EasyDate;
+};
+
+const YearView: FC<YearViewProps> = ({
+  selectedDate,
+}: YearViewProps) => (
+  <S.MonthYearSelector>
+    {selectedDate.yearsArrPadded.map((year) => (
+      <S.YearMonthTile
+        key={year}
+        isActive={selectedDate.year === year}
+      >
+        {year}
+      </S.YearMonthTile>
+    ))}
+  </S.MonthYearSelector>
 );
 
 export type CalendarPanelProps = {
@@ -143,6 +162,11 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
           monthLabels={monthLabels as string[]}
           selectedDate={selectedDate}
           handleClickMonth={handleClickMonth}
+        />
+      ),
+      () => (
+        <YearView
+          selectedDate={selectedDate}
         />
       ),
     );
