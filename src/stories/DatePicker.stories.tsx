@@ -1,7 +1,6 @@
 import React from 'react';
 import DatePicker, { DatePickerProps } from 'components/DatePicker';
 import { Meta, Story } from '@storybook/react';
-import { Typography } from 'components/Typography';
 
 export default {
   title: 'Controls/DatePicker',
@@ -9,9 +8,7 @@ export default {
 } as Meta<DatePickerProps>;
 
 const Template: Story<DatePickerProps> = (args: DatePickerProps) => (
-  <Typography>
-    Brewing underway...
-  </Typography>
+  <DatePicker />
 );
 
 export const Default = Template.bind({});
