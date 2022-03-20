@@ -4,8 +4,8 @@ import { Typography } from 'components/Typography';
 import React, {
   FC, forwardRef, HtmlHTMLAttributes, useCallback, useMemo, useState,
 } from 'react';
-import * as S from './CalendarPanel.styled';
 import { DateInfoLevel, switchLevel } from './Common';
+import * as S from './CalendarPanel.styled';
 
 type DayViewProps = {
   dayIndicatorLabels: string[];
@@ -104,9 +104,9 @@ export type CalendarPanelProps = {
   dayIndicatorLabels?: string[];
   monthLabels?: string[];
   placeholderYearLabel?: string;
-  onDateChange: (date: Date) => void;
-  onMonthChange: (date: Date) => void;
-  onYearChange: (date: Date) => void;
+  onDateChange?: (date: Date) => void;
+  onMonthChange?: (date: Date) => void;
+  onYearChange?: (date: Date) => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
 const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
@@ -128,14 +128,14 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
     const handleClickDate = useCallback(({ easyDate }: Day) => () => {
       setSelectedDate(easyDate);
       setViewDate(easyDate);
-      onDateChange(easyDate.value);
+      onDateChange?.(easyDate.value);
     }, [onDateChange]);
 
     const handleClickMonth = useCallback((month: number) => () => {
       const updated = new EasyDate(selectedDate.setMonth(month).value);
       setSelectedDate(updated);
       setViewDate(updated);
-      onMonthChange(updated.value);
+      onMonthChange?.(updated.value);
       setLevel('day');
     }, [onMonthChange, selectedDate]);
 
@@ -143,7 +143,7 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
       const updated = new EasyDate(selectedDate.setYear(year).value);
       setSelectedDate(updated);
       setViewDate(updated);
-      onYearChange(updated.value);
+      onYearChange?.(updated.value);
       setLevel('month');
     }, [onYearChange, selectedDate]);
 
@@ -249,6 +249,9 @@ CalendarPanel.defaultProps = {
   dayIndicatorLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   monthLabels: defaultMonthLabels,
   placeholderYearLabel: 'Year',
+  onDateChange: undefined,
+  onMonthChange: undefined,
+  onYearChange: undefined,
 };
 
 export default CalendarPanel;
