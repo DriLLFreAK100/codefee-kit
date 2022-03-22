@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { DayPeriod } from 'utils/DateHelper';
 import { IconButton, IconButtonProps } from '../IconButton';
 
@@ -58,4 +58,11 @@ export const switchLevel = <T extends unknown>(
     default:
       return defaultFunc?.();
   }
+};
+
+export const withStopPropagation = (
+  func: () => void,
+) => (e: MouseEvent<HTMLButtonElement>): void => {
+  e.nativeEvent.stopImmediatePropagation();
+  func();
 };

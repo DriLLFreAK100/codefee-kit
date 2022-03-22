@@ -2,16 +2,16 @@ import EasyDate, { Day, defaultMonthLabels } from 'utils/DateHelper';
 import { AngleLeft, AngleRight } from 'components/Icons';
 import { Typography } from 'components/Typography';
 import React, {
-  FC, forwardRef, HtmlHTMLAttributes, useCallback, useMemo, useState,
+  FC, forwardRef, HtmlHTMLAttributes, MouseEvent, useCallback, useEffect, useMemo, useState,
 } from 'react';
-import { DateInfoLevel, switchLevel } from './Common';
+import { DateInfoLevel, switchLevel, withStopPropagation } from './Common';
 import * as S from './CalendarPanel.styled';
 
 type DayViewProps = {
   dayIndicatorLabels: string[];
   selectedDate: EasyDate;
   viewDate: EasyDate;
-  handleClickDate: (day: Day) => () => void;
+  handleClickDate: (day: Day) => (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const DayView: FC<DayViewProps> = ({
@@ -55,7 +55,7 @@ const DayView: FC<DayViewProps> = ({
 type MonthViewProps = {
   monthLabels: string[];
   selectedDate: EasyDate;
-  handleClickMonth: (month: number) => () => void;
+  handleClickMonth: (month: number) => (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const MonthView: FC<MonthViewProps> = ({
@@ -79,7 +79,7 @@ const MonthView: FC<MonthViewProps> = ({
 type YearViewProps = {
   selectedDate: EasyDate;
   viewDate: EasyDate;
-  handleClickYear: (year: number) => () => void;
+  handleClickYear: (year: number) => (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const YearView: FC<YearViewProps> = ({
@@ -101,6 +101,7 @@ const YearView: FC<YearViewProps> = ({
 );
 
 export type CalendarPanelProps = {
+  date?: Date;
   dayIndicatorLabels?: string[];
   monthLabels?: string[];
   placeholderYearLabel?: string;
@@ -112,6 +113,7 @@ export type CalendarPanelProps = {
 const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
   (props: CalendarPanelProps, ref) => {
     const {
+      date,
       monthLabels,
       dayIndicatorLabels,
       placeholderYearLabel,
@@ -121,31 +123,33 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
       ...passThrough
     } = props;
 
-    const [selectedDate, setSelectedDate] = useState(new EasyDate());
+    const [selectedDate, setSelectedDate] = useState(new EasyDate(date));
     const [viewDate, setViewDate] = useState(selectedDate);
     const [level, setLevel] = useState<DateInfoLevel>('day');
 
-    const handleClickDate = useCallback(({ easyDate }: Day) => () => {
+    useEffect(() => setSelectedDate(new EasyDate(date)), [date]);
+
+    const handleClickDate = useCallback(({ easyDate }: Day) => withStopPropagation(() => {
       setSelectedDate(easyDate);
       setViewDate(easyDate);
       onDateChange?.(easyDate.value);
-    }, [onDateChange]);
+    }), [onDateChange]);
 
-    const handleClickMonth = useCallback((month: number) => () => {
+    const handleClickMonth = useCallback((month: number) => withStopPropagation(() => {
       const updated = new EasyDate(selectedDate.setMonth(month).value);
       setSelectedDate(updated);
       setViewDate(updated);
       onMonthChange?.(updated.value);
       setLevel('day');
-    }, [onMonthChange, selectedDate]);
+    }), [onMonthChange, selectedDate]);
 
-    const handleClickYear = useCallback((year: number) => () => {
+    const handleClickYear = useCallback((year: number) => withStopPropagation(() => {
       const updated = new EasyDate(selectedDate.setYear(year).value);
       setSelectedDate(updated);
       setViewDate(updated);
       onYearChange?.(updated.value);
       setLevel('month');
-    }, [onYearChange, selectedDate]);
+    }), [onYearChange, selectedDate]);
 
     const handleClickPrev = useCallback(() => {
       switchLevel(
@@ -246,6 +250,7 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
 
 CalendarPanel.displayName = 'CalendarPanel';
 CalendarPanel.defaultProps = {
+  date: new Date(),
   dayIndicatorLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   monthLabels: defaultMonthLabels,
   placeholderYearLabel: 'Year',
