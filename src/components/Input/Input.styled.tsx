@@ -24,17 +24,7 @@ const ErrorCss = css`
   padding: ${rem(13)} ${rem(15)};
 `;
 
-export const Input = styled.input<InputProps>`
-  ${defaultCssVar};
-  ${TypographyStyles.Body1Css()};
-  height: ${cvar('--control-height')};
-  min-width: ${rem(130)};
-  border-radius: ${cvar('--control-border-radius')};
-  box-sizing: border-box;
-  border: ${rem(1)} solid ${cssVar('--cf-input-border-color')};
-  background-color: ${cssVar('--cf-input-background-color')};
-  padding: ${rem(14)} ${rem(16)};
-
+const NonErrorCss = css`
   &:disabled {
     opacity: 0.7;
   }
@@ -47,6 +37,18 @@ export const Input = styled.input<InputProps>`
     border: ${rem(2)} solid ${cssVar('--cf-input-border-color-focus')};
     padding: ${rem(13)} ${rem(15)};
   }
+`;
 
-  ${({ error }) => (error && ErrorCss)};
+export const Input = styled.input<InputProps>`
+  ${defaultCssVar};
+  ${TypographyStyles.Body1Css()};
+  height: ${cvar('--control-height')};
+  min-width: ${rem(130)};
+  border-radius: ${cvar('--control-border-radius')};
+  box-sizing: border-box;
+  border: ${rem(1)} solid ${cssVar('--cf-input-border-color')};
+  background-color: ${cssVar('--cf-input-background-color')};
+  padding: ${rem(14)} ${rem(16)};
+
+  ${({ error }) => (error ? ErrorCss : NonErrorCss)};
 `;
