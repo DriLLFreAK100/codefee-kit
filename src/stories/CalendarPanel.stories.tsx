@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CalendarPanel, { CalendarPanelProps } from 'components/CalendarPanel';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
@@ -9,17 +9,36 @@ export default {
 } as Meta<CalendarPanelProps>;
 
 const Template: Story<CalendarPanelProps> = (args: CalendarPanelProps) => {
+  const [internalDate, setInternalDate] = useState(args.date);
+
+  useEffect(() => {
+    setInternalDate(args.date);
+  }, [args.date]);
+
+  const handleOnDateChange = (date: Date) => {
+    setInternalDate(date);
+    action('onDateChange')(date)
+  }
+
   return (
     <CalendarPanel
       {...args}
-      onDateChange={action('onDateChange')}
+      date={internalDate}
+      onDateChange={handleOnDateChange}
       onMonthChange={action('onMonthChange')}
       onYearChange={action('onYearChange')} />
   );
 };
 
 export const Default = Template.bind({});
-Default.args = {} as CalendarPanelProps;
+Default.args = {
+  date: undefined,
+} as CalendarPanelProps;
+
+export const WithInitialDate = Template.bind({});
+WithInitialDate.args = {
+  date: new Date(1993, 7, 8),
+} as CalendarPanelProps;
 
 export const CustomDayIndicatorLabels = Template.bind({});
 CustomDayIndicatorLabels.args = {
