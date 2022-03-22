@@ -15,11 +15,16 @@ const Template: Story<CalendarPanelProps> = (args: CalendarPanelProps) => {
     setInternalDate(args.date);
   }, [args.date]);
 
+  const handleOnDateChange = (date: Date) => {
+    setInternalDate(date);
+    action('onDateChange')(date)
+  }
+
   return (
     <CalendarPanel
       {...args}
       date={internalDate}
-      onDateChange={action('onDateChange')}
+      onDateChange={handleOnDateChange}
       onMonthChange={action('onMonthChange')}
       onYearChange={action('onYearChange')} />
   );

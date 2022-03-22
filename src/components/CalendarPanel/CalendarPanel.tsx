@@ -130,14 +130,12 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
     useEffect(() => setSelectedDate(new EasyDate(date)), [date]);
 
     const handleClickDate = useCallback(({ easyDate }: Day) => withStopPropagation(() => {
-      setSelectedDate(easyDate);
       setViewDate(easyDate);
       onDateChange?.(easyDate.value);
     }), [onDateChange]);
 
     const handleClickMonth = useCallback((month: number) => withStopPropagation(() => {
       const updated = new EasyDate(selectedDate.setMonth(month).value);
-      setSelectedDate(updated);
       setViewDate(updated);
       onMonthChange?.(updated.value);
       setLevel('day');
@@ -145,7 +143,6 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
 
     const handleClickYear = useCallback((year: number) => withStopPropagation(() => {
       const updated = new EasyDate(selectedDate.setYear(year).value);
-      setSelectedDate(updated);
       setViewDate(updated);
       onYearChange?.(updated.value);
       setLevel('month');
