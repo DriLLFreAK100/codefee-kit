@@ -100,15 +100,18 @@ const YearView: FC<YearViewProps> = ({
   </S.MonthYearSelector>
 );
 
-export type CalendarPanelProps = {
-  date?: Date;
+export type CalendarPanelOptions = {
   dayIndicatorLabels?: string[];
   monthLabels?: string[];
   placeholderYearLabel?: string;
+};
+
+export type CalendarPanelProps = {
+  date?: Date;
   onDateChange?: (date: Date) => void;
   onMonthChange?: (date: Date) => void;
   onYearChange?: (date: Date) => void;
-} & HtmlHTMLAttributes<HTMLDivElement>;
+} & CalendarPanelOptions & HtmlHTMLAttributes<HTMLDivElement>;
 
 const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
   (props: CalendarPanelProps, ref) => {

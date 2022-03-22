@@ -15,8 +15,9 @@ const [defaultCssVar, cssVar] = makeCssVar<DatePickerCssVar>({
 });
 
 export const DatePicker = styled.div`
-${defaultCssVar};
+  ${defaultCssVar};
   position: relative;
+  display: inline-block;
 `;
 
 export const InputGroup = styled.div`
@@ -24,8 +25,7 @@ export const InputGroup = styled.div`
   position: relative;
 `;
 
-export const DateInput = styled(Input)`
-`;
+export const DateInput = styled(Input)``;
 
 const halfDimension = `calc(${cssVar('--cf-date-picker-calendar-icon-dimension')} / 2)`;
 
