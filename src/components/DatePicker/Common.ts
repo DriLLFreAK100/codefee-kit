@@ -41,4 +41,4 @@ export const sanitizeInput = compose(
   trySlash,
 );
 
-export const isValidDate = (value: string): boolean => !value || !Number.isNaN(Date.parse(value));
+export const isValidDate = (value: string): boolean => !Number.isNaN(Date.parse(value));
