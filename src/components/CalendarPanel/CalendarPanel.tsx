@@ -103,7 +103,6 @@ const YearView: FC<YearViewProps> = ({
 export type CalendarPanelOptions = {
   dayIndicatorLabels?: string[];
   monthLabels?: string[];
-  placeholderYearLabel?: string;
 };
 
 export type CalendarPanelProps = {
@@ -119,7 +118,6 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
       date,
       monthLabels,
       dayIndicatorLabels,
-      placeholderYearLabel,
       onDateChange,
       onMonthChange,
       onYearChange,
@@ -181,7 +179,7 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
       level,
       () => viewDate.format('MMM yyyy', monthLabels),
       () => viewDate.format('yyyy'),
-      () => placeholderYearLabel,
+      () => viewDate.yearsInFrameRange.join(' - '),
     ) as string;
 
     const isDisableTitle = level === 'year';
@@ -253,7 +251,6 @@ CalendarPanel.defaultProps = {
   date: new Date(),
   dayIndicatorLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   monthLabels: defaultMonthLabels,
-  placeholderYearLabel: 'Year',
   onDateChange: undefined,
   onMonthChange: undefined,
   onYearChange: undefined,

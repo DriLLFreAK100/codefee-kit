@@ -28,13 +28,15 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
 
     const hostRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState<EasyDate | undefined>(new EasyDate(date));
+    const [selectedDate, setSelectedDate] = useState<EasyDate | undefined>(undefined);
     const [inputValue, setInputValue] = useState('');
 
     useEffect(() => {
-      const value = new EasyDate(date);
-      setSelectedDate(value);
-      setInputValue(value.format('MM/dd/yyyy'));
+      if (date) {
+        const value = new EasyDate(date);
+        setSelectedDate(value);
+        setInputValue(value.format('MM/dd/yyyy'));
+      }
     }, [date]);
 
     const closeDateSelector = () => {
