@@ -77,7 +77,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
           <S.DateInput
             placeholder={placeholder}
             value={inputValue}
-            error={!isValidDate(inputValue)}
+            error={date && !isValidDate(inputValue)}
             onFocus={closeDateSelector}
             onBlur={handleInputOnBlur}
             onChange={handleInputOnChange}
