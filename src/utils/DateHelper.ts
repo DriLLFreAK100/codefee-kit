@@ -123,6 +123,11 @@ class EasyDate {
     return paddedYears;
   }
 
+  public get yearsInFrameRange(): [number, number] {
+    const frame = this.yearsInFrame;
+    return [frame[0], frame[this.options.yearFrame - 1]];
+  }
+
   public get previousYearByFrame(): EasyDate {
     return new EasyDate(new Date(this.year - this.yearFrame, this.month));
   }
