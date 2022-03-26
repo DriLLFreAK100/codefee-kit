@@ -102,6 +102,16 @@ class EasyTime {
 
     return this;
   }
+
+  public getTimePeriod(): TimePeriod {
+    return this.hours >= 12 ? 'PM' : 'AM';
+  }
+
+  public format(): string {
+    const hours = [12, 24].includes(this.hours) ? '12' : padTime((this.hours % 12).toString());
+
+    return `${hours}:${this.minutesString} ${this.getTimePeriod()}`;
+  }
 }
 
 export default EasyTime;

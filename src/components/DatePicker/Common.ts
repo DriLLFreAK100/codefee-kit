@@ -1,3 +1,5 @@
+import { Time } from 'utils/TimeHelper';
+
 type Convertor = (next: string, prev: string) => string;
 
 const guardNumeric: Convertor = (next, prev) => {
@@ -42,3 +44,23 @@ export const sanitizeInput = compose(
 );
 
 export const isValidDate = (value: string): boolean => !Number.isNaN(Date.parse(value));
+
+const timeRegex = /^(0[1-9]|1[0-2]):([0-5][0-9]) ((a|p)m|(A|P)M)$/;
+
+export const isValidTime = (value: string): boolean => !!new RegExp(timeRegex).exec(value);
+
+export const getTimeFromStr = (value: string): Time | null => {
+  const arr = new RegExp(timeRegex).exec(value);
+
+  if (arr) {
+    const [, hours, minutes, amPm] = arr;
+    const rawHours = parseInt(hours, 10);
+
+    return {
+      hours: amPm.toLowerCase() === 'AM' ? rawHours : rawHours + 12,
+      minutes: parseInt(minutes, 10),
+    };
+  }
+
+  return null;
+};

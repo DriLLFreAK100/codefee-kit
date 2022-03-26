@@ -2,48 +2,49 @@ import useClickOutside from 'hooks/useClickOutside';
 import useExposeRef from 'hooks/useExposeRef';
 import { Calendar } from 'components/Icons';
 import React, {
-  forwardRef, HtmlHTMLAttributes, ReactNode, useRef,
+  Dispatch, forwardRef, HtmlHTMLAttributes, ReactNode, useRef,
 } from 'react';
-import * as S from './DatePicker.styled';
+import * as S from './Picker.styled';
 
 export type PickerProps = {
-  isSelectorOpen: boolean;
-  onOpenSelector: () => void;
-  onCloseSelector: () => void;
+  open: boolean;
   renderInput: () => ReactNode;
   renderSelector: () => ReactNode;
+  setOpen: Dispatch<React.SetStateAction<boolean>>;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
 const Picker = forwardRef<HTMLDivElement, PickerProps>(
   (props: PickerProps, ref) => {
     const {
-      isSelectorOpen,
-      onOpenSelector,
-      onCloseSelector,
+      open,
       renderInput,
       renderSelector,
+      setOpen,
       ...passThrough
     } = props;
 
     const hostRef = useRef<HTMLDivElement>(null);
 
+    const closeSelector = () => setOpen(false);
+    const openSelector = () => setOpen(true);
+
     useExposeRef(ref, hostRef);
-    useClickOutside(hostRef, onCloseSelector);
+    useClickOutside(hostRef, closeSelector);
 
     return (
-      <S.DatePicker
-        ref={ref}
+      <S.Picker
+        ref={hostRef}
         {...passThrough}
       >
         <S.InputGroup>
           {renderInput()}
-          <S.CalendarButton onClick={onOpenSelector}>
+          <S.CalendarButton onClick={openSelector}>
             <Calendar />
           </S.CalendarButton>
         </S.InputGroup>
 
-        {isSelectorOpen && renderSelector()}
-      </S.DatePicker>
+        {open && renderSelector()}
+      </S.Picker>
     );
   },
 );

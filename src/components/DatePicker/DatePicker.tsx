@@ -3,6 +3,7 @@ import { CalendarPanelOptions } from 'components/CalendarPanel';
 import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
+import useIsTouched from 'hooks/useIsTouched';
 import * as S from './DatePicker.styled';
 import Picker from './Picker';
 import { isValidDate, sanitizeInput } from './Common';
@@ -26,6 +27,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const [open, setOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<EasyDate | undefined>(undefined);
     const [inputValue, setInputValue] = useState('');
+    const isTouched = useIsTouched(inputValue);
+
+    const closeDateSelector = () => setOpen(false);
 
     useEffect(() => {
       if (date) {
@@ -35,12 +39,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       }
     }, [date]);
 
-    const closeDateSelector = () => setOpen(false);
-    const openSelector = () => setOpen(true);
-
     const handleOnDateChange = (value: Date) => {
       onDateChange?.(value);
-      closeDateSelector();
+      setOpen(false);
     };
 
     const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -59,14 +60,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     return (
       <Picker
         ref={ref}
-        isSelectorOpen={open}
-        onOpenSelector={openSelector}
-        onCloseSelector={closeDateSelector}
+        open={open}
         renderInput={() => (
           <S.DateInput
             placeholder={placeholder}
             value={inputValue}
-            error={date && !isValidDate(inputValue)}
+            error={isTouched && !isValidDate(inputValue)}
             onFocus={closeDateSelector}
             onBlur={handleInputOnBlur}
             onChange={handleInputOnChange}
@@ -79,6 +78,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             {...calendarPanelOptions}
           />
         )}
+        setOpen={setOpen}
         {...passThrough}
       />
     );
