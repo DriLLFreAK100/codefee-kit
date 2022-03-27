@@ -11,6 +11,7 @@ export type PickerProps = {
   renderInput: () => ReactNode;
   renderSelector: () => ReactNode;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
+  onClose?: () => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
 const Picker = forwardRef<HTMLDivElement, PickerProps>(
@@ -20,12 +21,16 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
       renderInput,
       renderSelector,
       setOpen,
+      onClose,
       ...passThrough
     } = props;
 
     const hostRef = useRef<HTMLDivElement>(null);
 
-    const closeSelector = () => setOpen(false);
+    const closeSelector = () => {
+      setOpen(false);
+      onClose?.();
+    };
     const openSelector = () => setOpen(true);
 
     useExposeRef(ref, hostRef);
@@ -50,4 +55,8 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
 );
 
 Picker.displayName = 'Picker';
+Picker.defaultProps = {
+  onClose: undefined,
+};
+
 export default Picker;

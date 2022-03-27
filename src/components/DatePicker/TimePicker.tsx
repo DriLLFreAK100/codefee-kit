@@ -1,6 +1,5 @@
 import React, {
-  ChangeEvent,
-  forwardRef, HtmlHTMLAttributes, useEffect, useState,
+  ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
 import EasyTime, { Time } from 'utils/TimeHelper';
 import useHasValueChanged from 'hooks/useHasValueChanged';
@@ -80,6 +79,7 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
           />
         )}
         setOpen={setOpen}
+        onClose={handleInputOnBlur}
         {...passThrough}
       />
     );

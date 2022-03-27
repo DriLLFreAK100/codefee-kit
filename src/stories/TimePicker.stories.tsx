@@ -32,3 +32,11 @@ const Template: Story<TimePickerProps> = (args: TimePickerProps) => {
 
 export const Default = Template.bind({});
 Default.args = {} as TimePickerProps;
+
+export const WithInitialValue = Template.bind({});
+WithInitialValue.args = {
+  time: {
+    hours: 12,
+    minutes: 12,
+  },
+} as TimePickerProps;

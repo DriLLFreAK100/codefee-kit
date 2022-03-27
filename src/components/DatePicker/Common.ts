@@ -43,22 +43,21 @@ export const sanitizeInput = compose(
   trySlash,
 );
 
-export const isValidDate = (value: string): boolean => !Number.isNaN(Date.parse(value));
+export const isValidDate = (value: string): boolean => !!Date.parse(value);
 
 const timeRegex = /^(0[1-9]|1[0-2]):([0-5][0-9]) ((a|p)m|(A|P)M)$/;
 
 export const isValidTime = (value: string): boolean => !!new RegExp(timeRegex).exec(value);
 
 export const getTimeFromStr = (value: string): Time | null => {
-  const arr = new RegExp(timeRegex).exec(value);
+  const dateString = `01/01/2001 ${value}`; // Using a dummy date, since time is main topic here
 
-  if (arr) {
-    const [, hours, minutes, amPm] = arr;
-    const rawHours = parseInt(hours, 10);
+  if (Date.parse(dateString)) {
+    const date = new Date(dateString);
 
     return {
-      hours: amPm.toLowerCase() === 'AM' ? rawHours : rawHours + 12,
-      minutes: parseInt(minutes, 10),
+      hours: date.getHours(),
+      minutes: date.getMinutes(),
     };
   }
 

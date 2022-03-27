@@ -2,7 +2,7 @@ import ButtonGroup from 'components/ButtonGroup';
 import EasyTime, { Time, TimeUnit } from 'utils/TimeHelper';
 import React, {
   ChangeEvent,
-  forwardRef, HtmlHTMLAttributes, useCallback, useEffect, useMemo, useState,
+  forwardRef, HtmlHTMLAttributes, useEffect, useRef, useState,
 } from 'react';
 import { AmPmButton, makeAmPmButtons } from './Common';
 import * as S from './TimePanel.styled';
@@ -20,62 +20,78 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
       ...passThrough
     } = props;
 
-    const easyTime = useMemo(() => new EasyTime(time), [time]);
+    const easyTime = new EasyTime(time);
+    const isInputing = useRef(false);
 
     const {
-      hours,
+      normalizedHours: hours,
       hoursString,
       minutes,
       minutesString,
     } = easyTime;
 
-    const amPmButtons: AmPmButton[] = makeAmPmButtons(hours);
-
+    const [timePeriod, setTimePeriod] = useState(easyTime.getTimePeriod());
     const [hourValue, setHourValue] = useState<number | string>(hoursString);
     const [minuteValue, setMinuteValue] = useState<number | string>(minutesString);
+    const amPmButtons: AmPmButton[] = makeAmPmButtons(timePeriod);
 
     useEffect(() => {
-      setHourValue(hoursString);
-      setMinuteValue(minutesString);
+      if (!isInputing.current) {
+        setHourValue(hoursString);
+        setMinuteValue(minutesString);
+      }
     }, [hoursString, minutesString]);
 
-    const handleAmPmClick = useCallback(({ content }: AmPmButton) => {
+    const handleAmPmClick = ({ content }: AmPmButton) => {
+      setTimePeriod(content);
       onTimeChange?.(easyTime.setPeriod(content).clonedValue);
-    }, [easyTime, onTimeChange]);
+    };
 
-    const handleHoursMinutesChange = useCallback(
-      (unit: TimeUnit) => (evt: ChangeEvent<HTMLInputElement>) => {
-        const val = parseInt(evt.target.value || '0', 10);
+    const handleHoursChange = (val: number) => {
+      if (val > 12) return;
 
-        if (unit === 'hour') {
-          const newVal = easyTime.setHours(val).clonedValue;
-          onTimeChange?.(newVal);
-          setHourValue(newVal.hours);
-          return;
-        }
+      easyTime.setHoursWithTimePeriod(val, timePeriod);
+      setHourValue(val);
+      onTimeChange?.(easyTime.clonedValue);
+    };
 
-        const newVal = easyTime.setMinutes(val).clonedValue;
-        onTimeChange?.(newVal);
-        setMinuteValue(newVal.minutes);
-      },
-      [easyTime, onTimeChange],
-    );
+    const handleMinutesChange = (val: number) => {
+      if (val > 59) return;
+      easyTime.setMinutes(val);
+      onTimeChange?.(easyTime.clonedValue);
+      setMinuteValue(easyTime.minutes);
+    };
 
-    const handleOnFocus = useCallback((unit: TimeUnit) => () => {
+    const handleHoursMinutesChange = (unit: TimeUnit) => (evt: ChangeEvent<HTMLInputElement>) => {
+      const val = parseInt(evt.target.value || '0', 10);
+
+      if (unit === 'hour') {
+        handleHoursChange(val);
+        return;
+      }
+
+      handleMinutesChange(val);
+    };
+
+    const handleOnFocus = (unit: TimeUnit) => () => {
+      isInputing.current = true;
+
       if (unit === 'hour') {
         setHourValue(hours);
         return;
       }
       setMinuteValue(minutes);
-    }, [hours, minutes]);
+    };
 
-    const handleOnBlur = useCallback((unit: TimeUnit) => () => {
+    const handleOnBlur = (unit: TimeUnit) => () => {
+      isInputing.current = false;
+
       if (unit === 'hour') {
         setHourValue(hoursString);
         return;
       }
       setMinuteValue(minutesString);
-    }, [hoursString, minutesString]);
+    };
 
     return (
       <S.TimePanel
