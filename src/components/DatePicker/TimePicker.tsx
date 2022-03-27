@@ -3,7 +3,7 @@ import React, {
   forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
 import EasyTime, { Time } from 'utils/TimeHelper';
-import useIsTouched from 'hooks/useIsTouched';
+import useHasValueChanged from 'hooks/useHasValueChanged';
 import * as S from './TimePicker.styled';
 import Picker from './Picker';
 import { getTimeFromStr, isValidTime } from './Common';
@@ -26,7 +26,7 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
     const [open, setOpen] = useState(false);
     const [selectedTime, setSelectedTime] = useState<EasyTime | undefined>(undefined);
     const [inputValue, setInputValue] = useState('');
-    const isTouched = useIsTouched(inputValue);
+    const isTouched = useHasValueChanged(inputValue);
 
     const closeTimeSelector = () => setOpen(false);
 
@@ -39,7 +39,6 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
     const handleOnTimeChange = (value: Time) => updateTime(value);
 
     const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-      // setInputValue(sanitizeInput(e.currentTarget.value, inputValue));
       setInputValue(e.currentTarget.value);
     };
 

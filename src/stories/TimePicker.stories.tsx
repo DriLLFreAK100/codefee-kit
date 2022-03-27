@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { Time } from 'utils/TimeHelper';
 
 export default {
-  title: 'Controls/TimePicker',
+  title: 'Controls/Date Time Picker/Time Picker',
   component: TimePicker,
 } as Meta<TimePickerProps>;
 

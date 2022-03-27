@@ -3,7 +3,7 @@ import { CalendarPanelOptions } from 'components/CalendarPanel';
 import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
-import useIsTouched from 'hooks/useIsTouched';
+import useHasValueChanged from 'hooks/useHasValueChanged';
 import * as S from './DatePicker.styled';
 import Picker from './Picker';
 import { isValidDate, sanitizeInput } from './Common';
@@ -27,7 +27,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const [open, setOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<EasyDate | undefined>(undefined);
     const [inputValue, setInputValue] = useState('');
-    const isTouched = useIsTouched(inputValue);
+    const isTouched = useHasValueChanged(inputValue);
 
     const closeDateSelector = () => setOpen(false);
 
