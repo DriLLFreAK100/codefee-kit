@@ -23,7 +23,6 @@ export const TimePanel = styled.div`
 `;
 
 export const InputBar = styled.div`
-  margin-bottom: ${rem(16)};
   display: flex;
 `;
 

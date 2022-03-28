@@ -1,6 +1,5 @@
 export * from './ArrayHelper';
 export * from './CommonHelper';
-export * from './ConditionHelper';
 export * from './DateHelper';
 export * from './MathHelper';
 export * from './StringHelper';

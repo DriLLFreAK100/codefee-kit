@@ -1,6 +1,5 @@
-import { switchComponents } from 'utils/ConditionHelper';
 import React, {
-  forwardRef, MouseEvent, SVGAttributes, useCallback, useLayoutEffect, useRef, useState,
+  forwardRef, SVGAttributes, useCallback, useLayoutEffect, useState,
 } from 'react';
 import { Time } from 'utils/TimeHelper';
 import * as S from './Clock.styled';
@@ -8,13 +7,12 @@ import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
 import ViewMode from './ViewMode';
 import {
-  calcTouchHours,
-  calcTouchMinutes,
   ClockMode,
   computeRealtimeClock,
   defaultHourMarks,
   defaultMinuteMarks,
   normalizeHour,
+  switchMode,
   ViewStyle,
 } from './Common';
 
@@ -40,15 +38,14 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
     } = props;
 
     const [internalTime, setInternalTime] = useState(time);
-    const isDragging = useRef(false);
-    const canDrag = ['edit-hour', 'edit-minute'].includes(clockMode as ClockMode);
-
-    const centerDotEl = useRef<SVGCircleElement>(null);
+    const [centerDotEl, setCenterDotEl] = useState<SVGCircleElement | null>();
 
     const { hours, minutes, seconds } = internalTime as Time;
     const hourDeg = normalizeHour(hours) * 30;
     const minuteDeg = minutes * 6 + (((seconds || 0) / 60) * 6);
     const secondsDeg = (seconds || 0) * 6;
+
+    const handleCenterDotRef = useCallback((el: SVGCircleElement | null) => setCenterDotEl(el), []);
 
     const handleOnMinuteChange = useCallback((minutes$: number) => {
       onTimeChange?.({
@@ -64,47 +61,6 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       });
     }, [minutes, onTimeChange]);
 
-    const handleDragging = useCallback(({ clientX, clientY }: MouseEvent<SVGCircleElement>) => {
-      if (canDrag && centerDotEl.current && isDragging.current) {
-        if (clockMode === 'edit-hour') {
-          onTimeChange?.({
-            ...time as Time,
-            hours: calcTouchHours(
-              centerDotEl.current.getBoundingClientRect(),
-              clientX,
-              clientY,
-            ),
-          });
-          return;
-        }
-
-        if (clockMode === 'edit-minute') {
-          onTimeChange?.({
-            ...time as Time,
-            minutes: calcTouchMinutes(
-              centerDotEl.current.getBoundingClientRect(),
-              clientX,
-              clientY,
-            ),
-          });
-        }
-      }
-    }, [canDrag, clockMode, onTimeChange, time]);
-
-    const handleDragStart = useCallback((e: MouseEvent<SVGCircleElement>) => {
-      if (canDrag) {
-        isDragging.current = true;
-        handleDragging(e);
-      }
-    }, [canDrag, handleDragging]);
-
-    const handleDragEnd = useCallback((e: MouseEvent<SVGCircleElement>) => {
-      if (canDrag) {
-        isDragging.current = false;
-        handleDragging(e);
-      }
-    }, [canDrag, handleDragging]);
-
     const getViewContent = (isRealtime = false) => (
       <ViewMode
         hourDeg={hourDeg + (minutes * 0.5)}
@@ -115,24 +71,27 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       />
     );
 
-    const clockContent = switchComponents(clockMode as ClockMode, {
-      view: getViewContent(),
-      'view-realtime': getViewContent(true),
-      'edit-hour': <EditHourMode
-        hourDeg={hourDeg}
-        hourMarks={hourMarks as string[]}
-        onHourChange={handleOnHourChange}
-      />,
-      'edit-minute': <EditMinuteMode
-        minuteDeg={minuteDeg}
-        minuteMarks={minuteMarks as string[]}
-        onMinuteChange={handleOnMinuteChange}
-      />,
-    });
+    const clockContent = switchMode(clockMode as ClockMode,
+      () => getViewContent(),
+      () => getViewContent(true),
+      () => (
+        <EditHourMode
+          centerDomRect={centerDotEl?.getBoundingClientRect()}
+          hourDeg={hourDeg}
+          hourMarks={hourMarks as string[]}
+          onHourChange={handleOnHourChange}
+        />
+      ),
+      () => (
+        <EditMinuteMode
+          centerDomRect={centerDotEl?.getBoundingClientRect()}
+          minuteDeg={minuteDeg}
+          minuteMarks={minuteMarks as string[]}
+          onMinuteChange={handleOnMinuteChange}
+        />
+      ));
 
-    useLayoutEffect(() => {
-      setInternalTime(time);
-    }, [time]);
+    useLayoutEffect(() => setInternalTime(time), [time]);
 
     useLayoutEffect(() => {
       if (clockMode === 'view-realtime') {
@@ -153,13 +112,10 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
             cx="300"
             cy="300"
             r="296"
-            onMouseDown={handleDragStart}
-            onMouseMove={handleDragging}
-            onMouseUp={handleDragEnd}
           />
 
           <S.CenterDot
-            ref={centerDotEl}
+            ref={handleCenterDotRef}
             cx="300"
             cy="300"
             r="16"

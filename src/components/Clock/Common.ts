@@ -1,4 +1,4 @@
-import { SetStateAction } from 'react';
+import { ReactNode, SetStateAction } from 'react';
 import { fillArray } from 'utils/ArrayHelper';
 import { calcAngle, roundByStep } from 'utils/MathHelper';
 import { Time } from 'utils/TimeHelper';
@@ -51,22 +51,41 @@ export const calcTouchPointAngle = (
   return angle;
 };
 
-export const calcTouchHours = (
+export type CalcTouch = (
   centerPoint: DOMRect,
   touchX: number,
   touchY: number,
-): number => {
+) => number;
+
+export const calcTouchHours: CalcTouch = (centerPoint, touchX, touchY) => {
   const angle = calcTouchPointAngle(centerPoint, touchX, touchY);
   const relativeHours = (roundByStep(angle, 30) / 30);
   return relativeHours === 0 ? 12 : relativeHours;
 };
 
-export const calcTouchMinutes = (
-  centerPoint: DOMRect,
-  touchX: number,
-  touchY: number,
-): number => {
+export const calcTouchMinutes: CalcTouch = (centerPoint, touchX, touchY) => {
   const angle = calcTouchPointAngle(centerPoint, touchX, touchY);
   const relativeMinutes = (roundByStep(angle, 6) / 6);
   return relativeMinutes === 60 ? 0 : relativeMinutes;
+};
+
+export const switchMode = (
+  mode: ClockMode,
+  renderView: () => ReactNode,
+  renderViewRealtime: () => ReactNode,
+  renderEditHour: () => ReactNode,
+  renderEditMinute: () => ReactNode,
+): ReactNode => {
+  switch (mode) {
+    case 'view':
+      return renderView();
+    case 'view-realtime':
+      return renderViewRealtime();
+    case 'edit-hour':
+      return renderEditHour();
+    case 'edit-minute':
+      return renderEditMinute();
+    default:
+      return renderView();
+  }
 };

@@ -48,8 +48,7 @@ export const HourMark = styled.line<{ hour: number }>`
   transform: rotate(${({ hour }) => hour * 30}deg);
 `;
 
-export const Text = styled.text<{ isEdit?: boolean }>`
-  cursor: ${({ isEdit }) => (isEdit ? 'pointer' : 'initial')} ;
+export const Text = styled.text`
   font-size: ${rem(40)};
   font-family: ${cvar('--font-family-secondary')};
   user-select: none;
@@ -79,4 +78,10 @@ export const SecondsArm = styled.line`
   stroke: ${cssVar('--cf-clock-arm-seconds-color')};
   stroke-width: ${rem(4)};
   ${ArmCss};
+`;
+
+export const HourMinuteOverlay = styled.rect`
+  fill: transparent;
+  width: 100%;
+  height: 100%;
 `;

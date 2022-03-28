@@ -1,5 +1,12 @@
 import { ButtonGroupButton } from 'components/ButtonGroup';
-import { TimePeriod } from 'utils/TimeHelper';
+import { Time, TimePeriod } from 'utils/TimeHelper';
+
+export type TimeInputProps = {
+  time?: Time;
+  onTimeChange?: (time: Time) => void;
+};
+
+export type TimeInputVariant = 'input' | 'clock';
 
 export type AmPmButton = ButtonGroupButton<TimePeriod>;
 
