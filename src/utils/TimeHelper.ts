@@ -33,6 +33,11 @@ class EasyTime {
     return this.value.hours;
   }
 
+  public get normalizedHours(): number {
+    const modValue = this.hours % 12;
+    return modValue === 0 ? 12 : modValue;
+  }
+
   public get minutes(): number {
     return this.value.minutes;
   }
@@ -42,7 +47,8 @@ class EasyTime {
   }
 
   public get hoursString(): string {
-    return padTime(this.hours.toString());
+    const modValue = this.hours % 12;
+    return modValue === 0 ? '12' : padTime(modValue.toString());
   }
 
   public get minutesString(): string {
@@ -63,12 +69,32 @@ class EasyTime {
   }
 
   public setHours(hours: number): EasyTime {
-    if (hours >= 24) {
+    if (hours > 12) {
       return this;
     }
 
     this.value.hours = hours;
     return this;
+  }
+
+  public setHoursWithTimePeriod(hours: number, timePeriod: TimePeriod): EasyTime {
+    if (hours > 12) {
+      return this;
+    }
+
+    if (hours === 12) {
+      this.value.hours = timePeriod === 'AM' ? 0 : 12;
+    } else if (timePeriod === 'PM') {
+      this.value.hours = hours + 12;
+    } else {
+      this.value.hours = hours;
+    }
+
+    return this;
+  }
+
+  public setValueWithTimePeriod({ hours }: Time, timePeriod: TimePeriod): EasyTime {
+    return this.setHoursWithTimePeriod(hours, timePeriod);
   }
 
   public setMinutes(minutes: number): EasyTime {
@@ -101,6 +127,14 @@ class EasyTime {
     }
 
     return this;
+  }
+
+  public getTimePeriod(): TimePeriod {
+    return this.hours >= 12 ? 'PM' : 'AM';
+  }
+
+  public format(): string {
+    return `${this.hoursString}:${this.minutesString} ${this.getTimePeriod()}`;
   }
 }
 

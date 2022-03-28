@@ -1,3 +1,5 @@
+import { Time } from 'utils/TimeHelper';
+
 type Convertor = (next: string, prev: string) => string;
 
 const guardNumeric: Convertor = (next, prev) => {
@@ -41,4 +43,23 @@ export const sanitizeInput = compose(
   trySlash,
 );
 
-export const isValidDate = (value: string): boolean => !Number.isNaN(Date.parse(value));
+export const isValidDate = (value: string): boolean => !!Date.parse(value);
+
+const timeRegex = /^(0[1-9]|1[0-2]):([0-5][0-9]) ((a|p)m|(A|P)M)$/;
+
+export const isValidTime = (value: string): boolean => !!new RegExp(timeRegex).exec(value);
+
+export const getTimeFromStr = (value: string): Time | null => {
+  const dateString = `01/01/2001 ${value}`; // Using a dummy date, since time is main topic here
+
+  if (Date.parse(dateString)) {
+    const date = new Date(dateString);
+
+    return {
+      hours: date.getHours(),
+      minutes: date.getMinutes(),
+    };
+  }
+
+  return null;
+};

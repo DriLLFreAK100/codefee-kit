@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import DatePicker, { DatePickerProps } from 'components/DatePicker';
+import { DatePicker, DatePickerProps } from 'components/DatePicker';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
 
 export default {
-  title: 'Controls/DatePicker',
+  title: 'Controls/Date Time Picker/Date Picker',
   component: DatePicker,
 } as Meta<DatePickerProps>;
 

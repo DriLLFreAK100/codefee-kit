@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import TimePanel, { TimePanelProps } from 'components/TimePanel';
+import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
 import { Time } from 'utils/TimeHelper';
 
@@ -14,6 +15,7 @@ const Template: Story<TimePanelProps> = (args: TimePanelProps) => {
   const [internalTime, setInternalTime] = useState(args.time);
 
   const handleOnTimeChange = useCallback((time: Time) => {
+    action('onTimeChange')(time);
     setInternalTime(time);
   }, []);
 
@@ -25,14 +27,27 @@ const Template: Story<TimePanelProps> = (args: TimePanelProps) => {
     <TimePanel
       {...args}
       time={internalTime}
+      onMinuteChange={action('onMinuteChange')}
+      onHourChange={action('onHourChange')}
       onTimeChange={handleOnTimeChange} />
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
+export const InputVariant = Template.bind({});
+InputVariant.args = {
+  inputVariant: 'input',
   time: {
     hours: current.getHours(),
     minutes: current.getMinutes(),
   },
 } as TimePanelProps;
+
+export const ClockVariant = Template.bind({});
+ClockVariant.args = {
+  inputVariant: 'clock',
+  time: {
+    hours: current.getHours(),
+    minutes: current.getMinutes(),
+  },
+} as TimePanelProps;
+

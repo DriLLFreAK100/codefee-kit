@@ -1,13 +1,12 @@
 import EasyDate from 'utils/DateHelper';
-import useClickOutside from 'hooks/useClickOutside';
-import useExposeRef from 'hooks/useExposeRef';
-import { Calendar } from 'components/Icons';
-import React, {
-  ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useRef, useState,
-} from 'react';
 import { CalendarPanelOptions } from 'components/CalendarPanel';
-import { isValidDate, sanitizeInput } from './Common';
+import React, {
+  ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
+} from 'react';
+import useHasValueChanged from 'hooks/useHasValueChanged';
 import * as S from './DatePicker.styled';
+import Picker from './Picker';
+import { isValidDate, sanitizeInput } from './Common';
 
 export type DatePickerProps = {
   date?: Date;
@@ -25,11 +24,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       onDateChange,
       ...passThrough
     } = props;
-
-    const hostRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<EasyDate | undefined>(undefined);
     const [inputValue, setInputValue] = useState('');
+    const isTouched = useHasValueChanged(inputValue);
+
+    const closeDateSelector = () => setOpen(false);
 
     useEffect(() => {
       if (date) {
@@ -39,24 +39,16 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       }
     }, [date]);
 
-    const closeDateSelector = () => {
+    const handleDateChange = (value: Date) => {
+      onDateChange?.(value);
       setOpen(false);
     };
 
-    const handleClickCalendarButton = () => {
-      setOpen(true);
-    };
-
-    const handleOnDateChange = (value: Date) => {
-      onDateChange?.(value);
-      closeDateSelector();
-    };
-
-    const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValue(sanitizeInput(e.currentTarget.value, inputValue));
     };
 
-    const handleInputOnBlur = () => {
+    const handleInputBlur = () => {
       if (isValidDate(inputValue)) {
         onDateChange?.(new Date(inputValue));
         return;
@@ -65,36 +57,30 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       onDateChange?.(undefined);
     };
 
-    useExposeRef(ref, hostRef);
-    useClickOutside(hostRef, closeDateSelector);
-
     return (
-      <S.DatePicker
-        ref={hostRef}
-        {...passThrough}
-      >
-        <S.InputGroup>
+      <Picker
+        ref={ref}
+        open={open}
+        renderInput={() => (
           <S.DateInput
             placeholder={placeholder}
             value={inputValue}
-            error={date && !isValidDate(inputValue)}
+            error={isTouched && !isValidDate(inputValue)}
             onFocus={closeDateSelector}
-            onBlur={handleInputOnBlur}
-            onChange={handleInputOnChange}
+            onBlur={handleInputBlur}
+            onChange={handleInputChange}
           />
-          <S.CalendarButton onClick={handleClickCalendarButton}>
-            <Calendar />
-          </S.CalendarButton>
-        </S.InputGroup>
-
-        {open && (
+        )}
+        renderSelector={() => (
           <S.DateSelector
             date={selectedDate?.value}
-            onDateChange={handleOnDateChange}
+            onDateChange={handleDateChange}
             {...calendarPanelOptions}
           />
         )}
-      </S.DatePicker>
+        setOpen={setOpen}
+        {...passThrough}
+      />
     );
   },
 );
