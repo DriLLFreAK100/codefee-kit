@@ -15,6 +15,8 @@ const normalizeTime = (
 const ClockVariant: FC<TimeInputProps> = ({
   time,
   onTimeChange,
+  onHourChange,
+  onMinuteChange,
 }: TimeInputProps) => {
   const easyTime = new EasyTime(time);
 
@@ -32,14 +34,24 @@ const ClockVariant: FC<TimeInputProps> = ({
     onTimeChange?.(easyTime.setPeriod(content).clonedValue);
   };
 
-  const handleOnTimeChange = (value: Time) => {
+  const handleTimeChange = (value: Time) => {
     onTimeChange?.(normalizeTime(value, timePeriod));
     setClockMode(toggleClockMode(clockMode));
   };
 
-  const handleOnClickHour = () => setClockMode('edit-hour');
+  const handleHourChange = (value: Time) => {
+    onHourChange?.(value);
+    handleTimeChange(value);
+  };
 
-  const handleOnClickMinute = () => setClockMode('edit-minute');
+  const handleMinuteChange = (value: Time) => {
+    onMinuteChange?.(value);
+    handleTimeChange(value);
+  };
+
+  const handlClickHour = () => setClockMode('edit-hour');
+
+  const handleClickMinute = () => setClockMode('edit-minute');
 
   return (
     <>
@@ -47,14 +59,14 @@ const ClockVariant: FC<TimeInputProps> = ({
         <S.HourMinuteGroup>
           <S.HourButton
             isActive={clockMode === 'edit-hour'}
-            onClick={handleOnClickHour}
+            onClick={handlClickHour}
           >
             {hoursString}
           </S.HourButton>
           <S.HourMinuteColon>:</S.HourMinuteColon>
           <S.MinuteButton
             isActive={clockMode === 'edit-minute'}
-            onClick={handleOnClickMinute}
+            onClick={handleClickMinute}
           >
             {minutesString}
           </S.MinuteButton>
@@ -70,7 +82,8 @@ const ClockVariant: FC<TimeInputProps> = ({
         <S.Clock
           clockMode={clockMode}
           time={time}
-          onTimeChange={handleOnTimeChange}
+          onHourChange={handleHourChange}
+          onMinuteChange={handleMinuteChange}
         />
       </S.ClockContainer>
     </>

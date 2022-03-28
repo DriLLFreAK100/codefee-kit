@@ -23,6 +23,8 @@ export type ClockProps = {
   time?: Time;
   viewStyle?: ViewStyle;
   onTimeChange?: (time: Time) => void;
+  onHourChange?: (time: Time) => void;
+  onMinuteChange?: (time: Time) => void;
 } & SVGAttributes<SVGSVGElement>;
 
 const Clock = forwardRef<SVGSVGElement, ClockProps>(
@@ -34,6 +36,8 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       time,
       viewStyle,
       onTimeChange,
+      onHourChange,
+      onMinuteChange,
       ...passThrough
     } = props;
 
@@ -48,18 +52,24 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
     const handleCenterDotRef = useCallback((el: SVGCircleElement | null) => setCenterDotEl(el), []);
 
     const handleOnMinuteChange = useCallback((minutes$: number) => {
-      onTimeChange?.({
+      const val = {
         hours,
         minutes: minutes$,
-      });
-    }, [hours, onTimeChange]);
+      };
+
+      onMinuteChange?.(val);
+      onTimeChange?.(val);
+    }, [hours, onMinuteChange, onTimeChange]);
 
     const handleOnHourChange = useCallback((hour$: number) => {
-      onTimeChange?.({
+      const val = {
         hours: hour$,
         minutes,
-      });
-    }, [minutes, onTimeChange]);
+      };
+
+      onHourChange?.(val);
+      onTimeChange?.(val);
+    }, [minutes, onHourChange, onTimeChange]);
 
     const getViewContent = (isRealtime = false) => (
       <ViewMode
@@ -139,6 +149,8 @@ Clock.defaultProps = {
   },
   viewStyle: 'line',
   onTimeChange: undefined,
+  onHourChange: undefined,
+  onMinuteChange: undefined,
 };
 
 export default Clock;

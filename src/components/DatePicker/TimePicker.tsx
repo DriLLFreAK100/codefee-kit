@@ -35,13 +35,13 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
       setInputValue(value$.format());
     };
 
-    const handleOnTimeChange = (value: Time) => updateTime(value);
+    const handleTimeChange = (value: Time) => updateTime(value);
 
-    const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.currentTarget.value);
     };
 
-    const handleInputOnBlur = () => {
+    const handleInputBlur = () => {
       const value = getTimeFromStr(inputValue);
 
       if (value) {
@@ -68,18 +68,20 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
             value={inputValue}
             error={isTouched && !isValidTime(inputValue)}
             onFocus={closeTimeSelector}
-            onBlur={handleInputOnBlur}
-            onChange={handleInputOnChange}
+            onBlur={handleInputBlur}
+            onChange={handleInputChange}
           />
         )}
         renderSelector={() => (
           <S.TimeSelector
+            inputVariant="clock"
             time={selectedTime?.value}
-            onTimeChange={handleOnTimeChange}
+            onTimeChange={handleTimeChange}
+            onMinuteChange={closeTimeSelector}
           />
         )}
         setOpen={setOpen}
-        onClose={handleInputOnBlur}
+        onClose={handleInputBlur}
         {...passThrough}
       />
     );
