@@ -70,7 +70,7 @@ const InputVariant: FC<TimeInputProps> = ({
     handleMinutesChange(val);
   };
 
-  const handleOnFocus = (unit: TimeUnit) => () => {
+  const handleFocus = (unit: TimeUnit) => () => {
     isInputing.current = true;
 
     if (unit === 'hour') {
@@ -80,7 +80,7 @@ const InputVariant: FC<TimeInputProps> = ({
     setMinuteValue(minutes);
   };
 
-  const handleOnBlur = (unit: TimeUnit) => () => {
+  const handleBlur = (unit: TimeUnit) => () => {
     isInputing.current = false;
 
     if (unit === 'hour') {
@@ -95,8 +95,8 @@ const InputVariant: FC<TimeInputProps> = ({
       <S.HourMinuteGroup>
         <S.HourInput
           value={hourValue}
-          onFocus={handleOnFocus('hour')}
-          onBlur={handleOnBlur('hour')}
+          onFocus={handleFocus('hour')}
+          onBlur={handleBlur('hour')}
           onChange={handleHoursMinutesChange('hour')}
         />
 
@@ -104,8 +104,8 @@ const InputVariant: FC<TimeInputProps> = ({
 
         <S.MinuteInput
           value={minuteValue}
-          onFocus={handleOnFocus('minute')}
-          onBlur={handleOnBlur('minute')}
+          onFocus={handleFocus('minute')}
+          onBlur={handleBlur('minute')}
           onChange={handleHoursMinutesChange('minute')}
         />
       </S.HourMinuteGroup>

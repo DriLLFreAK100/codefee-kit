@@ -51,7 +51,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
 
     const handleCenterDotRef = useCallback((el: SVGCircleElement | null) => setCenterDotEl(el), []);
 
-    const handleOnMinuteChange = useCallback((minutes$: number) => {
+    const handleMinuteChange = useCallback((minutes$: number) => {
       const val = {
         hours,
         minutes: minutes$,
@@ -61,7 +61,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       onTimeChange?.(val);
     }, [hours, onMinuteChange, onTimeChange]);
 
-    const handleOnHourChange = useCallback((hour$: number) => {
+    const handleHourChange = useCallback((hour$: number) => {
       const val = {
         hours: hour$,
         minutes,
@@ -89,7 +89,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
           centerDomRect={centerDotEl?.getBoundingClientRect()}
           hourDeg={hourDeg}
           hourMarks={hourMarks as string[]}
-          onHourChange={handleOnHourChange}
+          onHourChange={handleHourChange}
         />
       ),
       () => (
@@ -97,7 +97,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
           centerDomRect={centerDotEl?.getBoundingClientRect()}
           minuteDeg={minuteDeg}
           minuteMarks={minuteMarks as string[]}
-          onMinuteChange={handleOnMinuteChange}
+          onMinuteChange={handleMinuteChange}
         />
       ));
 

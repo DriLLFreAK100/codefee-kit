@@ -39,16 +39,16 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       }
     }, [date]);
 
-    const handleOnDateChange = (value: Date) => {
+    const handleDateChange = (value: Date) => {
       onDateChange?.(value);
       setOpen(false);
     };
 
-    const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValue(sanitizeInput(e.currentTarget.value, inputValue));
     };
 
-    const handleInputOnBlur = () => {
+    const handleInputBlur = () => {
       if (isValidDate(inputValue)) {
         onDateChange?.(new Date(inputValue));
         return;
@@ -67,14 +67,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             value={inputValue}
             error={isTouched && !isValidDate(inputValue)}
             onFocus={closeDateSelector}
-            onBlur={handleInputOnBlur}
-            onChange={handleInputOnChange}
+            onBlur={handleInputBlur}
+            onChange={handleInputChange}
           />
         )}
         renderSelector={() => (
           <S.DateSelector
             date={selectedDate?.value}
-            onDateChange={handleOnDateChange}
+            onDateChange={handleDateChange}
             {...calendarPanelOptions}
           />
         )}
