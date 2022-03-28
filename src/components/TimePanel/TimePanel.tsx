@@ -7,9 +7,9 @@ import { TimeInputProps, TimeInputVariant } from './Common';
 export const switchInputVariant = (type: TimeInputVariant): FC<TimeInputProps> => {
   switch (type) {
     case 'input':
-      return ClockVariant;
-    case 'clock':
       return InputVariant;
+    case 'clock':
+      return ClockVariant;
     default:
       return ClockVariant;
   }
