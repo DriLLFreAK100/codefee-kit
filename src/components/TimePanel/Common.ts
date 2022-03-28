@@ -4,6 +4,8 @@ import { Time, TimePeriod } from 'utils/TimeHelper';
 export type TimeInputProps = {
   time?: Time;
   onTimeChange?: (time: Time) => void;
+  onHourChange?: (time: Time) => void;
+  onMinuteChange?: (time: Time) => void;
 };
 
 export type TimeInputVariant = 'input' | 'clock';

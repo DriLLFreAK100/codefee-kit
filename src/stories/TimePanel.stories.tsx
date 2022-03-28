@@ -27,6 +27,8 @@ const Template: Story<TimePanelProps> = (args: TimePanelProps) => {
     <TimePanel
       {...args}
       time={internalTime}
+      onMinuteChange={action('onMinuteChange')}
+      onHourChange={action('onHourChange')}
       onTimeChange={handleOnTimeChange} />
   );
 };

@@ -9,6 +9,8 @@ import * as S from './TimePanel.styled';
 const InputVariant: FC<TimeInputProps> = ({
   time,
   onTimeChange,
+  onHourChange,
+  onMinuteChange,
 }: TimeInputProps) => {
   const easyTime = new EasyTime(time);
   const isInputing = useRef(false);
@@ -21,7 +23,6 @@ const InputVariant: FC<TimeInputProps> = ({
   } = easyTime;
 
   const [timePeriod, setTimePeriod] = useState(easyTime.getTimePeriod());
-
   const [hourValue, setHourValue] = useState<number | string>(hoursString);
   const [minuteValue, setMinuteValue] = useState<number | string>(minutesString);
   const amPmButtons: AmPmButton[] = makeAmPmButtons(timePeriod);
@@ -43,14 +44,19 @@ const InputVariant: FC<TimeInputProps> = ({
 
     easyTime.setHoursWithTimePeriod(val, timePeriod);
     setHourValue(val);
+
+    onHourChange?.(easyTime.clonedValue);
     onTimeChange?.(easyTime.clonedValue);
   };
 
   const handleMinutesChange = (val: number) => {
     if (val > 59) return;
+
     easyTime.setMinutes(val);
-    onTimeChange?.(easyTime.clonedValue);
     setMinuteValue(easyTime.minutes);
+
+    onMinuteChange?.(easyTime.clonedValue);
+    onTimeChange?.(easyTime.clonedValue);
   };
 
   const handleHoursMinutesChange = (unit: TimeUnit) => (evt: ChangeEvent<HTMLInputElement>) => {

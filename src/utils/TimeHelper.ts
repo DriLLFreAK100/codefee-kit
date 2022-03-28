@@ -93,6 +93,10 @@ class EasyTime {
     return this;
   }
 
+  public setValueWithTimePeriod({ hours }: Time, timePeriod: TimePeriod): EasyTime {
+    return this.setHoursWithTimePeriod(hours, timePeriod);
+  }
+
   public setMinutes(minutes: number): EasyTime {
     if (minutes >= 60) {
       return this;
