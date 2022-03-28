@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Clock, { ClockProps, defaultHourMarks, defaultMinuteMarks, Time } from 'components/Clock';
+import Clock, { ClockProps, defaultHourMarks, defaultMinuteMarks } from 'components/Clock';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
+import { Time } from 'utils/TimeHelper';
 
 export default {
   title: 'Controls/Clock',

@@ -31,7 +31,8 @@ const Template: Story<TimePanelProps> = (args: TimePanelProps) => {
   );
 };
 
-const baseProps = {
+export const InputVariant = Template.bind({});
+InputVariant.args = {
   inputVariant: 'input',
   time: {
     hours: current.getHours(),
@@ -39,14 +40,12 @@ const baseProps = {
   },
 } as TimePanelProps;
 
-export const InputVariant = Template.bind({});
-InputVariant.args = {
-  ...baseProps
-} as TimePanelProps;
-
 export const ClockVariant = Template.bind({});
 ClockVariant.args = {
-  ...baseProps,
   inputVariant: 'clock',
+  time: {
+    hours: current.getHours(),
+    minutes: current.getMinutes(),
+  },
 } as TimePanelProps;
 

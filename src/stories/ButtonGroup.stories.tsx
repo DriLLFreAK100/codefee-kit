@@ -11,7 +11,7 @@ export default {
 const Template: Story<ButtonGroupProps> = (args: ButtonGroupProps) => {
   const [buttonStates, setButtonStates] = useState(args.buttons);
 
-  const handleOnButtonClick = useCallback((btn: ButtonGroupButton) => {
+  const handleOnButtonClick = useCallback((btn: ButtonGroupButton<number>) => {
     action('onButtonClick')(btn);
 
     setButtonStates(buttonStates.map((b) => ({ ...b, selected: b.id === btn.id })));
