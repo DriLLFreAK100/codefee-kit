@@ -14,7 +14,9 @@ const guardNumeric: Convertor = (next, prev) => {
   return next;
 };
 
-const guardMaxCharacter: Convertor = (next, prev) => (next.length > 10 ? prev : next);
+const guardMaxCharacter = (
+  max: number,
+): Convertor => (next, prev) => (next.length > max ? prev : next);
 
 const trySlash: Convertor = (next, prev) => {
   if (next.length < prev.length && (next.length === 2 || next.length === 5)) {
@@ -37,11 +39,24 @@ const compose = (...convertors: Convertor[]): Convertor => (next, prev) => {
   }, next);
 };
 
-export const sanitizeInput = compose(
-  guardMaxCharacter,
+export const sanitizeDateInput = compose(
+  guardMaxCharacter(10),
   guardNumeric,
   trySlash,
 );
+
+export const sanitizeDateTimeInput = (next: string, prev: string): string => {
+  if (next.length <= 10) {
+    return sanitizeDateInput(next, prev);
+  }
+
+  if ((next.length === 11 && next[10] === ' ')
+    || (next.length > 11 && next.length < 20)) {
+    return next;
+  }
+
+  return prev;
+};
 
 export const isValidDate = (value: string): boolean => !!Date.parse(value);
 

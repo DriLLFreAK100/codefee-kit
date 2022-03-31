@@ -1,11 +1,12 @@
+import EasyTime, { Time } from 'utils/TimeHelper';
+import Input from 'components/Input';
+import useHasValueChanged from 'hooks/useHasValueChanged';
 import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
-import EasyTime, { Time } from 'utils/TimeHelper';
-import useHasValueChanged from 'hooks/useHasValueChanged';
-import * as S from './TimePicker.styled';
-import Picker from './Picker';
 import { getTimeFromStr, isValidTime } from './Common';
+import Picker from './Picker';
+import * as S from './TimePicker.styled';
 
 export type TimePickerProps = {
   time?: Time;
@@ -52,6 +53,11 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
       onTimeChange?.(undefined);
     };
 
+    const handleMinuteChange = (value: Time) => {
+      onTimeChange?.(value);
+      closeTimeSelector();
+    };
+
     useEffect(() => {
       if (time) {
         updateTime(time);
@@ -62,8 +68,8 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
       <Picker
         ref={ref}
         open={open}
-        renderInput={() => (
-          <S.TimeInput
+        input={(
+          <Input
             placeholder={placeholder}
             value={inputValue}
             error={isTouched && !isValidTime(inputValue)}
@@ -72,14 +78,15 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
             onChange={handleInputChange}
           />
         )}
-        renderSelector={() => (
+        selector={(
           <S.TimeSelector
             inputVariant="clock"
             time={selectedTime?.value}
             onTimeChange={handleTimeChange}
-            onMinuteChange={closeTimeSelector}
+            onMinuteChange={handleMinuteChange}
           />
         )}
+        icon={<S.ClockIcon />}
         setOpen={setOpen}
         onClose={handleInputBlur}
         {...passThrough}

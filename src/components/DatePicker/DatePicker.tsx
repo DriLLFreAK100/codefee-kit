@@ -1,12 +1,14 @@
 import EasyDate from 'utils/DateHelper';
+import Input from 'components/Input';
+import useHasValueChanged from 'hooks/useHasValueChanged';
+import { Calendar } from 'components/Icons';
 import { CalendarPanelOptions } from 'components/CalendarPanel';
 import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
-import useHasValueChanged from 'hooks/useHasValueChanged';
-import * as S from './DatePicker.styled';
+import { isValidDate, sanitizeDateInput } from './Common';
 import Picker from './Picker';
-import { isValidDate, sanitizeInput } from './Common';
+import * as S from './DatePicker.styled';
 
 export type DatePickerProps = {
   date?: Date;
@@ -45,24 +47,19 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setInputValue(sanitizeInput(e.currentTarget.value, inputValue));
+      setInputValue(sanitizeDateInput(e.currentTarget.value, inputValue));
     };
 
     const handleInputBlur = () => {
-      if (isValidDate(inputValue)) {
-        onDateChange?.(new Date(inputValue));
-        return;
-      }
-
-      onDateChange?.(undefined);
+      onDateChange?.(isValidDate(inputValue) ? new Date(inputValue) : undefined);
     };
 
     return (
       <Picker
         ref={ref}
         open={open}
-        renderInput={() => (
-          <S.DateInput
+        input={(
+          <Input
             placeholder={placeholder}
             value={inputValue}
             error={isTouched && !isValidDate(inputValue)}
@@ -71,13 +68,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             onChange={handleInputChange}
           />
         )}
-        renderSelector={() => (
+        selector={(
           <S.DateSelector
             date={selectedDate?.value}
             onDateChange={handleDateChange}
             {...calendarPanelOptions}
           />
         )}
+        icon={<Calendar />}
         setOpen={setOpen}
         {...passThrough}
       />

@@ -26,7 +26,7 @@ const ClockVariant: FC<TimeInputProps> = ({
   } = easyTime;
 
   const [clockMode, setClockMode] = useState<ClockMode>('edit-hour');
-  const [timePeriod, setTimePeriod] = useState(easyTime.getTimePeriod());
+  const [timePeriod, setTimePeriod] = useState(easyTime.timePeriod);
   const amPmButtons: AmPmButton[] = makeAmPmButtons(timePeriod);
 
   const handleAmPmClick = ({ content }: AmPmButton) => {
