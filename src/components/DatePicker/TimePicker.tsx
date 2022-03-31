@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import EasyTime, { Time } from 'utils/TimeHelper';
 import useHasValueChanged from 'hooks/useHasValueChanged';
+import { Clock } from 'components/Icons';
 import * as S from './TimePicker.styled';
 import Picker from './Picker';
 import { getTimeFromStr, isValidTime } from './Common';
@@ -62,7 +63,7 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
       <Picker
         ref={ref}
         open={open}
-        renderInput={() => (
+        input={(
           <S.TimeInput
             placeholder={placeholder}
             value={inputValue}
@@ -72,7 +73,7 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
             onChange={handleInputChange}
           />
         )}
-        renderSelector={() => (
+        selector={(
           <S.TimeSelector
             inputVariant="clock"
             time={selectedTime?.value}
@@ -80,6 +81,7 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
             onMinuteChange={closeTimeSelector}
           />
         )}
+        icon={<Clock />}
         setOpen={setOpen}
         onClose={handleInputBlur}
         {...passThrough}

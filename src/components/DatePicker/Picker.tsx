@@ -1,6 +1,5 @@
 import useClickOutside from 'hooks/useClickOutside';
 import useExposeRef from 'hooks/useExposeRef';
-import { Calendar } from 'components/Icons';
 import React, {
   Dispatch, forwardRef, HtmlHTMLAttributes, ReactNode, useRef,
 } from 'react';
@@ -8,8 +7,9 @@ import * as S from './Picker.styled';
 
 export type PickerProps = {
   open: boolean;
-  renderInput: () => ReactNode;
-  renderSelector: () => ReactNode;
+  input: ReactNode;
+  selector: ReactNode;
+  icon: ReactNode;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
@@ -18,8 +18,9 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
   (props: PickerProps, ref) => {
     const {
       open,
-      renderInput,
-      renderSelector,
+      input,
+      selector,
+      icon,
       setOpen,
       onClose,
       ...passThrough
@@ -42,13 +43,13 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
         {...passThrough}
       >
         <S.InputGroup>
-          {renderInput()}
+          {input}
           <S.CalendarButton onClick={openSelector}>
-            <Calendar />
+            {icon}
           </S.CalendarButton>
         </S.InputGroup>
 
-        {open && renderSelector()}
+        {open && selector}
       </S.Picker>
     );
   },

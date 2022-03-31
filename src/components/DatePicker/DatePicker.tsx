@@ -1,12 +1,13 @@
 import EasyDate from 'utils/DateHelper';
+import useHasValueChanged from 'hooks/useHasValueChanged';
+import { Calendar } from 'components/Icons';
 import { CalendarPanelOptions } from 'components/CalendarPanel';
 import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
-import useHasValueChanged from 'hooks/useHasValueChanged';
-import * as S from './DatePicker.styled';
-import Picker from './Picker';
 import { isValidDate, sanitizeInput } from './Common';
+import Picker from './Picker';
+import * as S from './DatePicker.styled';
 
 export type DatePickerProps = {
   date?: Date;
@@ -61,7 +62,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       <Picker
         ref={ref}
         open={open}
-        renderInput={() => (
+        input={(
           <S.DateInput
             placeholder={placeholder}
             value={inputValue}
@@ -71,13 +72,14 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             onChange={handleInputChange}
           />
         )}
-        renderSelector={() => (
+        selector={(
           <S.DateSelector
             date={selectedDate?.value}
             onDateChange={handleDateChange}
             {...calendarPanelOptions}
           />
         )}
+        icon={<Calendar />}
         setOpen={setOpen}
         {...passThrough}
       />
