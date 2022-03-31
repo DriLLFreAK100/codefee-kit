@@ -129,12 +129,12 @@ class EasyTime {
     return this;
   }
 
-  public getTimePeriod(): TimePeriod {
+  public get timePeriod(): TimePeriod {
     return this.hours >= 12 ? 'PM' : 'AM';
   }
 
   public format(): string {
-    return `${this.hoursString}:${this.minutesString} ${this.getTimePeriod()}`;
+    return `${this.hoursString}:${this.minutesString} ${this.timePeriod}`;
   }
 }
 

@@ -1,11 +1,12 @@
 import { fillArray } from './ArrayHelper';
+import EasyTime from './TimeHelper';
 /* eslint-disable prefer-template */
 /* eslint-disable default-case */
 /* eslint-disable no-plusplus */
 
 export type DayPeriod = 'current' | 'prev' | 'next';
 
-export type DateDisplayReservedWords = 'yyyy' | 'MM' | 'MMM' | 'dd';
+export type DateDisplayReservedWords = 'yyyy' | 'MM' | 'MMM' | 'dd' | 'hh' | 'mm' | 'ampm';
 
 export const defaultMonthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -144,6 +145,14 @@ class EasyDate {
     return new EasyDate(new Date(this.year, this.month + 1));
   }
 
+  public get time(): EasyTime {
+    return new EasyTime({
+      hours: this.value.getHours(),
+      minutes: this.value.getMinutes(),
+      seconds: this.value.getSeconds(),
+    });
+  }
+
   public format(
     format = 'yyyy/MM/dd',
     monthLabels = defaultMonthLabels,
@@ -153,6 +162,9 @@ class EasyDate {
       MMM: () => monthLabels[this.month],
       MM: () => (this.month + 1).toString().padStart(2, '0'),
       dd: () => this.date.toString().padStart(2, '0'),
+      hh: () => this.time.hoursString,
+      mm: () => this.time.minutesString,
+      ampm: () => this.time.timePeriod,
     };
     const reservedWords = Object.keys(replacer) as DateDisplayReservedWords[];
 
@@ -172,6 +184,16 @@ class EasyDate {
 
   public setYear(year: number): EasyDate {
     this.value.setFullYear(year);
+    return this;
+  }
+
+  public setHours(hours: number): EasyDate {
+    this.value.setHours(hours);
+    return this;
+  }
+
+  public setMinutes(minutes: number): EasyDate {
+    this.value.setMinutes(minutes);
     return this;
   }
 

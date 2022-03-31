@@ -22,7 +22,7 @@ const InputVariant: FC<TimeInputProps> = ({
     minutesString,
   } = easyTime;
 
-  const [timePeriod, setTimePeriod] = useState(easyTime.getTimePeriod());
+  const [timePeriod, setTimePeriod] = useState(easyTime.timePeriod);
   const [hourValue, setHourValue] = useState<number | string>(hoursString);
   const [minuteValue, setMinuteValue] = useState<number | string>(minutesString);
   const amPmButtons: AmPmButton[] = makeAmPmButtons(timePeriod);
