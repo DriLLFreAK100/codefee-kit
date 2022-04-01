@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.13](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.12...v0.0.42-alpha.13) (2022-04-01)
+
+
+### Features
+
+* **calendar-panel:** handle click propagation and include initial date ([67d1685](https://github.com/DriLLFreAK100/codefee-kit/commit/67d1685ee628632c69f476340312bae4f9db4e4c))
+* **calendar-panel:** make output events optional ([f7dc066](https://github.com/DriLLFreAK100/codefee-kit/commit/f7dc06621f734d7b89de0ad6c7da06b42c901927))
+* **calendar-panel:** show year range title ([6685c38](https://github.com/DriLLFreAK100/codefee-kit/commit/6685c384bcbcfeaf4fb5fd3ee0826238914ef5ac))
+* **date-picker:** change render to direct node and update icon ([9eda843](https://github.com/DriLLFreAK100/codefee-kit/commit/9eda8438df2e3a66fd3ea23807c61a93cf61f5b6))
+* **date-picker:** impl datepicker ([02c529b](https://github.com/DriLLFreAK100/codefee-kit/commit/02c529b9e4b349a93104ff253006d7d02ae99d47))
+* **date-picker:** open close date selector via calendar button ([ac4e6dd](https://github.com/DriLLFreAK100/codefee-kit/commit/ac4e6ddf54f023154bdf68aef4743290f4c193fb))
+* **date-time-picker:** export as public ([a7d6c19](https://github.com/DriLLFreAK100/codefee-kit/commit/a7d6c196ab42d6d5e79712c683980ffc9cd1c772))
+* **date-time-picker:** impl ([9b37e96](https://github.com/DriLLFreAK100/codefee-kit/commit/9b37e963285670acb123e8bab6ec5ba8dca87634))
+* **time-panel:** add hour minute button for timepanel ([08ee00d](https://github.com/DriLLFreAK100/codefee-kit/commit/08ee00d74f5752afd3f675c3cd1669bc5f5fb562))
+* **time-picker:** 12 hour based ([178d2ab](https://github.com/DriLLFreAK100/codefee-kit/commit/178d2ab0b41f26b54fb67b0bdfd5fc80b35d1c01))
+* **time-picker:** input way ([279e3fa](https://github.com/DriLLFreAK100/codefee-kit/commit/279e3fa613303cc55336325ad64ae80c1ebc2cd9))
+* **time-picker:** pick time by clock ([9fc2e76](https://github.com/DriLLFreAK100/codefee-kit/commit/9fc2e76a1b4f8169b533810fe19aa9576a097ead))
+
+
+### Bug Fixes
+
+* **calendar-panel:** one way date state flow ([4f656a1](https://github.com/DriLLFreAK100/codefee-kit/commit/4f656a1d2c4b2fd556b219a29cb41be07b9c30d3))
+* **clock:** edit mode drag behavior ([a452b47](https://github.com/DriLLFreAK100/codefee-kit/commit/a452b470982f6677ed5eaa29dc041865e26a95f7))
+* **date-picker:** allow initial undefined ([992a5b0](https://github.com/DriLLFreAK100/codefee-kit/commit/992a5b0b85a969df26855e37a13ba4a073d9515d))
+* **date-picker:** undefined should be valid ([a6bb856](https://github.com/DriLLFreAK100/codefee-kit/commit/a6bb856fdf4f8de2f8c8da6b9e3e812eb9062a63))
+* **input:** retain error style ([1aefade](https://github.com/DriLLFreAK100/codefee-kit/commit/1aefade5f54f958601158b5fe3aff77d85df87ec))
+* **time-panel:** time input variant render output ([93e9b28](https://github.com/DriLLFreAK100/codefee-kit/commit/93e9b289b4238a6435e6cbeadded7b4aacba0c87))
+
 ### [0.0.42-alpha.12](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.11...v0.0.42-alpha.12) (2022-03-19)
 
 
