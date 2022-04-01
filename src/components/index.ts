@@ -20,6 +20,8 @@ export { default as CircularProgress } from './CircularProgress';
 export { default as Clock } from './Clock';
 export * from './Clock';
 
+export * from './DatePicker';
+
 export * from './Figure';
 
 export { default as Grid } from './Grid';

@@ -1,97 +1,18 @@
+import EasyDate from 'utils/DateHelper';
 import useHasValueChanged from 'hooks/useHasValueChanged';
 import { Calendar } from 'components/Icons';
+import { CalendarPanelOptions } from 'components/CalendarPanel';
 import React, {
-  ChangeEvent, FC, forwardRef, HtmlHTMLAttributes, useEffect, useState,
+  ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
-import EasyTime, { Time } from 'utils/TimeHelper';
-import EasyDate from 'utils/DateHelper';
 import { isValidDate, sanitizeDateTimeInput } from './Common';
-import Picker from './Picker';
+import DateTimeSelector from './DateTimeSelector';
 import * as S from './DateTimePicker.styled';
-
-type DateTimeSelectorProps = {
-  dateTime?: EasyDate;
-  onDateChange?: (date?: Date) => void;
-  onTimeChange?: (date?: Date) => void;
-  onMinuteChange: (date?: Date) => void;
-};
-
-type DateOrTime = 'date' | 'time';
-
-const DateTimeSelector: FC<DateTimeSelectorProps> = ({
-  dateTime,
-  onDateChange,
-  onTimeChange,
-  onMinuteChange,
-}: DateTimeSelectorProps) => {
-  const hours$ = dateTime?.value.getHours() || 0;
-  const minutes$ = dateTime?.value.getMinutes() || 0;
-
-  const [dateOrTime, setDateOrTime] = useState<DateOrTime>('date');
-
-  const handleClickOption = (value: DateOrTime) => () => setDateOrTime(value);
-
-  const handleDateChange = (date: Date) => {
-    const val = new EasyDate(date).setHours(hours$).setMinutes(minutes$);
-    onDateChange?.(val.value);
-    setDateOrTime('time');
-  };
-
-  const handleTimeChange = (isMinute: boolean) => ({ hours, minutes }: Time) => {
-    const val = dateTime?.setHours(hours).setMinutes(minutes);
-
-    onTimeChange?.(val?.value);
-
-    if (isMinute) {
-      onMinuteChange?.(val?.value);
-    }
-  };
-
-  const easyTime = new EasyTime({ hours: hours$, minutes: minutes$ });
-
-  return (
-    <S.DateTimeSelector>
-      <S.OptionBar>
-        <S.OptionButton
-          isActive={dateOrTime === 'date'}
-          onClick={handleClickOption('date')}
-        >
-          <Calendar />
-        </S.OptionButton>
-        <S.OptionButton
-          isActive={dateOrTime === 'time'}
-          onClick={handleClickOption('time')}
-        >
-          <S.ClockIcon />
-        </S.OptionButton>
-      </S.OptionBar>
-
-      {dateOrTime === 'date' ? (
-        <S.DateSelector
-          date={dateTime?.value}
-          onDateChange={handleDateChange}
-        />
-      ) : (
-        <S.TimeSelector
-          inputVariant="clock"
-          time={easyTime.value}
-          onTimeChange={handleTimeChange(false)}
-          onMinuteChange={handleTimeChange(true)}
-        />
-      )}
-    </S.DateTimeSelector>
-  );
-};
-
-DateTimeSelector.defaultProps = {
-  dateTime: undefined,
-  onDateChange: undefined,
-  onTimeChange: undefined,
-};
 
 export type DateTimePickerProps = {
   dateTime?: Date;
   placeholder?: string;
+  calendarPanelOptions?: CalendarPanelOptions;
   onDateTimeChange?: (dateTime?: Date) => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
@@ -100,6 +21,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
     const {
       dateTime,
       placeholder,
+      calendarPanelOptions,
       onDateTimeChange,
       ...passThrough
     } = props;
@@ -137,7 +59,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
     }, [dateTime]);
 
     return (
-      <Picker
+      <S.Picker
         ref={ref}
         open={open}
         input={(
@@ -153,6 +75,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
         selector={(
           <DateTimeSelector
             dateTime={selectedDateTime}
+            calendarPanelOptions={calendarPanelOptions}
             onDateChange={updateDateTime}
             onTimeChange={updateDateTime}
             onMinuteChange={handleMinuteChange}
@@ -171,6 +94,7 @@ DateTimePicker.displayName = 'DateTimePicker';
 DateTimePicker.defaultProps = {
   dateTime: undefined,
   placeholder: 'mm/dd/yyyy hh:mm (am|pm)',
+  calendarPanelOptions: undefined,
   onDateTimeChange: undefined,
 };
 
