@@ -33,8 +33,8 @@ const Template: Story<ButtonGroupProps> = (args: ButtonGroupProps) => {
 export const Default = Template.bind({});
 Default.args = {
   buttons: [
-    { id: 1, content: 'Arabica' },
-    { id: 2, content: 'Robusta' },
-    { id: 3, content: 'Liberica' },
+    { id: '1', content: 'Arabica' },
+    { id: '2', content: 'Robusta' },
+    { id: '3', content: 'Liberica' },
   ],
 } as ButtonGroupProps;

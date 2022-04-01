@@ -58,6 +58,7 @@ const ClockVariant: FC<TimeInputProps> = ({
       <S.InputBar>
         <S.HourMinuteGroup>
           <S.HourButton
+            type="button"
             isActive={clockMode === 'edit-hour'}
             onClick={handlClickHour}
           >
@@ -65,6 +66,7 @@ const ClockVariant: FC<TimeInputProps> = ({
           </S.HourButton>
           <S.HourMinuteColon>:</S.HourMinuteColon>
           <S.MinuteButton
+            type="button"
             isActive={clockMode === 'edit-minute'}
             onClick={handleClickMinute}
           >

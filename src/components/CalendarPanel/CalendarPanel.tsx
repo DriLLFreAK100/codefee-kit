@@ -211,13 +211,19 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
     );
 
     const PrevNavButton = useMemo(() => level !== 'month' && (
-      <S.NavButton onClick={handleClickPrev}>
+      <S.NavButton
+        type="button"
+        onClick={handleClickPrev}
+      >
         <AngleLeft />
       </S.NavButton>
     ), [handleClickPrev, level]);
 
     const NextNavButton = useMemo(() => level !== 'month' && (
-      <S.NavButton onClick={handleClickNext}>
+      <S.NavButton
+        type="button"
+        onClick={handleClickNext}
+      >
         <AngleRight />
       </S.NavButton>
     ), [handleClickNext, level]);
@@ -230,6 +236,7 @@ const CalendarPanel = forwardRef<HTMLDivElement, CalendarPanelProps>(
         <S.NavigationPanel>
           {PrevNavButton}
           <S.TitleButton
+            type="button"
             disabled={isDisableTitle}
             onClick={handleClickTitleButton}
           >
