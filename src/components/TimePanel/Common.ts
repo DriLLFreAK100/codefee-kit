@@ -13,6 +13,10 @@ export type TimeInputVariant = 'input' | 'clock';
 export type AmPmButton = ButtonGroupButton<TimePeriod>;
 
 export const makeAmPmButtons = (timePeriod: TimePeriod): ButtonGroupButton<TimePeriod>[] => [
-  { id: 1, content: 'AM', selected: timePeriod === 'AM' },
-  { id: 2, content: 'PM', selected: timePeriod === 'PM' },
+  {
+    id: '1', content: 'AM', selected: timePeriod === 'AM', type: 'button',
+  },
+  {
+    id: '2', content: 'PM', selected: timePeriod === 'PM', type: 'button',
+  },
 ];

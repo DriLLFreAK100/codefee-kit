@@ -51,12 +51,14 @@ const DateTimeSelector: FC<DateTimeSelectorProps> = ({
     <S.DateTimeSelector>
       <S.OptionBar>
         <S.OptionButton
+          type="button"
           isActive={dateOrTime === 'date'}
           onClick={handleClickOption('date')}
         >
           <Calendar />
         </S.OptionButton>
         <S.OptionButton
+          type="button"
           isActive={dateOrTime === 'time'}
           onClick={handleClickOption('time')}
         >

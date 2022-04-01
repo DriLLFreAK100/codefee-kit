@@ -1,13 +1,12 @@
 import React, {
-  forwardRef, HtmlHTMLAttributes, ReactNode, useCallback,
+  forwardRef, HtmlHTMLAttributes, ButtonHTMLAttributes, ReactNode, useCallback,
 } from 'react';
-import { ListObjectRequiredProps } from 'common/Interfaces';
 import * as S from './ButtonGroup.styled';
 
 export type ButtonGroupButton<T> = {
   content: T;
   selected: boolean;
-} & ListObjectRequiredProps<number | string>;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export type ButtonGroupProps<T = ReactNode> = {
   buttons: ButtonGroupButton<T>[];
@@ -32,13 +31,16 @@ const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
         {...passThrough}
       >
         {buttons.map((btn) => {
-          const { id, content, selected } = btn;
+          const {
+            id, content, selected, ...btnAttrs
+          } = btn;
 
           return (
             <S.Button
               key={id}
               selected={selected}
               onClick={handleClickButton(btn)}
+              {...btnAttrs}
             >
               {content}
             </S.Button>

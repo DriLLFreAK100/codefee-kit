@@ -14,6 +14,7 @@ export const TileIconButton: FC<TileIconButtonProps> = ({
   ...passThrough
 }) => (
   <IconButton
+    type="button"
     variant={isActive ? 'primary' : 'subtle'}
     {...passThrough}
   >

@@ -44,7 +44,10 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
       >
         <S.InputGroup>
           {input}
-          <S.CalendarButton onClick={openSelector}>
+          <S.CalendarButton
+            type="button"
+            onClick={openSelector}
+          >
             {icon}
           </S.CalendarButton>
         </S.InputGroup>
