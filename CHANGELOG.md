@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.14](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.13...v0.0.42-alpha.14) (2022-04-01)
+
+
+### Bug Fixes
+
+* **button:** assign type to prevent form submit ([54133f0](https://github.com/DriLLFreAK100/codefee-kit/commit/54133f02c489a2213f77eb67880386009da8383a))
+
 ### [0.0.42-alpha.13](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.12...v0.0.42-alpha.13) (2022-04-01)
 
 
