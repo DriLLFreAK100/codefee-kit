@@ -97,6 +97,12 @@ export const EmptyRecordTr = styled.tr`
   justify-content: center;
 `;
 
+export const EmptyRecordTd = styled.td`
+  display: flex;
+  align-items: center;
+  height: ${rem(200)};
+`;
+
 type ThProps = {
   align: Alignment;
   sortable?: boolean;

@@ -118,10 +118,10 @@ export const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): 
 
 export const defaultEmptyRecordTemplate = (emptyRecordContent: ReactNode) => (
   <S.EmptyRecordTr>
-    <td>
+    <S.EmptyRecordTd>
       <Typography>
         {emptyRecordContent}
       </Typography>
-    </td>
+    </S.EmptyRecordTd>
   </S.EmptyRecordTr>
 );
