@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.16](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.15...v0.0.42-alpha.16) (2022-04-02)
+
+
+### Bug Fixes
+
+* **table:** add height for default empty record ([e1de74a](https://github.com/DriLLFreAK100/codefee-kit/commit/e1de74a6bd378a29baa7d19aefcc7f3324b78640))
+
 ### [0.0.42-alpha.15](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.14...v0.0.42-alpha.15) (2022-04-02)
 
 
