@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { Typography } from 'components/Typography';
 import * as S from './Table.styled';
 import {
   DataColumnDefinition,
@@ -113,4 +114,14 @@ export const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): 
       );
     })}
   </S.Tr>
+);
+
+export const defaultEmptyRecordTemplate = (emptyRecordContent: ReactNode) => (
+  <S.EmptyRecordTr>
+    <td>
+      <Typography>
+        {emptyRecordContent}
+      </Typography>
+    </td>
+  </S.EmptyRecordTr>
 );

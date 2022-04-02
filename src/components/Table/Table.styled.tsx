@@ -71,6 +71,7 @@ export const THead = styled.thead`
 
 export const TBody = styled.tbody`
   overflow-y: scroll;
+  height: 100%;
 `;
 
 type TrProps = {
@@ -86,6 +87,14 @@ export const Tr = styled.tr<TrProps>`
   width: 100%;
   box-sizing: border-box;
   cursor: ${({ isClickable }) => (isClickable ? 'pointer' : 'initial')};
+`;
+
+export const EmptyRecordTr = styled.tr`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 type ThProps = {

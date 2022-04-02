@@ -49,6 +49,12 @@ const baseProps = {
 export const Default = Template.bind({});
 Default.args = { ...baseProps };
 
+export const WithEmptyRecords = Template.bind({});
+WithEmptyRecords.args = {
+  ...baseProps,
+  data: [],
+};
+
 export const WithFooter = Template.bind({});
 WithFooter.args = {
   ...baseProps,
@@ -219,5 +225,6 @@ const StyledOverrideCssVarTable = styled(StyledTable)`
 const OverrideCssVarTemplate: Story<TableProps> = (
   args: TableProps,
 ) => <StyledOverrideCssVarTable {...args} />;
+
 export const WithOverrideCssVariable = OverrideCssVarTemplate.bind({});
 WithOverrideCssVariable.args = { ...baseProps };

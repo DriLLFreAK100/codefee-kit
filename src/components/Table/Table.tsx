@@ -11,6 +11,7 @@ import React, {
 import * as S from './Table.styled';
 import {
   defaultBodyRowTemplate,
+  defaultEmptyRecordTemplate,
   defaultFooterRowTemplate,
   defaultHeaderRowTemplate,
 } from './Templates';
@@ -28,6 +29,7 @@ export type TableProps = {
   data: any[];
   colDefs: DataColumnDefinition[];
   footerDefs?: FooterColumnDefinition[];
+  emptyRecordContent?: ReactNode;
   onClickHeader?: (colDef: DataColumnDefinition) => void;
   onClickRow?: (data: any) => void;
   rowTemplate?: (
@@ -43,6 +45,7 @@ export type TableProps = {
     onClickHeader?: (colDef: DataColumnDefinition) => void,
   ) => ReactNode;
   footerRowTemplate?: (colDef: FooterColumnDefinition[]) => ReactNode;
+  emptyRecordTemplate?: (emptyRecordContent: ReactNode) => ReactNode,
 } & TableHTMLAttributes<HTMLTableElement>;
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
@@ -51,11 +54,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       data,
       colDefs,
       footerDefs,
+      emptyRecordContent,
       onClickHeader,
       onClickRow,
       rowTemplate,
       headerRowTemplate,
       footerRowTemplate,
+      emptyRecordTemplate,
       ...passThrough
     } = props;
 
@@ -88,14 +93,22 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     );
 
     const bodyRows = useMemo(
-      () => computedData.map((datum, index) => rowTemplate?.(
+      () => (computedData.length > 0 ? computedData.map((datum, index) => rowTemplate?.(
         colDefs,
         datum,
         index,
         !!onClickRow,
         handleOnClickRow,
-      )),
-      [computedData, rowTemplate, colDefs, onClickRow, handleOnClickRow],
+      )) : emptyRecordTemplate?.(emptyRecordContent)),
+      [
+        computedData,
+        emptyRecordTemplate,
+        emptyRecordContent,
+        rowTemplate,
+        colDefs,
+        onClickRow,
+        handleOnClickRow,
+      ],
     );
 
     const footerRow = useMemo(() => ((footerDefs || []).length > 0 ? (
@@ -122,9 +135,11 @@ Table.defaultProps = {
   footerDefs: [],
   onClickHeader: undefined,
   onClickRow: undefined,
+  emptyRecordContent: 'No Records',
   rowTemplate: defaultBodyRowTemplate,
   headerRowTemplate: defaultHeaderRowTemplate,
   footerRowTemplate: defaultFooterRowTemplate,
+  emptyRecordTemplate: defaultEmptyRecordTemplate,
 };
 
 export default Table;
