@@ -76,7 +76,7 @@ export const CodefeeTheme: ITheme = {
   '--font-family-primary': 'Segoe UI, sans-serif',
   '--font-family-secondary': 'Open Sans, sans-serif',
   '--transition-hover': '0.1s',
-  '--transition-toggle': '0.2s',
+  '--transition-toggle': '0.15s',
   '--control-border-radius': '0.25rem',
   '--control-height': '3rem',
   '--control-bg-color': '#ffffff',
