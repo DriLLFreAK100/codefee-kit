@@ -1,6 +1,6 @@
 import useClickOutside from 'hooks/useClickOutside';
 import React, {
-  forwardRef, HtmlHTMLAttributes, useLayoutEffect, useRef,
+  forwardRef, HtmlHTMLAttributes, useEffect, useLayoutEffect, useRef, useState,
 } from 'react';
 import { createPortal } from 'react-dom';
 import * as S from './Dialog.styled';
@@ -25,6 +25,10 @@ const tryCreateModalRoot = () => {
   return root;
 };
 
+const withTimeout = (func: () => void) => {
+  setTimeout(() => func(), 150);
+};
+
 const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (props: DialogProps, ref) => {
     const {
@@ -36,16 +40,25 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     const modalRootEl = useRef<Element>();
     const contentEl = useRef<HTMLDivElement>(null);
+    const [isOpenInternal, setIsOpenInternal] = useState(false);
+
+    const handleOnClose = () => {
+      setIsOpenInternal(false);
+      withTimeout(() => onClose());
+    };
 
     useLayoutEffect(() => {
       modalRootEl.current = tryCreateModalRoot();
     }, []);
 
-    useClickOutside(contentEl, () => isOpen && onClose());
+    useEffect(() => withTimeout(() => setIsOpenInternal(isOpen)), [isOpen]);
+
+    useClickOutside(contentEl, () => isOpen && handleOnClose());
 
     return modalRootEl.current && isOpen ? createPortal(
       <S.Dialog
         ref={ref}
+        isActive={isOpenInternal}
         {...passThrough}
       >
         <S.Overlay />

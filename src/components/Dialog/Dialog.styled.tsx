@@ -13,8 +13,10 @@ const [defaultCssVar, cssVar] = makeCssVar<DialogCssVar>({
   '--cf-dialog-content-padding': rem(20),
 });
 
-export const Dialog = styled.div`
+export const Dialog = styled.div<{ isActive: boolean }>`
   ${defaultCssVar};
+  opacity: ${({ isActive }) => (isActive ? 1 : 0)};
+  transition: opacity ${cvar('--transition-toggle')};
 `;
 
 export const Overlay = styled.div`
