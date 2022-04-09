@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
+import { DialogVariant } from './Common';
 
 type DialogCssVar = {
   '--cf-dialog-overlay-color': string;
@@ -43,11 +44,28 @@ export const ContentContainer = styled.div`
   justify-content: center;
 `;
 
-export const Content = styled.div`
+const getVariantBorder = (variant: DialogVariant) => {
+  switch (variant) {
+    case 'error':
+      return `border-top: ${rem(4)} solid ${cvar('--color-error')}`;
+    case 'info':
+      return `border-top: ${rem(4)} solid ${cvar('--color-info')}`;
+    case 'success':
+      return `border-top: ${rem(4)} solid ${cvar('--color-success')}`;
+    case 'warning':
+      return `border-top: ${rem(4)} solid ${cvar('--color-warning')}`;
+    case 'default':
+    default:
+      return '';
+  }
+};
+
+export const Content = styled.div<{ variant: DialogVariant }>`
   background-color: ${cssVar('--cf-dialog-content-bg-color')};
   box-sizing: border-box;
   padding: ${cssVar('--cf-dialog-content-padding')};
   border-radius: ${cvar('--control-border-radius')};
   box-shadow: ${cvar('--control-shadow')};
   min-width: ${cssVar('--cf-dialog-min-width')};
+  ${({ variant }) => getVariantBorder(variant)};
 `;

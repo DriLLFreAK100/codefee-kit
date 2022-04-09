@@ -27,14 +27,30 @@ const Template: Story<DialogProps> = (args: DialogProps) => {
         {...args}
         isOpen={isOpen}
         onClose={handleClose}
-      />
+      >
+        <Typography>
+          {args.children}
+        </Typography>
+      </Dialog>
     </>
   );
 };
 
+const baseProps = {
+  isOpen: true,
+} as DialogProps;
+
 export const Default = Template.bind({});
 Default.args = {
-  children: <Typography>This is a dialog!</Typography>
+  ...baseProps,
+  children: 'This is a dialog!',
+} as DialogProps;
+
+export const WithVariant = Template.bind({});
+WithVariant.args = {
+  ...baseProps,
+  variant: 'success',
+  children: 'This is a successful dialog!',
 } as DialogProps;
 
 const WithSectionsTemplate: Story<DialogProps> = (args: DialogProps) => {
@@ -71,4 +87,7 @@ const WithSectionsTemplate: Story<DialogProps> = (args: DialogProps) => {
   );
 };
 
-export const WithHeader = WithSectionsTemplate.bind({});
+export const WithSections = WithSectionsTemplate.bind({});
+WithSections.args = {
+  ...baseProps,
+} as DialogProps;
