@@ -5,12 +5,14 @@ type DialogCssVar = {
   '--cf-dialog-overlay-color': string;
   '--cf-dialog-content-bg-color': string;
   '--cf-dialog-content-padding': string;
+  '--cf-dialog-min-width': string;
 };
 
 const [defaultCssVar, cssVar] = makeCssVar<DialogCssVar>({
   '--cf-dialog-overlay-color': cvar('--color-gray-7'),
   '--cf-dialog-content-bg-color': cvar('--control-bg-color'),
   '--cf-dialog-content-padding': rem(20),
+  '--cf-dialog-min-width': rem(300),
 });
 
 export const Dialog = styled.div<{ isActive: boolean }>`
@@ -47,4 +49,5 @@ export const Content = styled.div`
   padding: ${cssVar('--cf-dialog-content-padding')};
   border-radius: ${cvar('--control-border-radius')};
   box-shadow: ${cvar('--control-shadow')};
+  min-width: ${cssVar('--cf-dialog-min-width')};
 `;
