@@ -46,6 +46,7 @@ export const SubtleButton = styled(StyledButton)`
   border: ${rem(1)} solid ${cvar('--color-primary')};
   padding: ${rem(13)} ${rem(16)};
   color: black;
+  box-shadow: unset;
 
   :hover {
     border: ${rem(1)} solid  ${cvar('--color-primary-light')};
