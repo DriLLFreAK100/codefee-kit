@@ -56,7 +56,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
         </S.ContentContainer>
       </S.Dialog>,
       modalRootEl.current,
-    ) : null;
+    ) : <></>;
   },
 );
 

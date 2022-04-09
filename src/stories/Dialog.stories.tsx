@@ -5,7 +5,7 @@ import Button from 'components/Button';
 import { Typography } from 'components/Typography';
 
 export default {
-  title: 'Controls/Dialog',
+  title: 'Modals/Dialog',
   component: Dialog,
 } as Meta<DialogProps>;
 
