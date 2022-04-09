@@ -22,7 +22,7 @@ const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(
         ref={ref}
         {...passThrough}
       >
-        <S.TitleSection type="h6">
+        <S.TitleSection type="h5">
           {children}
         </S.TitleSection>
 
