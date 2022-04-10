@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Dialog, { DialogFooter, DialogHeader, DialogProps } from 'components/Dialog';
 import { Meta, Story } from '@storybook/react';
 import Button from 'components/Button';
@@ -14,9 +14,9 @@ const Template: Story<DialogProps> = (args: DialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClickOpen = () => setIsOpen(true);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
 
   useEffect(() => setIsOpen(args.isOpen), [args.isOpen]);
 
@@ -27,23 +27,38 @@ const Template: Story<DialogProps> = (args: DialogProps) => {
         {...args}
         isOpen={isOpen}
         onClose={handleClose}
-      />
+      >
+        {args.children}
+      </Dialog>
     </>
   );
 };
 
+const baseProps = {
+  isOpen: true,
+} as DialogProps;
+
 export const Default = Template.bind({});
 Default.args = {
-  children: <Typography>This is a dialog!</Typography>
+  ...baseProps,
+  children: 'This is a dialog!',
+} as DialogProps;
+
+export const WithVariant = Template.bind({});
+WithVariant.args = {
+  ...baseProps,
+  variant: 'success',
+  children: 'This is a successful dialog!',
 } as DialogProps;
 
 const WithSectionsTemplate: Story<DialogProps> = (args: DialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClickOpen = () => setIsOpen(true);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
+
 
   useEffect(() => setIsOpen(args.isOpen), [args.isOpen]);
 
@@ -71,4 +86,7 @@ const WithSectionsTemplate: Story<DialogProps> = (args: DialogProps) => {
   );
 };
 
-export const WithHeader = WithSectionsTemplate.bind({});
+export const WithSections = WithSectionsTemplate.bind({});
+WithSections.args = {
+  ...baseProps,
+} as DialogProps;

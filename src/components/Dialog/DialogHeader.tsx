@@ -26,9 +26,11 @@ const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(
           {children}
         </S.TitleSection>
 
-        <IconButton variant="subtle" onClick={handleOnClose}>
-          <Times />
-        </IconButton>
+        {onClose ? (
+          <IconButton variant="subtle" onClick={handleOnClose}>
+            <Times />
+          </IconButton>
+        ) : null}
       </S.DialogHeader>
     );
   },

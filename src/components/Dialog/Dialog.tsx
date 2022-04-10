@@ -3,10 +3,12 @@ import React, {
   forwardRef, HtmlHTMLAttributes, useEffect, useLayoutEffect, useRef, useState,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { DialogVariant } from './Common';
 import * as S from './Dialog.styled';
 
 export type DialogProps = {
   isOpen: boolean;
+  variant?: DialogVariant;
   onClose: () => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
@@ -33,6 +35,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (props: DialogProps, ref) => {
     const {
       isOpen,
+      variant,
       onClose,
       children,
       ...passThrough
@@ -51,7 +54,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       modalRootEl.current = tryCreateModalRoot();
     }, []);
 
-    useEffect(() => withTimeout(() => setIsOpenInternal(isOpen)), [isOpen]);
+    useEffect(() => setIsOpenInternal(isOpen), [isOpen]);
 
     useClickOutside(contentEl, () => isOpen && handleOnClose());
 
@@ -63,7 +66,10 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       >
         <S.Overlay />
         <S.ContentContainer>
-          <S.Content ref={contentEl}>
+          <S.Content
+            ref={contentEl}
+            variant={variant as DialogVariant}
+          >
             {children}
           </S.Content>
         </S.ContentContainer>
@@ -75,6 +81,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
 Dialog.displayName = 'Dialog';
 Dialog.defaultProps = {
+  variant: 'default',
 };
 
 export default Dialog;
