@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Dialog, { DialogFooter, DialogHeader, DialogProps } from 'components/Dialog';
 import { Meta, Story } from '@storybook/react';
 import Button from 'components/Button';
@@ -14,9 +14,9 @@ const Template: Story<DialogProps> = (args: DialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClickOpen = () => setIsOpen(true);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
 
   useEffect(() => setIsOpen(args.isOpen), [args.isOpen]);
 
@@ -28,9 +28,7 @@ const Template: Story<DialogProps> = (args: DialogProps) => {
         isOpen={isOpen}
         onClose={handleClose}
       >
-        <Typography>
-          {args.children}
-        </Typography>
+        {args.children}
       </Dialog>
     </>
   );
@@ -57,9 +55,10 @@ const WithSectionsTemplate: Story<DialogProps> = (args: DialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClickOpen = () => setIsOpen(true);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
+
 
   useEffect(() => setIsOpen(args.isOpen), [args.isOpen]);
 

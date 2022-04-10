@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { TypographyStyles } from 'components/Typography';
 import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
 import { DialogVariant } from './Common';
 
@@ -13,7 +14,7 @@ const [defaultCssVar, cssVar] = makeCssVar<DialogCssVar>({
   '--cf-dialog-overlay-color': cvar('--color-gray-7'),
   '--cf-dialog-content-bg-color': cvar('--control-bg-color'),
   '--cf-dialog-content-padding': rem(20),
-  '--cf-dialog-min-width': rem(300),
+  '--cf-dialog-min-width': rem(360),
 });
 
 export const Dialog = styled.div<{ isActive: boolean }>`
@@ -61,6 +62,7 @@ const getVariantBorder = (variant: DialogVariant) => {
 };
 
 export const Content = styled.div<{ variant: DialogVariant }>`
+  ${TypographyStyles.Body1Css()};
   background-color: ${cssVar('--cf-dialog-content-bg-color')};
   box-sizing: border-box;
   padding: ${cssVar('--cf-dialog-content-padding')};
