@@ -29,6 +29,7 @@ const ConfirmDialog = forwardRef<HTMLDivElement, ConfirmDialogProps>(
     return (
       <S.ConfirmDialog
         ref={ref}
+        isMandatory
         {...passThrough}
       >
         <DialogHeader>

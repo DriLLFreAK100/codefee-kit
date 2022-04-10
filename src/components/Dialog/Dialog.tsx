@@ -8,6 +8,7 @@ import * as S from './Dialog.styled';
 
 export type DialogProps = {
   isOpen: boolean;
+  isMandatory?: boolean;
   variant?: DialogVariant;
   onClose: () => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
@@ -35,6 +36,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (props: DialogProps, ref) => {
     const {
       isOpen,
+      isMandatory,
       variant,
       onClose,
       children,
@@ -68,7 +70,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       }
     }, [isOpen]);
 
-    useClickOutside(contentEl, () => isOpen && handleOnClose());
+    useClickOutside(contentEl, () => !isMandatory && isOpen && handleOnClose());
 
     return modalRootEl.current && isOpenInternal ? createPortal(
       <S.Dialog
@@ -93,6 +95,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
 Dialog.displayName = 'Dialog';
 Dialog.defaultProps = {
+  isMandatory: false,
   variant: 'default',
 };
 
