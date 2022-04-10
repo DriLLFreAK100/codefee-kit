@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import Button from 'components/Button';
 import ConfirmDialog, { ConfirmDialogProps } from 'components/ConfirmDialog';
+import React, { useCallback, useEffect, useState } from 'react';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
-import Button from 'components/Button';
 
 export default {
   title: 'Modals/ConfirmDialog',

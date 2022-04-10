@@ -43,10 +43,12 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     const modalRootEl = useRef<Element>();
     const contentEl = useRef<HTMLDivElement>(null);
+    const [isActive, setIsActive] = useState(false);
     const [isOpenInternal, setIsOpenInternal] = useState(false);
+    const track = useRef(isOpen);
 
     const handleOnClose = () => {
-      setIsOpenInternal(false);
+      setIsActive(false);
       withTimeout(() => onClose());
     };
 
@@ -54,14 +56,24 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       modalRootEl.current = tryCreateModalRoot();
     }, []);
 
-    useEffect(() => setIsOpenInternal(isOpen), [isOpen]);
+    useEffect(() => {
+      track.current = isOpen;
+
+      if (isOpen) {
+        setIsOpenInternal(true);
+        setTimeout(() => setIsActive(true), 20);
+      } else {
+        setIsActive(false);
+        withTimeout(() => !track.current && setIsOpenInternal(false));
+      }
+    }, [isOpen]);
 
     useClickOutside(contentEl, () => isOpen && handleOnClose());
 
-    return modalRootEl.current && isOpen ? createPortal(
+    return modalRootEl.current && isOpenInternal ? createPortal(
       <S.Dialog
         ref={ref}
-        isActive={isOpenInternal}
+        isActive={isActive}
         {...passThrough}
       >
         <S.Overlay />

@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Dialog, { DialogFooter, DialogHeader, DialogProps } from 'components/Dialog';
-import { Meta, Story } from '@storybook/react';
 import Button from 'components/Button';
-import { Typography } from 'components/Typography';
+import Dialog, { DialogFooter, DialogHeader, DialogProps } from 'components/Dialog';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './assets/styles/Dialog.module.scss';
+import { action } from '@storybook/addon-actions';
+import { Meta, Story } from '@storybook/react';
+import { Typography } from 'components/Typography';
 
 export default {
   title: 'Modals/Dialog',
@@ -15,6 +16,7 @@ const Template: Story<DialogProps> = (args: DialogProps) => {
   const handleClickOpen = () => setIsOpen(true);
 
   const handleClose = useCallback(() => {
+    action('onClose')();
     setIsOpen(false);
   }, []);
 
@@ -56,9 +58,9 @@ const WithSectionsTemplate: Story<DialogProps> = (args: DialogProps) => {
   const handleClickOpen = () => setIsOpen(true);
 
   const handleClose = useCallback(() => {
+    action('onClose')();
     setIsOpen(false);
   }, []);
-
 
   useEffect(() => setIsOpen(args.isOpen), [args.isOpen]);
 
