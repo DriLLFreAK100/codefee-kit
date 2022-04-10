@@ -54,7 +54,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       modalRootEl.current = tryCreateModalRoot();
     }, []);
 
-    useEffect(() => withTimeout(() => setIsOpenInternal(isOpen)), [isOpen]);
+    useEffect(() => setIsOpenInternal(isOpen), [isOpen]);
 
     useClickOutside(contentEl, () => isOpen && handleOnClose());
 
