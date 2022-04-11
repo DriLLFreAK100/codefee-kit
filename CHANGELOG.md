@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.19](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.18...v0.0.42-alpha.19) (2022-04-11)
+
+
+### Features
+
+* **dialog:** export public ([54a7e9c](https://github.com/DriLLFreAK100/codefee-kit/commit/54a7e9cd31078a4023a54b139f9b1f065f57a9d6))
+
 ### [0.0.42-alpha.18](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.17...v0.0.42-alpha.18) (2022-04-11)
 
 
