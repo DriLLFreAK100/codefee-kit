@@ -22,6 +22,9 @@ export * from './Clock';
 
 export * from './DatePicker';
 
+export { default as Dialog } from './Dialog';
+export * from './Dialog';
+
 export * from './Figure';
 
 export { default as Grid } from './Grid';
