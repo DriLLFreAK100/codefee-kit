@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.18](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.17...v0.0.42-alpha.18) (2022-04-11)
+
+
+### Features
+
+* **button:** make subtle shadowless ([6213e46](https://github.com/DriLLFreAK100/codefee-kit/commit/6213e46aaf7423463e978b3e7c34ea61ad2cc3f7))
+* **confirm-dialog:** impl ([8caa25b](https://github.com/DriLLFreAK100/codefee-kit/commit/8caa25bc1d561b6a2778f8fb2f5638197d6e8eee))
+* **dialog:** adjust style ([7df6b42](https://github.com/DriLLFreAK100/codefee-kit/commit/7df6b420b946be44c4bc864e9a3f741e952178c9))
+* **dialog:** base structure ([6989c52](https://github.com/DriLLFreAK100/codefee-kit/commit/6989c52c9e528cdb160c9e50612ed655e48de748))
+* **dialog:** header and footer ([f0a6037](https://github.com/DriLLFreAK100/codefee-kit/commit/f0a60377472f2d4c37b007178a936b610faeaf3d))
+* **dialog:** impl isMandatory ([4cf74ec](https://github.com/DriLLFreAK100/codefee-kit/commit/4cf74ecea847d85b460bfc411405d6fa92d437da))
+* **dialog:** transition show hide ([b83150d](https://github.com/DriLLFreAK100/codefee-kit/commit/b83150d2034ea623d5d67db3b9e50819cd0edc2d))
+* **dialog:** with intention variants ([b1c7db4](https://github.com/DriLLFreAK100/codefee-kit/commit/b1c7db4598ffd151ee92552d3b262735d796ab8b))
+
+
+### Bug Fixes
+
+* **dialog:** close with transition ([a909474](https://github.com/DriLLFreAK100/codefee-kit/commit/a9094748c117772ec152c63f9a7f56fe43e1737a))
+* **dialog:** eslint validation props ([c4a76d6](https://github.com/DriLLFreAK100/codefee-kit/commit/c4a76d688593e57c0c70c1ebd45db4a4ed628ecb))
+* **dialog:** open should not use timeout ([73fe180](https://github.com/DriLLFreAK100/codefee-kit/commit/73fe18047e99cf3c76503ae7d006bdfe339953a6))
+
 ### [0.0.42-alpha.17](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.16...v0.0.42-alpha.17) (2022-04-02)
 
 ### [0.0.42-alpha.16](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.15...v0.0.42-alpha.16) (2022-04-02)
