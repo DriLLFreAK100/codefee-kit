@@ -1,6 +1,6 @@
-import EasyTime, { Time } from 'utils/TimeHelper';
 import Input from 'components/Input';
 import useHasValueChanged from 'hooks/useHasValueChanged';
+import { EasyTime, Time } from 'utils/TimeHelper';
 import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';

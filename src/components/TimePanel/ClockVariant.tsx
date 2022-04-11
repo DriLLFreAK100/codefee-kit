@@ -1,7 +1,7 @@
 import ButtonGroup from 'components/ButtonGroup';
-import { ClockMode } from 'components/Clock';
 import React, { FC, useState } from 'react';
-import EasyTime, { Time, TimePeriod } from 'utils/TimeHelper';
+import { ClockMode } from 'components/Clock';
+import { EasyTime, Time, TimePeriod } from 'utils/TimeHelper';
 import { AmPmButton, makeAmPmButtons, TimeInputProps } from './Common';
 import * as S from './TimePanel.styled';
 

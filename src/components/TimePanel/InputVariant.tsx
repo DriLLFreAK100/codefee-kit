@@ -1,5 +1,5 @@
 import ButtonGroup from 'components/ButtonGroup';
-import EasyTime, { TimeUnit } from 'utils/TimeHelper';
+import { EasyTime, TimeUnit } from 'utils/TimeHelper';
 import React, {
   ChangeEvent, FC, useEffect, useRef, useState,
 } from 'react';
