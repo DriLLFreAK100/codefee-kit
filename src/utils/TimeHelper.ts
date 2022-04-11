@@ -10,7 +10,7 @@ export type TimePeriod = 'AM' | 'PM';
 
 export const padTime = (val: string): string => val.padStart(2, '0');
 
-class EasyTime {
+export class EasyTime {
   public value: Time;
 
   constructor(time?: Time) {
@@ -137,5 +137,3 @@ class EasyTime {
     return `${this.hoursString}:${this.minutesString} ${this.timePeriod}`;
   }
 }
-
-export default EasyTime;

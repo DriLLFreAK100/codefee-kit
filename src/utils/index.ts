@@ -5,3 +5,4 @@ export * from './MathHelper';
 export * from './StringHelper';
 export * from './StyleHelper';
 export * from './ThemeHelper';
+export * from './TimeHelper';

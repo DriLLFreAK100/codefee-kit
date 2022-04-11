@@ -1,8 +1,8 @@
-import EasyTime, { Time } from 'utils/TimeHelper';
 import React, { FC, useState } from 'react';
-import { CalendarPanelOptions } from 'components/CalendarPanel';
-import EasyDate from 'utils/DateHelper';
 import { Calendar } from 'components/Icons';
+import { CalendarPanelOptions } from 'components/CalendarPanel';
+import { EasyDate } from 'utils/DateHelper';
+import { EasyTime, Time } from 'utils/TimeHelper';
 import * as S from './DateTimeSelector.styled';
 
 type DateTimeSelectorProps = {

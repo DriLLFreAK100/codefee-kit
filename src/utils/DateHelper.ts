@@ -1,5 +1,5 @@
 import { fillArray } from './ArrayHelper';
-import EasyTime from './TimeHelper';
+import { EasyTime } from './TimeHelper';
 /* eslint-disable prefer-template */
 /* eslint-disable default-case */
 /* eslint-disable no-plusplus */
@@ -23,7 +23,7 @@ export const defaultEasyDateOptions: EasyDateOptions = {
   yearFrame: 12,
 };
 
-class EasyDate {
+export class EasyDate {
   public value: Date;
 
   private options: EasyDateOptions;
@@ -201,5 +201,3 @@ class EasyDate {
     return this.options.yearFrame;
   }
 }
-
-export default EasyDate;

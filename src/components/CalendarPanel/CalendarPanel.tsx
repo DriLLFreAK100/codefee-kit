@@ -1,5 +1,5 @@
-import EasyDate, { Day, defaultMonthLabels } from 'utils/DateHelper';
 import { AngleLeft, AngleRight } from 'components/Icons';
+import { Day, defaultMonthLabels, EasyDate } from 'utils/DateHelper';
 import { Typography } from 'components/Typography';
 import React, {
   FC, forwardRef, HtmlHTMLAttributes, MouseEvent, useCallback, useEffect, useMemo, useState,

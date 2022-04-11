@@ -1,8 +1,8 @@
-import EasyDate from 'utils/DateHelper';
 import Input from 'components/Input';
 import useHasValueChanged from 'hooks/useHasValueChanged';
 import { Calendar } from 'components/Icons';
 import { CalendarPanelOptions } from 'components/CalendarPanel';
+import { EasyDate } from 'utils/DateHelper';
 import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
