@@ -20,6 +20,9 @@ export { default as CircularProgress } from './CircularProgress';
 export { default as Clock } from './Clock';
 export * from './Clock';
 
+export { default as ConfirmDialog } from './ConfirmDialog';
+export * from './ConfirmDialog';
+
 export * from './DatePicker';
 
 export { default as Dialog } from './Dialog';

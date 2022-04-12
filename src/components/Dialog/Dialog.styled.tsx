@@ -13,7 +13,7 @@ type DialogCssVar = {
 const [defaultCssVar, cssVar] = makeCssVar<DialogCssVar>({
   '--cf-dialog-overlay-color': cvar('--color-gray-7'),
   '--cf-dialog-content-bg-color': cvar('--control-bg-color'),
-  '--cf-dialog-content-padding': rem(20),
+  '--cf-dialog-content-padding': rem(16),
   '--cf-dialog-min-width': rem(360),
 });
 

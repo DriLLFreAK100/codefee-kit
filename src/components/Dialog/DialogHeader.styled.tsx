@@ -16,7 +16,7 @@ const [defaultCssVar, cssVar] = makeCssVar<DialogHeaderCssVar>({
   '--cf-dialog-header-min-height': rem(48),
 });
 
-export const DialogHeader = styled.div`
+export const DialogHeader = styled.header`
   ${defaultCssVar};
   display: flex;
   min-height: ${cssVar('--cf-dialog-header-min-height')};
