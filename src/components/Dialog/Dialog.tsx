@@ -10,7 +10,7 @@ export type DialogProps = {
   isOpen: boolean;
   isMandatory?: boolean;
   variant?: DialogVariant;
-  onClose: () => void;
+  onClose?: () => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
 const modalRootId = 'cf-modal-root';
@@ -51,7 +51,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     const handleOnClose = () => {
       setIsActive(false);
-      withTimeout(() => onClose());
+      withTimeout(() => onClose?.());
     };
 
     useLayoutEffect(() => {
@@ -97,6 +97,7 @@ Dialog.displayName = 'Dialog';
 Dialog.defaultProps = {
   isMandatory: false,
   variant: 'default',
+  onClose: undefined,
 };
 
 export default Dialog;
