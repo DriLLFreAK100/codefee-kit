@@ -13,7 +13,7 @@ const [defaultCssVar, cssVar] = makeCssVar<DialogFooterCssVar>({
   '--cf-dialog-footer-justify-content': 'flex-end',
 });
 
-export const DialogFooter = styled.div`
+export const DialogFooter = styled.footer`
   ${defaultCssVar};
   min-height: ${rem(48)};
   border-top: ${cssVar('--cf-dialog-footer-border-top')};
