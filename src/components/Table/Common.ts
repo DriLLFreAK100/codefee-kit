@@ -1,6 +1,7 @@
 import orderBy from 'lodash-es/orderBy';
 import { ListObjectRequiredProps } from 'common';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
+import { rem } from 'utils/StyleHelper';
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -19,7 +20,19 @@ export const FlexAlignmentMap: { [key in Alignment]: string } = {
 };
 
 export type ColumnDefinition = {
+  /**
+   * The size ratio of the column
+   */
   size?: number;
+
+  /**
+   * The fixed width dp. This will supersede the `size` props
+   */
+  fixedSize?: number;
+
+  /**
+   * Alignment within the column (left, center, right)
+   */
   align?: Alignment;
 };
 
@@ -38,12 +51,22 @@ export type SortKey = [string, OrderByDirection];
 
 export const defaultSortKey: SortKey = ['', 'asc'];
 
-export const getColumnFlexBasis = (
+export const getColumnStyle = (
   current: ColumnDefinition,
   colDefs: ColumnDefinition[],
-): string => {
+): CSSProperties => {
+  if (current.fixedSize) {
+    return {
+      flexGrow: 0,
+      flexBasis: rem(current.fixedSize),
+    };
+  }
+
   const totalSize = colDefs.reduce((acc, curr) => acc + (curr.size || 1), 0);
-  return `${((current.size || 1) / totalSize) * 100}%`;
+
+  return {
+    flexBasis: `${((current.size || 1) / totalSize) * 100}%`,
+  };
 };
 
 export const trySortData = (

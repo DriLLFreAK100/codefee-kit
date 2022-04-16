@@ -5,8 +5,8 @@ import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { cvar, rem } from 'utils/StyleHelper';
 import Table, {
-  TableProps, DataColumnDefinition, TableStyles, getColumnFlexBasis, getContentTitle,
-} from '../components/Table';
+  TableProps, DataColumnDefinition, TableStyles, getColumnStyle, getContentTitle,
+} from 'components/Table';
 import CoffeeDistributor2019 from './assets/coffee-distributor-2019';
 
 export default {
@@ -48,6 +48,49 @@ const baseProps = {
 
 export const Default = Template.bind({});
 Default.args = { ...baseProps };
+
+export const WithColumnSizing = Template.bind({});
+WithColumnSizing.args = {
+  ...baseProps,
+  colDefs: [
+    {
+      id: 1, header: 'Rank', field: 'Rank', size: 2,
+    },
+    {
+      id: 2, header: 'Country', field: 'Country', size: 5,
+    },
+    {
+      id: 3, header: 'Bags', field: 'Bags', size: 1,
+    },
+    {
+      id: 4, header: 'MetricTons', field: 'MetricTons', size: 1,
+    },
+    {
+      id: 5, header: 'Pounds', field: 'Pounds', size: 1,
+    },
+  ] as DataColumnDefinition[],
+};
+
+export const WithFixedSizeColumn = Template.bind({});
+WithFixedSizeColumn.args = {
+  ...baseProps,
+  data: CoffeeDistributor2019.map((c) => ({
+    Rank: parseInt(c.Rank, 10),
+    Country: c.Country,
+    Bags: parseInt(c.Bags, 10),
+  })),
+  colDefs: [
+    {
+      id: 1, header: 'Rank', field: 'Rank', fixedSize: 100,
+    },
+    {
+      id: 2, header: 'Country', field: 'Country', size: 1,
+    },
+    {
+      id: 3, header: 'Bags', field: 'Bags', size: 1,
+    },
+  ] as DataColumnDefinition[],
+};
 
 export const WithEmptyRecords = Template.bind({});
 WithEmptyRecords.args = {
@@ -201,7 +244,7 @@ WithCustomRowTemplate.args = {
           return (
             <TableStyles.Td
               key={id}
-              style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
+              style={getColumnStyle(colDef, colDefs)}
               align={align || 'left'}
               title={getContentTitle(node)}
             >

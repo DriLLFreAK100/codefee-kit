@@ -4,7 +4,7 @@ import * as S from './Table.styled';
 import {
   DataColumnDefinition,
   FooterColumnDefinition,
-  getColumnFlexBasis,
+  getColumnStyle,
   getContentTitle,
   OrderByDirection,
 } from './Common';
@@ -45,7 +45,7 @@ export const defaultBodyRowTemplate = (
         return (
           <S.Td
             key={id}
-            style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
+            style={getColumnStyle(colDef, colDefs)}
             align={align || 'left'}
             title={getContentTitle(node)}
           >
@@ -82,7 +82,7 @@ export const defaultHeaderRowTemplate = (
         return (
           <S.Th
             key={id}
-            style={{ flexBasis: getColumnFlexBasis(colDef, colDefs) }}
+            style={getColumnStyle(colDef, colDefs)}
             align={align || 'left'}
             sortable={!disableSort}
             isSortActive={isSortActive}
@@ -104,7 +104,7 @@ export const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): 
       return (
         <S.Td
           key={id}
-          style={{ flexBasis: getColumnFlexBasis(footerDef, footerDefs) }}
+          style={getColumnStyle(footerDef, footerDefs)}
           align={align || 'left'}
         >
           <S.CellContent>
