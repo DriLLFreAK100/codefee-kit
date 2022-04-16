@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.22](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.21...v0.0.42-alpha.22) (2022-04-16)
+
+
+### Features
+
+* **table:** include fixed column size prop ([d973796](https://github.com/DriLLFreAK100/codefee-kit/commit/d973796bc431a41fa6668681987f59dfb4d423be))
+
 ### [0.0.42-alpha.21](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.20...v0.0.42-alpha.21) (2022-04-12)
 
 

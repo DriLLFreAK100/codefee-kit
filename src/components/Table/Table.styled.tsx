@@ -115,6 +115,7 @@ export const Th = styled.th<ThProps>`
   font-weight: 600;
   display: flex;
   align-items: center;
+  flex-grow: 1;
   justify-content: ${({ align }) => FlexAlignmentMap[align]};
   height: 100%;
   cursor: ${({ sortable }) => (sortable ? 'pointer' : 'initial')};
@@ -132,6 +133,7 @@ export const Td = styled.td<{ align: Alignment }>`
   ${TypographyStyles.Body1Css()}
   display: flex;
   align-items: center;
+  flex-grow: 1;
   justify-content: ${({ align }) => FlexAlignmentMap[align]};
   height: 100%;
   box-sizing: border-box;
