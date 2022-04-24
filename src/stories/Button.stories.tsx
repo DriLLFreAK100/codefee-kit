@@ -48,10 +48,21 @@ Error.args = {
   variant: 'error',
 } as ButtonProps;
 
+export const Lite = Template.bind({});
+Lite.args = {
+  text: 'Click Me!',
+  variant: 'lite',
+} as ButtonProps;
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   text: 'Click Me!',
   disabled: true,
+} as ButtonProps;
+
+export const ViaChildren = Template.bind({});
+ViaChildren.args = {
+  children: 'Click Me!',
 } as ButtonProps;
 
 export const OnClick = Template.bind({});
