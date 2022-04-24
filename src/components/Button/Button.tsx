@@ -4,9 +4,10 @@ import React, {
 } from 'react';
 import * as S from './Button.styled';
 
-export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error';
+export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error' | 'ghost';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  type: 'submit' | 'reset' | 'button';
   children?: ReactNode;
   text?: string;
   variant?: ButtonType;
@@ -27,6 +28,8 @@ const getButtonComponent = (type: ButtonType) => {
       return S.WarningButton;
     case 'error':
       return S.ErrorButton;
+    case 'ghost':
+      return S.GhostButton;
     default:
       return S.PrimaryButton;
   }
