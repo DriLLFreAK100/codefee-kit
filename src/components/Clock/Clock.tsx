@@ -95,7 +95,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       () => (
         <EditMinuteMode
           centerDomRect={centerDotEl?.getBoundingClientRect()}
-          minuteDeg={minuteDeg}
+          minutes={minutes}
           minuteMarks={minuteMarks as string[]}
           onMinuteChange={handleMinuteChange}
         />

@@ -3,25 +3,26 @@ import React, {
 } from 'react';
 import { polarToCartesian } from 'utils/MathHelper';
 import * as S from './Clock.styled';
-import { calcTouchMinutes, clockMarks } from './Common';
+import { calcTouchMinutes, clockMarks, minutesMarks } from './Common';
 
 type EditMinuteModeProps = {
   centerDomRect: DOMRect | undefined;
-  minuteDeg: number;
+  minutes: number;
   minuteMarks: string[];
   onMinuteChange?: (minute: number) => void;
 };
 
 const EditMinuteMode: FC<EditMinuteModeProps> = ({
   centerDomRect,
-  minuteDeg,
+  minutes,
   minuteMarks,
   onMinuteChange,
 }: EditMinuteModeProps) => {
   const isDragging = useRef(false);
-  const [internalMinuteDeg, setInternalMinuteDeg] = useState(minuteDeg);
+  const [internalMinutes, setInternalMinutes] = useState(minutes);
+  const internalMinuteDeg = internalMinutes * 6;
 
-  useLayoutEffect(() => setInternalMinuteDeg(minuteDeg), [minuteDeg]);
+  useLayoutEffect(() => setInternalMinutes(minutes), [minutes]);
 
   const handleDragging = useCallback((
     { clientX, clientY }: MouseEvent<SVGRectElement>,
@@ -29,7 +30,7 @@ const EditMinuteMode: FC<EditMinuteModeProps> = ({
   ) => {
     if (isDragging.current && centerDomRect) {
       const value = calcTouchMinutes(centerDomRect, clientX, clientY);
-      setInternalMinuteDeg(value * 6);
+      setInternalMinutes(value);
 
       if (isEnd) {
         onMinuteChange?.(value);
@@ -50,14 +51,21 @@ const EditMinuteMode: FC<EditMinuteModeProps> = ({
   return (
     <>
       <S.CenterGroup>
+        {minutesMarks.map((i) => {
+          const { x, y } = polarToCartesian(0, 0, 252, i * 6);
+          return internalMinutes === i ? <S.ActiveCircle cx={x} cy={y} r="32" /> : null;
+        })}
+
         {clockMarks.map((i) => {
-          const { x, y } = polarToCartesian(0, 0, 260, i * 30);
+          const { x, y } = polarToCartesian(0, 0, 252, i * 30);
+          const isActive = internalMinutes === i * 5;
 
           return (
             <S.Text
               key={i}
               x={x}
               y={y}
+              isActive={isActive}
             >
               <tspan
                 textAnchor="middle"

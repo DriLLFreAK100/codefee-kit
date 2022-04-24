@@ -9,6 +9,8 @@ export type ViewStyle = 'line' | 'hourText';
 
 export const clockMarks: number[] = fillArray(12);
 
+export const minutesMarks: number[] = fillArray(60);
+
 export const defaultHourMarks: string[] = fillArray(12, (i) => (i === 0 ? 12 : i).toString());
 
 export const defaultMinuteMarks: string[] = fillArray(
