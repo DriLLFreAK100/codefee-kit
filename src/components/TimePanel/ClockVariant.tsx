@@ -36,11 +36,11 @@ const ClockVariant: FC<TimeInputProps> = ({
 
   const handleTimeChange = (value: Time) => {
     onTimeChange?.(normalizeTime(value, timePeriod));
-    setClockMode(toggleClockMode(clockMode));
   };
 
   const handleHourChange = (value: Time) => {
     onHourChange?.(value);
+    setClockMode(toggleClockMode(clockMode));
     handleTimeChange(value);
   };
 
