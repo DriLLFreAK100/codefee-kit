@@ -31,7 +31,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
     const [selectedDateTime, setSelectedDateTime] = useState<EasyDate | undefined>(undefined);
     const isTouched = useHasValueChanged(inputValue);
 
-    const closeTimeSelector = () => setOpen(false);
+    const closeDateTimeSelector = () => setOpen(false);
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValue(sanitizeDateTimeInput(e.currentTarget.value, inputValue));
@@ -42,21 +42,29 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
     };
 
     const updateDateTime = (value?: Date) => {
-      const value$ = new EasyDate(value);
-      setSelectedDateTime(value$);
-      setInputValue(value$.format('MM/dd/yyyy hh:mm ampm'));
+      if (value) {
+        const value$ = new EasyDate(value);
+        setSelectedDateTime(value$);
+        setInputValue(value$.format('MM/dd/yyyy hh:mm ampm'));
+        return;
+      }
+
+      setSelectedDateTime(undefined);
+      setInputValue('');
     };
 
     const handleMinuteChange = (value: Date) => {
       onDateTimeChange?.(value);
-      closeTimeSelector();
+      closeDateTimeSelector();
     };
 
-    useEffect(() => {
-      if (dateTime) {
-        updateDateTime(dateTime);
-      }
-    }, [dateTime]);
+    const handleClickOutside = () => {
+      // Revert internal states to initial states
+      updateDateTime(dateTime);
+      closeDateTimeSelector();
+    };
+
+    useEffect(() => updateDateTime(dateTime), [dateTime]);
 
     return (
       <S.Picker
@@ -67,7 +75,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
             placeholder={placeholder}
             value={inputValue}
             error={isTouched && !isValidDate(inputValue)}
-            onFocus={closeTimeSelector}
+            onFocus={closeDateTimeSelector}
             onBlur={handleInputBlur}
             onChange={handleInputChange}
           />
@@ -83,7 +91,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
         )}
         icon={<Calendar />}
         setOpen={setOpen}
-        onClose={handleInputBlur}
+        onClose={handleClickOutside}
         {...passThrough}
       />
     );
