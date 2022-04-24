@@ -3,25 +3,27 @@ import React, {
   FC, MouseEvent, useCallback, useLayoutEffect, useRef, useState,
 } from 'react';
 import * as S from './Clock.styled';
-import { calcTouchHours, clockMarks } from './Common';
+import { calcTouchHours, clockMarks, indexizeHour } from './Common';
 
 type EditHourModeProps = {
   centerDomRect: DOMRect | undefined;
-  hourDeg: number;
+  hours: number;
   hourMarks: string[];
   onHourChange?: (hour: number) => void;
 };
 
 const EditHourMode: FC<EditHourModeProps> = ({
   centerDomRect,
-  hourDeg,
+  hours,
   hourMarks,
   onHourChange,
 }: EditHourModeProps) => {
   const isDragging = useRef(false);
-  const [internalHourDeg, setInternalHourDeg] = useState(hourDeg);
+  const [internalHours, setInternalHours] = useState(hours);
+  const internalHourDeg = internalHours * 30;
+  const activeMark = indexizeHour(internalHours);
 
-  useLayoutEffect(() => setInternalHourDeg(hourDeg), [hourDeg]);
+  useLayoutEffect(() => setInternalHours(hours), [hours]);
 
   const handleDragging = useCallback((
     { clientX, clientY }: MouseEvent<SVGRectElement>,
@@ -29,7 +31,7 @@ const EditHourMode: FC<EditHourModeProps> = ({
   ) => {
     if (isDragging.current && centerDomRect) {
       const value = calcTouchHours(centerDomRect, clientX, clientY);
-      setInternalHourDeg(value * 30);
+      setInternalHours(value);
 
       if (isEnd) {
         onHourChange?.(value);
@@ -52,20 +54,25 @@ const EditHourMode: FC<EditHourModeProps> = ({
       <S.CenterGroup>
         {clockMarks.map((i) => {
           const { x, y } = polarToCartesian(0, 0, 260, i * 30);
+          const isActive = activeMark === i;
 
           return (
-            <S.Text
-              key={i}
-              x={x}
-              y={y}
-            >
-              <tspan
-                textAnchor="middle"
-                alignmentBaseline="central"
+            <>
+              {isActive && <S.ActiveCircle cx={x} cy={y} r="28" />}
+              <S.Text
+                key={i}
+                x={x}
+                y={y}
+                isActive={isActive}
               >
-                {hourMarks[i]}
-              </tspan>
-            </S.Text>
+                <tspan
+                  textAnchor="middle"
+                  alignmentBaseline="central"
+                >
+                  {hourMarks[i]}
+                </tspan>
+              </S.Text>
+            </>
           );
         })}
       </S.CenterGroup>

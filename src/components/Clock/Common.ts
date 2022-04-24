@@ -30,6 +30,8 @@ export const computeRealtimeClock = (setState: (value: SetStateAction<Time>) => 
 
 export const normalizeHour = (hour: number): number => (hour > 12 ? hour - 12 : hour);
 
+export const indexizeHour = (hour: number): number => hour % 12;
+
 export const calcTouchPointAngle = (
   centerPoint: DOMRect,
   touchX: number,

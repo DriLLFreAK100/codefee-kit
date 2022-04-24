@@ -87,7 +87,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       () => (
         <EditHourMode
           centerDomRect={centerDotEl?.getBoundingClientRect()}
-          hourDeg={hourDeg}
+          hours={hours}
           hourMarks={hourMarks as string[]}
           onHourChange={handleHourChange}
         />
