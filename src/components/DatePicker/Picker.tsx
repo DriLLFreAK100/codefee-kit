@@ -29,8 +29,10 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
     const hostRef = useRef<HTMLDivElement>(null);
 
     const closeSelector = () => {
-      setOpen(false);
-      onClose?.();
+      if (open) {
+        setOpen(false);
+        onClose?.();
+      }
     };
     const openSelector = () => setOpen(true);
 
