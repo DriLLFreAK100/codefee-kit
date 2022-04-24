@@ -6,6 +6,7 @@ import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
 import { isValidDate, sanitizeDateTimeInput } from './Common';
+import Picker from './Picker';
 import DateTimeSelector from './DateTimeSelector';
 import * as S from './DateTimePicker.styled';
 
@@ -53,8 +54,10 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
       setInputValue('');
     };
 
-    const handleMinuteChange = (value: Date) => {
-      onDateTimeChange?.(value);
+    const handleMinuteChange = (value: Date) => updateDateTime(value);
+
+    const handleClickOk = () => {
+      onDateTimeChange?.(selectedDateTime?.value);
       closeDateTimeSelector();
     };
 
@@ -67,7 +70,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
     useEffect(() => updateDateTime(dateTime), [dateTime]);
 
     return (
-      <S.Picker
+      <Picker
         ref={ref}
         open={open}
         input={(
@@ -91,6 +94,9 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
         )}
         icon={<Calendar />}
         setOpen={setOpen}
+        hasFooterControls
+        onOk={handleClickOk}
+        onCancel={handleClickOutside}
         onClose={handleClickOutside}
         {...passThrough}
       />

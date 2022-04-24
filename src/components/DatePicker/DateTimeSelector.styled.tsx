@@ -3,12 +3,10 @@ import { Clock } from 'components/Icons';
 import TimePanel from 'components/TimePanel';
 import styled, { css } from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
-import { cssVar } from './DateTimePicker.styled';
+import { cssVar } from './Common';
 
 export const DateTimeSelector = styled.div`
-  background-color: ${cssVar('--cf-date-time-picker-background-color')};
-  position: absolute;
-  box-shadow: ${cvar('--control-shadow')};
+  background-color: ${cssVar('--cf-date-picker-background-color')};
 `;
 
 export const OptionBar = styled.div`
@@ -27,7 +25,7 @@ export const OptionButton = styled.button<{ isActive: boolean }>`
   flex: 1;
   border: none;
   border-bottom: ${rem(4)} solid transparent;
-  background-color: ${cssVar('--cf-date-time-picker-background-color')};
+  background-color: ${cssVar('--cf-date-picker-background-color')};
   transition: border-bottom-color ${cvar('--transition-hover')}, color ${cvar('--transition-hover')};
 
   &:hover{
@@ -43,12 +41,12 @@ export const OptionButton = styled.button<{ isActive: boolean }>`
 `;
 
 export const DateSelector = styled(CalendarPanel)`
-  --cf-calendar-panel-background-color: ${cssVar('--cf-date-time-picker-background-color')};
+  --cf-calendar-panel-background-color: ${cssVar('--cf-date-picker-background-color')};
   box-shadow: none;
 `;
 
 export const TimeSelector = styled(TimePanel)`
-  --cf-time-panel-background-color: ${cssVar('--cf-date-time-picker-background-color')};
+  --cf-time-panel-background-color: ${cssVar('--cf-date-picker-background-color')};
   min-width: ${rem(368)};
   box-shadow: none;
 `;

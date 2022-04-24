@@ -59,14 +59,16 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
 
     const handleTimeChange = (value: Time) => updateTime(value);
 
-    const handleMinuteChange = (value: Time) => {
-      onTimeChange?.(value);
-      closeTimeSelector();
-    };
+    const handleMinuteChange = (value: Time) => updateTime(value);
 
     const handleClickOutside = () => {
       // Revert internal states to initial states
       updateTime(time);
+      closeTimeSelector();
+    };
+
+    const handleClickOk = () => {
+      onTimeChange?.(selectedTime?.value);
       closeTimeSelector();
     };
 
@@ -95,7 +97,10 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
           />
         )}
         icon={<S.ClockIcon />}
+        hasFooterControls
         setOpen={setOpen}
+        onOk={handleClickOk}
+        onCancel={handleClickOutside}
         onClose={handleClickOutside}
         {...passThrough}
       />
