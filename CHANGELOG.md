@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.23](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.22...v0.0.42-alpha.23) (2022-04-24)
+
+
+### Features
+
+* **button:** include ghost style and include default typography styles ([6303a3f](https://github.com/DriLLFreAK100/codefee-kit/commit/6303a3f176a53828107bb169bab09569ff0282f4))
+* **clock:** active hour color ([86a9661](https://github.com/DriLLFreAK100/codefee-kit/commit/86a9661b658f09af0d49015c96824ed09927ac63))
+* **clock:** minutes active circle ([5314561](https://github.com/DriLLFreAK100/codefee-kit/commit/5314561e1243bd09dee30cdaed31d27662badb87))
+* **clock:** toggle edit mode from hour to minute only ([82a53e5](https://github.com/DriLLFreAK100/codefee-kit/commit/82a53e5ae0b83c5c8bee770f5f47b9c35c20b599))
+* **date-picker:** include ok cancel for datetime and time pickers ([0c6fa02](https://github.com/DriLLFreAK100/codefee-kit/commit/0c6fa02ae341035a4bfc49a5775b73e19a32eb43))
+* **date-time-picker:** revert to initial state upon clickoutside ([fb5a3cf](https://github.com/DriLLFreAK100/codefee-kit/commit/fb5a3cf8e9edda5efdef9b519487e44e7f474348))
+* **time-picker:** revert upon click outside ([f539937](https://github.com/DriLLFreAK100/codefee-kit/commit/f5399375d205ff872976209545b4b941b38f5804))
+
+
+### Bug Fixes
+
+* **clock:** event props and key related errors ([09c7eac](https://github.com/DriLLFreAK100/codefee-kit/commit/09c7eac1648bab8d4e33bf0b063f36da68c8cc9e))
+* **date-picker:** avoid clickoutside evt when not open ([9e70b2b](https://github.com/DriLLFreAK100/codefee-kit/commit/9e70b2b3e72d43e8be8021dfbcf162a320e957d3))
+
 ### [0.0.42-alpha.22](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.21...v0.0.42-alpha.22) (2022-04-16)
 
 
