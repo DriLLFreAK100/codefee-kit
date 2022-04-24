@@ -1,6 +1,6 @@
 import { polarToCartesian } from 'utils/MathHelper';
 import React, {
-  FC, MouseEvent, useCallback, useLayoutEffect, useRef, useState,
+  FC, Fragment, MouseEvent, useCallback, useLayoutEffect, useRef, useState,
 } from 'react';
 import * as S from './Clock.styled';
 import {
@@ -59,7 +59,7 @@ const EditHourMode: FC<EditHourModeProps> = ({
           const isActive = activeMark === i;
 
           return (
-            <>
+            <Fragment key={i}>
               {isActive && (
                 <S.ActiveCircle
                   cx={x}
@@ -68,7 +68,6 @@ const EditHourMode: FC<EditHourModeProps> = ({
                 />
               )}
               <S.Text
-                key={i}
                 x={x}
                 y={y}
                 isActive={isActive}
@@ -80,7 +79,7 @@ const EditHourMode: FC<EditHourModeProps> = ({
                   {hourMarks[i]}
                 </tspan>
               </S.Text>
-            </>
+            </Fragment>
           );
         })}
       </S.CenterGroup>

@@ -63,6 +63,7 @@ const EditMinuteMode: FC<EditMinuteModeProps> = ({
           const { x, y } = polarToCartesian(0, 0, markRadius, calcMinorDeg(i));
           return internalMinutes === i && (
             <S.ActiveCircle
+              key={i}
               cx={x}
               cy={y}
               r={activeCircleRadius}
