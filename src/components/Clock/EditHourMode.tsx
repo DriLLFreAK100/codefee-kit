@@ -3,7 +3,9 @@ import React, {
   FC, MouseEvent, useCallback, useLayoutEffect, useRef, useState,
 } from 'react';
 import * as S from './Clock.styled';
-import { calcTouchHours, clockMarks, indexizeHour } from './Common';
+import {
+  activeCircleRadius, calcMajorDeg, calcTouchHours, clockMarks, indexizeHour, markRadius,
+} from './Common';
 
 type EditHourModeProps = {
   centerDomRect: DOMRect | undefined;
@@ -20,7 +22,7 @@ const EditHourMode: FC<EditHourModeProps> = ({
 }: EditHourModeProps) => {
   const isDragging = useRef(false);
   const [internalHours, setInternalHours] = useState(hours);
-  const internalHourDeg = internalHours * 30;
+  const internalHourDeg = calcMajorDeg(internalHours);
   const activeMark = indexizeHour(internalHours);
 
   useLayoutEffect(() => setInternalHours(hours), [hours]);
@@ -53,12 +55,18 @@ const EditHourMode: FC<EditHourModeProps> = ({
     <>
       <S.CenterGroup>
         {clockMarks.map((i) => {
-          const { x, y } = polarToCartesian(0, 0, 252, i * 30);
+          const { x, y } = polarToCartesian(0, 0, markRadius, calcMajorDeg(i));
           const isActive = activeMark === i;
 
           return (
             <>
-              {isActive && <S.ActiveCircle cx={x} cy={y} r="32" />}
+              {isActive && (
+                <S.ActiveCircle
+                  cx={x}
+                  cy={y}
+                  r={activeCircleRadius}
+                />
+              )}
               <S.Text
                 key={i}
                 x={x}

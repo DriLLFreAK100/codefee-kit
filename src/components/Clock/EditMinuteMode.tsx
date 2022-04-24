@@ -1,9 +1,17 @@
+import { polarToCartesian } from 'utils/MathHelper';
 import React, {
   FC, MouseEvent, useCallback, useLayoutEffect, useRef, useState,
 } from 'react';
-import { polarToCartesian } from 'utils/MathHelper';
 import * as S from './Clock.styled';
-import { calcTouchMinutes, clockMarks, minutesMarks } from './Common';
+import {
+  activeCircleRadius,
+  calcMajorDeg,
+  calcMinorDeg,
+  calcTouchMinutes,
+  clockMarks,
+  markRadius,
+  minutesMarks,
+} from './Common';
 
 type EditMinuteModeProps = {
   centerDomRect: DOMRect | undefined;
@@ -20,7 +28,7 @@ const EditMinuteMode: FC<EditMinuteModeProps> = ({
 }: EditMinuteModeProps) => {
   const isDragging = useRef(false);
   const [internalMinutes, setInternalMinutes] = useState(minutes);
-  const internalMinuteDeg = internalMinutes * 6;
+  const internalMinuteDeg = calcMinorDeg(internalMinutes);
 
   useLayoutEffect(() => setInternalMinutes(minutes), [minutes]);
 
@@ -52,12 +60,18 @@ const EditMinuteMode: FC<EditMinuteModeProps> = ({
     <>
       <S.CenterGroup>
         {minutesMarks.map((i) => {
-          const { x, y } = polarToCartesian(0, 0, 252, i * 6);
-          return internalMinutes === i ? <S.ActiveCircle cx={x} cy={y} r="32" /> : null;
+          const { x, y } = polarToCartesian(0, 0, markRadius, calcMinorDeg(i));
+          return internalMinutes === i && (
+            <S.ActiveCircle
+              cx={x}
+              cy={y}
+              r={activeCircleRadius}
+            />
+          );
         })}
 
         {clockMarks.map((i) => {
-          const { x, y } = polarToCartesian(0, 0, 252, i * 30);
+          const { x, y } = polarToCartesian(0, 0, markRadius, calcMajorDeg(i));
           const isActive = internalMinutes === i * 5;
 
           return (

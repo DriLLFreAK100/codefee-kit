@@ -18,6 +18,10 @@ export const defaultMinuteMarks: string[] = fillArray(
   (i) => (i === 0 ? (60).toString() : (i * 5).toString().padStart(2, '0')),
 );
 
+export const markRadius = 252;
+
+export const activeCircleRadius = 32;
+
 export const computeRealtimeClock = (setState: (value: SetStateAction<Time>) => void): void => {
   const curr = new Date();
 
@@ -33,6 +37,10 @@ export const computeRealtimeClock = (setState: (value: SetStateAction<Time>) => 
 export const normalizeHour = (hour: number): number => (hour > 12 ? hour - 12 : hour);
 
 export const indexizeHour = (hour: number): number => hour % 12;
+
+export const calcMajorDeg = (hour: number): number => hour * 30;
+
+export const calcMinorDeg = (minute: number): number => minute * 6;
 
 export const calcTouchPointAngle = (
   centerPoint: DOMRect,

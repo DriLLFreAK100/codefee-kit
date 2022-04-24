@@ -56,7 +56,7 @@ export const HourMark = styled.line<{ hour: number }>`
   transform: rotate(${({ hour }) => hour * 30}deg);
 `;
 
-export const Text = styled.text<{ isActive: boolean }>`
+export const Text = styled.text<{ isActive?: boolean }>`
   font-size: ${rem(40)};
   font-family: ${cvar('--font-family-secondary')};
   user-select: none;
