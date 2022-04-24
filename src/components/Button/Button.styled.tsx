@@ -137,7 +137,7 @@ export const ErrorButton = styled(StyledButton)`
   }
 `;
 
-export const GhostButton = styled(StyledButton)`
+export const LiteButton = styled(StyledButton)`
   background-color: inherit;
   color: black;
   box-shadow: unset;
@@ -145,11 +145,11 @@ export const GhostButton = styled(StyledButton)`
 
   :hover {
     text-decoration: none;
-    background: ${cvar('--color-gray-3')};
+    background: ${cvar('--color-gray-2')};
   } 
 
   :active {
     text-decoration: none;
-    background: ${cvar('--color-gray-4')};
+    background: ${cvar('--color-gray-3')};
   } 
 `;

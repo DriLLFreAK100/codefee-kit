@@ -1,10 +1,9 @@
-import { Typography } from 'components/Typography';
 import React, {
   ReactNode, forwardRef, ButtonHTMLAttributes,
 } from 'react';
 import * as S from './Button.styled';
 
-export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error' | 'ghost';
+export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error' | 'lite';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type: 'submit' | 'reset' | 'button';
@@ -28,8 +27,8 @@ const getButtonComponent = (type: ButtonType) => {
       return S.WarningButton;
     case 'error':
       return S.ErrorButton;
-    case 'ghost':
-      return S.GhostButton;
+    case 'lite':
+      return S.LiteButton;
     default:
       return S.PrimaryButton;
   }
@@ -53,7 +52,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         onClick={onClick}
         {...passThrough}
       >
-        {children ?? <Typography type="button">{text}</Typography>}
+        {children ?? text}
       </Component>
     );
   },
