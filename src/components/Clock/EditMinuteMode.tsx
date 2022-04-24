@@ -1,27 +1,36 @@
+import { polarToCartesian } from 'utils/MathHelper';
 import React, {
   FC, MouseEvent, useCallback, useLayoutEffect, useRef, useState,
 } from 'react';
-import { polarToCartesian } from 'utils/MathHelper';
 import * as S from './Clock.styled';
-import { calcTouchMinutes, clockMarks } from './Common';
+import {
+  activeCircleRadius,
+  calcMajorDeg,
+  calcMinorDeg,
+  calcTouchMinutes,
+  clockMarks,
+  markRadius,
+  minutesMarks,
+} from './Common';
 
 type EditMinuteModeProps = {
   centerDomRect: DOMRect | undefined;
-  minuteDeg: number;
+  minutes: number;
   minuteMarks: string[];
   onMinuteChange?: (minute: number) => void;
 };
 
 const EditMinuteMode: FC<EditMinuteModeProps> = ({
   centerDomRect,
-  minuteDeg,
+  minutes,
   minuteMarks,
   onMinuteChange,
 }: EditMinuteModeProps) => {
   const isDragging = useRef(false);
-  const [internalMinuteDeg, setInternalMinuteDeg] = useState(minuteDeg);
+  const [internalMinutes, setInternalMinutes] = useState(minutes);
+  const internalMinuteDeg = calcMinorDeg(internalMinutes);
 
-  useLayoutEffect(() => setInternalMinuteDeg(minuteDeg), [minuteDeg]);
+  useLayoutEffect(() => setInternalMinutes(minutes), [minutes]);
 
   const handleDragging = useCallback((
     { clientX, clientY }: MouseEvent<SVGRectElement>,
@@ -29,7 +38,7 @@ const EditMinuteMode: FC<EditMinuteModeProps> = ({
   ) => {
     if (isDragging.current && centerDomRect) {
       const value = calcTouchMinutes(centerDomRect, clientX, clientY);
-      setInternalMinuteDeg(value * 6);
+      setInternalMinutes(value);
 
       if (isEnd) {
         onMinuteChange?.(value);
@@ -50,14 +59,28 @@ const EditMinuteMode: FC<EditMinuteModeProps> = ({
   return (
     <>
       <S.CenterGroup>
+        {minutesMarks.map((i) => {
+          const { x, y } = polarToCartesian(0, 0, markRadius, calcMinorDeg(i));
+          return internalMinutes === i && (
+            <S.ActiveCircle
+              key={i}
+              cx={x}
+              cy={y}
+              r={activeCircleRadius}
+            />
+          );
+        })}
+
         {clockMarks.map((i) => {
-          const { x, y } = polarToCartesian(0, 0, 260, i * 30);
+          const { x, y } = polarToCartesian(0, 0, markRadius, calcMajorDeg(i));
+          const isActive = internalMinutes === i * 5;
 
           return (
             <S.Text
               key={i}
               x={x}
               y={y}
+              isActive={isActive}
             >
               <tspan
                 textAnchor="middle"

@@ -7,6 +7,8 @@ import EditHourMode from './EditHourMode';
 import EditMinuteMode from './EditMinuteMode';
 import ViewMode from './ViewMode';
 import {
+  calcMajorDeg,
+  calcMinorDeg,
   ClockMode,
   computeRealtimeClock,
   defaultHourMarks,
@@ -45,9 +47,9 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
     const [centerDotEl, setCenterDotEl] = useState<SVGCircleElement | null>();
 
     const { hours, minutes, seconds } = internalTime as Time;
-    const hourDeg = normalizeHour(hours) * 30;
-    const minuteDeg = minutes * 6 + (((seconds || 0) / 60) * 6);
-    const secondsDeg = (seconds || 0) * 6;
+    const hourDeg = calcMajorDeg(normalizeHour(hours));
+    const minuteDeg = calcMinorDeg(minutes) + calcMinorDeg((seconds || 0) / 60);
+    const secondsDeg = calcMinorDeg(seconds || 0);
 
     const handleCenterDotRef = useCallback((el: SVGCircleElement | null) => setCenterDotEl(el), []);
 
@@ -87,7 +89,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       () => (
         <EditHourMode
           centerDomRect={centerDotEl?.getBoundingClientRect()}
-          hourDeg={hourDeg}
+          hours={hours}
           hourMarks={hourMarks as string[]}
           onHourChange={handleHourChange}
         />
@@ -95,7 +97,7 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       () => (
         <EditMinuteMode
           centerDomRect={centerDotEl?.getBoundingClientRect()}
-          minuteDeg={minuteDeg}
+          minutes={minutes}
           minuteMarks={minuteMarks as string[]}
           onMinuteChange={handleMinuteChange}
         />

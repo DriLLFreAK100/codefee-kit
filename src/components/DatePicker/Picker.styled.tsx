@@ -1,16 +1,8 @@
 import styled from 'styled-components';
+import Button from 'components/Button';
 import { IconButtonStyles } from 'components/IconButton';
-import { makeCssVar, rem } from 'utils/StyleHelper';
-
-export type DateTimePickerCssVar = {
-  '--cf-date-time-picker-calendar-icon-dimension': string;
-  '--cf-date-time-picker-calendar-icon-margin-right': string;
-};
-
-const [defaultCssVar, cssVar] = makeCssVar<DateTimePickerCssVar>({
-  '--cf-date-time-picker-calendar-icon-dimension': rem(40),
-  '--cf-date-time-picker-calendar-icon-margin-right': rem(4),
-});
+import { cvar, rem } from 'utils/StyleHelper';
+import { cssVar, defaultCssVar } from './Common';
 
 export const Picker = styled.div`
   ${defaultCssVar};
@@ -23,13 +15,37 @@ export const InputGroup = styled.div`
   position: relative;
 `;
 
-const halfDimension = `calc(${cssVar('--cf-date-time-picker-calendar-icon-dimension')} / 2)`;
+const halfDimension = `calc(${cssVar('--cf-date-picker-icon-dimension')} / 2)`;
 
-export const CalendarButton = styled.button`
+export const IconButton = styled.button`
   ${IconButtonStyles.SubtleIconButtonCss};
   position: absolute;
-  right: ${cssVar('--cf-date-time-picker-calendar-icon-margin-right')};
+  right: ${cssVar('--cf-date-picker-icon-margin-right')};
   top: calc(${rem(48 / 2)} - ${halfDimension});
-  height: ${cssVar('--cf-date-time-picker-calendar-icon-dimension')};
-  width: ${cssVar('--cf-date-time-picker-calendar-icon-dimension')};
+  height: ${cssVar('--cf-date-picker-icon-dimension')};
+  width: ${cssVar('--cf-date-picker-icon-dimension')};
+`;
+
+export const Selector = styled.div`
+  background-color: ${cssVar('--cf-date-picker-background-color')};
+  position: absolute;
+  box-shadow: ${cvar('--control-shadow')};
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+export const Controls = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0 ${rem(16)} ${rem(8)};
+`;
+
+export const CtrlButton = styled(Button)`
+  min-width: 0;
+
+  &:not(:last-child){
+    margin-right: ${rem(8)};
+  }
 `;

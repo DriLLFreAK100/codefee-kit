@@ -1,3 +1,4 @@
+import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
 import { Time } from 'utils/TimeHelper';
 
 type Convertor = (next: string, prev: string) => string;
@@ -78,3 +79,15 @@ export const getTimeFromStr = (value: string): Time | null => {
 
   return null;
 };
+
+export type DatePickerCssVar = {
+  '--cf-date-picker-background-color': string;
+  '--cf-date-picker-icon-dimension': string;
+  '--cf-date-picker-icon-margin-right': string;
+};
+
+export const [defaultCssVar, cssVar] = makeCssVar<DatePickerCssVar>({
+  '--cf-date-picker-background-color': cvar('--control-bg-color'),
+  '--cf-date-picker-icon-dimension': rem(40),
+  '--cf-date-picker-icon-margin-right': rem(4),
+});

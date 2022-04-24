@@ -2,7 +2,9 @@ import styled, { css } from 'styled-components';
 import { cvar, rem, makeCssVar } from 'utils/StyleHelper';
 
 export type TimePanelCssVar = {
-  '--cf-clock-background-color': string;
+  '--cf-clock-control-bg-color': string;
+  '--cf-clock-control-bg-color-on': string;
+  '--cf-clock-bg-color': string;
   '--cf-clock-frame-color': string;
   '--cf-clock-hour-tick-color': string;
   '--cf-clock-hour-quarter-tick-color': string
@@ -10,17 +12,23 @@ export type TimePanelCssVar = {
   '--cf-clock-arm-long-color': string;
   '--cf-clock-arm-short-color': string;
   '--cf-clock-arm-seconds-color': string;
+  '--cf-clock-selected-color': string;
+  '--cf-clock-selected-color-on': string;
 };
 
 const [defaultCssVar, cssVar] = makeCssVar<TimePanelCssVar>({
-  '--cf-clock-background-color': cvar('--control-bg-color'),
+  '--cf-clock-control-bg-color': cvar('--color-gray-7'),
+  '--cf-clock-control-bg-color-on': cvar('--color-gray-1'),
+  '--cf-clock-bg-color': cvar('--control-bg-color'),
   '--cf-clock-frame-color': cvar('--color-gray-3'),
   '--cf-clock-hour-tick-color': cvar('--color-gray-4'),
   '--cf-clock-hour-quarter-tick-color': cvar('--color-gray-5'),
-  '--cf-clock-center-dot-color': cvar('--color-gray-7'),
-  '--cf-clock-arm-long-color': cvar('--color-gray-7'),
-  '--cf-clock-arm-short-color': cvar('--color-gray-7'),
+  '--cf-clock-center-dot-color': 'var(--cf-clock-control-bg-color)',
+  '--cf-clock-arm-long-color': 'var(--cf-clock-control-bg-color)',
+  '--cf-clock-arm-short-color': 'var(--cf-clock-control-bg-color)',
   '--cf-clock-arm-seconds-color': cvar('--color-secondary-dark'),
+  '--cf-clock-selected-color': 'var(--cf-clock-control-bg-color)',
+  '--cf-clock-selected-color-on': 'var(--cf-clock-control-bg-color-on)',
 });
 
 export const Clock = styled.svg`
@@ -28,7 +36,7 @@ export const Clock = styled.svg`
 `;
 
 export const ClockFrame = styled.circle`
-  fill: ${cssVar('--cf-clock-background-color')};
+  fill: ${cssVar('--cf-clock-bg-color')};
   stroke: ${cssVar('--cf-clock-frame-color')};
   stroke-width: ${rem(8)};
 `;
@@ -48,10 +56,15 @@ export const HourMark = styled.line<{ hour: number }>`
   transform: rotate(${({ hour }) => hour * 30}deg);
 `;
 
-export const Text = styled.text`
+export const Text = styled.text<{ isActive?: boolean }>`
   font-size: ${rem(40)};
   font-family: ${cvar('--font-family-secondary')};
   user-select: none;
+  fill: ${({ isActive }) => isActive && cssVar('--cf-clock-selected-color-on')};
+`;
+
+export const ActiveCircle = styled.circle`
+  fill: ${cssVar('--cf-clock-selected-color')};
 `;
 
 export const CenterGroup = styled.g`

@@ -23,6 +23,10 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
   (props: TimePanelProps, ref) => {
     const {
       inputVariant,
+      time,
+      onTimeChange,
+      onHourChange,
+      onMinuteChange,
       ...passThrough
     } = props;
 
@@ -33,7 +37,13 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
         ref={ref}
         {...passThrough}
       >
-        <InputComponent {...passThrough} />
+        <InputComponent
+          time={time}
+          onTimeChange={onTimeChange}
+          onHourChange={onHourChange}
+          onMinuteChange={onMinuteChange}
+          {...passThrough}
+        />
       </S.TimePanel>
     );
   },

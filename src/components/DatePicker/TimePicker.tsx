@@ -30,13 +30,17 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
 
     const closeTimeSelector = () => setOpen(false);
 
-    const updateTime = (value: Time) => {
-      const value$ = new EasyTime(value);
-      setSelectedTime(value$);
-      setInputValue(value$.format());
-    };
+    const updateTime = (value?: Time) => {
+      if (value) {
+        const value$ = new EasyTime(value);
+        setSelectedTime(value$);
+        setInputValue(value$.format());
+        return;
+      }
 
-    const handleTimeChange = (value: Time) => updateTime(value);
+      setSelectedTime(undefined);
+      setInputValue('');
+    };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.currentTarget.value);
@@ -53,16 +57,22 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
       onTimeChange?.(undefined);
     };
 
-    const handleMinuteChange = (value: Time) => {
-      onTimeChange?.(value);
+    const handleTimeChange = (value: Time) => updateTime(value);
+
+    const handleMinuteChange = (value: Time) => updateTime(value);
+
+    const handleClickOutside = () => {
+      // Revert internal states to initial states
+      updateTime(time);
       closeTimeSelector();
     };
 
-    useEffect(() => {
-      if (time) {
-        updateTime(time);
-      }
-    }, [time]);
+    const handleClickOk = () => {
+      onTimeChange?.(selectedTime?.value);
+      closeTimeSelector();
+    };
+
+    useEffect(() => updateTime(time), [time]);
 
     return (
       <Picker
@@ -87,8 +97,11 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
           />
         )}
         icon={<S.ClockIcon />}
+        hasFooterControls
         setOpen={setOpen}
-        onClose={handleInputBlur}
+        onOk={handleClickOk}
+        onCancel={handleClickOutside}
+        onClose={handleClickOutside}
         {...passThrough}
       />
     );

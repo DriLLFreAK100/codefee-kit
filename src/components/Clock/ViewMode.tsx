@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { polarToCartesian } from 'utils/MathHelper';
 import * as S from './Clock.styled';
-import { clockMarks, ViewStyle } from './Common';
+import {
+  calcMajorDeg, clockMarks, markRadius, ViewStyle,
+} from './Common';
 
 type ViewModeProps = {
   hourDeg: number;
@@ -12,7 +14,7 @@ type ViewModeProps = {
 };
 
 const hourTextStyle = clockMarks.map((i) => {
-  const { x, y } = polarToCartesian(0, 0, 260, i * 30);
+  const { x, y } = polarToCartesian(0, 0, markRadius, calcMajorDeg(i));
   const hour = i === 0 ? 12 : i;
 
   return (

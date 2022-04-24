@@ -6,6 +6,7 @@ import React, {
   ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
 } from 'react';
 import { isValidDate, sanitizeDateTimeInput } from './Common';
+import Picker from './Picker';
 import DateTimeSelector from './DateTimeSelector';
 import * as S from './DateTimePicker.styled';
 
@@ -31,7 +32,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
     const [selectedDateTime, setSelectedDateTime] = useState<EasyDate | undefined>(undefined);
     const isTouched = useHasValueChanged(inputValue);
 
-    const closeTimeSelector = () => setOpen(false);
+    const closeDateTimeSelector = () => setOpen(false);
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValue(sanitizeDateTimeInput(e.currentTarget.value, inputValue));
@@ -42,24 +43,34 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
     };
 
     const updateDateTime = (value?: Date) => {
-      const value$ = new EasyDate(value);
-      setSelectedDateTime(value$);
-      setInputValue(value$.format('MM/dd/yyyy hh:mm ampm'));
-    };
-
-    const handleMinuteChange = (value: Date) => {
-      onDateTimeChange?.(value);
-      closeTimeSelector();
-    };
-
-    useEffect(() => {
-      if (dateTime) {
-        updateDateTime(dateTime);
+      if (value) {
+        const value$ = new EasyDate(value);
+        setSelectedDateTime(value$);
+        setInputValue(value$.format('MM/dd/yyyy hh:mm ampm'));
+        return;
       }
-    }, [dateTime]);
+
+      setSelectedDateTime(undefined);
+      setInputValue('');
+    };
+
+    const handleMinuteChange = (value: Date) => updateDateTime(value);
+
+    const handleClickOk = () => {
+      onDateTimeChange?.(selectedDateTime?.value);
+      closeDateTimeSelector();
+    };
+
+    const handleClickOutside = () => {
+      // Revert internal states to initial states
+      updateDateTime(dateTime);
+      closeDateTimeSelector();
+    };
+
+    useEffect(() => updateDateTime(dateTime), [dateTime]);
 
     return (
-      <S.Picker
+      <Picker
         ref={ref}
         open={open}
         input={(
@@ -67,7 +78,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
             placeholder={placeholder}
             value={inputValue}
             error={isTouched && !isValidDate(inputValue)}
-            onFocus={closeTimeSelector}
+            onFocus={closeDateTimeSelector}
             onBlur={handleInputBlur}
             onChange={handleInputChange}
           />
@@ -83,7 +94,10 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
         )}
         icon={<Calendar />}
         setOpen={setOpen}
-        onClose={handleInputBlur}
+        hasFooterControls
+        onOk={handleClickOk}
+        onCancel={handleClickOutside}
+        onClose={handleClickOutside}
         {...passThrough}
       />
     );

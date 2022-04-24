@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
 import { cvar, rem } from 'utils/StyleHelper';
+import { TypographyStyles } from 'components/Typography';
 
 export const ButtonCss = css`
+  ${TypographyStyles.ButtonCss()};
   border: none;
   border-radius: ${cvar('--control-border-radius')};
   box-sizing: border-box;
@@ -133,4 +135,21 @@ export const ErrorButton = styled(StyledButton)`
   :disabled {
     background-color: ${cvar('--color-error')};
   }
+`;
+
+export const LiteButton = styled(StyledButton)`
+  background-color: inherit;
+  color: black;
+  box-shadow: unset;
+  text-decoration: underline;
+
+  :hover {
+    text-decoration: none;
+    background: ${cvar('--color-gray-2')};
+  } 
+
+  :active {
+    text-decoration: none;
+    background: ${cvar('--color-gray-3')};
+  } 
 `;

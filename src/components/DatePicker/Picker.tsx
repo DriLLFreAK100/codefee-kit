@@ -10,7 +10,10 @@ export type PickerProps = {
   input: ReactNode;
   selector: ReactNode;
   icon: ReactNode;
+  hasFooterControls?: boolean;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
+  onOk?: () => void;
+  onCancel?: () => void;
   onClose?: () => void;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
@@ -21,7 +24,10 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
       input,
       selector,
       icon,
+      hasFooterControls,
       setOpen,
+      onOk,
+      onCancel,
       onClose,
       ...passThrough
     } = props;
@@ -29,10 +35,17 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
     const hostRef = useRef<HTMLDivElement>(null);
 
     const closeSelector = () => {
-      setOpen(false);
-      onClose?.();
+      if (open) {
+        setOpen(false);
+        onClose?.();
+      }
     };
+
     const openSelector = () => setOpen(true);
+
+    const handleOk = () => onOk?.();
+
+    const handleCancel = () => onCancel?.();
 
     useExposeRef(ref, hostRef);
     useClickOutside(hostRef, closeSelector);
@@ -44,15 +57,38 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
       >
         <S.InputGroup>
           {input}
-          <S.CalendarButton
+          <S.IconButton
             type="button"
             onClick={openSelector}
           >
             {icon}
-          </S.CalendarButton>
+          </S.IconButton>
         </S.InputGroup>
 
-        {open && selector}
+        {open && (
+          <S.Selector>
+            {selector}
+
+            {hasFooterControls && (
+              <S.Controls>
+                <S.CtrlButton
+                  type="button"
+                  variant="lite"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </S.CtrlButton>
+                <S.CtrlButton
+                  type="button"
+                  variant="lite"
+                  onClick={handleOk}
+                >
+                  OK
+                </S.CtrlButton>
+              </S.Controls>
+            )}
+          </S.Selector>
+        )}
       </S.Picker>
     );
   },
@@ -60,7 +96,10 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
 
 Picker.displayName = 'Picker';
 Picker.defaultProps = {
+  hasFooterControls: false,
   onClose: undefined,
+  onOk: undefined,
+  onCancel: undefined,
 };
 
 export default Picker;

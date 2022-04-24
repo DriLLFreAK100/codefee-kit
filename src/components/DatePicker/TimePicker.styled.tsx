@@ -4,7 +4,8 @@ import { Clock } from 'components/Icons';
 import { rem } from 'utils/StyleHelper';
 
 export const TimeSelector = styled(TimePanel)`
-  position: absolute;
+  box-shadow: none;
+  padding-bottom: 0;
 `;
 
 export const ClockIcon = styled(Clock)`
