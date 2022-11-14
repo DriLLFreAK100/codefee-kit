@@ -3,11 +3,11 @@ import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
 import { TypographyStyles } from 'components/Typography';
 import { LinkProps } from './Common';
 
-export interface LinkCssVarProps {
+export type LinkCssVarProps = {
   '--cf-link-color': string;
   '--cf-link-color-hover': string;
   '--cf-link-color-active': string;
-}
+};
 
 const [defaultCssVar, cssVar] = makeCssVar<LinkCssVarProps>({
   '--cf-link-color': cvar('--color-primary'),

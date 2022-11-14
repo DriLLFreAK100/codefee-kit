@@ -4,7 +4,7 @@ import { GutterStyle } from 'styles';
 import { Typography } from 'components/Typography';
 import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
 
-export interface CheckboxCssVarProps {
+export type CheckboxCssVarProps = {
   '--cf-checkbox-color-border': string;
   '--cf-checkbox-color-border-hover': string;
   '--cf-checkbox-color-border-active': string;
@@ -13,7 +13,7 @@ export interface CheckboxCssVarProps {
   '--cf-checkbox-color-checkmark': string;
   '--cf-checkbox-color-checkmark-disabled': string;
   '--cf-checkbox-color-label': string;
-}
+};
 
 const [defaultCssVar, cssVar] = makeCssVar<CheckboxCssVarProps>({
   '--cf-checkbox-color-border': cvar('--color-primary'),

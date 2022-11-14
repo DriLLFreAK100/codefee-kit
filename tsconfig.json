@@ -16,6 +16,7 @@
     "strictNullChecks": true,
     "esModuleInterop": true,
     "baseUrl": "src/",
+    "skipLibCheck": true,
     "paths": {
       "common/*": [
         "common/*"

@@ -32,12 +32,12 @@ export const gut = (value: Gutter): string => rem(value);
  * @param json Json specifying CSS Properties or CSS Variables
  * @returns CSS string
  */
-export const jsonToCss = <T>(json: T): string =>
+export const jsonToCss = <T extends Record<string, unknown>>(json: T): string =>
   `${Object.entries(json)
     .map(([key, value]) => `${key}: ${value as string}`)
     .join(';')};`;
 
-export const makeCssVar = <T>(
+export const makeCssVar = <T extends Record<string, unknown>>(
   defaultCssVarValues: T
 ): [FlattenSimpleInterpolation, (p: keyof T) => string] => [
   css`
