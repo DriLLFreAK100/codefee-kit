@@ -22,5 +22,6 @@ export const Loader = styled.div<LoaderProps>`
   background: ${({ $opacity }) => `rgba(255, 255, 255, ${$opacity})`};
   visibility: ${({ $loading }) => ($loading ? 'visible' : 'hidden')};
   opacity: ${({ $loading }) => ($loading ? 1 : 0)};
-  transition: visibility ${cvar('--transition-toggle')} ease-in-out, opacity ${cvar('--transition-toggle')} ease-in-out;
+  transition: visibility ${cvar('--transition-toggle')} ease-in-out,
+    opacity ${cvar('--transition-toggle')} ease-in-out;
 `;

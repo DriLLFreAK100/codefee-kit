@@ -5,7 +5,12 @@ import { Figure as FigureComponent } from 'components/Figure';
 const QuoteBorderStyle = css`
   border-radius: ${cvar('--control-border-radius')};
   content: '';
-  background-image: linear-gradient(to right, ${cvar('--color-secondary-light')}, ${cvar('--color-secondary-dark')}, ${cvar('--color-secondary-light')});
+  background-image: linear-gradient(
+    to right,
+    ${cvar('--color-secondary-light')},
+    ${cvar('--color-secondary-dark')},
+    ${cvar('--color-secondary-light')}
+  );
   left: calc(50% - ${rem(10)});
   height: ${rem(2)};
   width: ${rem(20)};
@@ -32,9 +37,13 @@ const BlockquoteCss = css`
   padding: 0 ${rem(120)};
 `;
 
-export const Figure = styled(FigureComponent)`${FigureCss}`;
+export const Figure = styled(FigureComponent)`
+  ${FigureCss}
+`;
 
-export const Blockquote = styled.blockquote`${BlockquoteCss}`;
+export const Blockquote = styled.blockquote`
+  ${BlockquoteCss}
+`;
 
 export default {
   FigureCss,

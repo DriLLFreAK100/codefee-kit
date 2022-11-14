@@ -1,24 +1,22 @@
-import React, {
-  FC, forwardRef, ReactNode, CSSProperties,
-} from 'react';
+import React, { FC, forwardRef, ReactNode, CSSProperties } from 'react';
 import { TypographyElementProps } from './Common';
 import * as S from './Typography.styled';
 
 export type TypographyType =
-  'h1' |
-  'h2' |
-  'h3' |
-  'h4' |
-  'h5' |
-  'h6' |
-  'subtitle1' |
-  'subtitle2' |
-  'body1' |
-  'body2' |
-  'p' |
-  'caption' |
-  'button' |
-  'quote';
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'subtitle1'
+  | 'subtitle2'
+  | 'body1'
+  | 'body2'
+  | 'p'
+  | 'caption'
+  | 'button'
+  | 'quote';
 
 export interface TypographyProps extends TypographyElementProps {
   className?: string;
@@ -62,20 +60,14 @@ const getComponent = (type: TypographyType) => {
   }
 };
 
-const Typography: FC<TypographyProps> = forwardRef<HTMLElement, TypographyProps>(({
-  className,
-  children,
-  type,
-  ...passThrough
-}: TypographyProps, ref) => {
+const Typography: FC<TypographyProps> = forwardRef<
+  HTMLElement,
+  TypographyProps
+>(({ className, children, type, ...passThrough }: TypographyProps, ref) => {
   const Component = getComponent(type as TypographyType);
 
   return (
-    <Component
-      ref={ref}
-      className={className}
-      {...passThrough}
-    >
+    <Component ref={ref} className={className} {...passThrough}>
       {children}
     </Component>
   );

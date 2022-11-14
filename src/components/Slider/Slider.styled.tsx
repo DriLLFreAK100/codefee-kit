@@ -21,11 +21,11 @@ export const Slider = styled.input`
   border-radius: ${cvar('--control-border-radius')};
   transition: background-color ${cvar('--transition-hover')};
 
-  &:hover{
+  &:hover {
     background-color: ${cvar('--color-gray-4')};
   }
 
-  &:active{
+  &:active {
     background-color: ${cvar('--color-gray-6')};
   }
 

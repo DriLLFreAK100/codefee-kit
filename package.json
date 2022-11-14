@@ -15,8 +15,8 @@
     "storybook": "start-storybook -p 6006",
     "storybook:docker": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "lint": "eslint src/**/*.ts src/**/*.tsx",
-    "lint:fix": "eslint src/**/*.ts src/**/*.tsx --fix",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
     "prebuild": "rimraf dist",
     "build": "rollup -c",
     "postbuild": "node scripts/resolveTsPaths",
@@ -25,15 +25,11 @@
     "release:patch": "standard-version --release-as patch",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
-    "release:pre:alpha": "standard-version --prerelease alpha"
+    "release:pre:alpha": "standard-version --prerelease alpha",
+    "prepare": "husky install"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "repository": {
     "type": "git",
@@ -82,7 +78,8 @@
     "eslint-plugin-react-hooks": "4.1.2",
     "eslint-plugin-storybook": "0.5.8",
     "file-loader": "6.1.0",
-    "husky": "4.3.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
     "lodash-es": "4.17.21",
     "postcss": "8.1.1",
     "react": "16.13.1",
@@ -113,5 +110,12 @@
   },
   "resolutions": {
     "styled-components": "^5"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,html}": "prettier --write"
   }
 }

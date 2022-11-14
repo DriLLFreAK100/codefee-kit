@@ -20,7 +20,7 @@ export const Content = styled.div`
 `;
 
 export const Button = styled(ButtonComponent)`
-  :not(:last-child){
+  :not(:last-child) {
     margin-right: ${rem(4)};
   }
 `;

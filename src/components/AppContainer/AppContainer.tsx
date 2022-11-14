@@ -11,9 +11,10 @@ export interface AppContainerProps {
 
 export const GlobalStyle = createGlobalStyle<AppContainerProps>`
   :root{
-    ${({ appTheme }) => Object
-    .keys(appTheme as ITheme)
-    .map((key: keyof ITheme) => `${key}: ${(appTheme as ITheme)[key]};`)};
+    ${({ appTheme }) =>
+      Object.keys(appTheme as ITheme).map(
+        (key: keyof ITheme) => `${key}: ${(appTheme as ITheme)[key]};`
+      )};
   }
 
   ${({ requireCssReset }) => (requireCssReset ? GlobalResetCss : null)}
@@ -25,10 +26,7 @@ const AppContainer: FC<AppContainerProps> = ({
   requireCssReset,
 }: AppContainerProps) => (
   <>
-    <GlobalStyle
-      appTheme={appTheme}
-      requireCssReset={requireCssReset}
-    />
+    <GlobalStyle appTheme={appTheme} requireCssReset={requireCssReset} />
     {children}
   </>
 );

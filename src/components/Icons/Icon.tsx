@@ -16,27 +16,22 @@ const StyledIcon = styled.svg`
 /**
  * Adopted from FontAwesome Icon
  */
-const Icon = forwardRef<SVGSVGElement, IconProps>(
-  (props: IconProps, ref) => {
-    const {
-      children,
-      ...passThrough
-    } = props;
+const Icon = forwardRef<SVGSVGElement, IconProps>((props: IconProps, ref) => {
+  const { children, ...passThrough } = props;
 
-    return (
-      <StyledIcon
-        ref={ref}
-        aria-hidden="true"
-        focusable="false"
-        role="img"
-        viewBox="0 0 352 512"
-        {...passThrough}
-      >
-        {children}
-      </StyledIcon>
-    );
-  },
-);
+  return (
+    <StyledIcon
+      ref={ref}
+      aria-hidden="true"
+      focusable="false"
+      role="img"
+      viewBox="0 0 352 512"
+      {...passThrough}
+    >
+      {children}
+    </StyledIcon>
+  );
+});
 
 Icon.displayName = 'Icon';
 

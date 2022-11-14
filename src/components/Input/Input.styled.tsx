@@ -29,11 +29,11 @@ const NonErrorCss = css`
     opacity: 0.7;
   }
 
-  &:hover{
+  &:hover {
     border-color: ${cssVar('--cf-input-border-color-hover')};
   }
 
-  &:focus{
+  &:focus {
     border: ${rem(2)} solid ${cssVar('--cf-input-border-color-focus')};
     padding: ${rem(13)} ${rem(15)};
   }

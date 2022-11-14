@@ -7,7 +7,7 @@ export type TimePanelCssVar = {
   '--cf-clock-bg-color': string;
   '--cf-clock-frame-color': string;
   '--cf-clock-hour-tick-color': string;
-  '--cf-clock-hour-quarter-tick-color': string
+  '--cf-clock-hour-quarter-tick-color': string;
   '--cf-clock-center-dot-color': string;
   '--cf-clock-arm-long-color': string;
   '--cf-clock-arm-short-color': string;
@@ -46,9 +46,13 @@ export const CenterDot = styled.circle`
 `;
 
 const HourMarkCss = (isQuarter: boolean) => css`
-  stroke: ${isQuarter ? cssVar('--cf-clock-hour-quarter-tick-color') : cssVar('--cf-clock-hour-tick-color')};
+  stroke: ${isQuarter
+    ? cssVar('--cf-clock-hour-quarter-tick-color')
+    : cssVar('--cf-clock-hour-tick-color')};
   stroke-width: ${isQuarter ? rem(8) : rem(4)};
-  stroke-dasharray: ${isQuarter ? `0 ${rem(240)} ${rem(40)}` : `0 ${rem(260)} ${rem(20)}`};
+  stroke-dasharray: ${isQuarter
+    ? `0 ${rem(240)} ${rem(40)}`
+    : `0 ${rem(260)} ${rem(20)}`};
 `;
 
 export const HourMark = styled.line<{ hour: number }>`

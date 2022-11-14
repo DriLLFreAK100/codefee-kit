@@ -1,6 +1,11 @@
 import useClickOutside from 'hooks/useClickOutside';
 import React, {
-  forwardRef, HtmlHTMLAttributes, useEffect, useLayoutEffect, useRef, useState,
+  forwardRef,
+  HtmlHTMLAttributes,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
 } from 'react';
 import { createPortal } from 'react-dom';
 import { DialogVariant } from './Common';
@@ -34,14 +39,8 @@ const withTimeout = (func: () => void) => {
 
 const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (props: DialogProps, ref) => {
-    const {
-      isOpen,
-      isMandatory,
-      variant,
-      onClose,
-      children,
-      ...passThrough
-    } = props;
+    const { isOpen, isMandatory, variant, onClose, children, ...passThrough } =
+      props;
 
     const modalRootEl = useRef<Element>();
     const contentEl = useRef<HTMLDivElement>(null);
@@ -72,25 +71,22 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     useClickOutside(contentEl, () => !isMandatory && isOpen && handleOnClose());
 
-    return modalRootEl.current && isOpenInternal ? createPortal(
-      <S.Dialog
-        ref={ref}
-        isActive={isActive}
-        {...passThrough}
-      >
-        <S.Overlay />
-        <S.ContentContainer>
-          <S.Content
-            ref={contentEl}
-            variant={variant as DialogVariant}
-          >
-            {children}
-          </S.Content>
-        </S.ContentContainer>
-      </S.Dialog>,
-      modalRootEl.current,
-    ) : <></>;
-  },
+    return modalRootEl.current && isOpenInternal ? (
+      createPortal(
+        <S.Dialog ref={ref} isActive={isActive} {...passThrough}>
+          <S.Overlay />
+          <S.ContentContainer>
+            <S.Content ref={contentEl} variant={variant as DialogVariant}>
+              {children}
+            </S.Content>
+          </S.ContentContainer>
+        </S.Dialog>,
+        modalRootEl.current
+      )
+    ) : (
+      <></>
+    );
+  }
 );
 
 Dialog.displayName = 'Dialog';

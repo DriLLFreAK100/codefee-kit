@@ -1,7 +1,11 @@
 import useClickOutside from 'hooks/useClickOutside';
 import useExposeRef from 'hooks/useExposeRef';
 import React, {
-  Dispatch, forwardRef, HtmlHTMLAttributes, ReactNode, useRef,
+  Dispatch,
+  forwardRef,
+  HtmlHTMLAttributes,
+  ReactNode,
+  useRef,
 } from 'react';
 import * as S from './Picker.styled';
 
@@ -51,16 +55,10 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
     useClickOutside(hostRef, closeSelector);
 
     return (
-      <S.Picker
-        ref={hostRef}
-        {...passThrough}
-      >
+      <S.Picker ref={hostRef} {...passThrough}>
         <S.InputGroup>
           {input}
-          <S.IconButton
-            type="button"
-            onClick={openSelector}
-          >
+          <S.IconButton type="button" onClick={openSelector}>
             {icon}
           </S.IconButton>
         </S.InputGroup>
@@ -78,11 +76,7 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
                 >
                   Cancel
                 </S.CtrlButton>
-                <S.CtrlButton
-                  type="button"
-                  variant="lite"
-                  onClick={handleOk}
-                >
+                <S.CtrlButton type="button" variant="lite" onClick={handleOk}>
                   OK
                 </S.CtrlButton>
               </S.Controls>
@@ -91,7 +85,7 @@ const Picker = forwardRef<HTMLDivElement, PickerProps>(
         )}
       </S.Picker>
     );
-  },
+  }
 );
 
 Picker.displayName = 'Picker';

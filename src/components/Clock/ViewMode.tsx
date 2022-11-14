@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import { polarToCartesian } from 'utils/MathHelper';
 import * as S from './Clock.styled';
-import {
-  calcMajorDeg, clockMarks, markRadius, ViewStyle,
-} from './Common';
+import { calcMajorDeg, clockMarks, markRadius, ViewStyle } from './Common';
 
 type ViewModeProps = {
   hourDeg: number;
@@ -18,15 +16,8 @@ const hourTextStyle = clockMarks.map((i) => {
   const hour = i === 0 ? 12 : i;
 
   return (
-    <S.Text
-      key={i}
-      x={x}
-      y={y}
-    >
-      <tspan
-        textAnchor="middle"
-        alignmentBaseline="central"
-      >
+    <S.Text key={i} x={x} y={y}>
+      <tspan textAnchor="middle" alignmentBaseline="central">
         {hour}
       </tspan>
     </S.Text>
@@ -34,14 +25,7 @@ const hourTextStyle = clockMarks.map((i) => {
 });
 
 const lineStyle = clockMarks.map((i) => (
-  <S.HourMark
-    key={i}
-    hour={i}
-    x1="0"
-    x2="0"
-    y1="0"
-    y2="-280"
-  />
+  <S.HourMark key={i} hour={i} x1="0" x2="0" y1="0" y2="-280" />
 ));
 
 const componentDict: { [key in ViewStyle]: JSX.Element[] } = {
@@ -60,9 +44,7 @@ const ViewMode: FC<ViewModeProps> = ({
 
   return (
     <>
-      <S.CenterGroup>
-        {HourViewComponent}
-      </S.CenterGroup>
+      <S.CenterGroup>{HourViewComponent}</S.CenterGroup>
 
       <S.CenterGroup>
         <S.ShortArm

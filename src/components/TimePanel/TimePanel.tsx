@@ -4,7 +4,9 @@ import ClockVariant from './ClockVariant';
 import InputVariant from './InputVariant';
 import { TimeInputProps, TimeInputVariant } from './Common';
 
-export const switchInputVariant = (type: TimeInputVariant): FC<TimeInputProps> => {
+export const switchInputVariant = (
+  type: TimeInputVariant
+): FC<TimeInputProps> => {
   switch (type) {
     case 'input':
       return InputVariant;
@@ -17,7 +19,8 @@ export const switchInputVariant = (type: TimeInputVariant): FC<TimeInputProps> =
 
 export type TimePanelProps = {
   inputVariant?: TimeInputVariant;
-} & TimeInputProps & HtmlHTMLAttributes<HTMLDivElement>;
+} & TimeInputProps &
+  HtmlHTMLAttributes<HTMLDivElement>;
 
 const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
   (props: TimePanelProps, ref) => {
@@ -33,10 +36,7 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
     const InputComponent = switchInputVariant(inputVariant as TimeInputVariant);
 
     return (
-      <S.TimePanel
-        ref={ref}
-        {...passThrough}
-      >
+      <S.TimePanel ref={ref} {...passThrough}>
         <InputComponent
           time={time}
           onTimeChange={onTimeChange}
@@ -46,7 +46,7 @@ const TimePanel = forwardRef<HTMLDivElement, TimePanelProps>(
         />
       </S.TimePanel>
     );
-  },
+  }
 );
 
 TimePanel.displayName = 'TimePanel';

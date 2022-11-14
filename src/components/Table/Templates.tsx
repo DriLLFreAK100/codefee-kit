@@ -18,7 +18,7 @@ export const defaultBodyRowTemplate = (
   data: any,
   rowIndex: number,
   isClickable: boolean,
-  onClickRow?: (data: any) => void,
+  onClickRow?: (data: any) => void
 ): ReactNode => {
   const handleOnClickRow = (): void => {
     onClickRow?.(data);
@@ -32,12 +32,7 @@ export const defaultBodyRowTemplate = (
       onClick={handleOnClickRow}
     >
       {colDefs.map((colDef) => {
-        const {
-          id,
-          field,
-          align,
-          render,
-        } = colDef;
+        const { id, field, align, render } = colDef;
 
         const datum = data[field || ''];
         const node: ReactNode = render ? render(datum, data) : datum;
@@ -49,9 +44,7 @@ export const defaultBodyRowTemplate = (
             align={align || 'left'}
             title={getContentTitle(node)}
           >
-            <S.CellContent>
-              {node}
-            </S.CellContent>
+            <S.CellContent>{node}</S.CellContent>
           </S.Td>
         );
       })}
@@ -62,7 +55,7 @@ export const defaultBodyRowTemplate = (
 export const defaultHeaderRowTemplate = (
   colDefs: DataColumnDefinition[],
   sortState: [string, OrderByDirection],
-  onClickHeader?: (colDef: DataColumnDefinition) => void,
+  onClickHeader?: (colDef: DataColumnDefinition) => void
 ): ReactNode => {
   const handleOnClickHeader = (colDef: DataColumnDefinition) => () => {
     onClickHeader?.(colDef);
@@ -73,9 +66,7 @@ export const defaultHeaderRowTemplate = (
   return (
     <S.Tr segment="head">
       {colDefs.map((colDef) => {
-        const {
-          id, header, field, align, disableSort,
-        } = colDef;
+        const { id, header, field, align, disableSort } = colDef;
 
         const isSortActive = sortKey === field;
 
@@ -97,7 +88,9 @@ export const defaultHeaderRowTemplate = (
   );
 };
 
-export const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): ReactNode => (
+export const defaultFooterRowTemplate = (
+  footerDefs: FooterColumnDefinition[]
+): ReactNode => (
   <S.Tr segment="foot">
     {footerDefs.map((footerDef) => {
       const { id, align, value } = footerDef;
@@ -107,9 +100,7 @@ export const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): 
           style={getColumnStyle(footerDef, footerDefs)}
           align={align || 'left'}
         >
-          <S.CellContent>
-            {value}
-          </S.CellContent>
+          <S.CellContent>{value}</S.CellContent>
         </S.Td>
       );
     })}
@@ -119,9 +110,7 @@ export const defaultFooterRowTemplate = (footerDefs: FooterColumnDefinition[]): 
 export const defaultEmptyRecordTemplate = (emptyRecordContent: ReactNode) => (
   <S.EmptyRecordTr>
     <S.EmptyRecordTd>
-      <Typography>
-        {emptyRecordContent}
-      </Typography>
+      <Typography>{emptyRecordContent}</Typography>
     </S.EmptyRecordTd>
   </S.EmptyRecordTr>
 );

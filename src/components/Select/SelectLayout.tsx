@@ -49,24 +49,15 @@ const SelectLayout = forwardRef<HTMLDivElement, SelectLayoutProps>(
     useExposeRef(ref, hostRef);
 
     return (
-      <S.Host
-        ref={hostRef}
-        className={className}
-        {...passThrough}
-      >
-        <S.Select
-          open={open}
-          onClick={handleOnClickSelect}
-        >
+      <S.Host ref={hostRef} className={className} {...passThrough}>
+        <S.Select open={open} onClick={handleOnClickSelect}>
           {selectedDisplay}
           <S.AngleIcon open={open} />
         </S.Select>
-        <S.OptionContainer open={open}>
-          {optionNodes}
-        </S.OptionContainer>
+        <S.OptionContainer open={open}>{optionNodes}</S.OptionContainer>
       </S.Host>
     );
-  },
+  }
 );
 
 SelectLayout.displayName = 'SelectLayout';

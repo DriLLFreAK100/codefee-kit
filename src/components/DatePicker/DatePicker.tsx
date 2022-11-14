@@ -4,7 +4,11 @@ import { Calendar } from 'components/Icons';
 import { CalendarPanelOptions } from 'components/CalendarPanel';
 import { EasyDate } from 'utils/DateHelper';
 import React, {
-  ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
+  ChangeEvent,
+  forwardRef,
+  HtmlHTMLAttributes,
+  useEffect,
+  useState,
 } from 'react';
 import { isValidDate, sanitizeDateInput } from './Common';
 import Picker from './Picker';
@@ -27,7 +31,8 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       ...passThrough
     } = props;
     const [open, setOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState<EasyDate | undefined>(undefined);
+    const [selectedDate, setSelectedDate] =
+      useState<EasyDate | undefined>(undefined);
     const [inputValue, setInputValue] = useState('');
     const isTouched = useHasValueChanged(inputValue);
 
@@ -51,14 +56,16 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const handleInputBlur = () => {
-      onDateChange?.(isValidDate(inputValue) ? new Date(inputValue) : undefined);
+      onDateChange?.(
+        isValidDate(inputValue) ? new Date(inputValue) : undefined
+      );
     };
 
     return (
       <Picker
         ref={ref}
         open={open}
-        input={(
+        input={
           <Input
             placeholder={placeholder}
             value={inputValue}
@@ -67,20 +74,20 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             onBlur={handleInputBlur}
             onChange={handleInputChange}
           />
-        )}
-        selector={(
+        }
+        selector={
           <S.DateSelector
             date={selectedDate?.value}
             onDateChange={handleDateChange}
             {...calendarPanelOptions}
           />
-        )}
+        }
         icon={<Calendar />}
         setOpen={setOpen}
         {...passThrough}
       />
     );
-  },
+  }
 );
 
 DatePicker.displayName = 'DatePicker';

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import {
-  cvar, makeCssVar, rem,
-} from 'utils/StyleHelper';
+import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
 import { TypographyStyles } from 'components/Typography';
 import { LinkProps } from './Common';
 
@@ -23,27 +21,32 @@ export const Link = styled.a<LinkProps>`
   cursor: pointer;
   color: ${cssVar('--cf-link-color')};
   user-select: none;
-  transition: border-width ${cvar('--transition-toggle')}, color ${cvar('--transition-hover')}, border-color ${cvar('--transition-hover')};
+  transition: border-width ${cvar('--transition-toggle')},
+    color ${cvar('--transition-hover')},
+    border-color ${cvar('--transition-hover')};
   border-bottom: 1px solid ${cssVar('--cf-link-color')};
   text-decoration: none;
 
-  ${({ active }) => (active ? `
+  ${({ active }) =>
+    active
+      ? `
      color: ${cssVar('--cf-link-color-hover')};
      border-bottom: ${rem(4)} solid ${cssVar('--cf-link-color-hover')};
      font-weight: 700;
-  ` : null)}
+  `
+      : null}
 
-  &:hover{
+  &:hover {
     color: ${cssVar('--cf-link-color-hover')};
     border-bottom: ${rem(4)} solid ${cssVar('--cf-link-color-hover')};
   }
 
-  &:active{
+  &:active {
     color: ${cssVar('--cf-link-color-active')};
     border-bottom-color: ${rem(4)} solid ${cssVar('--cf-link-color-active')};
   }
 
-  &:focus{
+  &:focus {
     outline: transparent;
   }
 `;

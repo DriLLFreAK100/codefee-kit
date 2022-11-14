@@ -9,9 +9,9 @@ const IconButtonCss = css`
   box-shadow: ${cvar('--control-shadow')};
   transition: background-color ${cvar('--transition-hover')} ease-in-out;
 
-  &:disabled{
+  &:disabled {
     opacity: 0.6;
-  };
+  }
 `;
 
 const PrimaryIconButtonCss = css`
@@ -19,11 +19,11 @@ const PrimaryIconButtonCss = css`
   background-color: ${cvar('--color-primary')};
   color: ${cvar('--color-primary-on')};
 
-  &:hover{
+  &:hover {
     background-color: ${cvar('--color-primary-light')};
   }
 
-  &:active{
+  &:active {
     background-color: ${cvar('--color-primary-dark')};
   }
 
@@ -37,11 +37,11 @@ const SecondaryIconButtonCss = css`
   background-color: ${cvar('--color-secondary')};
   color: ${cvar('--color-secondary-on')};
 
-  &:hover{
+  &:hover {
     background-color: ${cvar('--color-secondary-light')};
   }
 
-  &:active{
+  &:active {
     background-color: ${cvar('--color-secondary-dark')};
   }
 
@@ -55,11 +55,11 @@ const SubtleIconButtonCss = css`
   background-color: inherit;
   box-shadow: unset;
 
-  &:hover{
+  &:hover {
     background-color: ${cvar('--color-gray-2')};
   }
 
-  &:active{
+  &:active {
     background-color: ${cvar('--color-gray-3')};
   }
 
@@ -68,11 +68,17 @@ const SubtleIconButtonCss = css`
   }
 `;
 
-export const PrimaryIconButton = styled.button`${PrimaryIconButtonCss}`;
+export const PrimaryIconButton = styled.button`
+  ${PrimaryIconButtonCss}
+`;
 
-export const SecondaryIconButton = styled.button`${SecondaryIconButtonCss}`;
+export const SecondaryIconButton = styled.button`
+  ${SecondaryIconButtonCss}
+`;
 
-export const SubtleIconButton = styled.button`${SubtleIconButtonCss}`;
+export const SubtleIconButton = styled.button`
+  ${SubtleIconButtonCss}
+`;
 
 export default {
   IconButtonCss,

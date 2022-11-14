@@ -1,6 +1,4 @@
-import React, {
-  forwardRef, InputHTMLAttributes, ChangeEvent,
-} from 'react';
+import React, { forwardRef, InputHTMLAttributes, ChangeEvent } from 'react';
 import * as S from './Slider.styled';
 
 export type SliderProps = {
@@ -9,10 +7,7 @@ export type SliderProps = {
 
 const Slider = forwardRef<HTMLInputElement, SliderProps>(
   (props: SliderProps, ref) => {
-    const {
-      onValueChange,
-      ...passThrough
-    } = props;
+    const { onValueChange, ...passThrough } = props;
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       onValueChange?.(parseInt(e.currentTarget.value, 10));
@@ -26,7 +21,7 @@ const Slider = forwardRef<HTMLInputElement, SliderProps>(
         type="range"
       />
     );
-  },
+  }
 );
 
 Slider.displayName = 'Slider';

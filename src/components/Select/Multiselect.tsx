@@ -1,5 +1,10 @@
 import React, {
-  forwardRef, HtmlHTMLAttributes, ReactNode, useCallback, useEffect, useState,
+  forwardRef,
+  HtmlHTMLAttributes,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
 } from 'react';
 import * as S from './Multiselect.styled';
 import { SelectOptionType } from './Common';
@@ -19,19 +24,21 @@ export type MultiselectProps = {
   optionTemplate?: (
     option: SelectOptionType,
     internalSelected: SelectOptionType[],
-    props: MultiselectProps,
+    props: MultiselectProps
   ) => ReactNode;
   selectedTemplate?: (
     selected: SelectOptionType[] | undefined,
-    props: MultiselectProps,
+    props: MultiselectProps
   ) => ReactNode;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
-export const DefaultSelectedTemplate = (options: SelectOptionType[]): ReactNode => `${options?.length || 0} selected`;
+export const DefaultSelectedTemplate = (
+  options: SelectOptionType[]
+): ReactNode => `${options?.length || 0} selected`;
 
 export const DefaultOptionTemplate = (
   option: SelectOptionType,
-  internalSelected: SelectOptionType[],
+  internalSelected: SelectOptionType[]
 ): ReactNode => {
   const { label } = option;
 
@@ -55,22 +62,15 @@ export const HeaderControlsLayout = ({
   onUnselectAll,
   onSelectAll,
 }: HeaderControlsLayoutProps): JSX.Element => {
-  const {
-    UnselectAll,
-    SelectAll,
-  } = labels;
+  const { UnselectAll, SelectAll } = labels;
 
   return (
     <S.HeaderControlsLayout>
       <S.ControlButton onClick={onUnselectAll}>
-        <S.ControlButtonText type="button">
-          {UnselectAll}
-        </S.ControlButtonText>
+        <S.ControlButtonText type="button">{UnselectAll}</S.ControlButtonText>
       </S.ControlButton>
       <S.ControlButton onClick={onSelectAll}>
-        <S.ControlButtonText type="button">
-          {SelectAll}
-        </S.ControlButtonText>
+        <S.ControlButtonText type="button">{SelectAll}</S.ControlButtonText>
       </S.ControlButton>
     </S.HeaderControlsLayout>
   );
@@ -87,22 +87,15 @@ export const FooterControlsLayout = ({
   onCancel,
   onApply,
 }: FooterControlsLayoutProps): JSX.Element => {
-  const {
-    Cancel,
-    Apply,
-  } = labels;
+  const { Cancel, Apply } = labels;
 
   return (
     <S.FooterControlsLayout>
       <S.ControlButton onClick={onCancel}>
-        <S.ControlButtonText type="button">
-          {Cancel}
-        </S.ControlButtonText>
+        <S.ControlButtonText type="button">{Cancel}</S.ControlButtonText>
       </S.ControlButton>
       <S.ControlButton onClick={onApply}>
-        <S.ControlButtonText type="button">
-          {Apply}
-        </S.ControlButtonText>
+        <S.ControlButtonText type="button">{Apply}</S.ControlButtonText>
       </S.ControlButton>
     </S.FooterControlsLayout>
   );
@@ -121,19 +114,21 @@ const Multiselect = forwardRef<HTMLDivElement, MultiselectProps>(
     } = props;
 
     const [open, setOpen] = useState(false);
-    const [internalSelected, setInternalSelected] = useState<SelectOptionType[]>([]);
+    const [internalSelected, setInternalSelected] = useState<
+      SelectOptionType[]
+    >([]);
 
-    const handleOnClickOption = useCallback((option: SelectOptionType) => () => {
-      if (internalSelected?.includes(option)) {
-        setInternalSelected(internalSelected.filter((s) => s !== option));
-        return;
-      }
+    const handleOnClickOption = useCallback(
+      (option: SelectOptionType) => () => {
+        if (internalSelected?.includes(option)) {
+          setInternalSelected(internalSelected.filter((s) => s !== option));
+          return;
+        }
 
-      setInternalSelected([
-        ...internalSelected,
-        option,
-      ]);
-    }, [internalSelected]);
+        setInternalSelected([...internalSelected, option]);
+      },
+      [internalSelected]
+    );
 
     const handleUnselectAll = () => {
       setInternalSelected([]);
@@ -162,11 +157,11 @@ const Multiselect = forwardRef<HTMLDivElement, MultiselectProps>(
         ref={ref}
         open={open}
         setOpen={setOpen}
-        selectedDisplay={(
+        selectedDisplay={
           <S.Label type="subtitle1">
             {selectedTemplate?.(internalSelected, props)}
           </S.Label>
-        )}
+        }
         optionNodes={[
           <HeaderControlsLayout
             key="selection-header"
@@ -175,16 +170,14 @@ const Multiselect = forwardRef<HTMLDivElement, MultiselectProps>(
             onSelectAll={handleSelectAll}
           />,
           <ul key="selection-nodes">
-            {
-              options.map((option) => (
-                <S.MultiselectOption
-                  key={option.id}
-                  onClick={handleOnClickOption(option)}
-                >
-                  {optionTemplate?.(option, internalSelected, props)}
-                </S.MultiselectOption>
-              ))
-            }
+            {options.map((option) => (
+              <S.MultiselectOption
+                key={option.id}
+                onClick={handleOnClickOption(option)}
+              >
+                {optionTemplate?.(option, internalSelected, props)}
+              </S.MultiselectOption>
+            ))}
           </ul>,
           <FooterControlsLayout
             key="selection-footer"
@@ -197,7 +190,7 @@ const Multiselect = forwardRef<HTMLDivElement, MultiselectProps>(
         {...passThrough}
       />
     );
-  },
+  }
 );
 
 Multiselect.displayName = 'Multiselect';

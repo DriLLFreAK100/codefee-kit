@@ -26,14 +26,15 @@ export const OptionButton = styled.button<{ isActive: boolean }>`
   border: none;
   border-bottom: ${rem(4)} solid transparent;
   background-color: ${cssVar('--cf-date-picker-background-color')};
-  transition: border-bottom-color ${cvar('--transition-hover')}, color ${cvar('--transition-hover')};
+  transition: border-bottom-color ${cvar('--transition-hover')},
+    color ${cvar('--transition-hover')};
 
-  &:hover{
+  &:hover {
     border-bottom-color: ${cvar('--color-primary-light')};
     color: ${cvar('--color-primary-light')};
   }
 
-  &:active{
+  &:active {
     ${ActiveButtonCss};
   }
 
@@ -41,12 +42,16 @@ export const OptionButton = styled.button<{ isActive: boolean }>`
 `;
 
 export const DateSelector = styled(CalendarPanel)`
-  --cf-calendar-panel-background-color: ${cssVar('--cf-date-picker-background-color')};
+  --cf-calendar-panel-background-color: ${cssVar(
+    '--cf-date-picker-background-color'
+  )};
   box-shadow: none;
 `;
 
 export const TimeSelector = styled(TimePanel)`
-  --cf-time-panel-background-color: ${cssVar('--cf-date-picker-background-color')};
+  --cf-time-panel-background-color: ${cssVar(
+    '--cf-date-picker-background-color'
+  )};
   min-width: ${rem(368)};
   box-shadow: none;
 `;

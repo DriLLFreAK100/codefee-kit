@@ -1,6 +1,9 @@
 import { Gutter } from 'common';
 import React, {
-  ChangeEvent, forwardRef, HtmlHTMLAttributes, useCallback,
+  ChangeEvent,
+  forwardRef,
+  HtmlHTMLAttributes,
+  useCallback,
 } from 'react';
 import * as S from './Checkbox.styled';
 
@@ -8,7 +11,7 @@ export interface CheckboxProps extends HtmlHTMLAttributes<HTMLLabelElement> {
   checked: boolean;
   disabled?: boolean;
   gutterBottom?: Gutter;
-  inputProps?: HtmlHTMLAttributes<HTMLInputElement>,
+  inputProps?: HtmlHTMLAttributes<HTMLInputElement>;
   label?: string;
   onValueChange?: (checked: boolean) => void;
 }
@@ -25,9 +28,12 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
       ...passThrough
     } = props;
 
-    const handleOnChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
-      onValueChange?.(evt.target.checked);
-    }, [onValueChange]);
+    const handleOnChange = useCallback(
+      (evt: ChangeEvent<HTMLInputElement>) => {
+        onValueChange?.(evt.target.checked);
+      },
+      [onValueChange]
+    );
 
     return (
       <S.Checkbox
@@ -43,16 +49,11 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
           onChange={handleOnChange}
           {...inputProps}
         />
-        <S.Label type="body2">
-          {label}
-        </S.Label>
-        <S.Checkmark
-          checked={checked}
-          disabled={disabled}
-        />
+        <S.Label type="body2">{label}</S.Label>
+        <S.Checkmark checked={checked} disabled={disabled} />
       </S.Checkbox>
     );
-  },
+  }
 );
 
 Checkbox.displayName = 'Checkbox';

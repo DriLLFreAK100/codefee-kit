@@ -8,30 +8,32 @@ export const Image = styled.img`
   height: 100%;
 `;
 
-export const ImageContainer = styled.div<{ maximize: boolean; }>`
+export const ImageContainer = styled.div<{ maximize: boolean }>`
   cursor: pointer;
   display: inline-block;
   height: calc(100% - 20px);
 
-  ${(props) => props.maximize && css`
-    cursor: unset;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    z-index: 1000;
+  ${(props) =>
+    props.maximize &&
+    css`
+      cursor: unset;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      z-index: 1000;
 
-    ${Image}{
-      height: unset;
-      max-height: 100vh;
-      max-width: 100%;
-    }
-  `}
+      ${Image} {
+        height: unset;
+        max-height: 100vh;
+        max-width: 100%;
+      }
+    `}
 `;
 
 export const CloseIconButton = styled(IconButton)`

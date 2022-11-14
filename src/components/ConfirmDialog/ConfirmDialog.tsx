@@ -27,34 +27,21 @@ const ConfirmDialog = forwardRef<HTMLDivElement, ConfirmDialogProps>(
     const handleCancel = useCallback(() => onCancel?.(), [onCancel]);
 
     return (
-      <S.ConfirmDialog
-        ref={ref}
-        isMandatory
-        {...passThrough}
-      >
-        <DialogHeader>
-          {confirmationTitle}
-        </DialogHeader>
+      <S.ConfirmDialog ref={ref} isMandatory {...passThrough}>
+        <DialogHeader>{confirmationTitle}</DialogHeader>
 
-        <S.Content>
-          {children}
-        </S.Content>
+        <S.Content>{children}</S.Content>
 
         <DialogFooter>
-          <S.Button onClick={handleConfirm}>
-            {confirmLabel}
-          </S.Button>
+          <S.Button onClick={handleConfirm}>{confirmLabel}</S.Button>
 
-          <S.Button
-            variant="subtle"
-            onClick={handleCancel}
-          >
+          <S.Button variant="subtle" onClick={handleCancel}>
             {cancelLabel}
           </S.Button>
         </DialogFooter>
       </S.ConfirmDialog>
     );
-  },
+  }
 );
 
 ConfirmDialog.displayName = 'ConfirmDialog';
