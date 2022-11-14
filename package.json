@@ -15,7 +15,7 @@
     "storybook": "start-storybook -p 6006",
     "storybook:docker": "cross-env NODE_OPTIONS='--openssl-legacy-provider' start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
     "test": "vitest run",
     "test:watch": "vitest",
