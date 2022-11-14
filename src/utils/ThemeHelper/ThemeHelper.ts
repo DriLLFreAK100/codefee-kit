@@ -7,7 +7,7 @@ import { CodefeeTheme, ITheme } from 'common/Theme';
  * @param customTheme Custom Theme properties to override
  * @param overrideTarget Target Theme to override against
  */
-export const OverrideTheme = <T extends ITheme>(
+export const overrideTheme = <T extends Partial<ITheme>>(
   customTheme: T,
   overrideTarget: ITheme = CodefeeTheme
 ): ITheme => ({
