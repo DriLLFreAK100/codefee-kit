@@ -9,22 +9,13 @@ export type DialogHeaderProps = {
 
 const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(
   (props: DialogHeaderProps, ref) => {
-    const {
-      onClose,
-      children,
-      ...passThrough
-    } = props;
+    const { onClose, children, ...passThrough } = props;
 
     const handleOnClose = () => onClose?.();
 
     return (
-      <S.DialogHeader
-        ref={ref}
-        {...passThrough}
-      >
-        <S.TitleSection type="h5">
-          {children}
-        </S.TitleSection>
+      <S.DialogHeader ref={ref} {...passThrough}>
+        <S.TitleSection type="h5">{children}</S.TitleSection>
 
         {onClose ? (
           <IconButton variant="subtle" onClick={handleOnClose}>
@@ -33,7 +24,7 @@ const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(
         ) : null}
       </S.DialogHeader>
     );
-  },
+  }
 );
 
 DialogHeader.displayName = 'DialogHeader';

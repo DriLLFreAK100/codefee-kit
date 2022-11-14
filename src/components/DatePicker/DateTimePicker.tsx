@@ -3,7 +3,11 @@ import { Calendar } from 'components/Icons';
 import { CalendarPanelOptions } from 'components/CalendarPanel';
 import { EasyDate } from 'utils/DateHelper';
 import React, {
-  ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
+  ChangeEvent,
+  forwardRef,
+  HtmlHTMLAttributes,
+  useEffect,
+  useState,
 } from 'react';
 import { isValidDate, sanitizeDateTimeInput } from './Common';
 import Picker from './Picker';
@@ -29,7 +33,8 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
 
     const [open, setOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
-    const [selectedDateTime, setSelectedDateTime] = useState<EasyDate | undefined>(undefined);
+    const [selectedDateTime, setSelectedDateTime] =
+      useState<EasyDate | undefined>(undefined);
     const isTouched = useHasValueChanged(inputValue);
 
     const closeDateTimeSelector = () => setOpen(false);
@@ -39,7 +44,9 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
     };
 
     const handleInputBlur = () => {
-      onDateTimeChange?.(isValidDate(inputValue) ? new Date(inputValue) : undefined);
+      onDateTimeChange?.(
+        isValidDate(inputValue) ? new Date(inputValue) : undefined
+      );
     };
 
     const updateDateTime = (value?: Date) => {
@@ -73,7 +80,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
       <Picker
         ref={ref}
         open={open}
-        input={(
+        input={
           <S.DateTimeInput
             placeholder={placeholder}
             value={inputValue}
@@ -82,8 +89,8 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
             onBlur={handleInputBlur}
             onChange={handleInputChange}
           />
-        )}
-        selector={(
+        }
+        selector={
           <DateTimeSelector
             dateTime={selectedDateTime}
             calendarPanelOptions={calendarPanelOptions}
@@ -91,7 +98,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
             onTimeChange={updateDateTime}
             onMinuteChange={handleMinuteChange}
           />
-        )}
+        }
         icon={<Calendar />}
         setOpen={setOpen}
         hasFooterControls
@@ -101,7 +108,7 @@ const DateTimePicker = forwardRef<HTMLDivElement, DateTimePickerProps>(
         {...passThrough}
       />
     );
-  },
+  }
 );
 
 DateTimePicker.displayName = 'DateTimePicker';

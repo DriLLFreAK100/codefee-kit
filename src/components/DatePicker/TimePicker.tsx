@@ -2,7 +2,11 @@ import Input from 'components/Input';
 import useHasValueChanged from 'hooks/useHasValueChanged';
 import { EasyTime, Time } from 'utils/TimeHelper';
 import React, {
-  ChangeEvent, forwardRef, HtmlHTMLAttributes, useEffect, useState,
+  ChangeEvent,
+  forwardRef,
+  HtmlHTMLAttributes,
+  useEffect,
+  useState,
 } from 'react';
 import { getTimeFromStr, isValidTime } from './Common';
 import Picker from './Picker';
@@ -16,15 +20,11 @@ export type TimePickerProps = {
 
 const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
   (props: TimePickerProps, ref) => {
-    const {
-      time,
-      placeholder,
-      onTimeChange,
-      ...passThrough
-    } = props;
+    const { time, placeholder, onTimeChange, ...passThrough } = props;
 
     const [open, setOpen] = useState(false);
-    const [selectedTime, setSelectedTime] = useState<EasyTime | undefined>(undefined);
+    const [selectedTime, setSelectedTime] =
+      useState<EasyTime | undefined>(undefined);
     const [inputValue, setInputValue] = useState('');
     const isTouched = useHasValueChanged(inputValue);
 
@@ -78,7 +78,7 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
       <Picker
         ref={ref}
         open={open}
-        input={(
+        input={
           <Input
             placeholder={placeholder}
             value={inputValue}
@@ -87,15 +87,15 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
             onBlur={handleInputBlur}
             onChange={handleInputChange}
           />
-        )}
-        selector={(
+        }
+        selector={
           <S.TimeSelector
             inputVariant="clock"
             time={selectedTime?.value}
             onTimeChange={handleTimeChange}
             onMinuteChange={handleMinuteChange}
           />
-        )}
+        }
         icon={<S.ClockIcon />}
         hasFooterControls
         setOpen={setOpen}
@@ -105,7 +105,7 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
         {...passThrough}
       />
     );
-  },
+  }
 );
 
 TimePicker.displayName = 'TimePicker';

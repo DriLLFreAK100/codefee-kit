@@ -40,12 +40,14 @@ export type DataColumnDefinition = {
   header?: string;
   field?: string;
   disableSort?: boolean;
-  render?: (cellData: any, rowData: any) => ReactNode,
-} & ColumnDefinition & ListObjectRequiredProps<number>;
+  render?: (cellData: any, rowData: any) => ReactNode;
+} & ColumnDefinition &
+  ListObjectRequiredProps<number>;
 
 export type FooterColumnDefinition = {
   value?: ReactNode;
-} & ColumnDefinition & ListObjectRequiredProps<number>;
+} & ColumnDefinition &
+  ListObjectRequiredProps<number>;
 
 export type SortKey = [string, OrderByDirection];
 
@@ -53,7 +55,7 @@ export const defaultSortKey: SortKey = ['', 'asc'];
 
 export const getColumnStyle = (
   current: ColumnDefinition,
-  colDefs: ColumnDefinition[],
+  colDefs: ColumnDefinition[]
 ): CSSProperties => {
   if (current.fixedSize) {
     return {
@@ -73,7 +75,7 @@ export const trySortData = (
   data: any,
   colDef: DataColumnDefinition,
   sortKey: SortKey,
-  onSort: (output: [updatedSortKey: SortKey, sortedData: any]) => void,
+  onSort: (output: [updatedSortKey: SortKey, sortedData: any]) => void
 ): void => {
   const { field, disableSort } = colDef;
   const [sortField, sortDirection] = sortKey;
@@ -81,19 +83,13 @@ export const trySortData = (
 
   if (!disableSort && field) {
     if (sortField === field) {
-      updatedSortKey = sortDirection === 'asc' ? [field, 'desc'] : defaultSortKey;
+      updatedSortKey =
+        sortDirection === 'asc' ? [field, 'desc'] : defaultSortKey;
     } else {
       updatedSortKey = [field, 'asc'];
     }
 
-    onSort([
-      updatedSortKey,
-      orderBy(
-        data,
-        (c) => c[field],
-        updatedSortKey[1],
-      ),
-    ]);
+    onSort([updatedSortKey, orderBy(data, (c) => c[field], updatedSortKey[1])]);
   }
 };
 

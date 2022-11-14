@@ -5,12 +5,11 @@ import { EasyTime, Time, TimePeriod } from 'utils/TimeHelper';
 import { AmPmButton, makeAmPmButtons, TimeInputProps } from './Common';
 import * as S from './TimePanel.styled';
 
-const toggleClockMode = (mode: ClockMode): ClockMode => (mode === 'edit-hour' ? 'edit-minute' : 'edit-hour');
+const toggleClockMode = (mode: ClockMode): ClockMode =>
+  mode === 'edit-hour' ? 'edit-minute' : 'edit-hour';
 
-const normalizeTime = (
-  value: Time,
-  timePeriod: TimePeriod,
-) => new EasyTime(value).setValueWithTimePeriod(value, timePeriod).value;
+const normalizeTime = (value: Time, timePeriod: TimePeriod) =>
+  new EasyTime(value).setValueWithTimePeriod(value, timePeriod).value;
 
 const ClockVariant: FC<TimeInputProps> = ({
   time,
@@ -20,10 +19,7 @@ const ClockVariant: FC<TimeInputProps> = ({
 }: TimeInputProps) => {
   const easyTime = new EasyTime(time);
 
-  const {
-    hoursString,
-    minutesString,
-  } = easyTime;
+  const { hoursString, minutesString } = easyTime;
 
   const [clockMode, setClockMode] = useState<ClockMode>('edit-hour');
   const [timePeriod, setTimePeriod] = useState(easyTime.timePeriod);
@@ -74,10 +70,7 @@ const ClockVariant: FC<TimeInputProps> = ({
           </S.MinuteButton>
         </S.HourMinuteGroup>
 
-        <ButtonGroup
-          buttons={amPmButtons}
-          onButtonClick={handleAmPmClick}
-        />
+        <ButtonGroup buttons={amPmButtons} onButtonClick={handleAmPmClick} />
       </S.InputBar>
 
       <S.ClockContainer>

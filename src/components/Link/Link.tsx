@@ -4,24 +4,14 @@ import { LinkProps } from './Common';
 
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   (props: LinkProps, ref) => {
-    const {
-      active,
-      href,
-      children,
-      ...passThrough
-    } = props;
+    const { active, href, children, ...passThrough } = props;
 
     return (
-      <S.Link
-        ref={ref}
-        href={href}
-        active={active}
-        {...passThrough}
-      >
+      <S.Link ref={ref} href={href} active={active} {...passThrough}>
         {children}
       </S.Link>
     );
-  },
+  }
 );
 
 Link.displayName = 'Link';

@@ -77,7 +77,10 @@ export class EasyTime {
     return this;
   }
 
-  public setHoursWithTimePeriod(hours: number, timePeriod: TimePeriod): EasyTime {
+  public setHoursWithTimePeriod(
+    hours: number,
+    timePeriod: TimePeriod
+  ): EasyTime {
     if (hours > 12) {
       return this;
     }
@@ -93,7 +96,10 @@ export class EasyTime {
     return this;
   }
 
-  public setValueWithTimePeriod({ hours }: Time, timePeriod: TimePeriod): EasyTime {
+  public setValueWithTimePeriod(
+    { hours }: Time,
+    timePeriod: TimePeriod
+  ): EasyTime {
     return this.setHoursWithTimePeriod(hours, timePeriod);
   }
 

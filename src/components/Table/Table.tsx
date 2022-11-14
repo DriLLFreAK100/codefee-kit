@@ -37,15 +37,15 @@ export type TableProps = {
     data: any,
     rowIndex: number,
     isClickable: boolean,
-    onClickRow?: (data: any) => void,
+    onClickRow?: (data: any) => void
   ) => ReactNode;
   headerRowTemplate?: (
     colDefs: DataColumnDefinition[],
     sortState: [string, OrderByDirection],
-    onClickHeader?: (colDef: DataColumnDefinition) => void,
+    onClickHeader?: (colDef: DataColumnDefinition) => void
   ) => ReactNode;
   footerRowTemplate?: (colDef: FooterColumnDefinition[]) => ReactNode;
-  emptyRecordTemplate?: (emptyRecordContent: ReactNode) => ReactNode,
+  emptyRecordTemplate?: (emptyRecordContent: ReactNode) => ReactNode;
 } & TableHTMLAttributes<HTMLTableElement>;
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
@@ -69,37 +69,48 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
     useEffect(() => setComputedData(data), [data]);
 
-    const handleOnClickHeader = useCallback((colDef: DataColumnDefinition) => {
-      trySortData(
-        computedData,
-        colDef,
-        sortKey.current,
-        ([updatedSortKey, sortedData]) => {
-          sortKey.current = updatedSortKey;
-          setComputedData(sortKey.current[0] ? sortedData : data);
-        },
-      );
+    const handleOnClickHeader = useCallback(
+      (colDef: DataColumnDefinition) => {
+        trySortData(
+          computedData,
+          colDef,
+          sortKey.current,
+          ([updatedSortKey, sortedData]) => {
+            sortKey.current = updatedSortKey;
+            setComputedData(sortKey.current[0] ? sortedData : data);
+          }
+        );
 
-      onClickHeader?.(colDef);
-    }, [computedData, data, onClickHeader]);
+        onClickHeader?.(colDef);
+      },
+      [computedData, data, onClickHeader]
+    );
 
-    const handleOnClickRow = useCallback((rowData: any) => {
-      onClickRow?.(rowData);
-    }, [onClickRow]);
+    const handleOnClickRow = useCallback(
+      (rowData: any) => {
+        onClickRow?.(rowData);
+      },
+      [onClickRow]
+    );
 
     const headerRow = useMemo(
       () => headerRowTemplate?.(colDefs, sortKey.current, handleOnClickHeader),
-      [colDefs, handleOnClickHeader, headerRowTemplate],
+      [colDefs, handleOnClickHeader, headerRowTemplate]
     );
 
     const bodyRows = useMemo(
-      () => (computedData.length > 0 ? computedData.map((datum, index) => rowTemplate?.(
-        colDefs,
-        datum,
-        index,
-        !!onClickRow,
-        handleOnClickRow,
-      )) : emptyRecordTemplate?.(emptyRecordContent)),
+      () =>
+        computedData.length > 0
+          ? computedData.map((datum, index) =>
+              rowTemplate?.(
+                colDefs,
+                datum,
+                index,
+                !!onClickRow,
+                handleOnClickRow
+              )
+            )
+          : emptyRecordTemplate?.(emptyRecordContent),
       [
         computedData,
         emptyRecordTemplate,
@@ -108,26 +119,27 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         colDefs,
         onClickRow,
         handleOnClickRow,
-      ],
+      ]
     );
 
-    const footerRow = useMemo(() => ((footerDefs || []).length > 0 ? (
-      <S.TFooter>
-        {footerRowTemplate?.(footerDefs as FooterColumnDefinition[])}
-      </S.TFooter>
-    ) : null), [footerDefs, footerRowTemplate]);
+    const footerRow = useMemo(
+      () =>
+        (footerDefs || []).length > 0 ? (
+          <S.TFooter>
+            {footerRowTemplate?.(footerDefs as FooterColumnDefinition[])}
+          </S.TFooter>
+        ) : null,
+      [footerDefs, footerRowTemplate]
+    );
 
     return (
-      <S.Table
-        ref={ref}
-        {...passThrough}
-      >
+      <S.Table ref={ref} {...passThrough}>
         <S.THead>{headerRow}</S.THead>
         <S.TBody>{bodyRows}</S.TBody>
         {footerRow}
       </S.Table>
     );
-  },
+  }
 );
 
 Table.displayName = 'Table';

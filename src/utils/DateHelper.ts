@@ -6,17 +6,37 @@ import { EasyTime } from './TimeHelper';
 
 export type DayPeriod = 'current' | 'prev' | 'next';
 
-export type DateDisplayReservedWords = 'yyyy' | 'MM' | 'MMM' | 'dd' | 'hh' | 'mm' | 'ampm';
+export type DateDisplayReservedWords =
+  | 'yyyy'
+  | 'MM'
+  | 'MMM'
+  | 'dd'
+  | 'hh'
+  | 'mm'
+  | 'ampm';
 
-export const defaultMonthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+export const defaultMonthLabels = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 
 export type Day = {
-  type: DayPeriod,
+  type: DayPeriod;
   easyDate: EasyDate;
 };
 
 export type EasyDateOptions = {
-  yearFrame: number
+  yearFrame: number;
 };
 
 export const defaultEasyDateOptions: EasyDateOptions = {
@@ -28,10 +48,7 @@ export class EasyDate {
 
   private options: EasyDateOptions;
 
-  constructor(
-    date: Date = new Date(),
-    options = defaultEasyDateOptions,
-  ) {
+  constructor(date: Date = new Date(), options = defaultEasyDateOptions) {
     this.value = date;
     this.options = {
       ...defaultEasyDateOptions,
@@ -69,11 +86,7 @@ export class EasyDate {
 
     return arr.map((d) => ({
       type: 'current',
-      easyDate: new EasyDate(new Date(
-        this.year,
-        this.month,
-        d,
-      )),
+      easyDate: new EasyDate(new Date(this.year, this.month, d)),
     }));
   }
 
@@ -84,11 +97,9 @@ export class EasyDate {
       .reverse()
       .map((day) => ({
         type: 'prev',
-        easyDate: new EasyDate(new Date(
-          this.previousMonth.year,
-          this.previousMonth.month,
-          day,
-        )),
+        easyDate: new EasyDate(
+          new Date(this.previousMonth.year, this.previousMonth.month, day)
+        ),
       }));
 
     const currentMonth: Day[] = this.daysInMonthArr.map(({ easyDate }) => ({
@@ -98,18 +109,12 @@ export class EasyDate {
 
     const nextMonth: Day[] = fillArray(6 - this.lastDay).map((_, i) => ({
       type: 'next',
-      easyDate: new EasyDate(new Date(
-        this.nextMonth.year,
-        this.nextMonth.month,
-        i + 1,
-      )),
+      easyDate: new EasyDate(
+        new Date(this.nextMonth.year, this.nextMonth.month, i + 1)
+      ),
     }));
 
-    return [
-      ...prevMonth,
-      ...currentMonth,
-      ...nextMonth,
-    ];
+    return [...prevMonth, ...currentMonth, ...nextMonth];
   }
 
   public get yearsInFrame(): number[] {
@@ -155,7 +160,7 @@ export class EasyDate {
 
   public format(
     format = 'yyyy/MM/dd',
-    monthLabels = defaultMonthLabels,
+    monthLabels = defaultMonthLabels
   ): string {
     const replacer: { [key in DateDisplayReservedWords]: () => string } = {
       yyyy: () => this.year.toString(),

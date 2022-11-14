@@ -15,7 +15,10 @@ export const CircularProgress = styled.svg<CircularProgressProps>`
 
   height: ${({ size }) => rem(size as number)};
   width: ${({ size }) => rem(size as number)};
-  animation: ${({ type }) => (type === 'indeterminate' ? 'circular-rotate 1.4s ease-in-out infinite' : 'unset')};
+  animation: ${({ type }) =>
+    type === 'indeterminate'
+      ? 'circular-rotate 1.4s ease-in-out infinite'
+      : 'unset'};
 `;
 
 const StyledCircle = styled.circle<CircleProps>`
@@ -31,7 +34,11 @@ export const DeterminateCircle = styled(StyledCircle)`
 `;
 
 export const IndeterminateCircle = styled(StyledCircle)`
-  animation: ${({ indeterminateAnimation }) => css`${indeterminateAnimation} 1.4s ease-in-out infinite`};
-  stroke-dasharray: ${({ circumference }) => `${circumference * 0.8}px, ${circumference * 1.6}px`};
+  animation: ${({ indeterminateAnimation }) =>
+    css`
+      ${indeterminateAnimation} 1.4s ease-in-out infinite
+    `};
+  stroke-dasharray: ${({ circumference }) =>
+    `${circumference * 0.8}px, ${circumference * 1.6}px`};
   stroke-dashoffset: 0px;
 `;

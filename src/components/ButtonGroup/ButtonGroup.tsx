@@ -1,5 +1,9 @@
 import React, {
-  forwardRef, HtmlHTMLAttributes, ButtonHTMLAttributes, ReactNode, useCallback,
+  forwardRef,
+  HtmlHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+  useCallback,
 } from 'react';
 import * as S from './ButtonGroup.styled';
 
@@ -15,25 +19,19 @@ export type ButtonGroupProps<T = ReactNode> = {
 
 const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
   (props: ButtonGroupProps, ref) => {
-    const {
-      buttons,
-      onButtonClick,
-      ...passThrough
-    } = props;
+    const { buttons, onButtonClick, ...passThrough } = props;
 
-    const handleClickButton = useCallback((btn: ButtonGroupButton<ReactNode>) => () => {
-      onButtonClick?.(btn);
-    }, [onButtonClick]);
+    const handleClickButton = useCallback(
+      (btn: ButtonGroupButton<ReactNode>) => () => {
+        onButtonClick?.(btn);
+      },
+      [onButtonClick]
+    );
 
     return (
-      <S.ButtonGroup
-        ref={ref}
-        {...passThrough}
-      >
+      <S.ButtonGroup ref={ref} {...passThrough}>
         {buttons.map((btn) => {
-          const {
-            id, content, selected, ...btnAttrs
-          } = btn;
+          const { id, content, selected, ...btnAttrs } = btn;
 
           return (
             <S.Button
@@ -48,7 +46,7 @@ const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
         })}
       </S.ButtonGroup>
     );
-  },
+  }
 );
 
 ButtonGroup.displayName = 'ButtonGroup';

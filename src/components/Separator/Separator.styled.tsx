@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { cvar, rem } from 'utils';
 
 export const LineSeparator = styled.hr`
-  background-image: linear-gradient(${cvar('--color-gray-7')}, ${cvar('--color-gray-7')});
+  background-image: linear-gradient(
+    ${cvar('--color-gray-7')},
+    ${cvar('--color-gray-7')}
+  );
   background-size: 100% ${rem(24)};
   border: 0;
   height: ${rem(4)};

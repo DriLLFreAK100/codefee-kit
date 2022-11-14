@@ -35,15 +35,17 @@ const DateTimeSelector: FC<DateTimeSelectorProps> = ({
     setDateOrTime('time');
   };
 
-  const handleTimeChange = (isMinute: boolean) => ({ hours, minutes }: Time) => {
-    const val = dateTime?.setHours(hours).setMinutes(minutes);
+  const handleTimeChange =
+    (isMinute: boolean) =>
+    ({ hours, minutes }: Time) => {
+      const val = dateTime?.setHours(hours).setMinutes(minutes);
 
-    onTimeChange?.(val?.value);
+      onTimeChange?.(val?.value);
 
-    if (isMinute) {
-      onMinuteChange?.(val?.value);
-    }
-  };
+      if (isMinute) {
+        onMinuteChange?.(val?.value);
+      }
+    };
 
   const easyTime = new EasyTime({ hours: hours$, minutes: minutes$ });
 

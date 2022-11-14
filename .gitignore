@@ -1,17 +1,11 @@
 # General
-.vscode/
 node_modules/
-package-lock.json
 
 # Build outputs
 dist
 storybook-static
 *.tgz
-bundle-analysis.html
+*bundle-analysis.html
 
 # Dev files
 debug.log
-
-# Codefee Architect templates
-.cf-template
-cf-template.config.json

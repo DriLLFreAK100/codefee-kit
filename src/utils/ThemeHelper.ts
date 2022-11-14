@@ -9,8 +9,8 @@ import { CodefeeTheme, ITheme } from 'common/Theme';
  */
 export const OverrideTheme = <T extends ITheme>(
   customTheme: T,
-  overrideTarget: ITheme = CodefeeTheme,
+  overrideTarget: ITheme = CodefeeTheme
 ): ITheme => ({
-    ...overrideTarget,
-    ...customTheme,
-  });
+  ...overrideTarget,
+  ...customTheme,
+});

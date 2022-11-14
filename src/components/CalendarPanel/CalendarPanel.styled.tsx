@@ -30,7 +30,7 @@ export const NavigationPanel = styled.div`
 `;
 
 export const TitleButton = styled.button`
-  ${IconButtonStyles.SubtleIconButtonCss};  
+  ${IconButtonStyles.SubtleIconButtonCss};
   flex: 1;
   text-align: center;
   line-height: ${rem(48)};
@@ -57,7 +57,7 @@ export const DaySelector = styled.div`
 
 export const MonthYearSelector = styled.div`
   ${SelectorCss};
-  padding: ${rem(24)} ${rem(16)} ;
+  padding: ${rem(24)} ${rem(16)};
   height: ${rem(352)};
 `;
 

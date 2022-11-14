@@ -9,7 +9,7 @@ import SelectLayout from './SelectLayout';
 export { Label } from './Select.styled';
 
 export const MultiselectLayout = styled(SelectLayout)`
-  &&{
+  && {
     width: ${rem(300)};
   }
 `;
@@ -18,15 +18,17 @@ export const CheckboxOption = styled(Checkbox)`
   pointer-events: none;
 `;
 
-const hoverCheckboxCss = css`${jsonToCss<Partial<CheckboxCssVarProps>>({
-  '--cf-checkbox-color-border': cvar('--color-primary-on'),
-  '--cf-checkbox-color-checked-bg': cvar('--color-primary-on'),
-  '--cf-checkbox-color-checkmark': cvar('--color-primary'),
-})}`;
+const hoverCheckboxCss = css`
+  ${jsonToCss<Partial<CheckboxCssVarProps>>({
+    '--cf-checkbox-color-border': cvar('--color-primary-on'),
+    '--cf-checkbox-color-checked-bg': cvar('--color-primary-on'),
+    '--cf-checkbox-color-checkmark': cvar('--color-primary'),
+  })}
+`;
 
 export const MultiselectOption = styled(Option)`
-  &:hover{
-    ${CheckboxOption}{
+  &:hover {
+    ${CheckboxOption} {
       ${hoverCheckboxCss};
     }
   }
@@ -50,22 +52,23 @@ export const ControlButton = styled.button`
   border: none;
   background: inherit;
   flex: 1;
-  transition: background-color ${cvar('--transition-hover')}, color ${cvar('--transition-hover')};
+  transition: background-color ${cvar('--transition-hover')},
+    color ${cvar('--transition-hover')};
 
-  &:hover, 
-  &:active{
-    color:${cvar('--color-primary-on')};
+  &:hover,
+  &:active {
+    color: ${cvar('--color-primary-on')};
   }
 
-  &:hover{
+  &:hover {
     background-color: ${cvar('--color-primary-light')};
   }
 
-  &:active{
+  &:active {
     background-color: ${cvar('--color-primary-dark')};
   }
 
-  &:not(:last-child){
+  &:not(:last-child) {
     border-right: ${rem(1)} solid ${cvar('--color-primary')};
   }
 `;
@@ -74,7 +77,7 @@ export const ControlButtonText = styled(Typography)`
   color: ${cvar('--color-gray-7')};
 
   &:hover,
-  &:active{
+  &:active {
     color: ${cvar('--color-primary-on')};
   }
 `;

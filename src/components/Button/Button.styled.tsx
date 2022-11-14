@@ -11,7 +11,8 @@ export const ButtonCss = css`
   height: ${cvar('--control-height')};
   outline: none;
   padding: ${rem(14)} ${rem(16)};
-  transition: background-color ${cvar('--transition-hover')} ease-in-out, color ${cvar('--transition-hover')} ease-in-out;
+  transition: background-color ${cvar('--transition-hover')} ease-in-out,
+    color ${cvar('--transition-hover')} ease-in-out;
 
   &:disabled {
     cursor: not-allowed;
@@ -31,15 +32,15 @@ export const PrimaryButton = styled(StyledButton)`
   color: ${cvar('--color-primary-on')};
 
   :hover {
-    background:  ${cvar('--color-primary-light')};
+    background: ${cvar('--color-primary-light')};
   }
 
   :active {
-    background:  ${cvar('--color-primary-dark')};
+    background: ${cvar('--color-primary-dark')};
   }
 
   :disabled {
-    background-color:  ${cvar('--color-primary')};
+    background-color: ${cvar('--color-primary')};
   }
 `;
 
@@ -51,7 +52,7 @@ export const SubtleButton = styled(StyledButton)`
   box-shadow: unset;
 
   :hover {
-    border: ${rem(1)} solid  ${cvar('--color-primary-light')};
+    border: ${rem(1)} solid ${cvar('--color-primary-light')};
     background: ${cvar('--color-primary-light')};
     color: ${cvar('--color-primary-on')};
   }
@@ -59,7 +60,7 @@ export const SubtleButton = styled(StyledButton)`
   :active {
     border: ${rem(1)} solid ${cvar('--color-primary-dark')};
     background: ${cvar('--color-primary-dark')};
-    color:  ${cvar('--color-primary-on')};
+    color: ${cvar('--color-primary-on')};
   }
 
   :disabled {
@@ -109,12 +110,12 @@ export const WarningButton = styled(StyledButton)`
 
   :hover {
     background: ${cvar('--color-warning-light')};
-  } 
+  }
 
   :active {
     background: ${cvar('--color-warning-dark')};
-  } 
-  
+  }
+
   :disabled {
     background-color: ${cvar('--color-warning')};
   }
@@ -126,12 +127,12 @@ export const ErrorButton = styled(StyledButton)`
 
   :hover {
     background: ${cvar('--color-error-light')};
-  } 
+  }
 
   :active {
     background: ${cvar('--color-error-dark')};
-  } 
-  
+  }
+
   :disabled {
     background-color: ${cvar('--color-error')};
   }
@@ -146,10 +147,10 @@ export const LiteButton = styled(StyledButton)`
   :hover {
     text-decoration: none;
     background: ${cvar('--color-gray-2')};
-  } 
+  }
 
   :active {
     text-decoration: none;
     background: ${cvar('--color-gray-3')};
-  } 
+  }
 `;

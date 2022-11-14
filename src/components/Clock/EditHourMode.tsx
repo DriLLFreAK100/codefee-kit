@@ -1,10 +1,21 @@
 import { polarToCartesian } from 'utils/MathHelper';
 import React, {
-  FC, Fragment, MouseEvent, useCallback, useLayoutEffect, useRef, useState,
+  FC,
+  Fragment,
+  MouseEvent,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
 } from 'react';
 import * as S from './Clock.styled';
 import {
-  activeCircleRadius, calcMajorDeg, calcTouchHours, clockMarks, indexizeHour, markRadius,
+  activeCircleRadius,
+  calcMajorDeg,
+  calcTouchHours,
+  clockMarks,
+  indexizeHour,
+  markRadius,
 } from './Common';
 
 type EditHourModeProps = {
@@ -27,29 +38,35 @@ const EditHourMode: FC<EditHourModeProps> = ({
 
   useLayoutEffect(() => setInternalHours(hours), [hours]);
 
-  const handleDragging = useCallback((
-    { clientX, clientY }: MouseEvent<SVGRectElement>,
-    isEnd = false,
-  ) => {
-    if (isDragging.current && centerDomRect) {
-      const value = calcTouchHours(centerDomRect, clientX, clientY);
-      setInternalHours(value);
+  const handleDragging = useCallback(
+    ({ clientX, clientY }: MouseEvent<SVGRectElement>, isEnd = false) => {
+      if (isDragging.current && centerDomRect) {
+        const value = calcTouchHours(centerDomRect, clientX, clientY);
+        setInternalHours(value);
 
-      if (isEnd) {
-        onHourChange?.(value);
+        if (isEnd) {
+          onHourChange?.(value);
+        }
       }
-    }
-  }, [centerDomRect, onHourChange]);
+    },
+    [centerDomRect, onHourChange]
+  );
 
-  const handleDragStart = useCallback((e: MouseEvent<SVGRectElement>) => {
-    isDragging.current = true;
-    handleDragging(e);
-  }, [handleDragging]);
+  const handleDragStart = useCallback(
+    (e: MouseEvent<SVGRectElement>) => {
+      isDragging.current = true;
+      handleDragging(e);
+    },
+    [handleDragging]
+  );
 
-  const handleDragEnd = useCallback((e: MouseEvent<SVGRectElement>) => {
-    handleDragging(e, true);
-    isDragging.current = false;
-  }, [handleDragging]);
+  const handleDragEnd = useCallback(
+    (e: MouseEvent<SVGRectElement>) => {
+      handleDragging(e, true);
+      isDragging.current = false;
+    },
+    [handleDragging]
+  );
 
   return (
     <>
@@ -61,21 +78,10 @@ const EditHourMode: FC<EditHourModeProps> = ({
           return (
             <Fragment key={i}>
               {isActive && (
-                <S.ActiveCircle
-                  cx={x}
-                  cy={y}
-                  r={activeCircleRadius}
-                />
+                <S.ActiveCircle cx={x} cy={y} r={activeCircleRadius} />
               )}
-              <S.Text
-                x={x}
-                y={y}
-                isActive={isActive}
-              >
-                <tspan
-                  textAnchor="middle"
-                  alignmentBaseline="central"
-                >
+              <S.Text x={x} y={y} isActive={isActive}>
+                <tspan textAnchor="middle" alignmentBaseline="central">
                   {hourMarks[i]}
                 </tspan>
               </S.Text>

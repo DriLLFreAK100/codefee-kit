@@ -10,24 +10,15 @@ export interface FigureProps extends HtmlHTMLAttributes<HTMLElement> {
 
 const Figure = forwardRef<HTMLElement, FigureProps>(
   (props: FigureProps, ref) => {
-    const {
-      caption,
-      children,
-    } = props;
+    const { caption, children } = props;
 
     return (
       <S.Figure ref={ref} {...props}>
         {children}
-        {
-          caption && (
-            <S.Caption>
-              {caption}
-            </S.Caption>
-          )
-        }
+        {caption && <S.Caption>{caption}</S.Caption>}
       </S.Figure>
     );
-  },
+  }
 );
 
 Figure.displayName = 'Figure';

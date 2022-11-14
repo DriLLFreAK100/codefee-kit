@@ -10,7 +10,7 @@ export const polarToCartesian = (
   centerX: number,
   centerY: number,
   radius: number,
-  angleInDegrees: number,
+  angleInDegrees: number
 ): Coordinate => {
   const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
 
@@ -30,7 +30,7 @@ export const polarToCartesian = (
 export const calcAngle = (
   center: Coordinate,
   start: Coordinate,
-  end: Coordinate,
+  end: Coordinate
 ): number => {
   const { x: p1X, y: p1Y } = center;
   const { x: p2X, y: p2Y } = start;
@@ -42,7 +42,7 @@ export const calcAngle = (
   const angleRad = Math.atan(numerator / denominator);
   const angleDeg = (angleRad * 180) / Math.PI;
 
-  if ((p3Y - p1Y) < 0) {
+  if (p3Y - p1Y < 0) {
     if (angleDeg < 0) {
       return angleDeg * -1;
     }
@@ -51,7 +51,7 @@ export const calcAngle = (
   }
 
   if (angleDeg < 0) {
-    return 180 + (angleDeg * -1);
+    return 180 + angleDeg * -1;
   }
 
   return 180 - angleDeg;

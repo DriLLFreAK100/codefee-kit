@@ -3,12 +3,7 @@ import { InputProps } from './Common';
 import * as S from './Input.styled';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  (props: InputProps, ref) => (
-    <S.Input
-      ref={ref}
-      {...props}
-    />
-  ),
+  (props: InputProps, ref) => <S.Input ref={ref} {...props} />
 );
 
 Input.displayName = 'Input';

@@ -1,8 +1,6 @@
 import ButtonGroup from 'components/ButtonGroup';
 import { EasyTime, TimeUnit } from 'utils/TimeHelper';
-import React, {
-  ChangeEvent, FC, useEffect, useRef, useState,
-} from 'react';
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import { AmPmButton, makeAmPmButtons, TimeInputProps } from './Common';
 import * as S from './TimePanel.styled';
 
@@ -24,7 +22,8 @@ const InputVariant: FC<TimeInputProps> = ({
 
   const [timePeriod, setTimePeriod] = useState(easyTime.timePeriod);
   const [hourValue, setHourValue] = useState<number | string>(hoursString);
-  const [minuteValue, setMinuteValue] = useState<number | string>(minutesString);
+  const [minuteValue, setMinuteValue] =
+    useState<number | string>(minutesString);
   const amPmButtons: AmPmButton[] = makeAmPmButtons(timePeriod);
 
   useEffect(() => {
@@ -59,16 +58,17 @@ const InputVariant: FC<TimeInputProps> = ({
     onTimeChange?.(easyTime.clonedValue);
   };
 
-  const handleHoursMinutesChange = (unit: TimeUnit) => (evt: ChangeEvent<HTMLInputElement>) => {
-    const val = parseInt(evt.target.value || '0', 10);
+  const handleHoursMinutesChange =
+    (unit: TimeUnit) => (evt: ChangeEvent<HTMLInputElement>) => {
+      const val = parseInt(evt.target.value || '0', 10);
 
-    if (unit === 'hour') {
-      handleHoursChange(val);
-      return;
-    }
+      if (unit === 'hour') {
+        handleHoursChange(val);
+        return;
+      }
 
-    handleMinutesChange(val);
-  };
+      handleMinutesChange(val);
+    };
 
   const handleFocus = (unit: TimeUnit) => () => {
     isInputing.current = true;
@@ -110,10 +110,7 @@ const InputVariant: FC<TimeInputProps> = ({
         />
       </S.HourMinuteGroup>
 
-      <ButtonGroup
-        buttons={amPmButtons}
-        onButtonClick={handleAmPmClick}
-      />
+      <ButtonGroup buttons={amPmButtons} onButtonClick={handleAmPmClick} />
     </S.InputBar>
   );
 };

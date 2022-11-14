@@ -13,7 +13,10 @@ export type SelectProps = {
   selected?: SelectOptionType;
   onSelectedChange: (option: SelectOptionType) => void;
   optionTemplate?: (option: SelectOptionType, props: SelectProps) => ReactNode;
-  selectedTemplate?: (selected: SelectOptionType | undefined, props: SelectProps) => ReactNode;
+  selectedTemplate?: (
+    selected: SelectOptionType | undefined,
+    props: SelectProps
+  ) => ReactNode;
 } & HtmlHTMLAttributes<HTMLDivElement>;
 
 const Select = forwardRef<HTMLDivElement, SelectProps>(
@@ -42,29 +45,27 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
         ref={ref}
         open={open}
         setOpen={setOpen}
-        selectedDisplay={(
+        selectedDisplay={
           <S.Label type="subtitle1">
             {selectedTemplate?.(selected, props)}
           </S.Label>
-        )}
-        optionNodes={(
+        }
+        optionNodes={
           <ul>
-            {
-              options.map((option) => (
-                <S.Option
-                  key={option.id}
-                  onClick={() => handleOnClickOption(option)}
-                >
-                  {optionTemplate?.(option, props)}
-                </S.Option>
-              ))
-            }
+            {options.map((option) => (
+              <S.Option
+                key={option.id}
+                onClick={() => handleOnClickOption(option)}
+              >
+                {optionTemplate?.(option, props)}
+              </S.Option>
+            ))}
           </ul>
-        )}
+        }
         {...passThrough}
       />
     );
-  },
+  }
 );
 
 Select.displayName = 'Select';

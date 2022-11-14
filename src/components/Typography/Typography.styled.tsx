@@ -3,28 +3,31 @@ import { cvar, rem } from 'utils';
 import { Gutter } from 'common';
 import { TypographyElementProps } from './Common';
 
-const BaseCss = (props: TypographyElementProps = {}): FlattenSimpleInterpolation => {
-  const {
-    gutterBottom,
-    subtle,
-  } = props;
+const BaseCss = (
+  props: TypographyElementProps = {}
+): FlattenSimpleInterpolation => {
+  const { gutterBottom, subtle } = props;
 
   return css`
-    ${gutterBottom ? `
+    ${gutterBottom
+      ? `
       margin-bottom: ${rem(gutterBottom)};
-    ` : ''}
-    
-    ${subtle ? `
+    `
+      : ''}
+
+    ${subtle
+      ? `
       color: gray;
       font-style: italic;
       font-weight: 300;
-    ` : ''}
+    `
+      : ''}
   `;
 };
 
 const BaseHeadingCss = (
   props: TypographyElementProps = {},
-  defaultGutterBottom: Gutter = 0,
+  defaultGutterBottom: Gutter = 0
 ): FlattenSimpleInterpolation => {
   const { gutterBottom } = props;
 
@@ -35,7 +38,9 @@ const BaseHeadingCss = (
   `;
 };
 
-const Body1Css = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
+const Body1Css = (
+  props?: TypographyElementProps
+): FlattenSimpleInterpolation => css`
   font-family: ${cvar('--font-family-secondary')};
   font-size: ${rem(16)};
   font-weight: normal;
@@ -44,7 +49,9 @@ const Body1Css = (props?: TypographyElementProps): FlattenSimpleInterpolation =>
   ${BaseCss(props)};
 `;
 
-const Body2Css = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
+const Body2Css = (
+  props?: TypographyElementProps
+): FlattenSimpleInterpolation => css`
   font-family: ${cvar('--font-family-secondary')};
   font-size: ${rem(14)};
   font-weight: normal;
@@ -53,7 +60,9 @@ const Body2Css = (props?: TypographyElementProps): FlattenSimpleInterpolation =>
   ${BaseCss(props)};
 `;
 
-export const ButtonCss = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
+export const ButtonCss = (
+  props?: TypographyElementProps
+): FlattenSimpleInterpolation => css`
   display: block;
   font-family: ${cvar('--font-family-secondary')};
   font-weight: 500;
@@ -64,7 +73,9 @@ export const ButtonCss = (props?: TypographyElementProps): FlattenSimpleInterpol
   ${BaseCss(props)};
 `;
 
-const CaptionCss = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
+const CaptionCss = (
+  props?: TypographyElementProps
+): FlattenSimpleInterpolation => css`
   display: block;
   font-family: ${cvar('--font-family-secondary')};
   font-size: ${rem(14)};
@@ -76,7 +87,7 @@ const CaptionCss = (props?: TypographyElementProps): FlattenSimpleInterpolation 
 
 const H1Css = (
   props: TypographyElementProps = {},
-  defaultGutterBottom: Gutter = 0,
+  defaultGutterBottom: Gutter = 0
 ): FlattenSimpleInterpolation => css`
   font-size: ${rem(52)};
   line-height: ${rem(68)};
@@ -85,7 +96,7 @@ const H1Css = (
 
 const H2Css = (
   props: TypographyElementProps = {},
-  defaultGutterBottom: Gutter = 0,
+  defaultGutterBottom: Gutter = 0
 ): FlattenSimpleInterpolation => css`
   font-size: ${rem(40)};
   line-height: ${rem(52)};
@@ -94,7 +105,7 @@ const H2Css = (
 
 const H3Css = (
   props: TypographyElementProps = {},
-  defaultGutterBottom: Gutter = 0,
+  defaultGutterBottom: Gutter = 0
 ): FlattenSimpleInterpolation => css`
   font-size: ${rem(32)};
   line-height: ${rem(44)};
@@ -103,7 +114,7 @@ const H3Css = (
 
 const H4Css = (
   props: TypographyElementProps = {},
-  defaultGutterBottom: Gutter = 0,
+  defaultGutterBottom: Gutter = 0
 ): FlattenSimpleInterpolation => css`
   font-size: ${rem(28)};
   line-height: ${rem(40)};
@@ -112,7 +123,7 @@ const H4Css = (
 
 const H5Css = (
   props: TypographyElementProps = {},
-  defaultGutterBottom: Gutter = 0,
+  defaultGutterBottom: Gutter = 0
 ): FlattenSimpleInterpolation => css`
   font-size: ${rem(24)};
   line-height: ${rem(36)};
@@ -121,14 +132,16 @@ const H5Css = (
 
 const H6Css = (
   props: TypographyElementProps = {},
-  defaultGutterBottom: Gutter = 0,
+  defaultGutterBottom: Gutter = 0
 ): FlattenSimpleInterpolation => css`
   font-size: ${rem(20)};
   line-height: ${rem(32)};
   ${BaseHeadingCss(props, defaultGutterBottom)};
 `;
 
-const ParagraphCss = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
+const ParagraphCss = (
+  props?: TypographyElementProps
+): FlattenSimpleInterpolation => css`
   font-family: ${cvar('--font-family-secondary')};
   font-size: ${rem(18)};
   line-height: ${rem(28)};
@@ -136,7 +149,9 @@ const ParagraphCss = (props?: TypographyElementProps): FlattenSimpleInterpolatio
   ${BaseCss(props)};
 `;
 
-const BlockquoteCss = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
+const BlockquoteCss = (
+  props?: TypographyElementProps
+): FlattenSimpleInterpolation => css`
   font-family: ${cvar('--font-family-primary')};
   font-size: ${rem(24)};
   font-style: italic;
@@ -146,7 +161,9 @@ const BlockquoteCss = (props?: TypographyElementProps): FlattenSimpleInterpolati
   ${BaseCss(props)};
 `;
 
-const Subtitle1Css = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
+const Subtitle1Css = (
+  props?: TypographyElementProps
+): FlattenSimpleInterpolation => css`
   font-family: ${cvar('--font-family-primary')};
   font-size: ${rem(16)};
   font-weight: normal;
@@ -155,7 +172,9 @@ const Subtitle1Css = (props?: TypographyElementProps): FlattenSimpleInterpolatio
   ${BaseCss(props)};
 `;
 
-const Subtitle2Css = (props?: TypographyElementProps): FlattenSimpleInterpolation => css`
+const Subtitle2Css = (
+  props?: TypographyElementProps
+): FlattenSimpleInterpolation => css`
   font-family: ${cvar('--font-family-primary')};
   font-size: ${rem(14)};
   font-weight: 500;
@@ -164,33 +183,61 @@ const Subtitle2Css = (props?: TypographyElementProps): FlattenSimpleInterpolatio
   ${BaseCss(props)};
 `;
 
-export const Body1 = styled.p<TypographyElementProps>`${(props) => Body1Css(props)}`;
+export const Body1 = styled.p<TypographyElementProps>`
+  ${(props) => Body1Css(props)}
+`;
 
-export const Body2 = styled.p<TypographyElementProps>`${(props) => Body2Css(props)}`;
+export const Body2 = styled.p<TypographyElementProps>`
+  ${(props) => Body2Css(props)}
+`;
 
-export const Button = styled.span<TypographyElementProps>`${(props) => ButtonCss(props)}`;
+export const Button = styled.span<TypographyElementProps>`
+  ${(props) => ButtonCss(props)}
+`;
 
-export const Caption = styled.figcaption<TypographyElementProps>`${(props) => CaptionCss(props)}`;
+export const Caption = styled.figcaption<TypographyElementProps>`
+  ${(props) => CaptionCss(props)}
+`;
 
-export const H1 = styled.h1<TypographyElementProps>`${(props) => H1Css(props, 28)}`;
+export const H1 = styled.h1<TypographyElementProps>`
+  ${(props) => H1Css(props, 28)}
+`;
 
-export const H2 = styled.h2<TypographyElementProps>`${(props) => H2Css(props, 24)}`;
+export const H2 = styled.h2<TypographyElementProps>`
+  ${(props) => H2Css(props, 24)}
+`;
 
-export const H3 = styled.h3<TypographyElementProps>`${(props) => H3Css(props, 16)}`;
+export const H3 = styled.h3<TypographyElementProps>`
+  ${(props) => H3Css(props, 16)}
+`;
 
-export const H4 = styled.h4<TypographyElementProps>`${(props) => H4Css(props, 12)}`;
+export const H4 = styled.h4<TypographyElementProps>`
+  ${(props) => H4Css(props, 12)}
+`;
 
-export const H5 = styled.h5<TypographyElementProps>`${(props) => H5Css(props)}`;
+export const H5 = styled.h5<TypographyElementProps>`
+  ${(props) => H5Css(props)}
+`;
 
-export const H6 = styled.h6<TypographyElementProps>`${(props) => H6Css(props)}`;
+export const H6 = styled.h6<TypographyElementProps>`
+  ${(props) => H6Css(props)}
+`;
 
-export const Paragraph = styled.p<TypographyElementProps>`${(props) => ParagraphCss(props)}`;
+export const Paragraph = styled.p<TypographyElementProps>`
+  ${(props) => ParagraphCss(props)}
+`;
 
-export const Blockquote = styled.p<TypographyElementProps>`${(props) => BlockquoteCss(props)}`;
+export const Blockquote = styled.p<TypographyElementProps>`
+  ${(props) => BlockquoteCss(props)}
+`;
 
-export const Subtitle1 = styled.h6<TypographyElementProps>`${(props) => Subtitle1Css(props)}`;
+export const Subtitle1 = styled.h6<TypographyElementProps>`
+  ${(props) => Subtitle1Css(props)}
+`;
 
-export const Subtitle2 = styled.h6<TypographyElementProps>`${(props) => Subtitle2Css(props)}`;
+export const Subtitle2 = styled.h6<TypographyElementProps>`
+  ${(props) => Subtitle2Css(props)}
+`;
 
 export default {
   Body1Css,

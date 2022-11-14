@@ -34,10 +34,7 @@ export const NavIconButton: FC<IconButtonProps> = ({
   children = null,
   ...passThrough
 }) => (
-  <IconButton
-    variant="subtle"
-    {...passThrough}
-  >
+  <IconButton variant="subtle" {...passThrough}>
     {children}
   </IconButton>
 );
@@ -47,7 +44,7 @@ export const switchLevel = <T extends unknown>(
   dayFunc?: () => T,
   monthFunc?: () => T,
   yearFunc?: () => T,
-  defaultFunc?: () => T,
+  defaultFunc?: () => T
 ): T | undefined => {
   switch (level) {
     case 'day':
@@ -61,9 +58,9 @@ export const switchLevel = <T extends unknown>(
   }
 };
 
-export const withStopPropagation = (
-  func: () => void,
-) => (e: MouseEvent<HTMLButtonElement>): void => {
-  e.nativeEvent.stopImmediatePropagation();
-  func();
-};
+export const withStopPropagation =
+  (func: () => void) =>
+  (e: MouseEvent<HTMLButtonElement>): void => {
+    e.nativeEvent.stopImmediatePropagation();
+    func();
+  };

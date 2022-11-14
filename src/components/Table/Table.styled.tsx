@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components';
 import { AngleDown } from 'components/Icons';
 import { TypographyStyles } from 'components/Typography';
+import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
 import {
-  cvar, makeCssVar, rem,
-} from 'utils/StyleHelper';
-import {
-  Alignment, FlexAlignmentMap, OrderByDirection, TableSegment,
+  Alignment,
+  FlexAlignmentMap,
+  OrderByDirection,
+  TableSegment,
 } from './Common';
 
 export type TableCssVarProps = {
@@ -81,8 +82,12 @@ type TrProps = {
 
 export const Tr = styled.tr<TrProps>`
   height: ${({ segment }) => getRowHeight(segment || 'body')};
-  border-bottom: ${rem(1)} solid ${({ segment }) => (segment === 'body' ? cssVar('--cf-table-row-border-color') : 'none')};
-  border-top: ${rem(1)} solid ${({ segment }) => (segment === 'foot' ? cssVar('--cf-table-row-border-color') : 'none')};
+  border-bottom: ${rem(1)} solid
+    ${({ segment }) =>
+      segment === 'body' ? cssVar('--cf-table-row-border-color') : 'none'};
+  border-top: ${rem(1)} solid
+    ${({ segment }) =>
+      segment === 'foot' ? cssVar('--cf-table-row-border-color') : 'none'};
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -119,12 +124,15 @@ export const Th = styled.th<ThProps>`
   justify-content: ${({ align }) => FlexAlignmentMap[align]};
   height: 100%;
   cursor: ${({ sortable }) => (sortable ? 'pointer' : 'initial')};
-  color: ${({ isSortActive }) => (isSortActive ? cssVar('--cf-table-sort-active-color') : 'initial')};
+  color: ${({ isSortActive }) =>
+    isSortActive ? cssVar('--cf-table-sort-active-color') : 'initial'};
   border-bottom-width: ${rem(4)};
   border-bottom-style: solid;
-  border-bottom-color: ${({ isSortActive }) => (isSortActive ? cssVar('--cf-table-sort-active-color') : 'transparent')};
+  border-bottom-color: ${({ isSortActive }) =>
+    isSortActive ? cssVar('--cf-table-sort-active-color') : 'transparent'};
   box-sizing: border-box;
-  transition: color ${cvar('--transition-toggle')}, border-bottom-color ${cvar('--transition-toggle')};
+  transition: color ${cvar('--transition-toggle')},
+    border-bottom-color ${cvar('--transition-toggle')};
   user-select: none;
   ${CellCss};
 `;
@@ -150,16 +158,18 @@ export const TFooter = styled.tfoot`
   min-height: ${cssVar('--cf-table-foot-row-height')};
   overflow-y: scroll;
 
-  ${Td}{
+  ${Td} {
     font-size: ${rem(18)};
     font-family: ${cvar('--font-family-primary')};
     font-weight: 600;
   }
 `;
 
-export const SortIcon = styled(AngleDown) <{ direction: OrderByDirection }>`
+export const SortIcon = styled(AngleDown)<{ direction: OrderByDirection }>`
   color: ${cssVar('--cf-table-sort-active-color')};
   margin-left: ${rem(4)};
-  transform: ${({ direction }) => (direction === 'desc' ? 'rotate(180deg)' : 'rotate(360deg)')};
-  transition: color ${cvar('--transition-toggle')}, transform ${cvar('--transition-toggle')};
+  transform: ${({ direction }) =>
+    direction === 'desc' ? 'rotate(180deg)' : 'rotate(360deg)'};
+  transition: color ${cvar('--transition-toggle')},
+    transform ${cvar('--transition-toggle')};
 `;

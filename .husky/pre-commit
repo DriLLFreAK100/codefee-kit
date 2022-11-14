@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# TODO: revisit impl typecheck on lint-staged after official issue is resolved https://github.com/microsoft/TypeScript/issues/27379#issuecomment-425245572
+npm run typecheck
+npm test
+npx lint-staged

@@ -13,15 +13,16 @@ export const Option = styled.li`
   padding: ${rem(8)};
   display: flex;
   align-items: center;
-  transition: background-color ${cvar('--transition-hover')}, color ${cvar('--transition-hover')};
+  transition: background-color ${cvar('--transition-hover')},
+    color ${cvar('--transition-hover')};
 
-  &:hover{
-    color: ${cvar('--color-primary-on')}; 
+  &:hover {
+    color: ${cvar('--color-primary-on')};
     background-color: ${cvar('--color-primary-light')};
   }
 
-  &:active{
-    color: ${cvar('--color-primary-on')}; 
+  &:active {
+    color: ${cvar('--color-primary-on')};
     background-color: ${cvar('--color-primary-dark')};
   }
 `;

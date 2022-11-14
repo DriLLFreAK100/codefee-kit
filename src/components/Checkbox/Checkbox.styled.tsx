@@ -2,11 +2,9 @@ import styled from 'styled-components';
 import { Gutter } from 'common';
 import { GutterStyle } from 'styles';
 import { Typography } from 'components/Typography';
-import {
-  cvar, makeCssVar, rem,
-} from 'utils/StyleHelper';
+import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
 
-export interface CheckboxCssVarProps {
+export type CheckboxCssVarProps = {
   '--cf-checkbox-color-border': string;
   '--cf-checkbox-color-border-hover': string;
   '--cf-checkbox-color-border-active': string;
@@ -15,7 +13,7 @@ export interface CheckboxCssVarProps {
   '--cf-checkbox-color-checkmark': string;
   '--cf-checkbox-color-checkmark-disabled': string;
   '--cf-checkbox-color-label': string;
-}
+};
 
 const [defaultCssVar, cssVar] = makeCssVar<CheckboxCssVarProps>({
   '--cf-checkbox-color-border': cvar('--color-primary'),
@@ -28,7 +26,10 @@ const [defaultCssVar, cssVar] = makeCssVar<CheckboxCssVarProps>({
   '--cf-checkbox-color-label': 'unset',
 });
 
-export const Checkbox = styled.label<{ disabled?: boolean; gutterBottom: Gutter; }>`
+export const Checkbox = styled.label<{
+  disabled?: boolean;
+  gutterBottom: Gutter;
+}>`
   ${defaultCssVar}
   display: inline-block;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
@@ -38,13 +39,18 @@ export const Checkbox = styled.label<{ disabled?: boolean; gutterBottom: Gutter;
   ${({ gutterBottom }) => GutterStyle({ bottom: gutterBottom })};
 `;
 
-export const Checkmark = styled.span<{ checked: boolean; disabled?: boolean; }>`
+export const Checkmark = styled.span<{ checked: boolean; disabled?: boolean }>`
   position: absolute;
   left: ${rem(7)};
   top: ${rem(1.5)};
   width: ${rem(4)};
   height: ${rem(11)};
-  border-color: ${({ disabled }) => cssVar(disabled ? '--cf-checkbox-color-checkmark-disabled' : '--cf-checkbox-color-checkmark')};
+  border-color: ${({ disabled }) =>
+    cssVar(
+      disabled
+        ? '--cf-checkbox-color-checkmark-disabled'
+        : '--cf-checkbox-color-checkmark'
+    )};
   border-style: solid;
   border-width: 0 ${rem(2)} ${rem(2)} 0;
   transform: rotate(405deg);
@@ -61,23 +67,23 @@ export const Input = styled.input`
   width: ${rem(20)};
   height: ${rem(20)};
 
-  &&{
+  && {
     cursor: inherit;
   }
 
-  &:hover{
+  &:hover {
     border-color: ${cssVar('--cf-checkbox-color-border-hover')};
   }
 
-  &:active{
+  &:active {
     border-color: ${cssVar('--cf-checkbox-color-border-active')};
   }
 
-  &[type=checkbox]:checked:not(:disabled){
+  &[type='checkbox']:checked:not(:disabled) {
     background-color: ${cssVar('--cf-checkbox-color-checked-bg')};
   }
 
-  &:disabled{
+  &:disabled {
     background-color: ${cssVar('--cf-checkbox-color-disabled')};
     border-color: ${cssVar('--cf-checkbox-color-disabled')};
   }

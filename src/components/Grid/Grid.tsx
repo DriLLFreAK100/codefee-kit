@@ -1,12 +1,23 @@
 import useWindowSize from 'hooks/useWindowSize';
 import { HorizontalAlignment, SizeType, VerticalAlignment } from 'common/Types';
 import { rem } from 'utils/StyleHelper';
-import React, {
-  CSSProperties, forwardRef, ReactNode,
-} from 'react';
+import React, { CSSProperties, forwardRef, ReactNode } from 'react';
 import * as S from './Grid.styled';
 
-export type GridSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
+export type GridSize =
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | undefined;
 
 export interface GridProps {
   children?: ReactNode;
@@ -30,19 +41,20 @@ const guard = (...sizes: (number | undefined)[]): void => {
 
 const getDefinedValue = (
   index: number,
-  sizes: { sizeType: SizeType, value?: number }[],
+  sizes: { sizeType: SizeType; value?: number }[]
 ): string => {
   if (index < 0) return '100%';
-  if (sizes[index].value) return `${((sizes[index].value as number) / 12) * 100}%`;
+  if (sizes[index].value)
+    return `${((sizes[index].value as number) / 12) * 100}%`;
   return getDefinedValue(index - 1, sizes);
 };
 
 const getFlexSize = (
   target: SizeType,
   sizes: {
-    sizeType: SizeType,
-    value?: number
-  }[],
+    sizeType: SizeType;
+    value?: number;
+  }[]
 ): CSSProperties => {
   const result: CSSProperties = {};
 
@@ -125,51 +137,52 @@ const getYAlign = (value?: VerticalAlignment): CSSProperties => {
   return result;
 };
 
-const Grid = forwardRef<HTMLDivElement, GridProps>(({
-  children,
-  className,
-  fullHeight,
-  style,
-  xAlign,
-  yAlign,
-  xs,
-  sm,
-  md,
-  lg,
-  xl,
-}: GridProps, ref) => {
-  guard(xs, sm, md, lg, xl);
-  const { size } = useWindowSize();
-  let computedStyle: CSSProperties = { ...style };
+const Grid = forwardRef<HTMLDivElement, GridProps>(
+  (
+    {
+      children,
+      className,
+      fullHeight,
+      style,
+      xAlign,
+      yAlign,
+      xs,
+      sm,
+      md,
+      lg,
+      xl,
+    }: GridProps,
+    ref
+  ) => {
+    guard(xs, sm, md, lg, xl);
+    const { size } = useWindowSize();
+    let computedStyle: CSSProperties = { ...style };
 
-  if (fullHeight) computedStyle.height = '100%';
+    if (fullHeight) computedStyle.height = '100%';
 
-  if (size) {
-    computedStyle = {
-      ...computedStyle,
-      ...getFlexSize(size, [
-        { sizeType: 'xs', value: xs },
-        { sizeType: 'sm', value: sm },
-        { sizeType: 'md', value: md },
-        { sizeType: 'lg', value: lg },
-        { sizeType: 'xl', value: xl },
-      ]),
-      ...getXAlign(xAlign),
-      ...getYAlign(yAlign),
-      ...getGutterStyle(size),
-    };
+    if (size) {
+      computedStyle = {
+        ...computedStyle,
+        ...getFlexSize(size, [
+          { sizeType: 'xs', value: xs },
+          { sizeType: 'sm', value: sm },
+          { sizeType: 'md', value: md },
+          { sizeType: 'lg', value: lg },
+          { sizeType: 'xl', value: xl },
+        ]),
+        ...getXAlign(xAlign),
+        ...getYAlign(yAlign),
+        ...getGutterStyle(size),
+      };
+    }
+
+    return (
+      <S.Grid ref={ref} className={className} style={computedStyle}>
+        {children}
+      </S.Grid>
+    );
   }
-
-  return (
-    <S.Grid
-      ref={ref}
-      className={className}
-      style={computedStyle}
-    >
-      {children}
-    </S.Grid>
-  );
-});
+);
 
 Grid.displayName = 'Grid';
 Grid.defaultProps = {

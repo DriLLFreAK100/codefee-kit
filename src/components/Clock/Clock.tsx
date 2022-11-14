@@ -1,5 +1,9 @@
 import React, {
-  forwardRef, SVGAttributes, useCallback, useLayoutEffect, useState,
+  forwardRef,
+  SVGAttributes,
+  useCallback,
+  useLayoutEffect,
+  useState,
 } from 'react';
 import { Time } from 'utils/TimeHelper';
 import * as S from './Clock.styled';
@@ -20,8 +24,8 @@ import {
 
 export type ClockProps = {
   clockMode?: ClockMode;
-  hourMarks?: string[],
-  minuteMarks?: string[],
+  hourMarks?: string[];
+  minuteMarks?: string[];
   time?: Time;
   viewStyle?: ViewStyle;
   onTimeChange?: (time: Time) => void;
@@ -51,31 +55,40 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
     const minuteDeg = calcMinorDeg(minutes) + calcMinorDeg((seconds || 0) / 60);
     const secondsDeg = calcMinorDeg(seconds || 0);
 
-    const handleCenterDotRef = useCallback((el: SVGCircleElement | null) => setCenterDotEl(el), []);
+    const handleCenterDotRef = useCallback(
+      (el: SVGCircleElement | null) => setCenterDotEl(el),
+      []
+    );
 
-    const handleMinuteChange = useCallback((minutes$: number) => {
-      const val = {
-        hours,
-        minutes: minutes$,
-      };
+    const handleMinuteChange = useCallback(
+      (minutes$: number) => {
+        const val = {
+          hours,
+          minutes: minutes$,
+        };
 
-      onMinuteChange?.(val);
-      onTimeChange?.(val);
-    }, [hours, onMinuteChange, onTimeChange]);
+        onMinuteChange?.(val);
+        onTimeChange?.(val);
+      },
+      [hours, onMinuteChange, onTimeChange]
+    );
 
-    const handleHourChange = useCallback((hour$: number) => {
-      const val = {
-        hours: hour$,
-        minutes,
-      };
+    const handleHourChange = useCallback(
+      (hour$: number) => {
+        const val = {
+          hours: hour$,
+          minutes,
+        };
 
-      onHourChange?.(val);
-      onTimeChange?.(val);
-    }, [minutes, onHourChange, onTimeChange]);
+        onHourChange?.(val);
+        onTimeChange?.(val);
+      },
+      [minutes, onHourChange, onTimeChange]
+    );
 
     const getViewContent = (isRealtime = false) => (
       <ViewMode
-        hourDeg={hourDeg + (minutes * 0.5)}
+        hourDeg={hourDeg + minutes * 0.5}
         minuteDeg={minuteDeg}
         secondsDeg={secondsDeg}
         viewStyle={viewStyle}
@@ -83,7 +96,8 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
       />
     );
 
-    const clockContent = switchMode(clockMode as ClockMode,
+    const clockContent = switchMode(
+      clockMode as ClockMode,
       () => getViewContent(),
       () => getViewContent(true),
       () => (
@@ -101,7 +115,8 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
           minuteMarks={minuteMarks as string[]}
           onMinuteChange={handleMinuteChange}
         />
-      ));
+      )
+    );
 
     useLayoutEffect(() => setInternalTime(time), [time]);
 
@@ -120,24 +135,15 @@ const Clock = forwardRef<SVGSVGElement, ClockProps>(
         {...passThrough}
       >
         <g>
-          <S.ClockFrame
-            cx="300"
-            cy="300"
-            r="296"
-          />
+          <S.ClockFrame cx="300" cy="300" r="296" />
 
-          <S.CenterDot
-            ref={handleCenterDotRef}
-            cx="300"
-            cy="300"
-            r="16"
-          />
+          <S.CenterDot ref={handleCenterDotRef} cx="300" cy="300" r="16" />
         </g>
 
         {clockContent}
       </S.Clock>
     );
-  },
+  }
 );
 
 Clock.displayName = 'Clock';

@@ -10,7 +10,9 @@ type DialogHeaderCssVar = {
 };
 
 const [defaultCssVar, cssVar] = makeCssVar<DialogHeaderCssVar>({
-  '--cf-dialog-header-border-bottom': `${rem(1)} solid ${cvar('--color-gray-3')}`,
+  '--cf-dialog-header-border-bottom': `${rem(1)} solid ${cvar(
+    '--color-gray-3'
+  )}`,
   '--cf-dialog-header-margin-bottom': rem(16),
   '--cf-dialog-header-padding-bottom': rem(4),
   '--cf-dialog-header-min-height': rem(48),

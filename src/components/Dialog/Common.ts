@@ -1,1 +1,6 @@
-export type DialogVariant = 'info' | 'error' | 'warning' | 'success' | 'default';
+export type DialogVariant =
+  | 'info'
+  | 'error'
+  | 'warning'
+  | 'success'
+  | 'default';

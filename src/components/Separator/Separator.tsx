@@ -7,9 +7,7 @@ export interface SeparatorProps {
   type?: SeparatorType;
 }
 
-const Separator: FC<SeparatorProps> = ({
-  type,
-}: SeparatorProps) => {
+const Separator: FC<SeparatorProps> = ({ type }: SeparatorProps) => {
   switch (type) {
     case 'line':
       return <S.LineSeparator />;

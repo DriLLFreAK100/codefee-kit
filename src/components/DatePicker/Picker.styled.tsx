@@ -45,7 +45,7 @@ export const Controls = styled.div`
 export const CtrlButton = styled(Button)`
   min-width: 0;
 
-  &:not(:last-child){
+  &:not(:last-child) {
     margin-right: ${rem(8)};
   }
 `;

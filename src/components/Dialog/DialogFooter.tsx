@@ -5,20 +5,14 @@ export type DialogFooterProps = HtmlHTMLAttributes<HTMLDivElement>;
 
 const DialogFooter = forwardRef<HTMLDivElement, DialogFooterProps>(
   (props: DialogFooterProps, ref) => {
-    const {
-      children,
-      ...passThrough
-    } = props;
+    const { children, ...passThrough } = props;
 
     return (
-      <S.DialogFooter
-        ref={ref}
-        {...passThrough}
-      >
+      <S.DialogFooter ref={ref} {...passThrough}>
         {children}
       </S.DialogFooter>
     );
-  },
+  }
 );
 
 DialogFooter.displayName = 'DialogFooter';

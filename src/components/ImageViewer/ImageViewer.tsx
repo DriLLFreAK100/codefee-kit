@@ -34,7 +34,7 @@ const ImageViewer = forwardRef<HTMLDivElement, ImageViewerProps>(
         <S.Image {...props} />
       </S.ImageContainer>
     );
-  },
+  }
 );
 
 ImageViewer.displayName = 'ImageViewer';

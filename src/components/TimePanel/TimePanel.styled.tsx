@@ -46,9 +46,13 @@ const MinuteInputCss = css`
   ${TimeInputCss};
 `;
 
-export const HourInput = styled(Input)`${HourInputCss}`;
+export const HourInput = styled(Input)`
+  ${HourInputCss}
+`;
 
-export const MinuteInput = styled(Input)`${MinuteInputCss}`;
+export const MinuteInput = styled(Input)`
+  ${MinuteInputCss}
+`;
 
 const ActiveButtonCss = css`
   border: ${rem(2)} solid ${cvar('--color-primary')};
@@ -66,9 +70,13 @@ const HourMinuteButton = styled.button<{ isActive: boolean }>`
   ${({ isActive }) => isActive && ActiveButtonCss};
 `;
 
-export const HourButton = styled(HourMinuteButton)`${HourInputCss}`;
+export const HourButton = styled(HourMinuteButton)`
+  ${HourInputCss}
+`;
 
-export const MinuteButton = styled(HourMinuteButton)`${MinuteInputCss}`;
+export const MinuteButton = styled(HourMinuteButton)`
+  ${MinuteInputCss}
+`;
 
 export const HourMinuteColon = styled(Typography)`
   line-height: ${cvar('--control-height')};
