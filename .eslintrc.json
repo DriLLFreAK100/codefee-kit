@@ -11,7 +11,8 @@
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -23,7 +24,8 @@
   },
   "plugins": [
     "react",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "rules": {
     "react/jsx-props-no-spreading": 0,
@@ -33,7 +35,8 @@
         "maximum": 1,
         "when": "multiline"
       }
-    ]
+    ],
+    "prettier/prettier": 2
   },
   "overrides": [
     {

@@ -32,15 +32,16 @@ export const gut = (value: Gutter): string => rem(value);
  * @param json Json specifying CSS Properties or CSS Variables
  * @returns CSS string
  */
-export const jsonToCss = <T>(json: T): string => `${Object
-  .entries(json)
-  .map(([key, value]) => `${key}: ${value as string}`)
-  .join(';')};`;
+export const jsonToCss = <T>(json: T): string =>
+  `${Object.entries(json)
+    .map(([key, value]) => `${key}: ${value as string}`)
+    .join(';')};`;
 
-export const makeCssVar = <T>(defaultCssVarValues: T): [
-  FlattenSimpleInterpolation,
-  (p: keyof T) => string,
-] => [
-    css`${jsonToCss(defaultCssVarValues)}`,
-    (p: keyof T) => cvarGen<T>(p),
-  ];
+export const makeCssVar = <T>(
+  defaultCssVarValues: T
+): [FlattenSimpleInterpolation, (p: keyof T) => string] => [
+  css`
+    ${jsonToCss(defaultCssVarValues)}
+  `,
+  (p: keyof T) => cvarGen<T>(p),
+];

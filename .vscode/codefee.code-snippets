@@ -1,0 +1,24 @@
+{
+  "print to console": {
+    "prefix": "con",
+    "body": ["console.log('$1');", "$2"],
+    "description": "Log output to console"
+  },
+  "index ts": {
+    "scope": "typescript",
+    "prefix": "ind",
+    "body": ["export { default } from './${TM_DIRECTORY/^.+\\/(.*)$/$1/}';"]
+  },
+  "basic component": {
+    "scope": "typescriptreact",
+    "prefix": "com",
+    "body": [
+      "const ${TM_DIRECTORY/^.+\\/(.*)$/$1/} = () => {",
+      "  return <div></div>;",
+      "};",
+      "",
+      "export default ${TM_DIRECTORY/^.+\\/(.*)$/$1/};",
+      ""
+    ]
+  }
+}

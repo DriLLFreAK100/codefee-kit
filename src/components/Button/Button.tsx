@@ -1,12 +1,17 @@
-import React, {
-  ReactNode, forwardRef, ButtonHTMLAttributes,
-} from 'react';
+import React, { ReactNode, forwardRef, ButtonHTMLAttributes } from 'react';
 import * as S from './Button.styled';
 
-export type ButtonType = 'primary' | 'subtle' | 'info' | 'success' | 'warning' | 'error' | 'lite';
+export type ButtonType =
+  | 'primary'
+  | 'subtle'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'lite';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  type: 'submit' | 'reset' | 'button';
+  type?: 'submit' | 'reset' | 'button';
   children?: ReactNode;
   text?: string;
   variant?: ButtonType;
@@ -36,26 +41,16 @@ const getButtonComponent = (type: ButtonType) => {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props: ButtonProps, ref) => {
-    const {
-      children,
-      text,
-      variant,
-      onClick,
-      ...passThrough
-    } = props;
+    const { children, text, variant, onClick, ...passThrough } = props;
 
     const Component = getButtonComponent(variant as ButtonType);
 
     return (
-      <Component
-        ref={ref}
-        onClick={onClick}
-        {...passThrough}
-      >
+      <Component ref={ref} onClick={onClick} {...passThrough}>
         {children ?? text}
       </Component>
     );
-  },
+  }
 );
 
 Button.displayName = 'Button';
@@ -63,6 +58,7 @@ Button.defaultProps = {
   children: undefined,
   variant: 'primary',
   onClick: undefined,
+  type: 'button',
 };
 
 export default Button;

@@ -31,7 +31,7 @@ const getDeviceSize = (windowSize: number): SizeType => {
  * @returns Window sizes and types
  */
 const useWindowSize = (): {
-  width?: number
+  width?: number;
   height?: number;
   size?: SizeType;
 } => {

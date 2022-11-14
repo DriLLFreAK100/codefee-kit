@@ -69,13 +69,15 @@
     "@typescript-eslint/parser": "4.4.0",
     "cross-env": "7.0.3",
     "css-loader": "4.3.0",
-    "eslint": "7.10.0",
+    "eslint": "7.32.0",
     "eslint-config-airbnb": "18.2.0",
     "eslint-config-airbnb-typescript": "12.3.1",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "2.3.0",
     "eslint-loader": "4.0.2",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsx-a11y": "6.3.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "7.21.3",
     "eslint-plugin-react-hooks": "4.1.2",
     "eslint-plugin-storybook": "0.5.8",
@@ -98,7 +100,7 @@
     "styled-components": "5.2.1",
     "ts-loader": "8.0.7",
     "tslib": "2.1.0",
-    "typescript": "4.0.3",
+    "typescript": "4.8.4",
     "webpack": "4.44.2",
     "webpack-cli": "3.3.12",
     "webpack-dev-server": "3.11.0"
@@ -107,7 +109,7 @@
     "lodash-es": ">=4",
     "react": ">=16.13.1",
     "react-dom": ">=16.13.1",
-    "styled-components": ">= 3"
+    "styled-components": ">=3"
   },
   "resolutions": {
     "styled-components": "^5"

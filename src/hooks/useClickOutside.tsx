@@ -7,7 +7,7 @@ import { RefObject, useEffect } from 'react';
  */
 const useClickOutside = (
   ref: RefObject<HTMLElement>,
-  callback: () => void,
+  callback: () => void
 ): void => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

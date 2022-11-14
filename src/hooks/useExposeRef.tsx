@@ -7,12 +7,19 @@ import { RefObject, useImperativeHandle } from 'react';
  * @param internalRef Local Ref to be synced with parent compoonent
  */
 const useExposeRef = (
-  forwardedRef: React.MutableRefObject<unknown> | ((instance: unknown) => void) | null,
-  internalRef: RefObject<unknown>,
+  forwardedRef:
+    | React.MutableRefObject<unknown>
+    | ((instance: unknown) => void)
+    | null,
+  internalRef: RefObject<unknown>
 ): void => {
-  useImperativeHandle(forwardedRef, () => ({
-    node: internalRef?.current,
-  }), [internalRef]);
+  useImperativeHandle(
+    forwardedRef,
+    () => ({
+      node: internalRef?.current,
+    }),
+    [internalRef]
+  );
 };
 
 export default useExposeRef;

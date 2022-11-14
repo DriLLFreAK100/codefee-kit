@@ -8,7 +8,8 @@ const GutterStyle = ({
   bottom,
   left,
 }: PositionProps<Gutter>): FlattenSimpleInterpolation => css`
-  margin: ${rem(top ?? 0)} ${rem(right ?? 0)} ${rem(bottom ?? 0)} ${rem(left ?? 0)};
+  margin: ${rem(top ?? 0)} ${rem(right ?? 0)} ${rem(bottom ?? 0)}
+    ${rem(left ?? 0)};
 `;
 
 export default GutterStyle;
