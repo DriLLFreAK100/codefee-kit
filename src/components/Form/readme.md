@@ -2,7 +2,10 @@
 
 Todos:
 
-- [ ] Support validation
+- [x] Support validation
+  - [ ] Cleanup nested form promise handler
+- [ ] Support Custom Validation composition
+- [x] Able to point out field that failed
 - [x] Nesting forms
 - [ ] Loose coupling of form logics and UI renderings
 - [x] Reactive upon value change

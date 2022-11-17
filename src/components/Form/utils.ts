@@ -2,15 +2,26 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+export type FormFieldValidator = (value: any) => boolean;
+
+export type FormValidationResult = {
+  isValid: boolean;
+  result: Record<string, boolean | FormValidationResult>;
+};
+
 export type FormDefinition<T extends Record<string, unknown>> = {
   initialValue?: T;
+  rules?: { [key in keyof Partial<T>]: FormFieldValidator };
   onChange?: (newValue: T) => void;
 };
 
-class Form<T extends Record<string, unknown>> {
-  value!: T;
+const isPromise = (value: any) =>
+  Boolean(typeof value === 'object' && typeof value.then === 'function');
 
-  formDef: FormDefinition<T> = {};
+class Form<T extends Record<string, unknown>> {
+  public value!: T;
+
+  public formDef: FormDefinition<T> = {};
 
   private isTouched$ = false;
 
@@ -47,6 +58,50 @@ class Form<T extends Record<string, unknown>> {
     }
 
     this.resetChildForms();
+  }
+
+  public async validate(): Promise<FormValidationResult> {
+    const validations: Promise<
+      [string, boolean | Promise<FormValidationResult>]
+    >[] = [];
+
+    Object.entries(this.value).forEach(([field, val]) => {
+      if (val instanceof Form) {
+        validations.push(Promise.resolve([field, val.validate()]));
+      } else if (this.formDef.rules?.[field]) {
+        validations.push(
+          Promise.resolve([field, this.formDef.rules[field](val)])
+        );
+      } else {
+        validations.push(Promise.resolve([field, true]));
+      }
+    });
+
+    return Promise.all(validations)
+      .then(async (res) =>
+        Promise.all(
+          res.map(async (r) => {
+            if (isPromise(r[1])) {
+              const val = await r[1];
+              return [r[0], val];
+            }
+
+            return r;
+          })
+        )
+      )
+      .then((res) => ({
+        isValid: res.every(([, r]) => {
+          if (typeof r === 'object') {
+            return (r as FormValidationResult).isValid;
+          }
+          return r;
+        }),
+        result: res.reduce(
+          (acc, curr) => ({ ...acc, [curr[0] as string]: curr[1] }),
+          {}
+        ),
+      }));
   }
 
   private resetChildForms(): void {
