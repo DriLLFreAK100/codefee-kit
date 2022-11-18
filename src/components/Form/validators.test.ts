@@ -62,9 +62,13 @@ describe('between', () => {
 
 describe('notFalsy', () => {
   test('should be able to check for not falsy value', () => {
+    expect(notFalsy(false)).toBeFalsy();
+    expect(notFalsy(0)).toBeFalsy();
+    expect(notFalsy(-0)).toBeFalsy();
     expect(notFalsy('')).toBeFalsy();
     expect(notFalsy(null)).toBeFalsy();
     expect(notFalsy(undefined)).toBeFalsy();
+    expect(notFalsy(NaN)).toBeFalsy();
 
     expect(notFalsy(1)).toBeTruthy();
     expect(notFalsy(' ')).toBeTruthy();
