@@ -55,7 +55,10 @@ const resolveValidations = (validations: Validation[]) =>
       ),
     }));
 
-class Form<T extends Record<string, unknown>> {
+/**
+ * Model representaton of a Form
+ */
+export class VirtualForm<T extends Record<string, unknown>> {
   public value!: T;
 
   public formDef: FormDefinition<T> = {};
@@ -74,7 +77,7 @@ class Form<T extends Record<string, unknown>> {
     return (
       this.isTouched$ ||
       Object.values(this.value).some((v) => {
-        if (v instanceof Form) {
+        if (v instanceof VirtualForm) {
           return v.isTouched;
         }
         return false;
@@ -116,7 +119,7 @@ class Form<T extends Record<string, unknown>> {
     const validations: Validation[] = Object.entries(this.value).map(
       ([field, val]) => {
         // Invoke nested form's validation func
-        if (val instanceof Form) {
+        if (val instanceof VirtualForm) {
           return Promise.resolve([field, val.validate()]);
         }
 
@@ -141,7 +144,7 @@ class Form<T extends Record<string, unknown>> {
    */
   private resetChildForms(): void {
     Object.values(this.value).forEach((v) => {
-      if (v instanceof Form) {
+      if (v instanceof VirtualForm) {
         v.reset();
       }
     });
@@ -179,4 +182,6 @@ class Form<T extends Record<string, unknown>> {
   }
 }
 
-export default Form;
+export const defineForm = <T extends Record<string, unknown>>(
+  formDef: FormDefinition<T>
+): VirtualForm<T> => new VirtualForm(formDef);
