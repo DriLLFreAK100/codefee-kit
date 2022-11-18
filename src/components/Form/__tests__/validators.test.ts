@@ -8,7 +8,7 @@ import {
   notEmptyString,
   notNull,
   notUndefined,
-} from './validators';
+} from '../validators';
 
 describe('compose', () => {
   test('should be able to compose validators into a single validator', () => {

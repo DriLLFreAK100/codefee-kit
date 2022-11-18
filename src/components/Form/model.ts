@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import useRerender from 'hooks/useRerender';
+import { useEffect, useState } from 'react';
 import { isPromise } from 'utils/TypeHelper';
 
 export type FormFieldValidator<T> = (value: T) => boolean;
@@ -109,6 +111,7 @@ export class VirtualForm<T extends Record<string, unknown>> {
     }
 
     this.resetChildForms();
+    this.formDef.onChange?.(this.value);
   }
 
   /**
@@ -182,6 +185,35 @@ export class VirtualForm<T extends Record<string, unknown>> {
   }
 }
 
+/**
+ * Return a VirtualForm instance
+ * @param formDef Form definition
+ * @returns
+ */
 export const defineForm = <T extends Record<string, unknown>>(
   formDef: FormDefinition<T>
 ): VirtualForm<T> => new VirtualForm(formDef);
+
+/**
+ * Hook to create and access VirtualForm
+ */
+export const useForm = <T extends Record<string, unknown>>(
+  formDef: FormDefinition<T>
+): VirtualForm<T> | undefined => {
+  const { rerender } = useRerender();
+  const [form, setForm] = useState<VirtualForm<T>>();
+
+  useEffect(() => {
+    setForm(
+      defineForm({
+        ...formDef,
+        onChange: (val) => {
+          formDef.onChange?.(val);
+          rerender();
+        },
+      })
+    );
+  }, [formDef, rerender]);
+
+  return form;
+};

@@ -4,7 +4,7 @@ import {
   FormValidationResult,
   VirtualForm,
   defineForm,
-} from './model';
+} from '../model';
 
 describe('VirtualForm', () => {
   test('should be able to declare initial value', () => {
@@ -42,11 +42,8 @@ describe('VirtualForm', () => {
   test('should be able to callback when value changes', () => {
     const mock = {
       initialValue: { name: 'codefeetime' },
-      onChange: vi
-        .fn()
-        .mockImplementation((x) => expect(x).toEqual({ name: 'something' })),
+      onChange: vi.fn(),
     };
-    const spy = vi.spyOn(mock, 'onChange');
 
     const form = defineForm({
       initialValue: mock.initialValue,
@@ -55,9 +52,11 @@ describe('VirtualForm', () => {
       >['onChange'],
     });
 
-    form.value.name = 'something';
+    mock.onChange = mock.onChange.mockImplementationOnce((x) => {
+      expect(x).toEqual({ name: 'something' });
+    });
 
-    expect(spy).toHaveBeenCalledOnce();
+    form.value.name = 'something';
   });
 
   test('should be able to pass validation for valid form', async () => {
