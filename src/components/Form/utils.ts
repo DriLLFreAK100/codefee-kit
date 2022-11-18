@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-export type FormFieldValidator = (value: any) => boolean;
+import { isPromise } from 'utils/TypeHelper';
+
+export type FormFieldValidator<T> = (value: T) => boolean;
+
+export type Validation = Promise<
+  [string, boolean | Promise<FormValidationResult>]
+>;
 
 export type FormValidationResult = {
   isValid: boolean;
@@ -11,12 +17,38 @@ export type FormValidationResult = {
 
 export type FormDefinition<T extends Record<string, unknown>> = {
   initialValue?: T;
-  rules?: { [key in keyof Partial<T>]: FormFieldValidator };
+  rules?: { [key in keyof Partial<T>]: FormFieldValidator<T[keyof T]> };
   onChange?: (newValue: T) => void;
 };
 
-const isPromise = (value: any) =>
-  Boolean(typeof value === 'object' && typeof value.then === 'function');
+const resolveValidations = (validations: Validation[]) =>
+  Promise.all(validations)
+    .then(async (res) =>
+      // Resolve nested forms' validations
+      Promise.all(
+        res.map(async (r) => {
+          if (isPromise(r[1])) {
+            const val = await r[1];
+            return [r[0], val];
+          }
+
+          return r;
+        })
+      )
+    )
+    .then((res) => ({
+      // Return final results
+      isValid: res.every(([, r]) => {
+        if (typeof r === 'object') {
+          return (r as FormValidationResult).isValid;
+        }
+        return r;
+      }),
+      result: res.reduce(
+        (acc, curr) => ({ ...acc, [curr[0] as string]: curr[1] }),
+        {}
+      ),
+    }));
 
 class Form<T extends Record<string, unknown>> {
   public value!: T;
@@ -61,47 +93,27 @@ class Form<T extends Record<string, unknown>> {
   }
 
   public async validate(): Promise<FormValidationResult> {
-    const validations: Promise<
-      [string, boolean | Promise<FormValidationResult>]
-    >[] = [];
+    const validations: Validation[] = Object.entries(this.value).map(
+      ([field, val]) => {
+        // Invoke nested form's validation func
+        if (val instanceof Form) {
+          return Promise.resolve([field, val.validate()]);
+        }
 
-    Object.entries(this.value).forEach(([field, val]) => {
-      if (val instanceof Form) {
-        validations.push(Promise.resolve([field, val.validate()]));
-      } else if (this.formDef.rules?.[field]) {
-        validations.push(
-          Promise.resolve([field, this.formDef.rules[field](val)])
-        );
-      } else {
-        validations.push(Promise.resolve([field, true]));
+        // Resolve if rule is found for the field
+        if (this.formDef.rules?.[field]) {
+          return Promise.resolve([
+            field,
+            this.formDef.rules[field](val as T[keyof T]),
+          ]);
+        }
+
+        // Else just return true
+        return Promise.resolve([field, true]);
       }
-    });
+    );
 
-    return Promise.all(validations)
-      .then(async (res) =>
-        Promise.all(
-          res.map(async (r) => {
-            if (isPromise(r[1])) {
-              const val = await r[1];
-              return [r[0], val];
-            }
-
-            return r;
-          })
-        )
-      )
-      .then((res) => ({
-        isValid: res.every(([, r]) => {
-          if (typeof r === 'object') {
-            return (r as FormValidationResult).isValid;
-          }
-          return r;
-        }),
-        result: res.reduce(
-          (acc, curr) => ({ ...acc, [curr[0] as string]: curr[1] }),
-          {}
-        ),
-      }));
+    return resolveValidations(validations);
   }
 
   private resetChildForms(): void {

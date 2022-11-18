@@ -11,9 +11,18 @@ describe('Form', () => {
     const form = new Form({ initialValue: { name: 'codefeetime' } });
     form.value.name = 'something';
 
-    expect(form.value).not.toEqual({ name: 'codefeetime' });
+    expect(form.value).toEqual({ name: 'something' });
     form.reset();
     expect(form.value).toEqual({ name: 'codefeetime' });
+  });
+
+  test('should be able to reset empty form', () => {
+    const form = new Form({});
+    form.value.name = 'something';
+
+    expect(form.value).toEqual({ name: 'something' });
+    form.reset();
+    expect(form.value).toEqual({});
   });
 
   test('should be able to detect if the form value is modified', () => {

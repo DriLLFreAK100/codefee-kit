@@ -44,7 +44,8 @@
         "*.style.tsx",
         "*.style.jsx",
         "*.styled.tsx",
-        "*.styled.jsx"
+        "*.styled.jsx",
+        "src/utils/**/*.{js,ts,jsx,tsx}"
       ],
       "rules": {
         "import/prefer-default-export": 0
