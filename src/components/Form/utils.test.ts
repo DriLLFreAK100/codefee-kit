@@ -8,12 +8,12 @@ import {
 
 describe('VirtualForm', () => {
   test('should be able to declare initial value', () => {
-    const form = new VirtualForm({ initialValue: { name: 'codefeetime' } });
+    const form = defineForm({ initialValue: { name: 'codefeetime' } });
     expect(form.value).toEqual({ name: 'codefeetime' });
   });
 
   test('should be able to reset form', () => {
-    const form = new VirtualForm({ initialValue: { name: 'codefeetime' } });
+    const form = defineForm({ initialValue: { name: 'codefeetime' } });
     form.value.name = 'something';
 
     expect(form.value).toEqual({ name: 'something' });
@@ -22,7 +22,7 @@ describe('VirtualForm', () => {
   });
 
   test('should be able to reset empty form', () => {
-    const form = new VirtualForm({});
+    const form = defineForm({});
     form.value.name = 'something';
 
     expect(form.value).toEqual({ name: 'something' });
@@ -31,7 +31,7 @@ describe('VirtualForm', () => {
   });
 
   test('should be able to detect if the form value is modified', () => {
-    const form = new VirtualForm({ initialValue: { name: 'codefeetime' } });
+    const form = defineForm({ initialValue: { name: 'codefeetime' } });
     form.value.name = 'something';
 
     expect(form.isTouched).toBeTruthy();
@@ -48,7 +48,7 @@ describe('VirtualForm', () => {
     };
     const spy = vi.spyOn(mock, 'onChange');
 
-    const form = new VirtualForm({
+    const form = defineForm({
       initialValue: mock.initialValue,
       onChange: mock.onChange as FormDefinition<
         typeof mock.initialValue
@@ -61,7 +61,7 @@ describe('VirtualForm', () => {
   });
 
   test('should be able to pass validation for valid form', async () => {
-    const form = new VirtualForm({
+    const form = defineForm({
       initialValue: {
         name: 'codefeetime',
       },
@@ -79,7 +79,7 @@ describe('VirtualForm', () => {
   });
 
   test('should be able to fail validation for invalid form', async () => {
-    const form = new VirtualForm({
+    const form = defineForm({
       initialValue: {
         name: 'codefeetime',
         contact: '',
@@ -101,10 +101,10 @@ describe('VirtualForm', () => {
 
   describe('Nested VirtualForm', () => {
     test('should be able to nest form within form', () => {
-      const form = new VirtualForm({
+      const form = defineForm({
         initialValue: {
           name: 'codefeetime',
-          address: new VirtualForm({
+          address: defineForm({
             initialValue: { country: 'Malaysia', postalCode: 123456 },
           }),
         },
@@ -122,13 +122,13 @@ describe('VirtualForm', () => {
     });
 
     test('should be able to validation nested form', async () => {
-      const form = new VirtualForm({
+      const form = defineForm({
         initialValue: {
           name: 'codefeetime',
-          address: new VirtualForm({
+          address: defineForm({
             initialValue: {
               postalCode: 123456,
-              country: new VirtualForm({
+              country: defineForm({
                 initialValue: { countryName: '' },
                 rules: {
                   countryName: (val) => !!val,
