@@ -8,14 +8,24 @@ import { terser } from 'rollup-plugin-terser';
 import { getFiles } from './scripts/buildUtils';
 
 const extensions = ['.js', '.ts', '.jsx', '.tsx'];
+const excludeExtensions = [
+  'test.js',
+  'test.ts',
+  'test.jsx',
+  'test.tsx',
+  'stories.js',
+  'stories.ts',
+  'stories.jsx',
+  'stories.tsx',
+];
 
 export default {
   input: [
     './src/index.ts',
-    ...getFiles('./src/common', extensions),
-    ...getFiles('./src/components', extensions),
-    ...getFiles('./src/hooks', extensions),
-    ...getFiles('./src/utils', extensions),
+    ...getFiles('./src/common', extensions, excludeExtensions),
+    ...getFiles('./src/components', extensions, excludeExtensions),
+    ...getFiles('./src/hooks', extensions, excludeExtensions),
+    ...getFiles('./src/utils', extensions, excludeExtensions),
   ],
   output: {
     dir: 'dist',
