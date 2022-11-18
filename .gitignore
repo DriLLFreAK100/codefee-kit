@@ -9,3 +9,6 @@ storybook-static
 
 # Dev files
 debug.log
+
+# Test files
+coverage

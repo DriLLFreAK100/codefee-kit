@@ -2,6 +2,7 @@ import React, { ChangeEventHandler, useState, useEffect } from 'react';
 import Input, { InputProps } from 'components/Input';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
+import { Star } from 'components/Icons';
 
 export default {
   title: 'Controls/Input',
@@ -15,16 +16,11 @@ const Template: Story<InputProps> = (args: InputProps) => {
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
     action('Input OnChange')(evt);
     setInputValue(evt.currentTarget.value);
-  }
+  };
 
   useEffect(() => setInputValue(value), [value]);
 
-  return (
-    <Input
-      {...args}
-      value={inputValue}
-      onChange={handleOnChange} />
-  );
+  return <Input {...args} value={inputValue} onChange={handleOnChange} />;
 };
 
 const baseProps: InputProps = {
@@ -46,3 +42,18 @@ Error.args = {
   error: true,
 } as InputProps;
 
+export const Label = Template.bind({});
+Label.args = {
+  ...baseProps,
+  label: 'Favorite moment',
+} as InputProps;
+
+export const CustomLabel = Template.bind({});
+CustomLabel.args = {
+  ...baseProps,
+  label: (
+    <>
+      <Star color="orange" /> Moment
+    </>
+  ),
+} as InputProps;

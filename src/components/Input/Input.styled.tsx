@@ -9,6 +9,7 @@ export type InputCssVar = {
   '--cf-input-border-color-error': string;
   '--cf-input-border-color-focus': string;
   '--cf-input-background-color': string;
+  '--cf-input-label-color': string;
 };
 
 const [defaultCssVar, cssVar] = makeCssVar<InputCssVar>({
@@ -17,7 +18,12 @@ const [defaultCssVar, cssVar] = makeCssVar<InputCssVar>({
   '--cf-input-border-color-error': cvar('--color-error'),
   '--cf-input-border-color-focus': cvar('--color-gray-6'),
   '--cf-input-background-color': cvar('--control-bg-color'),
+  '--cf-input-label-color': cvar('--color-gray-6'),
 });
+
+export const InputContainer = styled.div`
+  ${defaultCssVar};
+`;
 
 const ErrorCss = css`
   border: ${rem(2)} solid ${cssVar('--cf-input-border-color-error')};
@@ -40,7 +46,6 @@ const NonErrorCss = css`
 `;
 
 export const Input = styled.input<InputProps>`
-  ${defaultCssVar};
   ${TypographyStyles.Body1Css()};
   height: ${cvar('--control-height')};
   min-width: ${rem(130)};
@@ -51,4 +56,11 @@ export const Input = styled.input<InputProps>`
   padding: ${rem(14)} ${rem(16)};
 
   ${({ error }) => (error ? ErrorCss : NonErrorCss)};
+`;
+
+export const Label = styled.label`
+  ${TypographyStyles.Subtitle1Css()};
+  display: block;
+  margin-bottom: ${rem(8)};
+  color: ${cssVar('--cf-input-label-color')};
 `;

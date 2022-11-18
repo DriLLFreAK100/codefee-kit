@@ -8,6 +8,14 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/stories/**"
+    "src/stories/**",
+    "**/*.stories.js",
+    "**/*.stories.jsx",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/*.test.js",
+    "**/*.test.jsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
   ]
 }
