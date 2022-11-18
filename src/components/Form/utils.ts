@@ -21,6 +21,11 @@ export type FormDefinition<T extends Record<string, unknown>> = {
   onChange?: (newValue: T) => void;
 };
 
+/**
+ * Resolve validations. If the field is a `Form`, it will invoke the field's validation
+ * @param validations Promises of validation
+ * @returns
+ */
 const resolveValidations = (validations: Validation[]) =>
   Promise.all(validations)
     .then(async (res) =>
@@ -62,6 +67,9 @@ class Form<T extends Record<string, unknown>> {
     this.reset();
   }
 
+  /**
+   * Check if the form value has changed since init/reset
+   */
   public get isTouched(): boolean {
     return (
       this.isTouched$ ||
@@ -74,12 +82,20 @@ class Form<T extends Record<string, unknown>> {
     );
   }
 
+  /**
+   * Set new value for the form
+   * @param value New form value
+   * @returns
+   */
   public setValue(value: T): T {
     this.value = this.makeValueProxy(value);
     this.performChanges(this.value);
     return this.value;
   }
 
+  /**
+   * Reset form to its initial state
+   */
   public reset(): void {
     this.isTouched$ = false;
 
@@ -92,6 +108,10 @@ class Form<T extends Record<string, unknown>> {
     this.resetChildForms();
   }
 
+  /**
+   * Executes form validation asynchronously
+   * @returns A promise of validation result
+   */
   public async validate(): Promise<FormValidationResult> {
     const validations: Validation[] = Object.entries(this.value).map(
       ([field, val]) => {
@@ -116,6 +136,9 @@ class Form<T extends Record<string, unknown>> {
     return resolveValidations(validations);
   }
 
+  /**
+   * Reset nested forms in form value
+   */
   private resetChildForms(): void {
     Object.values(this.value).forEach((v) => {
       if (v instanceof Form) {
@@ -124,6 +147,11 @@ class Form<T extends Record<string, unknown>> {
     });
   }
 
+  /**
+   * Create a Proxy to intercept get/set of the Form value
+   * @param val Form value
+   * @returns
+   */
   private makeValueProxy(val: T): T {
     const onPerformChanges = (newValue: T) => this.performChanges(newValue);
 
@@ -132,9 +160,8 @@ class Form<T extends Record<string, unknown>> {
         return target[prop];
       },
       set(target, prop, newValue) {
-        onPerformChanges(newValue);
-
         (target as any)[prop] = newValue;
+        onPerformChanges(target);
         return true;
       },
     };
@@ -142,6 +169,10 @@ class Form<T extends Record<string, unknown>> {
     return new Proxy({ ...val }, proxyHandler);
   }
 
+  /**
+   * Executes when Form value changes
+   * @param newValue Updated Form value
+   */
   private performChanges(newValue: T): void {
     this.isTouched$ = true;
     this.formDef.onChange?.(newValue);

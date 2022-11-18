@@ -35,7 +35,12 @@ describe('Form', () => {
   });
 
   test('should be able to callback when value changes', () => {
-    const mock = { initialValue: { name: 'codefeetime' }, onChange: vi.fn() };
+    const mock = {
+      initialValue: { name: 'codefeetime' },
+      onChange: vi
+        .fn()
+        .mockImplementation((x) => expect(x).toEqual({ name: 'something' })),
+    };
     const spy = vi.spyOn(mock, 'onChange');
 
     const form = new Form({
