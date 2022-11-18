@@ -22,7 +22,7 @@ export type FormDefinition<T extends Record<string, unknown>> = {
 };
 
 /**
- * Resolve validations. If the field is a `Form`, it will invoke the field's validation
+ * Resolve form validations. If the field is a `Form`, it will invoke the field's validation
  * @param validations Promises of validation
  * @returns
  */

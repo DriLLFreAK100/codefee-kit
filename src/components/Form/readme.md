@@ -3,7 +3,7 @@
 Todos:
 
 - [x] Support validation
-- [ ] Support Custom Validation composition
+- [x] Support Custom Validation composition
 - [x] Able to point out field that failed
 - [x] Nesting forms
 - [ ] Form Component with renderProps containing isError, isTouched down to field level
