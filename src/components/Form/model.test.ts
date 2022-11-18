@@ -4,7 +4,7 @@ import {
   FormValidationResult,
   VirtualForm,
   defineForm,
-} from './utils';
+} from './model';
 
 describe('VirtualForm', () => {
   test('should be able to declare initial value', () => {

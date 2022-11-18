@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable no-param-reassign */
 import React, { PropsWithChildren, useEffect, useState } from 'react';
-import { FormDefinition } from './utils';
+import { FormDefinition } from './model';
 
 export type FormProps<T extends Record<string, unknown>> = {
   defaultValue?: T;
