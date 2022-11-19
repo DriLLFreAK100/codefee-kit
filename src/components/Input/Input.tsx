@@ -1,22 +1,15 @@
+import Label from 'components/Label';
 import React, { forwardRef } from 'react';
 import { InputProps } from './Common';
 import * as S from './Input.styled';
 
 const Input = forwardRef<HTMLDivElement, InputProps>(
   (props: InputProps, ref) => {
-    const { id, label, ...passThrough } = props;
-
-    if (label) {
-      return (
-        <S.InputContainer ref={ref}>
-          <S.Label htmlFor={id}>{label}</S.Label>
-          <S.Input id={id} {...passThrough} />
-        </S.InputContainer>
-      );
-    }
+    const { label, ...passThrough } = props;
 
     return (
       <S.InputContainer ref={ref}>
+        {label ? <Label htmlFor={passThrough.id}>{label}</Label> : null}
         <S.Input {...passThrough} />
       </S.InputContainer>
     );

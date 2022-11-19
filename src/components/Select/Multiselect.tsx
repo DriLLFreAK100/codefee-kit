@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import * as S from './Multiselect.styled';
 import { SelectOptionType } from './Common';
+import { SelectLayoutProps } from './SelectLayout';
 
 export interface MultiselectControlLabels {
   UnselectAll: ReactNode;
@@ -30,7 +31,8 @@ export type MultiselectProps = {
     selected: SelectOptionType[] | undefined,
     props: MultiselectProps
   ) => ReactNode;
-} & HtmlHTMLAttributes<HTMLDivElement>;
+} & Partial<SelectLayoutProps> &
+  HtmlHTMLAttributes<HTMLDivElement>;
 
 export const DefaultSelectedTemplate = (
   options: SelectOptionType[]

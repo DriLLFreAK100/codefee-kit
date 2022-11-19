@@ -24,7 +24,8 @@ const defaultOptions = [
 ];
 
 const Template: Story<SelectProps> = (args) => {
-  const [selected, setSelected] = useState<SelectOptionType | undefined>(undefined);
+  const [selected, setSelected] =
+    useState<SelectOptionType | undefined>(undefined);
 
   const handleOnChange = (option: SelectOptionType) => {
     setSelected(option);
@@ -32,16 +33,18 @@ const Template: Story<SelectProps> = (args) => {
   };
 
   return (
-    <Select
-      {...args}
-      selected={selected}
-      onSelectedChange={handleOnChange}
-    />
+    <Select {...args} selected={selected} onSelectedChange={handleOnChange} />
   );
 };
 
 export const Default = Template.bind({});
 Default.args = {
+  options: defaultOptions,
+} as unknown as SelectProps;
+
+export const WithLabel = Template.bind({});
+WithLabel.args = {
+  label: <div>Varietal</div>,
   options: defaultOptions,
 } as unknown as SelectProps;
 
@@ -74,12 +77,13 @@ CustomSelectedTemplate.args = {
     { id: 2, label: 'Robusta', data: 'robusta' },
     { id: 3, label: 'Liberica', data: 'liberica' },
   ],
-  selectedTemplate: (option?: SelectOptionType) => option ? (
-    <div className={styles.customSelectedTemplate}>
-      <Coffee className={styles.customSelectedTemplate__icon} />
-      {option?.label as ReactNode}
-    </div>
-  ) : undefined,
+  selectedTemplate: (option?: SelectOptionType) =>
+    option ? (
+      <div className={styles.customSelectedTemplate}>
+        <Coffee className={styles.customSelectedTemplate__icon} />
+        {option?.label as ReactNode}
+      </div>
+    ) : undefined,
 } as unknown as SelectProps;
 
 const MultiSelectTemplate: Story<MultiselectProps> = (args) => {
