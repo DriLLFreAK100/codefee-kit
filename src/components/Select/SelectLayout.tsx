@@ -1,3 +1,4 @@
+import Label from 'components/Label';
 import useClickOutside from 'hooks/useClickOutside';
 import useExposeRef from 'hooks/useExposeRef';
 import React, {
@@ -12,6 +13,7 @@ import * as S from './SelectLayout.styled';
 
 export type SelectLayoutProps = {
   className?: string;
+  label?: ReactNode;
   open: boolean;
   optionNodes: ReactNode;
   selectedDisplay: ReactNode;
@@ -23,6 +25,7 @@ const SelectLayout = forwardRef<HTMLDivElement, SelectLayoutProps>(
   (props: SelectLayoutProps, ref) => {
     const {
       className,
+      label,
       open,
       optionNodes,
       selectedDisplay,
@@ -49,13 +52,17 @@ const SelectLayout = forwardRef<HTMLDivElement, SelectLayoutProps>(
     useExposeRef(ref, hostRef);
 
     return (
-      <S.Host ref={hostRef} className={className} {...passThrough}>
-        <S.Select open={open} onClick={handleOnClickSelect}>
-          {selectedDisplay}
-          <S.AngleIcon open={open} />
-        </S.Select>
-        <S.OptionContainer open={open}>{optionNodes}</S.OptionContainer>
-      </S.Host>
+      <>
+        {label ? <Label htmlFor={passThrough.id}>{label}</Label> : null}
+
+        <S.Host ref={hostRef} className={className} {...passThrough}>
+          <S.Select open={open} onClick={handleOnClickSelect}>
+            {selectedDisplay}
+            <S.AngleIcon open={open} />
+          </S.Select>
+          <S.OptionContainer open={open}>{optionNodes}</S.OptionContainer>
+        </S.Host>
+      </>
     );
   }
 );

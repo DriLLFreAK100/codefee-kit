@@ -5,7 +5,7 @@ import React, {
   useState,
 } from 'react';
 import * as S from './Select.styled';
-import SelectLayout from './SelectLayout';
+import SelectLayout, { SelectLayoutProps } from './SelectLayout';
 import { SelectOptionType } from './Common';
 
 export type SelectProps = {
@@ -17,7 +17,8 @@ export type SelectProps = {
     selected: SelectOptionType | undefined,
     props: SelectProps
   ) => ReactNode;
-} & HtmlHTMLAttributes<HTMLDivElement>;
+} & Partial<SelectLayoutProps> &
+  HtmlHTMLAttributes<HTMLDivElement>;
 
 const Select = forwardRef<HTMLDivElement, SelectProps>(
   (props: SelectProps, ref) => {
