@@ -1,5 +1,17 @@
-.form{
-  &__input{
-    margin-bottom: 8px;
+.form {
+  &__ctrl {
+    margin-bottom: 20px;
+
+    &-item {
+      margin-bottom: 12px;
+    }
+  }
+
+  &__btns {
+    display: flex;
+
+    :not(:first-child) {
+      margin-left: 8px;
+    }
   }
 }
