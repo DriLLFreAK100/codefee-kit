@@ -2,18 +2,20 @@ import styled, { css } from 'styled-components';
 import { AngleDown } from 'components/Icons';
 import { cvar, makeCssVar, rem } from 'utils/StyleHelper';
 import { TypographyStyles } from 'components/Typography';
+import { DisabledCss, ErrorCss, NonErrorCss } from 'styles/FormControl.styled';
+import { FormControlProps } from 'common/Types';
 
 export type SelectCssVarProps = {
-  '--cf-select-border-color': string;
+  '--cf-select-border': string;
   '--cf-select-border-color-hover': string;
   '--cf-select-border-color-focus': string;
   '--cf-select-background-color': string;
 };
 
 const [defaultCssVar, cssVar] = makeCssVar<SelectCssVarProps>({
-  '--cf-select-border-color': cvar('--color-gray-5'),
-  '--cf-select-border-color-hover': cvar('--color-gray-4'),
-  '--cf-select-border-color-focus': cvar('--color-gray-6'),
+  '--cf-select-border': cvar('--control-border'),
+  '--cf-select-border-color-hover': cvar('--control-border-color-hover'),
+  '--cf-select-border-color-focus': cvar('--control-border-color-focus'),
   '--cf-select-background-color': cvar('--control-bg-color'),
 });
 
@@ -39,7 +41,7 @@ const OpenCss = css`
   }
 `;
 
-export const Select = styled.div<{ open: boolean }>`
+export const Select = styled.div<{ open: boolean } & FormControlProps>`
   display: flex;
   align-items: center;
   background-color: inherit;
@@ -54,7 +56,7 @@ export const Select = styled.div<{ open: boolean }>`
           '--control-border-radius'
         )} 0 0`
       : cvar('--control-border-radius')};
-  border: ${rem(1)} solid ${cssVar('--cf-select-border-color')};
+  border: ${cssVar('--cf-select-border')};
   transition: border-color ${cvar('--transition-hover')} ease-in-out;
 
   &:hover {
@@ -62,6 +64,8 @@ export const Select = styled.div<{ open: boolean }>`
   }
 
   ${({ open }) => open && OpenCss};
+  ${({ disabled }) => (disabled ? DisabledCss : null)};
+  ${({ error }) => (error ? ErrorCss : NonErrorCss)};
 `;
 
 export const AngleIcon = styled(AngleDown)<{ open: boolean }>`

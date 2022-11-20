@@ -8,7 +8,7 @@ import Form, { VirtualForm, FormProps } from 'components/Form';
 import { Select, SelectOptionType } from 'components/Select';
 import { Typography } from 'components/Typography';
 import styles from './Form.stories.module.scss';
-import { notEmptyString } from '../validators';
+import { notEmptyString, notUndefined } from '../validators';
 /* eslint-disable no-alert */
 
 type FormValue = {
@@ -55,9 +55,11 @@ Primary.args = {
     initialValue: {
       name: '',
       description: 'This is codefee-kit',
+      rating: undefined as unknown,
     },
     rules: {
       name: notEmptyString,
+      rating: notUndefined,
     },
   },
   onSubmit: (val) => {
@@ -98,6 +100,7 @@ Primary.args = {
           <Select
             className={styles['form__ctrl-item']}
             label="Rating"
+            error={form.hasError('rating')}
             selected={form.value.rating}
             options={ratings}
             onSelectedChange={(v) => {

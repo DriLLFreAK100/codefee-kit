@@ -1,3 +1,4 @@
+import { FormControlProps } from 'common/Types';
 import Label from 'components/Label';
 import useClickOutside from 'hooks/useClickOutside';
 import useExposeRef from 'hooks/useExposeRef';
@@ -19,14 +20,17 @@ export type SelectLayoutProps = {
   selectedDisplay: ReactNode;
   onClickOutside?: () => void;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
-} & HtmlHTMLAttributes<HTMLDivElement>;
+} & FormControlProps &
+  HtmlHTMLAttributes<HTMLDivElement>;
 
 const SelectLayout = forwardRef<HTMLDivElement, SelectLayoutProps>(
   (props: SelectLayoutProps, ref) => {
     const {
       className,
       label,
+      error,
       open,
+      disabled,
       optionNodes,
       selectedDisplay,
       onClickOutside,
@@ -56,7 +60,12 @@ const SelectLayout = forwardRef<HTMLDivElement, SelectLayoutProps>(
         {label ? <Label htmlFor={passThrough.id}>{label}</Label> : null}
 
         <S.Host ref={hostRef} className={className} {...passThrough}>
-          <S.Select open={open} onClick={handleOnClickSelect}>
+          <S.Select
+            open={open}
+            error={error}
+            disabled={disabled}
+            onClick={handleOnClickSelect}
+          >
             {selectedDisplay}
             <S.AngleIcon open={open} />
           </S.Select>
