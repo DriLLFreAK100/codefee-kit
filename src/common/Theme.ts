@@ -39,6 +39,13 @@ export interface ITheme {
   '--control-height': string;
   '--control-bg-color': string;
   '--control-shadow': string;
+  '--control-border': string;
+  '--control-border-focus': string;
+  '--control-border-color': string;
+  '--control-border-color-error': string;
+  '--control-border-color-hover': string;
+  '--control-border-color-focus': string;
+  '--control-label-color': string;
 }
 
 export const CodefeeTheme: ITheme = {
@@ -78,7 +85,14 @@ export const CodefeeTheme: ITheme = {
   '--transition-hover': '0.1s',
   '--transition-toggle': '0.15s',
   '--control-border-radius': '0.25rem',
-  '--control-height': '3rem',
+  '--control-height': '2.75rem',
   '--control-bg-color': '#ffffff',
   '--control-shadow': '0 0.125rem 0.25rem 0 rgba(109, 109, 109, 0.3)',
+  '--control-border': '0.0625rem solid var(--control-border-color)',
+  '--control-border-focus': '0.125rem solid var(--control-border-color-focus)',
+  '--control-border-color': 'var(--color-gray-5)',
+  '--control-border-color-error': 'var(--color-error)',
+  '--control-border-color-hover': 'var(--color-gray-4)',
+  '--control-border-color-focus': 'var(--color-gray-6)',
+  '--control-label-color': 'var(--color-gray-6)',
 };

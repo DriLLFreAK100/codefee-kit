@@ -2,7 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable no-param-reassign */
 import React, { forwardRef, FormHTMLAttributes, FormEvent } from 'react';
-import { useForm, FormDefinition, VirtualForm } from './model';
+import { FormDefinition } from './common';
+import { useForm, VirtualForm } from './model';
 
 export type FormProps<T extends Record<string, unknown>> = Omit<
   FormHTMLAttributes<HTMLFormElement>,

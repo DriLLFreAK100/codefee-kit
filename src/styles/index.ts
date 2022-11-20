@@ -1,2 +1,2 @@
 /* eslint-disable import/prefer-default-export */
-export { default as GutterStyle } from './Gutter.style';
+export { default as GutterStyle } from './Gutter.styled';

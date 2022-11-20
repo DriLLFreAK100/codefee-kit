@@ -1,4 +1,4 @@
-import { FormFieldValidator } from './model';
+import { FormFieldValidator } from './common';
 
 /**
  * Compose form validators into a single form validator

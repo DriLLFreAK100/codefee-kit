@@ -21,3 +21,8 @@ export type Gutter =
   | 52
   | 56
   | 60;
+
+export type FormControlProps = {
+  disabled?: boolean;
+  error?: boolean;
+};

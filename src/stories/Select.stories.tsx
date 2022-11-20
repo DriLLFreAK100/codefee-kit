@@ -42,6 +42,18 @@ Default.args = {
   options: defaultOptions,
 } as unknown as SelectProps;
 
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+  options: defaultOptions,
+} as unknown as SelectProps;
+
+export const Error = Template.bind({});
+Error.args = {
+  error: true,
+  options: defaultOptions,
+} as unknown as SelectProps;
+
 export const WithLabel = Template.bind({});
 WithLabel.args = {
   label: <div>Varietal</div>,
