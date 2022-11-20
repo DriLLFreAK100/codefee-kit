@@ -9,6 +9,7 @@
 
   &__btns {
     display: flex;
+    margin-bottom: 20px;
 
     :not(:first-child) {
       margin-left: 8px;

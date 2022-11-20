@@ -1,10 +1,6 @@
 import { describe, test, expect, vi } from 'vitest';
-import {
-  FormDefinition,
-  FormValidationResult,
-  VirtualForm,
-  defineForm,
-} from '../model';
+import { VirtualForm, defineForm } from '../model';
+import { FormDefinition, FormValidationProcessingResult } from '../common';
 
 describe('VirtualForm', () => {
   test('should be able to declare initial value', () => {
@@ -69,7 +65,7 @@ describe('VirtualForm', () => {
       },
     });
 
-    expect(await form.validate()).toEqual<FormValidationResult>({
+    expect(await form.validate()).toEqual<FormValidationProcessingResult>({
       isValid: true,
       result: {
         name: true,
@@ -89,7 +85,7 @@ describe('VirtualForm', () => {
       },
     });
 
-    expect(await form.validate()).toEqual<FormValidationResult>({
+    expect(await form.validate()).toEqual<FormValidationProcessingResult>({
       isValid: false,
       result: {
         name: true,
@@ -143,7 +139,7 @@ describe('VirtualForm', () => {
 
       const res = await form.validate();
 
-      expect(res).toEqual<FormValidationResult>({
+      expect(res).toEqual<FormValidationProcessingResult>({
         isValid: false,
         result: {
           name: true,

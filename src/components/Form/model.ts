@@ -3,25 +3,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import useRerender from 'hooks/useRerender';
+import merge from 'lodash-es/merge';
 import { useEffect, useState } from 'react';
 import { isPromise } from 'utils/TypeHelper';
-
-export type FormFieldValidator<T> = (value: T) => boolean;
-
-export type Validation = Promise<
-  [string, boolean | Promise<FormValidationResult>]
->;
-
-export type FormValidationResult = {
-  isValid: boolean;
-  result: Record<string, boolean | FormValidationResult>;
-};
-
-export type FormDefinition<T extends Record<string, unknown>> = {
-  initialValue?: T;
-  rules?: { [key in keyof Partial<T>]: FormFieldValidator<T[keyof T]> };
-  onChange?: (newValue: T) => void;
-};
+import { notUndefined } from './validators';
+import {
+  FormDefinition,
+  FormValidationProcessingResult,
+  FormValidationResult,
+  Validation,
+  defaultFormOptions,
+  defaultFormValidationResult,
+} from './common';
 
 /**
  * Resolve form validations. If the field is a `Form`, it will invoke the field's validation
@@ -47,7 +40,7 @@ const resolveValidations = (validations: Validation[]) =>
       // Return final results
       isValid: res.every(([, r]) => {
         if (typeof r === 'object') {
-          return (r as FormValidationResult).isValid;
+          return (r as FormValidationProcessingResult).isValid;
         }
         return r;
       }),
@@ -67,9 +60,18 @@ export class VirtualForm<T extends Record<string, unknown>> {
 
   private isTouched$ = false;
 
+  private validationResult$ = defaultFormValidationResult;
+
   constructor(formDef: FormDefinition<T>) {
-    this.formDef = formDef;
+    this.formDef = {
+      ...formDef,
+      options: merge(defaultFormOptions, formDef),
+    };
     this.reset();
+  }
+
+  public get validationResult(): FormValidationResult {
+    return this.validationResult$;
   }
 
   /**
@@ -102,8 +104,11 @@ export class VirtualForm<T extends Record<string, unknown>> {
    * Reset form to its initial state
    */
   public reset(): void {
+    // Clear internal states
     this.isTouched$ = false;
+    this.validationResult$ = defaultFormValidationResult;
 
+    // Reset form value
     if (this.formDef.initialValue) {
       this.value = this.makeValueProxy(this.formDef.initialValue);
     } else {
@@ -118,7 +123,7 @@ export class VirtualForm<T extends Record<string, unknown>> {
    * Executes form validation asynchronously
    * @returns A promise of validation result
    */
-  public async validate(): Promise<FormValidationResult> {
+  public async validate(): Promise<FormValidationProcessingResult> {
     const validations: Validation[] = Object.entries(this.value).map(
       ([field, val]) => {
         // Invoke nested form's validation func
@@ -139,7 +144,28 @@ export class VirtualForm<T extends Record<string, unknown>> {
       }
     );
 
-    return resolveValidations(validations);
+    const res = resolveValidations(validations);
+
+    // Store validation results
+    void res.then((r) => {
+      this.isTouched$ = true;
+      this.validationResult$ = r;
+      this.formDef.onChange?.(this.value);
+    });
+
+    return res;
+  }
+
+  public hasError(field: string): boolean {
+    if (this.isTouched) {
+      if (notUndefined(this.validationResult.result[field])) {
+        return !this.validationResult.result[field];
+      }
+
+      return false;
+    }
+
+    return false;
   }
 
   /**
@@ -182,6 +208,10 @@ export class VirtualForm<T extends Record<string, unknown>> {
   private performChanges(newValue: T): void {
     this.isTouched$ = true;
     this.formDef.onChange?.(newValue);
+
+    if (this.formDef.options?.validateOnChange) {
+      void this.validate();
+    }
   }
 }
 

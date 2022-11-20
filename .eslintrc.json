@@ -36,7 +36,8 @@
         "when": "multiline"
       }
     ],
-    "prettier/prettier": 2
+    "prettier/prettier": 2,
+    "no-void": 0
   },
   "overrides": [
     {
