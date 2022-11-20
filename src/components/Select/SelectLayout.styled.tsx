@@ -73,11 +73,13 @@ export const OptionContainer = styled.div<{ open: boolean }>`
   background-color: inherit;
   box-sizing: border-box;
   border: ${rem(1)} solid ${cvar('--color-primary')};
-  border-radius: 0 0 ${cvar('--control-border-radius')}
-    ${cvar('--control-border-radius')};
+  // prettier-ignore
+  border-radius: 0 0 ${cvar('--control-border-radius')} ${cvar(
+    '--control-border-radius'
+  )};
   border-top: unset;
   position: absolute;
-  top: 3rem;
+  top: ${cvar('--control-height')};
   left: 0;
   width: 100%;
   max-height: ${rem(300)};

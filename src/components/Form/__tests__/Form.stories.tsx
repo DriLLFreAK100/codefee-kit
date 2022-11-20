@@ -41,6 +41,7 @@ Primary.args = {
   render: (form) => {
     const handleReset = () => {
       form.reset();
+      action('reset')();
     };
 
     return (

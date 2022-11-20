@@ -78,7 +78,7 @@ export const CodefeeTheme: ITheme = {
   '--transition-hover': '0.1s',
   '--transition-toggle': '0.15s',
   '--control-border-radius': '0.25rem',
-  '--control-height': '3rem',
+  '--control-height': '2.75rem',
   '--control-bg-color': '#ffffff',
   '--control-shadow': '0 0.125rem 0.25rem 0 rgba(109, 109, 109, 0.3)',
 };
