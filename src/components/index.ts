@@ -62,6 +62,9 @@ export * from './Slider';
 export { default as Table } from './Table';
 export * from './Table';
 
+export { default as TextArea } from './TextArea';
+export * from './TextArea';
+
 export { default as TimePanel } from './TimePanel';
 export * from './TimePanel';
 
