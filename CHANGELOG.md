@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.26](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.25...v0.0.42-alpha.26) (2022-11-30)
+
+### Features
+
+- **textarea:** include textarea component ([#89](https://github.com/DriLLFreAK100/codefee-kit/issues/89)) ([7c9e21e](https://github.com/DriLLFreAK100/codefee-kit/commit/7c9e21e313d58ee4265eb18f5156a1b913abb26c))
+
+### Bug Fixes
+
+- **input:** padding mistake ([#88](https://github.com/DriLLFreAK100/codefee-kit/issues/88)) ([3b80a2c](https://github.com/DriLLFreAK100/codefee-kit/commit/3b80a2c8ca3c6cfd6dfe8e8db6930de6217d4e2a))
+
 ### [0.0.42-alpha.25](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.24...v0.0.42-alpha.25) (2022-11-20)
 
 ### Features
