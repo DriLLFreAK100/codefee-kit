@@ -27,7 +27,7 @@ const InputNonErrorCss = css`
   ${NonErrorCss};
 
   &:focus {
-    padding: ${rem(13)} ${rem(40)};
+    padding: ${rem(13)} ${rem(15)};
   }
 `;
 
