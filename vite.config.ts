@@ -8,7 +8,12 @@ import tsConfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsConfigPaths()],
+  plugins: [
+    react({
+      jsxRuntime: 'classic',
+    }),
+    tsConfigPaths(),
+  ],
   test: {
     globals: true,
     environment: 'jsdom',
