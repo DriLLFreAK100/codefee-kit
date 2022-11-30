@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42-alpha.27](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.26...v0.0.42-alpha.27) (2022-11-30)
+
 ### [0.0.42-alpha.26](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.25...v0.0.42-alpha.26) (2022-11-30)
 
 ### Features
