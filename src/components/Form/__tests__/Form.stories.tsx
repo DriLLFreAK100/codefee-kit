@@ -6,6 +6,7 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import Form, { VirtualForm, FormProps } from 'components/Form';
 import { Select, SelectOptionType } from 'components/Select';
+import TextArea from 'components/TextArea';
 import { Typography } from 'components/Typography';
 import styles from './Form.stories.module.scss';
 import { notEmptyString, notUndefined } from '../validators';
@@ -88,7 +89,7 @@ Primary.args = {
             }}
           />
 
-          <Input
+          <TextArea
             className={styles['form__ctrl-item']}
             label="Description"
             value={form.value.description}

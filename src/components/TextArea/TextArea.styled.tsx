@@ -34,7 +34,7 @@ const TextAreaNonErrorCss = css`
 export const TextArea = styled.textarea<TextAreaProps>`
   ${TypographyStyles.Body1Css()};
   height: calc(3 * ${cvar('--control-height')});
-  min-width: ${rem(130)};
+  min-width: ${rem(240)};
   border-radius: ${cvar('--control-border-radius')};
   box-sizing: border-box;
   border: ${cssVar('--cf-textarea-border')};
