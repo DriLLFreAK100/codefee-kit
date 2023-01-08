@@ -11,7 +11,7 @@ export type FormProps<T extends Record<string, unknown>> = Omit<
 > & {
   formDef: FormDefinition<T>;
   render: (vform: VirtualForm<T>) => JSX.Element;
-  onSubmit?: (value?: T) => void;
+  onSubmit?: (value?: VirtualForm<T>) => void;
 };
 
 const Form = (<T extends Record<string, unknown>>() => {
@@ -23,7 +23,7 @@ const Form = (<T extends Record<string, unknown>>() => {
 
       const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        onSubmit?.(vform?.value);
+        onSubmit?.(vform);
         vform?.reset();
       };
 
