@@ -30,6 +30,9 @@ export * from './Dialog';
 
 export * from './Figure';
 
+export { default as Form } from './Form';
+export * from './Form';
+
 export { default as Grid } from './Grid';
 export * from './Grid';
 
