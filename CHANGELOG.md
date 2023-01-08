@@ -6,14 +6,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-- **form:** export public ([#90](https://github.com/DriLLFreAK100/codefee-kit/issues/90)) ([57b07e0](https://github.com/DriLLFreAK100/codefee-kit/commit/57b07e0b904dd80faa24471ca398a6cd4a8c03d6))
 - **form:** update submit return value ([#91](https://github.com/DriLLFreAK100/codefee-kit/issues/91)) ([7862d4e](https://github.com/DriLLFreAK100/codefee-kit/commit/7862d4e337d85eb7b829c8cea30df5a70bde532f))
 
 ### [0.0.42-alpha.28](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.27...v0.0.42-alpha.28) (2023-01-08)
 
 ### Features
 
-- **form:** export form as public ([793832d](https://github.com/DriLLFreAK100/codefee-kit/commit/793832d6ce6178e8a65e2b77351733d4e67ebd28))
+- **form:** export public ([#90](https://github.com/DriLLFreAK100/codefee-kit/issues/90)) ([57b07e0](https://github.com/DriLLFreAK100/codefee-kit/commit/57b07e0b904dd80faa24471ca398a6cd4a8c03d6))
 
 ### [0.0.42-alpha.27](https://github.com/DriLLFreAK100/codefee-kit/compare/v0.0.42-alpha.26...v0.0.42-alpha.27) (2022-11-30)
 
